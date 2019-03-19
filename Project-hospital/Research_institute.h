@@ -17,4 +17,5 @@ public:
 	void addResearcher(Researcher* researcher);
 	void showResearchers()   const;
 };
+
 #endif
