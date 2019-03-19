@@ -5,13 +5,16 @@
 class Doctor
 {
 private:
-	char*name;
+	char* name;
 	int employeeIDNumber;
-	char*Specialty;
+	char* specialty;
 
 public:
-	Doctor(char*name, int IDNum, char*Specialty);
+	// C'tor:
+	Doctor(const char* inName, int inIDNum, char* inSpecialty);
+	// Copy C'tor:
 	Doctor(const Doctor &) = delete;
+	// D'tor:
 	~Doctor();
 };
 

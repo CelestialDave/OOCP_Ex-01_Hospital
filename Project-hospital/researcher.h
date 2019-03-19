@@ -6,13 +6,16 @@
 class Researcher
 {
 private:
-	char*name;
-	Article ** stock;
-	int numberOfArticles;
+	char* name;
+	Article ** articleStock;
+	int numOfArticles;
 public:
-	Researcher(char* name, Article** arr,int sizeArticle);
+	// C'tor:
+	Researcher(const char* name, Article** arr,int sizeArticle);
+	// Disable Copy C'tor:
 	Researcher(const Researcher&) = delete;
+	// D'tor:
 	~Researcher();
-	void addArticle(Article* art);
+	void addArticle(Article& art);
 };
 #endif 

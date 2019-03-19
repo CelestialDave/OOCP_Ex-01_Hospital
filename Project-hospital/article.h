@@ -1,12 +1,7 @@
 #ifndef Article__H
 #define Article__H
 
-struct Date
-{
-	int day;
-	int month;
-	int year;
-};
+#include "Date.h"
 
 class Article
 {
@@ -16,8 +11,11 @@ private:
 	Date PublicationDate;
 
 public:
-	Article(char*name, char*nameMagazine, Date publicitaion);
+	// C'tor:
+	Article(const char* inName, char*inNameMagazine, Date inPublicitaion);
+	// Copy C'tor
 	Article(const Article& other);
+	// D'tor:
 	~Article();
 };
 

@@ -6,15 +6,18 @@
 class ResearchInstitute
 {
 private:
-	char*name;
-	Researcher** arr;
+	char* name;
+	Researcher** reasearchersArr;
 	int numResearchers;
 
 public:
-	ResearchInstitute(char* name, Researcher**arr, int numResearchers);
+	// C'tor:
+	ResearchInstitute(const char* inName, Researcher** inResArr, int inNumResearchers);
+	// Copy C'tor:
 	ResearchInstitute(const ResearchInstitute& other);
+	// D'tor:
 	~ResearchInstitute();
-	void addResearcher(Researcher* researcher);
+	void addResearcher(const Researcher& researcher);
 	void showResearchers()   const;
 };
 

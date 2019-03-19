@@ -4,13 +4,16 @@
 class Nurse
 {
 private:
-	char*name;
+	char* name;
 	int employeeIDNumber;
 	int yearsOfExperience;
 
 public:
-	Nurse(char* name, int IDNum, int yearExp);
+	// C'tor:
+	Nurse(const char* inName, int inIDNum, int inYearExp);
+	// Copy C'tor:
 	Nurse(const Nurse&) = delete;
+	// D'tor:
 	~Nurse();
 };
 #endif 
