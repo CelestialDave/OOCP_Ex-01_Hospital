@@ -112,10 +112,14 @@
   <ItemGroup>
     <ClInclude Include="article.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Department.h" />
     <ClInclude Include="doctor.h" />
+    <ClInclude Include="Hospital.h" />
     <ClInclude Include="nurse.h" />
+    <ClInclude Include="Patient.h" />
     <ClInclude Include="researcher.h" />
     <ClInclude Include="Research_institute.h" />
+    <ClInclude Include="Visitation_Record.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,7 +13,7 @@ public:
 	// C'tor:
 	Researcher(const char* name, Article** arr,int sizeArticle);
 	// Disable Copy C'tor:
-	Researcher(const Researcher&) = delete;
+	Researcher(const Researcher& other) = delete;
 	// D'tor:
 	~Researcher();
 	void addArticle(Article& art);

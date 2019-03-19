@@ -12,7 +12,7 @@ public:
 	// C'tor:
 	Nurse(const char* inName, int inIDNum, int inYearExp);
 	// Copy C'tor:
-	Nurse(const Nurse&) = delete;
+	Nurse(const Nurse& other) = delete;
 	// D'tor:
 	~Nurse();
 };
