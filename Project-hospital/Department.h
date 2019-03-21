@@ -4,6 +4,7 @@
 #include "Patient.h"
 #include "doctor.h"
 #include "nurse.h"
+#include "ConstantsAndGenFuncs.h"
 #include "Patient.h"
 
 class Department
