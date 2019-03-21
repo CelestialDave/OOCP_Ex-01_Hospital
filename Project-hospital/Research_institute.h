@@ -7,7 +7,7 @@
 class ResearchInstitute
 {
 private:
-	char name[MAX_NAME];
+	char *name;
 	Researcher** reasearchersArr;
 	int logSizeOfResearchers;
 	int phySizeOfResearchers;
