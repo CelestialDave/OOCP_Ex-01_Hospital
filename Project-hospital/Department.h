@@ -1,7 +1,7 @@
 #ifndef DEPARTMENT_H
 #define DEPARTMENT_H
 
-// #include "Patient"
+#include "Patient.h"
 #include "doctor.h"
 #include "nurse.h"
 #include "Patient.h"
@@ -14,9 +14,11 @@ private:
 	int logSizeOfDocs;
 	int phySizeOfDocs;
 	Nurse** nurseArr;
-	int numNurses;
-	// Patiant** patientsArr;
-	// int numPatients;
+	int logSizeOfNurses;
+	int phySizeOfNurses;
+	Patient** patientsArr;
+	int logSizeOfPatients;
+	int phySizeOfPatients;
 
 
 public:
@@ -36,7 +38,7 @@ public:
 	bool addPatint(Patient* patient);
 
 	// Methods:
-	// void showPatients() const;
+	void showPatients() const;
 	void showStaffMembers() const;
 
 };
