@@ -45,7 +45,7 @@ void ResearchInstitute::reallocationArr()
 	Researcher** newArr = new Researcher*[phySizeOfResearchers];
 	for (int i = 0; i < logSizeOfResearchers; i++)
 		newArr[i] = reasearchersArr[i];
-	free(reasearchersArr);
+	delete[]reasearchersArr;
 	reasearchersArr = newArr;
 }
 
