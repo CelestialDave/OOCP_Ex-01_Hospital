@@ -36,7 +36,7 @@ bool Patient::addVistation(VisitationRecord& newVisit)
 		else if (logSizeOfVisits == phySizeOfVisits) //if there is no place in the array
 		{
 			phySizeOfVisits *= 2;
-			reallocationArr();  //to reallocte the array to the new size
+			reallocationVisitationRecordArr();  //to reallocte the array to the new size
 		}
 		if (logSizeOfVisits < phySizeOfVisits)
 		{
@@ -46,7 +46,7 @@ bool Patient::addVistation(VisitationRecord& newVisit)
 		return true;
 }
 
-void Patient::reallocationArr(void)
+void Patient::reallocationVisitationRecordArr()
 {
 	VisitationRecord** newArr = new VisitationRecord*[phySizeOfVisits];
 	for (int i = 0; i < logSizeOfVisits; i++)
@@ -66,7 +66,7 @@ bool Patient::addDepatrtmentToDepList(const char* DepartmentName)
 	else if (logsizeOfDepartments == phySizeOfDepartments) //if there is no place in the array
 	{
 		phySizeOfDepartments *= 2;
-		reallocationArr();  //to reallocte the array to the new size
+		reallocationDepartmentsVisitedNameArr();  //to reallocte the array to the new size
 	}
 	if (logsizeOfDepartments < phySizeOfDepartments)
 	{
@@ -75,4 +75,14 @@ bool Patient::addDepatrtmentToDepList(const char* DepartmentName)
 	}
 	return true;
 }
+
+void Patient::reallocationDepartmentsVisitedNameArr()
+{
+	char** newArr = new char*[phySizeOfVisits];
+	for (int i = 0; i < logSizeOfVisits; i++)
+		newArr[i] = departmentsVisited[i];
+	delete[]departmentsVisited;
+	departmentsVisited = newArr;
+}
+
 
