@@ -34,7 +34,8 @@ public:
 
 	// Methods:
 	bool addVistation(VisitationRecord& newVisit);
-	void reallocationArr();
+	void reallocationVisitationRecordArr();
+	void reallocationDepartmentsVisitedNameArr();
 	bool addDepatrtmentToDepList(const char* DepartmentName);
 
 };
