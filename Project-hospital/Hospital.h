@@ -40,11 +40,11 @@ public:
 	bool allocNursesArr();
 
 	bool addDepartment(Department& inDep);
-	bool addDoctor(Doctor& inDoc);
-	bool addNurse(Nurse& inNurse);
 	bool addResearcher(Researcher& inResearcher);
-	bool addPatient(Patient& inPatient);
-	
+	bool addDoctor(Doctor& inDoc, const char* inDep);
+	bool addNurse(Nurse& inNurse, const char* inDep);
+	bool addPatient(Patient& inPatient, const char* inDep);
+
 	void showStaffMembers() const;
 	void showResearchers() const;
 
