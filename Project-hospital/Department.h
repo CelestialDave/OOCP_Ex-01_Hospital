@@ -1,10 +1,10 @@
 #ifndef DEPARTMENT_H
 #define DEPARTMENT_H
 
-#include "Patient.h"
+// #include "Patient"
 #include "doctor.h"
 #include "nurse.h"
-
+#include "Patient.h"
 
 class Department
 {
@@ -14,11 +14,9 @@ private:
 	int logSizeOfDocs;
 	int phySizeOfDocs;
 	Nurse** nurseArr;
-	int logSizeOfNurses;
-	int phySizeOfNurses;
-	Patient** patientsArr;
-	int logSizeOfPatients;
-	int phySizeOfPatients;
+	int numNurses;
+	// Patiant** patientsArr;
+	// int numPatients;
 
 
 public:
@@ -35,10 +33,10 @@ public:
 	// Add nurse to the list of nurses:
 	bool addNurse(Nurse* nurse);
 	// // Add patient to the department list of patients:
-	bool addPatient(Patient* patient);
+	bool addPatint(Patient* patient);
 
 	// Methods:
-	void showPatients() const;
+	// void showPatients() const;
 	void showStaffMembers() const;
 
 };
