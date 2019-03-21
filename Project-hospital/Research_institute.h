@@ -19,7 +19,7 @@ public:
 	ResearchInstitute(ResearchInstitute& other)=delete;
 	// D'tor:
 	~ResearchInstitute();
-	void addResearcher(Researcher& researcher);
+	bool addResearcher(Researcher& researcher);
 	void showResearchers()   const;
 	void reallocationArr();
 };

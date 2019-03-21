@@ -19,7 +19,7 @@ public:
 	Researcher(const Researcher& other) = delete;
 	// D'tor:
 	~Researcher();
-	void addArticle(Article& art);
+	bool addArticle(Article& art);
 	char* getName() const;
 	void reallocationArr();
 
