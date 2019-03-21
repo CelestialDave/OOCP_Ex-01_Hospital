@@ -4,6 +4,7 @@
 // #include "Patient"
 #include "doctor.h"
 #include "nurse.h"
+#include "Patient.h"
 
 class Department
 {
@@ -13,6 +14,8 @@ private:
 	int numDocs;
 	Nurse** nurseArr;
 	int numNurses;
+	Patient** patientArr;
+	int numPatients;
 	// Patiant** patientsArr;
 	// int numPatients;
 
@@ -27,11 +30,11 @@ public:
 	~Department();
 
 	// Add doctor to the list of doctors:
-	bool addDoctor(Doctor& doc);
+	bool addDoctor(Doctor* doc);
 	// Add nurse to the list of nurses:
-	bool addNurse(Nurse& nurse);
+	bool addNurse(Nurse* nurse);
 	// // Add patient to the department list of patients:
-	// bool addPatint(Patient& patient);
+	bool addPatint(Patient* patient);
 
 	// Methods:
 	// void showPatients() const;
