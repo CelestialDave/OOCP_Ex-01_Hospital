@@ -13,6 +13,7 @@ ResearchInstitute::ResearchInstitute(const char inName[MAX_NAME])
 
 ResearchInstitute::~ResearchInstitute()
 {
+	delete[]name;
 	for (int i = 0; i < logSizeOfResearchers; i++)
 		delete reasearchersArr[i];
 	delete []reasearchersArr;
