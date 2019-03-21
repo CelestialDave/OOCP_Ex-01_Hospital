@@ -1,6 +1,5 @@
 #include "ConstantsAndGenFuncs.h"
 #include "researcher.h"
-#include <string.h>
 
 Researcher::Researcher(const char inName[MAX_NAME])
 {
@@ -18,27 +17,24 @@ Researcher::~Researcher()
 	delete[]articleStock;
 }
 
-void Researcher::addArticle(Article& art)
+bool Researcher::addArticle(Article& art)
 {
-	{
 		if (phySizeOfArticles == 0) //if the first researcher
 		{
-			articleStock = new Article*(&art);
-			logSizeOfArticles++;
+			articleStock = new Article*;
 			phySizeOfArticles++;
-		}
-		else
+		}	
+		else if (logSizeOfArticles == phySizeOfArticles) //if there is no place in the array
 		{
-			if (logSizeOfArticles == phySizeOfArticles) //if there is no place in the array
-			{
-				phySizeOfArticles *= 2;
-				reallocationArr();  //to reallocte the array to the new size
-			}
+			phySizeOfArticles *= 2;
+			reallocationArr();  //to reallocte the array to the new size
+		}
+		if (logSizeOfArticles < phySizeOfArticles)
+		{
 			articleStock[logSizeOfArticles] = &art;
 			logSizeOfArticles++;
-
 		}
-	}
+		return true;
 }
 
 void Researcher:: reallocationArr()

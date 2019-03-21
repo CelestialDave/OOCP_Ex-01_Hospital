@@ -123,6 +123,8 @@
     <ClInclude Include="Visitation_Record.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Article.cpp" />
+    <ClCompile Include="Date.cpp" />
     <ClCompile Include="Department.cpp" />
     <ClCompile Include="Researcher.cpp" />
     <ClCompile Include="Research_institute.cpp" />
