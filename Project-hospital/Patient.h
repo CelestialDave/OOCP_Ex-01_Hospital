@@ -5,9 +5,6 @@
 #include "ConstantsAndGenFuncs.h"
 
 
-
-// Move to show function: const char* gender[] = {"Male", "Female"};
-
 class Patient
 {
 private:
@@ -25,8 +22,7 @@ private:
 
 public:
 	// C'tor:
-	//Patient(const char* inName, eGender inGender, Date inDateOBirth);
-	Patient(const char* inName, eGender inGender, Date inDateOBirth);
+	Patient(const char* inName,const char*id, enum eGender inGender, Date inDateOBirth);
 	// Copy C'tor:
 	Patient(const Patient& other) = delete;
 	// D'tor:
@@ -37,7 +33,11 @@ public:
 	void reallocationVisitationRecordArr();
 	void reallocationDepartmentsVisitedNameArr();
 	bool addDepatrtmentToDepList(const char* DepartmentName);
-
+	char* getName()const;
+	char* getId()const;
+	void showGender() const;
+	void showDate() const;
+	void showVisits() const;
 };
 
 #endif

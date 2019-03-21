@@ -19,6 +19,10 @@ public:
 	Article(const Article& other);
 	// D'tor:
 	~Article();
+
+	const char* getName() const;
+	const char* getMagazineName() const;
+	void showDate() const;
 };
 
 

@@ -1,8 +1,9 @@
 #include "Patient.h"
 
-Patient::Patient(const char* inName, eGender inGender, Date inDateOBirth)
+Patient::Patient(const char* inName,const char* id ,enum eGender inGender, Date inDateOBirth)
 {
 	copyName(inName, name);
+	copyName(id, ID);
 	gender = inGender;
 	dateOfBirth = inDateOBirth;
 	visits = nullptr;
@@ -11,12 +12,12 @@ Patient::Patient(const char* inName, eGender inGender, Date inDateOBirth)
 	departmentsVisited = nullptr;
 	logsizeOfDepartments = 0;
 	phySizeOfDepartments = 0;
-
 }
 
 Patient::~Patient()
 {
 	delete[]name;
+	delete[]ID;
 	int i;
 	for (i = 0; i < logSizeOfVisits; i++)
 		delete[]visits[i];
@@ -85,4 +86,36 @@ void Patient::reallocationDepartmentsVisitedNameArr()
 	departmentsVisited = newArr;
 }
 
+char* Patient::getName()const
+{
+	return name;
+}
+
+char*Patient:: getId()const
+{
+	return ID;
+}
+void Patient::showGender()const
+{
+	if (gender == Male)
+		cout << "Male" << endl;
+	else if(gender==Female)
+		cout << "Female" << endl;
+}
+void Patient:: showDate()const
+{
+	dateOfBirth.showDate();
+}
+void Patient:: showVisits()const
+{
+	for (int i = 0; i < logSizeOfVisits; i++)
+	{ 
+		cout << "The staff member in chrge is: " << visits[i]->getstaffMemInChargeName()<< " ";
+		cout << "The arrival date is: ";
+		visits[i]->showDate();
+		cout << "The visitiation purpose is: ";
+		visits[i]->printVisitationPurpose();
+		cout<<endl;
+	}
+}
 

@@ -1,10 +1,9 @@
 #ifndef VISITATION_H
 #define VISITATION_H
 #include "Date.h"
-#include "Patient.h"
 #include "ConstantsAndGenFuncs.h"
 
-enum eGender { Male, Female };
+enum eGender { Male, Female, N_A };
 
 class VisitationRecord
 {
@@ -12,19 +11,22 @@ private:
 	char* name;
 	char* id;
 	eGender gender;
-	Date dateOBirth;
+	Date dateOfBirth;
 	char* staffMemInChargeName;
 	Date arrivalDate;
 	char* visitationPurpose;
 
 public:
 	// C'tor:
-	VisitationRecord(const char* inName, const char* id, eGender inGender, const Date inDateOBirth, 
-	const char* inStaffMemInChargeName, const Date arrivalDate, const char* inVisitPurpose);
+	VisitationRecord(const char* inStaffMemInChargeName, const Date inArrivalDate, const char* inVisitPurpose);
 	// Copy C'tor:
 	VisitationRecord(const VisitationRecord& other);
 	// D'tor:
 	~VisitationRecord();
+
+	char* getstaffMemInChargeName() const;
+	void showDate() const;
+	void  printVisitationPurpose() const;
 };
 
 #endif

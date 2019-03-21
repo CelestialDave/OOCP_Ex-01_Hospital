@@ -130,6 +130,7 @@
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Researcher.cpp" />
     <ClCompile Include="Research_institute.cpp" />
+    <ClCompile Include="Visitation_Record.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

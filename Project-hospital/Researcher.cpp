@@ -50,6 +50,19 @@ char* Researcher::getName() const
 	return name;
 }
 
+void Researcher::showArticles() const
+{
+	for (int i = 0; i < logSizeOfArticles; i++)
+	{
+		cout << "The name of the article is: " << articleStock[i]->getName() << " ";
+		cout << "The name of the magazine that include the article is: " << articleStock[i]->getMagazineName() << " ";
+		cout << "The publication date is: ";
+		articleStock[i]->showDate();
+		cout << endl;
+	}
+}
+
+
 
 
 

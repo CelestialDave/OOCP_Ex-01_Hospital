@@ -52,7 +52,7 @@ void ResearchInstitute::reallocationArr()
 void ResearchInstitute::showResearchers()  const
 {
 	for (int i = 0; i < logSizeOfResearchers; i++)
-		cout << reasearchersArr[i]->getName << ",";
+		cout << reasearchersArr[i]->getName() << ",";
 	cout << endl;
 }
 

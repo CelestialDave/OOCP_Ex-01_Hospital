@@ -21,6 +21,7 @@ public:
 	~Researcher();
 	bool addArticle(Article& art);
 	char* getName() const;
+	void showArticles() const;
 	void reallocationArr();
 
 };

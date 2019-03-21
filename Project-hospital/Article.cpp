@@ -20,3 +20,17 @@ Article::~Article()
 	delete[]name;
 	delete[]magazineName;
 }
+
+const char* Article::getName() const
+{
+	return name;
+}
+const char* Article::getMagazineName() const
+{
+	return magazineName;
+}
+void Article::showDate() const
+{
+	publicationDate.showDate();
+}
+
