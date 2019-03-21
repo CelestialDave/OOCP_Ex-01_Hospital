@@ -10,16 +10,19 @@ class Department
 private:
 	char* name;
 	Doctor** docArr;
-	int numDocs;
+	int logSizeOfDocs;
+	int phySizeOfDocs;
 	Nurse** nurseArr;
-	int numNurses;
-	// Patiant** patientsArr;
-	// int numPatients;
+	int logSizeOfNurses;
+	int phySizeOfNurses;
+	Patient** patientsArr;
+	int logSizeOfPatients;
+	int phySizeOfPatients;
 
 
 public:
 	// C'tor:
-	Department(const char* inName, Doctor** inDocArr, Nurse** inNurseArr);
+	Department(const char* inName);
 	// Department(const char* inName, Doctor** inDocArr, Nurse** inNurseArr, Patient** inPatientArr);
 	// Copy C'tor:
 	Department(const Department& other) = delete;

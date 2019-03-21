@@ -8,11 +8,12 @@ class ResearchInstitute
 private:
 	char* name;
 	Researcher** reasearchersArr;
-	int numResearchers;
+	int logSizeOfResearchers;
+	int phySizeOfResearchers;
 
 public:
 	// C'tor:
-	ResearchInstitute(const char* inName, Researcher** inResArr, int inNumResearchers);
+	ResearchInstitute(const char* inName);
 	// Copy C'tor:
 	ResearchInstitute(const ResearchInstitute& other);
 	// D'tor:

@@ -9,15 +9,9 @@ private:
 	int year;
 
 public:
-
-	Date(int inDay, int inMonth, int inYear)
-	{
-
-	}
-
+	//C'tor
+	Date(int inDay, int inMonth, int inYear);
 	void showDate() const;
-
-
 };
 
 #endif
