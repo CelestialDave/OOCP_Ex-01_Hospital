@@ -16,9 +16,12 @@ private:
 	char* ID;
 	Date dateOfBirth;
 	VisitationRecord* visits;
-	int numVisits;
+	int logSizeOfVisits;
+	int phySizeOfVisits;
 	char** departmentsVisited;
-	int numOfDepartments;
+	int logsizeOfDepartments;
+	int phySizeOfDepartments;
+
 
 public:
 	// C'tor:

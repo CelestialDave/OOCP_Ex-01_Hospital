@@ -8,10 +8,19 @@ class Hospital
 {
 private:
 	char* name;
-	Patient** patientList;
-	int numOfPatients;
 	Department* departments;
-	int numOfDepartments;
+	int logSizeOfDepartments;
+	int phySizeOfDepartments;
+	Doctor*doctors;
+	int logSizeDoctors;
+	int phySizeDoctors;
+	Nurse*nurses;
+	int logSizeNurses;
+	int phySizeNurses;
+	Patient** patientList;
+	int logSizeOfPatients;
+	int phySizeOfpatient;
+
 	ResearchInstitute researchInst;
 
 

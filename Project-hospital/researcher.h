@@ -8,7 +8,9 @@ class Researcher
 private:
 	char* name;
 	Article ** articleStock;
-	int numOfArticles;
+	int logSizeOfArticles;
+	int phySizeOfArticles;
+
 public:
 	// C'tor:
 	Researcher(const char* name, Article** arr,int sizeArticle);

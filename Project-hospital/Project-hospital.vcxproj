@@ -111,6 +111,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="article.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Department.h" />
     <ClInclude Include="doctor.h" />
