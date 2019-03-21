@@ -13,10 +13,11 @@ private:
 	int phySizeOfResearchers;
 
 public:
+	//ResearchInstitute() = default;
 	// C'tor:
-	ResearchInstitute(const char inName[MAX_NAME]);
+	ResearchInstitute(const char inName[MAX_NAME]=nullptr);
 	// Copy C'tor:
-	ResearchInstitute(ResearchInstitute& other)=delete;
+	ResearchInstitute(const ResearchInstitute& other)=delete;
 	// D'tor:
 	~ResearchInstitute();
 	bool addResearcher(Researcher& researcher);

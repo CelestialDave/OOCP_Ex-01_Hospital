@@ -3,6 +3,7 @@
 
 
 ResearchInstitute::ResearchInstitute(const char inName[MAX_NAME])
+
 {
 	copyName(inName, name); // function copy the name
 	reasearchersArr = nullptr;
