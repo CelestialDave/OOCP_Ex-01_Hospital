@@ -35,7 +35,7 @@ public:
 	// Add nurse to the list of nurses:
 	bool addNurse(Nurse* nurse);
 	// // Add patient to the department list of patients:
-	bool addPatint(Patient* patient);
+	bool addPatient(Patient* patient);
 
 	// Methods:
 	void showPatients() const;
