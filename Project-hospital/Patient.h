@@ -5,7 +5,6 @@
 #include "ConstantsAndGenFuncs.h"
 
 
-enum eGender {Male, Female};
 
 // Move to show function: const char* gender[] = {"Male", "Female"};
 
@@ -35,6 +34,8 @@ public:
 
 	// Methods:
 	bool addVistation(VisitationRecord& newVisit);
+	void reallocationArr();
+	bool addDepatrtmentToDepList(const char* DepartmentName);
 
 };
 

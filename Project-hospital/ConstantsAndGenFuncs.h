@@ -1,3 +1,4 @@
+#pragma warning(disable: 4996)
 #ifndef Constants__H
 #define Constants__H
 #include <string.h>

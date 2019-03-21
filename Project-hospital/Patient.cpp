@@ -44,6 +44,35 @@ bool Patient::addVistation(VisitationRecord& newVisit)
 			logSizeOfVisits++;
 		}
 		return true;
+}
+
+void Patient::reallocationArr(void)
+{
+	VisitationRecord** newArr = new VisitationRecord*[phySizeOfVisits];
+	for (int i = 0; i < logSizeOfVisits; i++)
+		newArr[i] = visits[i];
+	delete[]visits;
+	visits = newArr;
+}
+
+bool Patient::addDepatrtmentToDepList(const char* DepartmentName)
+{
+
+	if (phySizeOfDepartments == 0) //if the first researcher
+	{
+		departmentsVisited = new char*;
+		phySizeOfVisits++;
 	}
+	else if (logsizeOfDepartments == phySizeOfDepartments) //if there is no place in the array
+	{
+		phySizeOfDepartments *= 2;
+		reallocationArr();  //to reallocte the array to the new size
+	}
+	if (logsizeOfDepartments < phySizeOfDepartments)
+	{
+		strcpy(departmentsVisited[logsizeOfDepartments], DepartmentName);
+		logsizeOfDepartments++;
+	}
+	return true;
 }
 

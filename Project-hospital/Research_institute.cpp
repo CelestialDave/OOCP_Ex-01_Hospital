@@ -48,13 +48,13 @@ void ResearchInstitute::reallocationArr()
 	reasearchersArr = newArr;
 }
 
-void ResearchInstitute::showResearchers()   const
+void ResearchInstitute::showResearchers()  const
 {
-	char*temp;
+	char**temp;
 	for (int i = 0; i < logSizeOfResearchers; i++)
 	{
-		temp = reasearchersArr[i]->getName;
-		cout << temp << ",";
+		temp=&(reasearchersArr[i]->getName);
+		cout << *temp << ",";
 	}
 	cout << endl;
 }

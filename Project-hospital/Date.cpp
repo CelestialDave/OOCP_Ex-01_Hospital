@@ -8,14 +8,6 @@ Date::Date(int inDay, int inMonth, int inYear)
 	year = inYear;
 }
 
-Date::Date(const Date &other)
-{
-	day = other.day;
-	month = other.month;
-	year = other.year;
-}
-
-
 void Date::showDate() const
 {
 	if (day < 10)
