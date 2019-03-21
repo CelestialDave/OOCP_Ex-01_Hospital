@@ -12,15 +12,15 @@ private:
 	Department* departments;
 	int logSizeOfDepartments;
 	int phySizeOfDepartments;
-	Doctor*doctors;
+	Doctor* allDoctors;
 	int logSizeDoctors;
 	int phySizeDoctors;
-	Nurse*nurses;
+	Nurse* allNurses;
 	int logSizeNurses;
 	int phySizeNurses;
-	Patient** patientList;
+	Patient** allPatients;
 	int logSizeOfPatients;
-	int phySizeOfpatient;
+	int phySizeOfPatient;
 
 	ResearchInstitute researchInst;
 
