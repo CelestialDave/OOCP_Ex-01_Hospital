@@ -1,18 +1,18 @@
 #include "article.h"
-#include "ConstantsAndGenFuncs.h"
 
-Article::Article(const char inName[MAX_NAME], char*inMagazineName, Date inPublicitaion)
+Article::Article(const char inName[MAX_NAME], char*inMagazineName, Date& inPublicitaion)
 {
 	copyName(inName, name);
 	copyName(inMagazineName, magazineName);
-	PublicationDate = inPublicitaion;
+	publicationDate = inPublicitaion;
 }
+
 
 Article::Article(const Article& other)
 {
 	copyName(other.name, name);
 	copyName(other.magazineName, magazineName);
-	PublicationDate = other.PublicationDate;
+	publicationDate = other.publicationDate;
 }
 
 Article::~Article()

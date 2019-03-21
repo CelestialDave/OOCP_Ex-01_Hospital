@@ -1,4 +1,3 @@
-#include "ConstantsAndGenFuncs.h"
 #include "researcher.h"
 
 Researcher::Researcher(const char inName[MAX_NAME])

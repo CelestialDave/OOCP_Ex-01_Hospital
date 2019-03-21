@@ -11,13 +11,12 @@ enum eGender {Male, Female};
 
 class Patient
 {
-
 private:
 	char* name;
 	eGender gender;
 	char* ID;
 	Date dateOfBirth;
-	VisitationRecord* visits;
+	VisitationRecord** visits;
 	int logSizeOfVisits;
 	int phySizeOfVisits;
 	char** departmentsVisited;
@@ -35,7 +34,7 @@ public:
 	~Patient();
 
 	// Methods:
-	addVistation(VisitationRecord& newVisit);
+	bool addVistation(VisitationRecord& newVisit);
 
 };
 

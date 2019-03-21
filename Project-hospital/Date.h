@@ -1,7 +1,6 @@
 #ifndef DATE_H
 #define DATE_H
 
-
 class Date
 {
 private:
@@ -11,8 +10,10 @@ private:
 
 public:
 	//C'tor
+	Date()=default;
 	Date(int inDay, int inMonth, int inYear);
+	//copy C'tor
+	//Date(const Date &other);     ***
 	void showDate() const;
 };
-
 #endif
