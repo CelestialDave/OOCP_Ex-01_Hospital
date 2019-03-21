@@ -45,15 +45,12 @@
     <ClInclude Include="Hospital.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.h">
+    <ClInclude Include="ConstantsAndGenFuncs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Research_institute.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Researcher.cpp">
+    <ClCompile Include="Department.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

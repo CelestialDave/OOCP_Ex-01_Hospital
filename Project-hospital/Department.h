@@ -1,9 +1,10 @@
 #ifndef DEPARTMENT_H
 #define DEPARTMENT_H
 
-// #include "Patient"
+#include "Patient.h"
 #include "doctor.h"
 #include "nurse.h"
+
 
 class Department
 {
