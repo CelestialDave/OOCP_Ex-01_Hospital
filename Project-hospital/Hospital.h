@@ -9,18 +9,18 @@ class Hospital
 {
 private:
 	char* name;
-	Department* departments;
+	Department** allDepartments;
 	int logSizeOfDepartments;
 	int phySizeOfDepartments;
-	Doctor* allDoctors;
+	Doctor** allDoctors;
 	int logSizeDoctors;
 	int phySizeDoctors;
-	Nurse* allNurses;
+	Nurse** allNurses;
 	int logSizeNurses;
 	int phySizeNurses;
 	Patient** allPatients;
 	int logSizeOfPatients;
-	int phySizeOfPatient;
+	int phySizeOfPatients;
 
 	ResearchInstitute researchInst;
 
@@ -33,6 +33,12 @@ public:
 	~Hospital();
 
 	// Methods:
+	// Allocation of memory to Array:
+	bool allocDepartmentsArr();
+	bool allocPatientsArr();
+	bool allocDocArr();
+	bool allocNursesArr();
+
 	bool addDepartment(Department& inDep);
 	bool addDoctor(Doctor& inDoc);
 	bool addNurse(Nurse& inNurse);
