@@ -23,20 +23,19 @@ void ResearchInstitute::addResearcher(Researcher& researcher)
 {
 	if (phySizeOfResearchers == 0) //if the first researcher
 	{
-		reasearchersArr = new Researcher*(&researcher);
-		logSizeOfResearchers++;
+		reasearchersArr = new Researcher*;
 		phySizeOfResearchers++;
 	}
-	else
+	else if (logSizeOfResearchers == phySizeOfResearchers) //if there is no place in the array
 	{
-		if (logSizeOfResearchers == phySizeOfResearchers) //if there is no place in the array
-		{
 			phySizeOfResearchers *= 2;
 			reallocationArr();  //to reallocte the array to the new size
-		}
+	}
+	
+	if (logSizeOfResearchers < phySizeOfResearchers)
+	{
 		reasearchersArr[logSizeOfResearchers] = &researcher;
 		logSizeOfResearchers++;
-
 	}
 }
 

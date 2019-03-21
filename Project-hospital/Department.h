@@ -31,17 +31,21 @@ public:
 	// D'tor:
 	~Department();
 
-	// Add doctor to the list of doctors:
-	bool addDoctor(Doctor* doc);
-	// Add nurse to the list of nurses:
-	bool addNurse(Nurse* nurse);
-	// // Add patient to the department list of patients:
-	bool addPatint(Patient* patient);
-
-	// Methods:
+	// -- Methods --
 	void showPatients() const;
 	void showStaffMembers() const;
 
+	// Allocation of memory to Array:
+	bool allocPatientsArr();
+	bool allocDocArr();
+	bool allocNursesArr();
+
+	// Add doctor to the list of doctors:
+	bool addDoctor(Doctor& doc);
+	// Add nurse to the list of nurses:
+	bool addNurse(Nurse& nurse);
+	// Add patient to the department list of patients:
+	bool addPatient(Patient& patient);
 };
 
 #endif
