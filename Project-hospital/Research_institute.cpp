@@ -1,12 +1,11 @@
-#include "Constants.h"
+#include "ConstantsAndGenFuncs.h"
 #include "Research_institute.h"
 #include <string.h>
 
 
 ResearchInstitute::ResearchInstitute(const char inName[MAX_NAME])
 {
-
-	//to call the strcpy function
+	copyName(inName, name); // function copy the name
 	reasearchersArr = nullptr;
 	logSizeOfResearchers = 0;
 	phySizeOfResearchers = 0;
@@ -45,7 +44,7 @@ void ResearchInstitute::reallocationArr()
 	Researcher** newArr = new Researcher*[phySizeOfResearchers];
 	for (int i = 0; i < logSizeOfResearchers; i++)
 		newArr[i] = reasearchersArr[i];
-	free[]reasearchersArr;
+	delete[]reasearchersArr;
 	reasearchersArr = newArr;
 }
 
