@@ -1,6 +1,8 @@
 #ifndef Doctor__H
 #define Doctor__H
 
+#include "ConstantsAndGenFuncs.h"
+
 
 class Doctor
 {

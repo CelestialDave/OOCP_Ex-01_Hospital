@@ -2,6 +2,9 @@
 #define Constants__H
 #include <string.h>
 
+#include <iostream>
+using namespace std;
+
 #define MAX_NAME 100
 
 void copyName(const char* nameFrom, char* nameTo)
