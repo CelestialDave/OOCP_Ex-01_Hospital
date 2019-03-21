@@ -22,6 +22,8 @@ private:
 
 
 public:
+	// Default C'tor:
+	//Department() = default;
 	// C'tor:
 	Department(const char* inName);
 	// Department(const char* inName, Doctor** inDocArr, Nurse** inNurseArr, Patient** inPatientArr);
