@@ -2,22 +2,24 @@
 #define Researcher__H
 
 #include "article.h"
+#include "Constants.h"
 
 class Researcher
 {
 private:
-	char* name;
+	char name[MAX_NAME];
 	Article ** articleStock;
 	int logSizeOfArticles;
 	int phySizeOfArticles;
 
 public:
 	// C'tor:
-	Researcher(const char* name, Article** arr,int sizeArticle);
+	Researcher(const char name[MAX_NAME]);
 	// Disable Copy C'tor:
 	Researcher(const Researcher& other) = delete;
 	// D'tor:
 	~Researcher();
 	void addArticle(Article& art);
+	char* getName() const;
 };
 #endif 

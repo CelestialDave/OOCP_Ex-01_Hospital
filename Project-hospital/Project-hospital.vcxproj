@@ -122,6 +122,10 @@
     <ClInclude Include="Research_institute.h" />
     <ClInclude Include="Visitation_Record.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Researcher.cpp" />
+    <ClCompile Include="Research_institute.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

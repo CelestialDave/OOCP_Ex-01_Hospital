@@ -3,6 +3,7 @@
 #include "Department.h"
 #include "Patient.h"
 #include "Research_institute.h"
+#include "Constants.h"
 
 class Hospital
 {
