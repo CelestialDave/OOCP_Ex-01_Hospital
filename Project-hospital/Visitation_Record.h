@@ -2,7 +2,7 @@
 #define VISITATION_H
 #include "Date.h"
 #include "Patient.h"
-#include "Constants.h"
+#include "ConstantsAndGenFuncs.h"
 
 class VisitationRecord
 {

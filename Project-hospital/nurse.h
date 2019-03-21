@@ -1,6 +1,8 @@
 #ifndef Nurse__H
 #define Nurse__H
 
+#include "ConstantsAndGenFuncs.h"
+
 class Nurse
 {
 private:

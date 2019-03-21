@@ -2,7 +2,7 @@
 #define Research_Institute__H
 
 #include "researcher.h"
-#include "Constants.h"
+#include "ConstantsAndGenFuncs.h"
 
 class ResearchInstitute
 {

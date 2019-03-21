@@ -2,7 +2,7 @@
 #define Researcher__H
 
 #include "article.h"
-#include "Constants.h"
+#include "ConstantsAndGenFuncs.h"
 
 class Researcher
 {

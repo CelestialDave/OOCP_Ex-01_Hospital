@@ -3,7 +3,7 @@
 #include "Department.h"
 #include "Patient.h"
 #include "Research_institute.h"
-#include "Constants.h"
+#include "ConstantsAndGenFuncs.h"
 
 class Hospital
 {

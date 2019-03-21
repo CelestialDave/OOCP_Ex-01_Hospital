@@ -2,6 +2,8 @@
 #define PATIENT_H
 #include "Visitation_Record.h"
 #include "Date.h"
+#include "ConstantsAndGenFuncs.h"
+
 
 enum eGender {Male, Female};
 

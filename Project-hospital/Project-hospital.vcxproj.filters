@@ -53,5 +53,8 @@
     <ClCompile Include="Department.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Research_institute.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

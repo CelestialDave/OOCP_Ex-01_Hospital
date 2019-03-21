@@ -2,6 +2,8 @@
 #define Article__H
 
 #include "Date.h"
+#include "ConstantsAndGenFuncs.h"
+
 
 class Article
 {
