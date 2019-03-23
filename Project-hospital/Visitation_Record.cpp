@@ -12,20 +12,26 @@ VisitationRecord::VisitationRecord(const char* inStaffMemInChargeName,
 	copyName(ID, id);
 	gender = inGender;
 	dateOfBirth = inDateOfBirth;*/
-	copyName(inStaffMemInChargeName, staffMemInChargeName);
+	staffMemInChargeName = new char[strlen(inStaffMemInChargeName) + 1];
+	strcpy(staffMemInChargeName, inStaffMemInChargeName);
 	arrivalDate = inArrivalDate;
-	copyName(inVisitPurpose, visitationPurpose);
+	visitationPurpose = new char[strlen(inVisitPurpose) + 1];
+	strcpy(visitationPurpose, inVisitPurpose);
 }
 
 VisitationRecord::VisitationRecord(const VisitationRecord& other)
 {
-	copyName(other.name, name);
-	copyName(other.id, id);
+	name = new char[strlen(other.name) + 1];
+	strcpy(name, other.name);
+	id = new char[strlen(other.id) + 1];
+	strcpy(id, other.id);
 	gender = other.gender;
 	dateOfBirth = other.dateOfBirth;
-	copyName(other.staffMemInChargeName,staffMemInChargeName);
+	staffMemInChargeName = new char[strlen(other.staffMemInChargeName) + 1];
+	strcpy(staffMemInChargeName, other.staffMemInChargeName);	
 	arrivalDate = other.arrivalDate;
-	copyName(other.visitationPurpose, visitationPurpose);
+	visitationPurpose = new char[strlen(other.visitationPurpose) + 1];
+	strcpy(visitationPurpose, other.visitationPurpose);
 }
 
 VisitationRecord::~VisitationRecord()

@@ -7,7 +7,6 @@
 class ResearchInstitute
 {
 private:
-	char *name;
 	Researcher** reasearchersArr;
 	int logSizeOfResearchers;
 	int phySizeOfResearchers;
@@ -15,7 +14,7 @@ private:
 public:
 	//ResearchInstitute() = default;
 	// C'tor:
-	ResearchInstitute(const char inName[MAX_NAME]=nullptr);
+	ResearchInstitute();
 	// Copy C'tor:
 	ResearchInstitute(const ResearchInstitute& other)=delete;
 	// D'tor:

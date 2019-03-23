@@ -2,8 +2,10 @@
 
 Patient::Patient(const char* inName,const char* id ,enum eGender inGender, Date inDateOBirth)
 {
-	copyName(inName, name);
-	copyName(id, ID);
+	name = new char[strlen(inName) + 1];
+	strcpy(name, inName);
+	ID = new char[strlen(id) + 1];
+	strcpy(ID, id);
 	gender = inGender;
 	dateOfBirth = inDateOBirth;
 	visits = nullptr;

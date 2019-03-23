@@ -2,10 +2,8 @@
 #include "Research_institute.h"
 
 
-ResearchInstitute::ResearchInstitute(const char inName[MAX_NAME])
-
+ResearchInstitute::ResearchInstitute()
 {
-	copyName(inName, name); // function copy the name
 	reasearchersArr = nullptr;
 	logSizeOfResearchers = 0;
 	phySizeOfResearchers = 0;
@@ -13,7 +11,6 @@ ResearchInstitute::ResearchInstitute(const char inName[MAX_NAME])
 
 ResearchInstitute::~ResearchInstitute()
 {
-	delete[]name;
 	for (int i = 0; i < logSizeOfResearchers; i++)
 		delete reasearchersArr[i];
 	delete []reasearchersArr;

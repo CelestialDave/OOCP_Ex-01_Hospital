@@ -20,7 +20,6 @@ private:
 	Patient** allPatients;
 	int logSizeOfPatients;
 	int phySizeOfPatients;
-
 	ResearchInstitute researchInst;
 
 
@@ -38,7 +37,7 @@ public:
 	bool allocDocArr();
 	bool allocNursesArr();
 
-	bool addDepartment(Department& inDep);
+	bool addDepartment(Department* inDep);
 	bool addResearcher(Researcher& inResearcher);
 	bool addDoctor(Doctor& inDoc, const char* inDep);
 	bool addNurse(Nurse& inNurse, const char* inDep);
@@ -46,8 +45,8 @@ public:
 
 	void showStaffMembers() const;
 	void showResearchers() const;
-	char* getName()const;
 	void showPatientByID(char* inID) const;
+	void printDepArr() const;
 };
 
 #endif

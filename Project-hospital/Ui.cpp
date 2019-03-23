@@ -17,13 +17,15 @@ void Ui::start()
 		switch (num)
 		{
 		case 1:
-			char*depName = inputDepName();
-			Department dep(depName);
-			hospital->addDepartment(dep);
-
+			char* depName = inputDepName();
+			hospital->addDepartment(new Department(depName));
+			delete[]depName;
+		
 		}
+		printTheOptionsForTheUser();
+		cin >> num;
 	}
-}
+	hospital->printDepArr();
 }
 
 void Ui::printTheOptionsForTheUser() const
@@ -41,20 +43,14 @@ void Ui::printTheOptionsForTheUser() const
 	cout << "If you are finished, press 11" << endl;
 }
 
-void Ui::addDep(Hospital& hospital)
-{
-	char* depName;
-	cout << "please enter the name of the department" << endl;
-	cin >> depName;
-	Department dep(depName);
-	hospital.addDepartment(dep);
-	
-}
+
 char* Ui::inputDepName()
 {
-	char* depName;
+	char tempName[MAX_NAME];
 	cout << "please enter the name of the department" << endl;
-	cin >> depName;
+	cin >> tempName;
+	char *depName = new char[strlen(tempName) + 1];
+	strcpy(depName, tempName);
 	return depName;
 }
 

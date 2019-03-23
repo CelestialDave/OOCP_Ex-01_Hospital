@@ -2,7 +2,8 @@
 
 Researcher::Researcher(const char inName[MAX_NAME])
 {
-	copyName(inName, name);
+	name = new char[strlen(inName) + 1];
+	strcpy(name, inName);
 	articleStock = nullptr;
 	logSizeOfArticles = 0;
 	phySizeOfArticles = 0;

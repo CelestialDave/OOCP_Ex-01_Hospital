@@ -17,8 +17,17 @@ Hospital::Hospital()
 //
 Hospital::~Hospital()
 {
+	for(int i=0;i<logSizeDoctors;i++)
+		delete[]allDoctors[logSizeDoctors];
 	delete[]allDoctors;
+	for (int i = 0; i<logSizeNurses; i++)
+			delete[]allNurses[logSizeNurses];
 	delete[]allNurses;
+	for (int i = 0; i<logSizeOfDepartments; i++)
+		delete[]allDepartments[logSizeOfDepartments];
+	delete[]allDepartments;
+	for (int i = 0; i<logSizeOfPatients; i++)
+		delete[]allPatients[logSizeOfPatients];
 	delete[]allPatients;
 }
 
@@ -34,7 +43,7 @@ bool Hospital::allocDepartmentsArr()
 }
 
 
-bool Hospital::addDepartment(Department& inDep)
+bool Hospital::addDepartment(Department* inDep)
 {
 	if (phySizeOfDepartments == 0) //if the first researcher
 	{
@@ -44,12 +53,12 @@ bool Hospital::addDepartment(Department& inDep)
 	else if (logSizeOfDepartments == phySizeOfDepartments) //if there is no place in the array
 	{
 		phySizeOfDepartments *= 2;
-		allocPatientsArr();  //to reallocte the array to the new size
+		allocDepartmentsArr();  //to reallocte the array to the new size
 	}
 
 	if (logSizeOfDepartments < phySizeOfDepartments)
 	{
-		allDepartments[logSizeOfDepartments] = &inDep;
+		allDepartments[logSizeOfDepartments] = inDep;
 		logSizeOfDepartments++;
 	}
 	return true;
@@ -171,7 +180,16 @@ void Hospital::showPatientByID(char* inID) const
 
 }
 
-char* Hospital::getName()const
+void Hospital::printDepArr() const
 {
-	return name;
+	char*temp;
+	cout << "The Departments in the hospital are: ";
+	for (int i = 0; i < logSizeOfDepartments; i++)
+	{
+		temp=new char[strlen(allDepartments[logSizeOfDepartments]->getName())+1];
+		strcpy(temp, allDepartments[logSizeOfDepartments]->getName());
+		cout << temp << " " << endl;
+	}
+
 }
+

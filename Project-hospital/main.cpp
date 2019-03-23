@@ -6,4 +6,7 @@
 void main()
 {
 	Hospital hospital;
-	
+	Ui ui(&hospital);
+	ui.start();
+	system("pause");
+}

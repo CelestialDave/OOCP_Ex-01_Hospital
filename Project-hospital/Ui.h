@@ -1,4 +1,5 @@
 #include "Department.h"
+#include "Hospital.h"
 
 class Ui
 {
@@ -8,7 +9,6 @@ public:
 	Ui(Hospital *hos);
 	void start();
 	void printTheOptionsForTheUser() const;
-	void addDep(Hospital& hospital);
 	char*inputDepName();
 
 };

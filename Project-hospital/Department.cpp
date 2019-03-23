@@ -9,7 +9,8 @@ Department::Department(const char* inName)
 	nurseArr(nullptr), logSizeOfNurses(0), phySizeOfNurses(0),
 	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0)
 {
-	copyName(inName, name);
+	name = new char [strlen(inName) + 1];
+	strcpy(name, inName);
 }
 
 // D'tor:
@@ -107,4 +108,9 @@ bool Department::allocNursesArr()
 	delete[]nurseArr;
 	nurseArr = newArr;
 	return true;
+}
+
+char* Department:: getName() const
+{
+	return name;
 }
