@@ -12,7 +12,7 @@ private:
 
 public:
 	// C'tor:
-	Nurse(const char* inName,int inYearExp);
+	Nurse(char* inName,int inYearExp);
 	// Copy C'tor:
 	Nurse(const Nurse& other) = delete;
 	// D'tor:

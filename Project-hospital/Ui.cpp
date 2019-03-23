@@ -11,6 +11,7 @@ Ui::Ui(Hospital *hos)
 void Ui::start()
 {
 	int num;
+	char*depName;
 	printTheOptionsForTheUser();
 	cin >> num;
 	while (num <= 10)
@@ -18,9 +19,18 @@ void Ui::start()
 		switch (num)
 		{
 		case 1:
-			char* depName = inputDepName();
+
+			depName = inputDepName();
 			hospital->addDepartment(new Department(depName));
-			delete[]depName;
+
+		case 2:
+			char* nurseName = inputNurseName();
+			int yearsExprience = inputYearsOfExprience();
+			char* whichDep = inputWhichDep();
+			Nurse* nurse = new Nurse(nurseName, yearsExprience);
+			hospital->addNurse(nurse, whichDep);
+
+		
 		
 		}
 		printTheOptionsForTheUser();
@@ -29,6 +39,34 @@ void Ui::start()
 	hospital->printDepArr();
 }
 
+char*  Ui::inputWhichDep()
+{
+	char temp[MAX_NAME];
+	cout << "which department the nurse belong? " << endl;
+	cin >> temp;
+	char* depName = new char[strlen(temp) + 1];
+	strcpy(depName, temp);
+	return depName;
+}
+
+
+int Ui::inputYearsOfExprience()const
+{
+	int yearsExp;
+	cout << "how many years of exprience she has?" << endl;
+	cin >> yearsExp;
+	return yearsExp;
+}
+char* Ui::inputNurseName()
+{
+	char temp[MAX_NAME];
+	cout << "please enter the name of the nurse" << endl;
+	cin >> temp;
+	char* nurseName = new char[strlen(temp) + 1];
+	strcpy(nurseName, temp);
+	return nurseName;
+
+}
 void Ui::printTheOptionsForTheUser() const
 {
 	cout << "If you want to add a department to the hospital, press 1" << endl;

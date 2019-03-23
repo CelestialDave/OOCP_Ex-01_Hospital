@@ -9,6 +9,11 @@ public:
 	Ui(Hospital *hos);
 	void start();
 	void printTheOptionsForTheUser() const;
-	char*inputDepName();
+	char* inputDepName();
+	char* inputNurseName();
+	int inputYearsOfExprience() const;
+	char*  Ui::inputWhichDep();
+
+
 
 };

@@ -14,7 +14,11 @@ Department::Department(const char* inName)
 }
 
 // D'tor:
-//
+Department::~Department()
+{
+	delete[]name;
+}
+
 //
 
 bool Department::addPatient(Patient& patient)

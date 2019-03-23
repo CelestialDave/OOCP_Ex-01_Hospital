@@ -111,7 +111,7 @@ bool Hospital::allocNursesArr()
 	return true;
 }
 
-bool Hospital::addNurse(Nurse& inNurse, const char* inDep)
+bool Hospital::addNurse(Nurse* inNurse, const char* inDep)
 {
 	if (phySizeNurses == 0) //if the first researcher
 	{
@@ -126,7 +126,7 @@ bool Hospital::addNurse(Nurse& inNurse, const char* inDep)
 
 	if (logSizeNurses < phySizeNurses)
 	{
-		allNurses[logSizeNurses] = &inNurse;
+		allNurses[logSizeNurses] = inNurse;
 		logSizeNurses++;
 	}
 	return true;
@@ -179,16 +179,6 @@ void Hospital::showPatientByID(char* inID) const
 
 }
 
-void Hospital::printDepArr() const
-{
-	char*temp;
-	cout << "The Departments in the hospital are: ";
-	for (int i = 0; i < logSizeOfDepartments; i++)
-	{
-		temp=new char[strlen(allDepartments[logSizeOfDepartments]->getName())+1];
-		strcpy(temp, allDepartments[logSizeOfDepartments]->getName());
-		cout << temp << " " << endl;
-	}
 
-}
+
 

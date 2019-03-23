@@ -40,7 +40,7 @@ public:
 	bool addDepartment(Department* inDep);
 	bool addResearcher(Researcher& inResearcher);
 	bool addDoctor(Doctor& inDoc, const char* inDep);
-	bool addNurse(Nurse& inNurse, const char* inDep);
+	bool addNurse(Nurse* inNurse, const char* inDep);
 	bool addPatient(Patient& inPatient, const char* inDep);
 
 	void showStaffMembers() const;
