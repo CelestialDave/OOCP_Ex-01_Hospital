@@ -1,5 +1,4 @@
 #include "Hospital.h"
-#include "Department.h"
 #include "doctor.h"
 #include "nurse.h"
 #include "Patient.h"

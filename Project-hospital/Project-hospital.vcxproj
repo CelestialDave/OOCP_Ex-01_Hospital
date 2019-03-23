@@ -127,8 +127,10 @@
     <ClCompile Include="Article.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Department.cpp" />
+    <ClCompile Include="Doctor.cpp" />
     <ClCompile Include="Hospital.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Nurse.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Researcher.cpp" />
     <ClCompile Include="Research_institute.cpp" />

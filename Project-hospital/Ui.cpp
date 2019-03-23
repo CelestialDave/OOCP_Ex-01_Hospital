@@ -7,6 +7,7 @@ Ui::Ui(Hospital *hos)
 {
 	hospital = hos;
 }
+
 void Ui::start()
 {
 	int num;

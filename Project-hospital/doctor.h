@@ -13,7 +13,7 @@ private:
 
 public:
 	// C'tor:
-	Doctor(const char* inName, int inIDNum, char* inSpecialty);
+	Doctor(const char* inName, char* inSpecialty);
 	// Copy C'tor:
 	Doctor(const Doctor& other) = delete;
 	// D'tor:
