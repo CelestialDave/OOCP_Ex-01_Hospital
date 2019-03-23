@@ -1,6 +1,4 @@
 
-#include <iostream>
-using namespace std;
 #include "Department.h"
 #include "ConstantsAndGenFuncs.h"
 #include "Patient.h"

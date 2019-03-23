@@ -8,7 +8,6 @@
 class Hospital
 {
 private:
-	char* name;
 	Department** allDepartments;
 	int logSizeOfDepartments;
 	int phySizeOfDepartments;
@@ -27,7 +26,7 @@ private:
 
 public:
 	// C'tor:
-	Hospital(const char* inName);
+	Hospital();
 	// Copy C'tor:
 	Hospital(const Hospital& other) = delete;
 	~Hospital();
@@ -47,7 +46,7 @@ public:
 
 	void showStaffMembers() const;
 	void showResearchers() const;
-
+	char* getName()const;
 	void showPatientByID(char* inID) const;
 };
 

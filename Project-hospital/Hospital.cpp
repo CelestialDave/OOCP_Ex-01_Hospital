@@ -1,6 +1,3 @@
-#include <iostream>
-#include <string.h>
-
 #include "Hospital.h"
 #include "Department.h"
 #include "doctor.h"
@@ -8,17 +5,22 @@
 #include "Patient.h"
 
 // C'tor:
-Hospital::Hospital(const char* inName)
-	: name(nullptr), allDoctors(nullptr), allNurses(nullptr), allPatients(nullptr)
+Hospital::Hospital()
+	:  allDoctors(nullptr), allNurses(nullptr), allPatients(nullptr)
 {
 	logSizeOfDepartments = logSizeDoctors = logSizeNurses = 
-		logSizeOfPatients = phySizeDoctors = phySizeNurses = phySizeOfPatients = 0;
-	copyName(inName, name);
+	logSizeOfPatients = phySizeDoctors = phySizeNurses = phySizeOfPatients = 0;
 }
 
 // D'tor:
 //
 //
+Hospital::~Hospital()
+{
+	delete[]allDoctors;
+	delete[]allNurses;
+	delete[]allPatients;
+}
 
 
 bool Hospital::allocDepartmentsArr()
@@ -56,6 +58,7 @@ bool Hospital::addDepartment(Department& inDep)
 bool Hospital::addResearcher(Researcher& inResearcher)
 {
 	researchInst.addResearcher(inResearcher);
+	return true;
 }
 
 bool Hospital::allocDocArr()
@@ -151,6 +154,7 @@ bool Hospital::addPatient(Patient& inPatient, const char* inDep)
 		logSizeOfPatients++;
 	}
 	return true;
+}
 
 void Hospital::showStaffMembers() const
 {
@@ -165,4 +169,9 @@ void Hospital::showResearchers() const
 void Hospital::showPatientByID(char* inID) const
 {
 
+}
+
+char* Hospital::getName()const
+{
+	return name;
 }

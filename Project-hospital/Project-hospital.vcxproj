@@ -120,6 +120,7 @@
     <ClInclude Include="Patient.h" />
     <ClInclude Include="researcher.h" />
     <ClInclude Include="Research_institute.h" />
+    <ClInclude Include="Ui.h" />
     <ClInclude Include="Visitation_Record.h" />
   </ItemGroup>
   <ItemGroup>
@@ -127,9 +128,11 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Department.cpp" />
     <ClCompile Include="Hospital.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Researcher.cpp" />
     <ClCompile Include="Research_institute.cpp" />
+    <ClCompile Include="Ui.cpp" />
     <ClCompile Include="Visitation_Record.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
