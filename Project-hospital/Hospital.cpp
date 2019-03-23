@@ -111,7 +111,7 @@ bool Hospital::allocNursesArr()
 	return true;
 }
 
-bool Hospital::addNurse(Nurse* inNurse, const char* inDep)
+bool Hospital::addNurse(Nurse* inNurse)
 {
 	if (phySizeNurses == 0) //if the first researcher
 	{
@@ -166,7 +166,10 @@ bool Hospital::addPatient(Patient& inPatient, const char* inDep)
 
 void Hospital::showStaffMembers() const
 {
-
+	for (int i = 0; i < logSizeOfDepartments; i++)
+	{
+		allDepartments[logSizeOfDepartments]->showStaffMembers();
+	}
 }
 
 void Hospital::showResearchers() const
@@ -179,6 +182,21 @@ void Hospital::showPatientByID(char* inID) const
 
 }
 
+int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
+{
+	for (int i = 0; i < logSizeOfDepartments; i++)
+	{
+		if(strcmp(allDepartments[i]->getName(),str)==0)
+			return i;
+	}
+	return -1;
+}
+
+bool Hospital:: addNurseToSpecificDepartment(Nurse & nurse, int indexToIn)
+{
+	allDepartments[indexToIn]->addNurse(nurse);
+	return true;
+}
 
 
 

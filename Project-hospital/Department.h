@@ -10,10 +10,10 @@ class Department
 {
 private:
 	char* name;
-	Doctor** docArr;
+	Doctor** docsArr;
 	int logSizeOfDocs;
 	int phySizeOfDocs;
-	Nurse** nurseArr;
+	Nurse** nursesArr;
 	int logSizeOfNurses;
 	int phySizeOfNurses;
 	Patient** patientsArr;

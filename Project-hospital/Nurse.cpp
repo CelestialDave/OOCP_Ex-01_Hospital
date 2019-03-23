@@ -13,3 +13,15 @@ Nurse::~Nurse()
 {
 	delete[]name;
 }
+char* Nurse::getName()const
+{
+	return name;
+}
+int Nurse::getEmployeeIDNum()const
+{
+	return employeeIDNumber;
+}
+int Nurse::getYearsOfExp()const
+{
+	return yearsOfExperience;
+}

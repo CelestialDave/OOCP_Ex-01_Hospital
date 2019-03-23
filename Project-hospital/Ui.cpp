@@ -18,26 +18,36 @@ void Ui::start()
 	{
 		switch (num)
 		{
-		case 1:
+		case 1:  //add a department to the hospital
 
-			depName = inputDepName();
-			hospital->addDepartment(new Department(depName));
+			depName = inputDepName();   //department name
+			hospital->addDepartment(new Department(depName)); //add to the departments array
 
-		case 2:
-			char* nurseName = inputNurseName();
-			int yearsExprience = inputYearsOfExprience();
-			char* whichDep = inputWhichDep();
-			Nurse* nurse = new Nurse(nurseName, yearsExprience);
-			hospital->addNurse(nurse, whichDep);
-
+		case 2:   //add a nurse
+			char* nurseName = inputNurseName(); //nurse name
+			int yearsExprience = inputYearsOfExprience(); //years of exprience
+			char* whichDep = inputWhichDep(); //the departments she belongs
+			Nurse* nurse = new Nurse(nurseName, yearsExprience); 
+			hospital->addNurse(nurse); //add the nurse to the array of nurses in the hospital
+			int indexOfcurrDepInArr = hospital->findTheIndexOfDepNameInDepArr(whichDep);
+			//find the place of the department the nurse belongs in the departments array
+			if (indexOfcurrDepInArr != -1) //if the department exist
+			{
+				hospital->addNurseToSpecificDepartment(*nurse, indexOfcurrDepInArr);
+				//add the nurse to her department
+			}
+			else 
+				cout<<"This department doesn't exist"<<endl;
 		
 		
 		}
 		printTheOptionsForTheUser();
 		cin >> num;
 	}
-	hospital->printDepArr();
+	//hospital->showStaffMembers();
 }
+
+
 
 char*  Ui::inputWhichDep()
 {

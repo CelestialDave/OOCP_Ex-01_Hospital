@@ -12,7 +12,8 @@ public:
 	char* inputDepName();
 	char* inputNurseName();
 	int inputYearsOfExprience() const;
-	char*  Ui::inputWhichDep();
+	char*  inputWhichDep();
+
 
 
 

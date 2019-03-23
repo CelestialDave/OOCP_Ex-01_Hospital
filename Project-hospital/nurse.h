@@ -17,5 +17,8 @@ public:
 	Nurse(const Nurse& other) = delete;
 	// D'tor:
 	~Nurse();
+	char* getName()const;
+	int getEmployeeIDNum()const;
+	int getYearsOfExp()const;
 };
 #endif 

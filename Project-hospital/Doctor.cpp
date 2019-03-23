@@ -14,3 +14,16 @@ Doctor::~Doctor()
 	delete[]name;
 	delete[]specialty;
 }
+
+char* Doctor::getName()const
+{
+	return name;
+}
+int Doctor::getEmployeeIDNum()const
+{
+	return employeeIDNumber;
+}
+char* Doctor::getSpciality()const
+{
+	return specialty;
+}

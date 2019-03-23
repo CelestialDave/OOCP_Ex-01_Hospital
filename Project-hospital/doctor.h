@@ -18,6 +18,10 @@ public:
 	Doctor(const Doctor& other) = delete;
 	// D'tor:
 	~Doctor();
+
+	char*getName()const;
+	int getEmployeeIDNum()const;
+	char* getSpciality()const;
 };
 
 #endif // !Doctor__H

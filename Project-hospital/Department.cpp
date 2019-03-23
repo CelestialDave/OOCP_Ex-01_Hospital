@@ -5,8 +5,8 @@
 
 // C'tor:
 Department::Department(const char* inName)
-	: name(nullptr), docArr(nullptr), logSizeOfDocs(0), phySizeOfDocs(0),
-	nurseArr(nullptr), logSizeOfNurses(0), phySizeOfNurses(0),
+	: name(nullptr), docsArr(nullptr), logSizeOfDocs(0), phySizeOfDocs(0),
+	nursesArr(nullptr), logSizeOfNurses(0), phySizeOfNurses(0),
 	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0)
 {
 	name = new char [strlen(inName) + 1];
@@ -56,7 +56,7 @@ bool Department::addDoctor(Doctor& doc)
 {
 	if (phySizeOfDocs == 0) //if the first researcher
 	{
-		docArr = new Doctor*;
+		docsArr = new Doctor*;
 		phySizeOfDocs++;
 	}
 	else if (logSizeOfDocs == phySizeOfDocs) //if there is no place in the array
@@ -67,7 +67,7 @@ bool Department::addDoctor(Doctor& doc)
 
 	if (logSizeOfDocs< phySizeOfDocs)
 	{
-		docArr[logSizeOfDocs] = &doc;
+		docsArr[logSizeOfDocs] = &doc;
 		logSizeOfDocs++;
 	}
 	return true;
@@ -77,9 +77,9 @@ bool Department::allocDocArr()
 {
 	Doctor** newArr = new Doctor*[phySizeOfDocs];
 	for (int i = 0; i < logSizeOfDocs; i++)
-		newArr[i] = docArr[i];
-	delete[]docArr;
-	docArr = newArr;
+		newArr[i] = docsArr[i];
+	delete[]docsArr;
+	docsArr = newArr;
 	return true;
 }
 
@@ -87,7 +87,7 @@ bool Department::addNurse(Nurse& nurse)
 {
 	if (phySizeOfNurses == 0) //if the first researcher
 	{
-		nurseArr = new Nurse*;
+		nursesArr = new Nurse*;
 		phySizeOfNurses++;
 	}
 	else if (logSizeOfNurses == phySizeOfNurses) //if there is no place in the array
@@ -98,7 +98,7 @@ bool Department::addNurse(Nurse& nurse)
 
 	if (logSizeOfNurses < phySizeOfNurses)
 	{
-		nurseArr[logSizeOfNurses] = &nurse;
+		nursesArr[logSizeOfNurses] = &nurse;
 		logSizeOfNurses++;
 	}
 	return true;
@@ -108,13 +108,30 @@ bool Department::allocNursesArr()
 {
 	Nurse** newArr = new Nurse*[phySizeOfNurses];
 	for (int i = 0; i < logSizeOfNurses; i++)
-		newArr[i] = nurseArr[i];
-	delete[]nurseArr;
-	nurseArr = newArr;
+		newArr[i] = nursesArr[i];
+	delete[]nursesArr;
+	nursesArr = newArr;
 	return true;
 }
 
 char* Department:: getName() const
 {
 	return name;
+}
+
+void Department::showStaffMembers() const
+{
+	cout << "The doctors in " << getName() << " are: " << endl;
+	for (int i = 0; i < logSizeOfDocs; i++)
+	{
+		cout << docsArr[i]->getName() << " " << docsArr[i]->getEmployeeIDNum()
+		<< " " << docsArr[i]->getSpciality() << endl;
+	}
+	cout << endl << "The nurses in " << getName() << " are: " << endl;
+	for (int i = 0; i < logSizeOfNurses; i++)
+	{
+		cout << nursesArr[i]->getName() << " " << nursesArr[i]->getEmployeeIDNum() << " "
+			<< nursesArr[i]->getYearsOfExp() << endl;
+	}
+	cout << endl;
 }

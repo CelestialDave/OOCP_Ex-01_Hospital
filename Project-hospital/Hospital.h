@@ -40,13 +40,15 @@ public:
 	bool addDepartment(Department* inDep);
 	bool addResearcher(Researcher& inResearcher);
 	bool addDoctor(Doctor& inDoc, const char* inDep);
-	bool addNurse(Nurse* inNurse, const char* inDep);
+	bool addNurse(Nurse* inNurse);
+	bool addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
 	bool addPatient(Patient& inPatient, const char* inDep);
 
 	void showStaffMembers() const;
 	void showResearchers() const;
 	void showPatientByID(char* inID) const;
-	void printDepArr() const;
+
+	int findTheIndexOfDepNameInDepArr(char*str) const;
 };
 
 #endif
