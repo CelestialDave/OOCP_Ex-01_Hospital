@@ -100,8 +100,10 @@ char* Ui::getString(const char* prompt)
 {
 	char temp[MAX_NAME];
 	cout << prompt << endl;
-	cin >> temp;
-	//cin.getline  /****************/
+	//cin >> temp;
+	cin.getline(temp, MAX_NAME);
+	cin.ignore();
+	//cin.ignore(5,'\n');
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);
 	return str;
