@@ -22,9 +22,9 @@ void Ui::start()
 		{
 		case 1:  //add a department to the hospital
 		{
-			//name = inputName();   //department name
 			char* name = getString("Please enter your name");
-			hospital->addDepartment(new Department(name)); //add to the departments array
+			Department* department = new Department(name);
+			hospital->addDepartment(*department); //add to the departments array
 			delete[] name;
 			break;
 		}
@@ -49,9 +49,10 @@ void Ui::start()
 			delete[]whichDep;
 			break;
 		}
-		case 3:
+		case 3: //add doctor to the hospital
 		{
 			char* name = getString("Please enter the name of doctor");
+			int employeeID=getInt("choose your employeeID number")
 			//specialty = inputWhichDep();  //the speciality of the doctor(name of exist department)
 			char* specialty = getString("Please enter the specialty of the doctor(name of department");
 			int indexOfdepAccordingToSpecialtyInDepArr = hospital->findTheIndexOfDepNameInDepArr(specialty);
@@ -60,7 +61,7 @@ void Ui::start()
 			else
 			{
 				Doctor*doctor =new Doctor(name, ,specialty);
-				hospital->addDoctor(doctor);   //add doctor to the hospital
+				hospital->addDoctor(*doctor);   //add doctor to the hospital
 				hospital->addDoctorToSpecificDepartment(*doctor, indexOfdepAccordingToSpecialtyInDepArr);
 				//add doctor to specific department
 			}
@@ -90,6 +91,16 @@ void Ui::start()
 	}
 	hospital->showStaffMembers();
 }
+int Ui::getID(const char* str)
+{
+	int res;
+	cout<<
+}
+Doctor* Ui::createDoctor()
+{
+	char*name= getString("Please enter your name");
+
+}
 
 Patient* Ui::createPatient()
 {
@@ -99,7 +110,7 @@ char* Ui::getString(const char* prompt)
 {
 	char temp[MAX_NAME];
 	cout << prompt << endl;
-	cin >> temp;
+	cin.getline(temp,
 	//cin.getline  /****************/
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);

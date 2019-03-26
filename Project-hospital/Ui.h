@@ -14,6 +14,7 @@ public:
 	enum eGender inputGender();
 	char* getString(const char* prompt);
 	Patient* createPatient();
+	Doctor* Ui::createDoctor()
 
 
 
