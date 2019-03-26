@@ -10,11 +10,8 @@ Ui::Ui(Hospital *hos)
 
 void Ui::start()
 {
-	int num, yearsExprience, indexOfcurrDepInArr, indexOfdepAccordingToSpecialtyInDepArr;
-	char* name, *whichDep, *specialty, *id,*YearOfBirth;
-	bool firstTime;
-	enum eGender gender;
 	printTheOptionsForTheUser();
+	int num;
 	cin >> num;
 	while (num <= 10)
 	{
@@ -30,52 +27,38 @@ void Ui::start()
 		}
 		case 2:   //add a nurse
 		{
-			//name = inputName(); //nurse name
-			char*name = getString("Please enter the name of nurse");
-			int yearsExprience = inputYearsOfExprience(); //years of exprience
-			char*whichDep = getString("which department she belongs? "); //the departments she belongs
-			int indexOfcurrDepInArr = hospital->findTheIndexOfDepNameInDepArr(whichDep);
-			//find the place of the department the nurse belongs in the departments array
-			if (indexOfcurrDepInArr != -1) //if the department exist
+			bool ok;
+			int indexOfTheRightInDepArr;
+			Nurse* nurse=createNurse(ok, indexOfTheRightInDepArr);
+			if(ok)
 			{
-				Nurse* nurse = new Nurse(name, yearsExprience);
-				hospital->addNurse(nurse); //add the nurse to the array of nurses in the hospital
-				hospital->addNurseToSpecificDepartment(*nurse, indexOfcurrDepInArr);
+			hospital->addNurse(*nurse); //add the nurse to the array of nurses in the hospital
+			hospital->addNurseToSpecificDepartment(*nurse, indexOfTheRightInDepArr);
 				//add the nurse to specific department
 			}
 			else
 				cout << "Error, This department doesn't exist" << endl;
-			delete[]name;
-			delete[]whichDep;
 			break;
 		}
 		case 3: //add doctor to the hospital
 		{
-			char* name = getString("Please enter the name of doctor");
-			int employeeID=getInt("choose your employeeID number")
-			//specialty = inputWhichDep();  //the speciality of the doctor(name of exist department)
-			char* specialty = getString("Please enter the specialty of the doctor(name of department");
-			int indexOfdepAccordingToSpecialtyInDepArr = hospital->findTheIndexOfDepNameInDepArr(specialty);
-			if (indexOfdepAccordingToSpecialtyInDepArr == -1)
-				cout << "Error, There in no department like doctor's specialy" << endl;
-			else
+			bool ok;
+			int indexInDepArr;
+			Doctor*doctor =createDoctor(ok,indexInDepArr);
+			if (ok) // if we really create new doctor
 			{
-				Doctor*doctor =new Doctor(name, ,specialty);
 				hospital->addDoctor(*doctor);   //add doctor to the hospital
-				hospital->addDoctorToSpecificDepartment(*doctor, indexOfdepAccordingToSpecialtyInDepArr);
+				hospital->addDoctorToSpecificDepartment(*doctor, indexInDepArr);
 				//add doctor to specific department
-			}
-			delete[]name;
-			delete[]specialty;
+			}		
 			break;
 		}
 		case 4:
 		{
-
 			bool firstTime = checkIfItFirstTimeInHospital();
 			if (firstTime) //this is the first visit in the hospital
 			{
-				Patient* patient = createPatient();
+				//Patient* patient = createPatient();
 			}
 			else //it is not the first visit
 			{
@@ -91,27 +74,69 @@ void Ui::start()
 	}
 	hospital->showStaffMembers();
 }
-int Ui::getID(const char* str)
+
+Nurse* Ui::createNurse(bool& ok,int& indexOfTheRightInDepArr)
 {
-	int res;
-	cout<<
-}
-Doctor* Ui::createDoctor()
-{
-	char*name= getString("Please enter your name");
+	char*name = getString("Please enter the name of nurse");
+	int employeeID = getInt("choose your employeeID number");
+	int yearsExprience = getInt("How many years of exprience the nurse has?");
+	char*whichDep = getString("which department she belongs?");
+	indexOfTheRightInDepArr = hospital->findTheIndexOfDepNameInDepArr(whichDep);
+	if (indexOfTheRightInDepArr == -1)
+	{
+		ok = false;
+		delete[]name;
+		delete[]whichDep;
+		return NULL;
+	}
+	else
+	{
+		ok = true;
+		Nurse* nurse = new Nurse(name, employeeID, yearsExprience);
+		delete[]name;
+		delete[]whichDep;
+		return nurse;
+	}
 
 }
-
-Patient* Ui::createPatient()
+int Ui::getInt(const char* str)
 {
-	char*name = getString("Please enter your name: ");
+	int num;
+	cout << str << endl;
+	cin >> num;
+	return num;
+
 }
+Doctor* Ui::createDoctor(bool& ok,int& indexInDepArr)
+{
+	char* name = getString("Please enter the name of doctor");
+	int employeeID = getInt("choose your employeeID number");
+	char* specialty = getString("Please enter the specialty of the doctor(name of department");
+	indexInDepArr = hospital->findTheIndexOfDepNameInDepArr(specialty);
+	if (indexInDepArr == -1)
+	{
+		cout << "Error, There in no department like doctor's specialy" << endl;
+		ok = false;
+		delete[]name;
+		delete[]specialty;
+		return NULL;
+	}
+	else
+	{
+		ok = true;
+		Doctor* doctor = new Doctor(name, employeeID, specialty);
+		delete[]name;
+		delete[]specialty;
+		return doctor;
+	}
+}
+
 char* Ui::getString(const char* prompt)
 {
 	char temp[MAX_NAME];
 	cout << prompt << endl;
-	cin.getline(temp,
-	//cin.getline  /****************/
+	cin.getline(temp, MAX_NAME);
+	cin.ignore(5,'\n');
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);
 	return str;
