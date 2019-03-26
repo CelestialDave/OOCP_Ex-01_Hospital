@@ -19,7 +19,7 @@ void Ui::start()
 		{
 		case 1:  //add a department to the hospital
 		{
-			char* name = getString("Please enter your name");
+			char* name = getString("Please enter the name of department you want to create");
 			Department* department = new Department(name);
 			hospital->addDepartment(*department); //add to the departments array
 			delete[] name;
@@ -104,6 +104,7 @@ int Ui::getInt(const char* str)
 	int num;
 	cout << str << endl;
 	cin >> num;
+	cin.ignore(5, '\n');
 	return num;
 
 }
@@ -135,8 +136,9 @@ char* Ui::getString(const char* prompt)
 {
 	char temp[MAX_NAME];
 	cout << prompt << endl;
+	cin.clear();
+	cin.ignore(5, '\n');
 	cin.getline(temp, MAX_NAME);
-	cin.ignore(5,'\n');
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);
 	return str;
