@@ -1,14 +1,17 @@
 #ifndef VISITATION_H
 #define VISITATION_H
 
-#include "Patient.h"
+#include "Date.h"
+#include "ConstantsAndGenFuncs.h"
+//#include "Patient.h"
+class Patient;
 
 enum eGender { Male, Female};
 
 class VisitationRecord
 {
 private:
-	Patinent* patient;
+	Patient* patient;
 	char* staffMemInChargeName;
 	Date arrivalDate;
 	char* visitationPurpose;
