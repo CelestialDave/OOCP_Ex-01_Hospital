@@ -10,8 +10,8 @@ Ui::Ui(Hospital *hos)
 
 void Ui::start()
 {
-	int num;
-	char*depName;
+	int num, yearsExprience, indexOfcurrDepInArr, indexOfdepAccordingToSpecialtyInDepArr;
+	char* nurseName,*whichDep,*specialty,*docName, *depName;
 	printTheOptionsForTheUser();
 	cin >> num;
 	while (num <= 10)
@@ -22,37 +22,67 @@ void Ui::start()
 
 			depName = inputDepName();   //department name
 			hospital->addDepartment(new Department(depName)); //add to the departments array
+			delete[] depName;
+			break;
 
 		case 2:   //add a nurse
-			char* nurseName = inputNurseName(); //nurse name
-			int yearsExprience = inputYearsOfExprience(); //years of exprience
-			char* whichDep = inputWhichDep(); //the departments she belongs
-			Nurse* nurse = new Nurse(nurseName, yearsExprience); 
-			hospital->addNurse(nurse); //add the nurse to the array of nurses in the hospital
-			int indexOfcurrDepInArr = hospital->findTheIndexOfDepNameInDepArr(whichDep);
+			nurseName = inputNurseName(); //nurse name
+			yearsExprience = inputYearsOfExprience(); //years of exprience
+			whichDep = inputWhichDep(); //the departments she belongs
+			indexOfcurrDepInArr = hospital->findTheIndexOfDepNameInDepArr(whichDep);
 			//find the place of the department the nurse belongs in the departments array
 			if (indexOfcurrDepInArr != -1) //if the department exist
 			{
+				Nurse* nurse = new Nurse(nurseName, yearsExprience);
+				hospital->addNurse(nurse); //add the nurse to the array of nurses in the hospital
 				hospital->addNurseToSpecificDepartment(*nurse, indexOfcurrDepInArr);
-				//add the nurse to her department
+				//add the nurse to specific department
 			}
 			else 
-				cout<<"This department doesn't exist"<<endl;
-		
-		
+				cout<<"Error, This department doesn't exist"<<endl;
+			delete[]nurseName;
+			delete[]whichDep;
+			break;
+		case 3:
+			docName = inputDocName(); //doctor name
+			specialty = inputWhichDep();  //the speciality of the doctor(name of exist department)
+			indexOfdepAccordingToSpecialtyInDepArr= hospital->findTheIndexOfDepNameInDepArr(specialty);
+			if (indexOfdepAccordingToSpecialtyInDepArr == -1)
+				cout << "Error, There in no department like doctor's specialy" << endl;
+			else
+			{
+				Doctor*doctor = new Doctor(docName, specialty);  
+				hospital->addDoctor(doctor);   //add doctor to the hospital
+				hospital->addDoctorToSpecificDepartment(*doctor, indexOfdepAccordingToSpecialtyInDepArr);
+				//add doctor to specific department
+			}
+			delete[]docName;
+			delete[]specialty;
+			break;
+
+
 		}
 		printTheOptionsForTheUser();
 		cin >> num;
 	}
-	//hospital->showStaffMembers();
+	hospital->showStaffMembers();
 }
 
 
+char* Ui::inputDocName()
+{
+	char temp[MAX_NAME];
+	cout << "please enter the name of the doctor" << endl;
+	cin >> temp;
+	char* docName = new char[strlen(temp) + 1];
+	strcpy(docName, temp);
+	return docName;
+}
 
 char*  Ui::inputWhichDep()
 {
 	char temp[MAX_NAME];
-	cout << "which department the nurse belong? " << endl;
+	cout << "which department do you belong? " << endl;
 	cin >> temp;
 	char* depName = new char[strlen(temp) + 1];
 	strcpy(depName, temp);

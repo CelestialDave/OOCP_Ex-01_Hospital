@@ -9,7 +9,7 @@ class Doctor
 private:
 	char* name;
 	int employeeIDNumber;
-	char* specialty;
+	char* specialty; //name of exist department
 
 public:
 	// C'tor:

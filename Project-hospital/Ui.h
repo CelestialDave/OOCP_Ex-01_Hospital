@@ -13,6 +13,8 @@ public:
 	char* inputNurseName();
 	int inputYearsOfExprience() const;
 	char*  inputWhichDep();
+	char* inputDocName();
+
 
 
 

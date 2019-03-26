@@ -39,9 +39,12 @@ public:
 
 	bool addDepartment(Department* inDep);
 	bool addResearcher(Researcher& inResearcher);
-	bool addDoctor(Doctor& inDoc, const char* inDep);
+	bool addDoctor(Doctor* inDoc);
 	bool addNurse(Nurse* inNurse);
+
 	bool addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
+	bool addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn);
+
 	bool addPatient(Patient& inPatient, const char* inDep);
 
 	void showStaffMembers() const;

@@ -79,7 +79,7 @@ bool Hospital::allocDocArr()
 	return true;
 }
 
-bool Hospital::addDoctor(Doctor& inDoc, const char* inDep)
+bool Hospital::addDoctor(Doctor* inDoc)
 {
 	if (phySizeDoctors == 0) //if the first researcher
 	{
@@ -94,7 +94,7 @@ bool Hospital::addDoctor(Doctor& inDoc, const char* inDep)
 
 	if (logSizeDoctors < phySizeDoctors)
 	{
-		allDoctors[logSizeDoctors] = &inDoc;
+		allDoctors[logSizeDoctors] = inDoc;
 		logSizeDoctors++;
 	}
 	return true;
@@ -197,6 +197,14 @@ bool Hospital:: addNurseToSpecificDepartment(Nurse & nurse, int indexToIn)
 	allDepartments[indexToIn]->addNurse(nurse);
 	return true;
 }
+
+bool Hospital::addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn)
+{
+	allDepartments[indexToIn]->addDoctor(doctor);
+	return true;
+
+}
+
 
 
 
