@@ -8,7 +8,7 @@ Date::Date(int inDay, int inMonth, int inYear)
 	year = inYear;
 }
 
-void Date::showDate() const
+const void Date::showDate() const
 {
 	if (day < 10)
 		cout << "0";

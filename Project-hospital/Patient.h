@@ -11,7 +11,7 @@ private:
 	char* name;
 	eGender gender;
 	char* ID;
-	Date dateOfBirth;
+	char*  yearOfBirth;
 	VisitationRecord** visits;
 	int logSizeOfVisits;
 	int phySizeOfVisits;
@@ -22,7 +22,7 @@ private:
 
 public:
 	// C'tor:
-	Patient(const char* inName,const char*id, enum eGender inGender, Date inDateOBirth);
+	Patient(const char* inName,const char*id, enum eGender inGender, char* inYearOBirth);
 	// Copy C'tor:
 	Patient(const Patient& other) = delete;
 	// D'tor:
@@ -36,7 +36,7 @@ public:
 	char* getName()const;
 	char* getId()const;
 	void showGender() const;
-	void showDate() const;
+	char * getYearOfBirth() const;
 	void showVisits() const;
 };
 

@@ -1,13 +1,14 @@
 #include "Patient.h"
 
-Patient::Patient(const char* inName,const char* id ,enum eGender inGender, Date inDateOBirth)
+Patient::Patient(const char* inName,const char* id ,enum eGender inGender, char* inDateOBirth)
 {
 	name = new char[strlen(inName) + 1];
 	strcpy(name, inName);
 	ID = new char[strlen(id) + 1];
 	strcpy(ID, id);
 	gender = inGender;
-	dateOfBirth = inDateOBirth;
+	yearOfBirth = new char[strlen(inDateOBirth) + 1];
+	strcpy(yearOfBirth, inDateOBirth);
 	visits = nullptr;
 	logSizeOfVisits = 0;
 	phySizeOfVisits = 0;
@@ -20,6 +21,7 @@ Patient::~Patient()
 {
 	delete[]name;
 	delete[]ID;
+	delete[]yearOfBirth;
 	int i;
 	for (i = 0; i < logSizeOfVisits; i++)
 		delete[]visits[i];
@@ -104,9 +106,9 @@ void Patient::showGender()const
 	else if(gender==Female)
 		cout << "Female" << endl;
 }
-void Patient:: showDate()const
+char* Patient::getYearOfBirth() const
 {
-	dateOfBirth.showDate();
+	return yearOfBirth;
 }
 void Patient:: showVisits()const
 {

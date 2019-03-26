@@ -12,13 +12,13 @@ private:
 
 public:
 	// C'tor:
-	Nurse(char* inName,int inYearExp);
+	Nurse(char* inName,const int inEmployeeIDNumber, int inYearExp);
 	// Copy C'tor:
 	Nurse(const Nurse& other) = delete;
 	// D'tor:
 	~Nurse();
-	char* getName()const;
-	int getEmployeeIDNum()const;
+	const char* getName()const;
+	const int getEmployeeIDNum()const;
 	int getYearsOfExp()const;
 };
 #endif 

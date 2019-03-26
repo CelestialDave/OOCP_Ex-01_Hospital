@@ -1,23 +1,22 @@
 #include "nurse.h"
 
-Nurse::Nurse(char*inName, int inYearExp)
+Nurse::Nurse(char*inName,const int  inEmployeeIDNumber, int inYearExp)
 {
 	name = new char[strlen(inName) + 1];
 	strcpy(name, inName);
 	yearsOfExperience = inYearExp;
-	employeeIDNumber = 0;
-	//iDNum /****/
+	employeeIDNumber = inEmployeeIDNumber;
 }
 
 Nurse::~Nurse()
 {
 	delete[]name;
 }
-char* Nurse::getName()const
+const char* Nurse::getName()const
 {
 	return name;
 }
-int Nurse::getEmployeeIDNum()const
+const int Nurse::getEmployeeIDNum()const
 {
 	return employeeIDNumber;
 }

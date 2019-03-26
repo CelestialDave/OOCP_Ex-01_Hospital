@@ -42,7 +42,7 @@ bool Hospital::allocDepartmentsArr()
 }
 
 
-bool Hospital::addDepartment(Department* inDep)
+bool Hospital::addDepartment(Department& inDep)
 {
 	if (phySizeOfDepartments == 0) //if the first researcher
 	{
@@ -57,7 +57,7 @@ bool Hospital::addDepartment(Department* inDep)
 
 	if (logSizeOfDepartments < phySizeOfDepartments)
 	{
-		allDepartments[logSizeOfDepartments] = inDep;
+		allDepartments[logSizeOfDepartments] = &inDep;
 		logSizeOfDepartments++;
 	}
 	return true;
@@ -79,7 +79,7 @@ bool Hospital::allocDocArr()
 	return true;
 }
 
-bool Hospital::addDoctor(Doctor* inDoc)
+bool Hospital::addDoctor(Doctor& inDoc)
 {
 	if (phySizeDoctors == 0) //if the first researcher
 	{
@@ -94,7 +94,7 @@ bool Hospital::addDoctor(Doctor* inDoc)
 
 	if (logSizeDoctors < phySizeDoctors)
 	{
-		allDoctors[logSizeDoctors] = inDoc;
+		allDoctors[logSizeDoctors] = &inDoc;
 		logSizeDoctors++;
 	}
 	return true;
@@ -111,7 +111,7 @@ bool Hospital::allocNursesArr()
 	return true;
 }
 
-bool Hospital::addNurse(Nurse* inNurse)
+bool Hospital::addNurse(Nurse& inNurse)
 {
 	if (phySizeNurses == 0) //if the first researcher
 	{
@@ -126,7 +126,7 @@ bool Hospital::addNurse(Nurse* inNurse)
 
 	if (logSizeNurses < phySizeNurses)
 	{
-		allNurses[logSizeNurses] = inNurse;
+		allNurses[logSizeNurses] = &inNurse;
 		logSizeNurses++;
 	}
 	return true;

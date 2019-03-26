@@ -13,15 +13,15 @@ private:
 
 public:
 	// C'tor:
-	Doctor(const char* inName, char* inSpecialty);
+	Doctor(const char* inName,int inEmployeeIDNumber,const char* inSpecialty);
 	// Copy C'tor:
 	Doctor(const Doctor& other) = delete;
 	// D'tor:
 	~Doctor();
 
-	char*getName()const;
-	int getEmployeeIDNum()const;
-	char* getSpciality()const;
+	const char*getName()const;
+	const int getEmployeeIDNum()const;
+	const char* getSpciality()const;
 };
 
 #endif // !Doctor__H

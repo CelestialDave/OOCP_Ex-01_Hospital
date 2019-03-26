@@ -1,12 +1,12 @@
 #include "doctor.h"
 
-Doctor::Doctor(const char*inName, char* inSpecialty)
+Doctor::Doctor(const char*inName,int inEmployeeIDNumber, const char* inSpecialty)
 {
 	name = new char[strlen(inName) + 1];
 	strcpy(name, inName);
 	specialty = new char[strlen(inSpecialty) + 1];
 	strcpy(specialty, inSpecialty);
-	//ID num /***/
+	employeeIDNumber = inEmployeeIDNumber;
 }
 
 Doctor::~Doctor()
@@ -15,15 +15,15 @@ Doctor::~Doctor()
 	delete[]specialty;
 }
 
-char* Doctor::getName()const
+const char* Doctor::getName()const
 {
 	return name;
 }
-int Doctor::getEmployeeIDNum()const
+const int Doctor::getEmployeeIDNum()const
 {
 	return employeeIDNumber;
 }
-char* Doctor::getSpciality()const
+const char* Doctor::getSpciality()const
 {
 	return specialty;
 }

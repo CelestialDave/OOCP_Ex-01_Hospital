@@ -121,7 +121,7 @@ char* Department:: getName() const
 
 void Department::showStaffMembers() const
 {
-	cout << "The doctors in " << getName() << " are: " << endl;
+	cout << "The doctors in " << name << " are: " << endl;
 	for (int i = 0; i < logSizeOfDocs; i++)
 	{
 		cout << docsArr[i]->getName() << " " << docsArr[i]->getEmployeeIDNum()
