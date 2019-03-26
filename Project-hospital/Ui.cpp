@@ -24,7 +24,8 @@ void Ui::start()
 		{
 			//name = inputName();   //department name
 			char* name = getString("Please enter your name");
-			hospital->addDepartment(new Department(name)); //add to the departments array
+			Department* dep = new Department(name);
+			hospital->addDepartment(*dep); //add to the departments array
 			delete[] name;
 			break;
 		}

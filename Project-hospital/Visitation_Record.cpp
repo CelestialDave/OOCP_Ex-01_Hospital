@@ -1,6 +1,6 @@
 #include "Visitation_Record.h"
 
-VisitationRecord::VisitationRecord(Patinent& inPatient,const char* inStaffMemInChargeName,
+VisitationRecord::VisitationRecord(Patient& inPatient,const char* inStaffMemInChargeName,
 	const Date inArrivalDate, const char* inVisitPurpose)
 {
 	patient = &inPatient;
