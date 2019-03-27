@@ -7,6 +7,8 @@
 #include <iostream>
 using namespace std;
 
+
+
 #define MAX_NAME 100
 #define MAX_DAY 31
 #define MAX_MONTH 12

@@ -156,7 +156,7 @@ Article* Ui::createArticle()
 	char *magazineName = getString("Please enter the name of the magazine where the article was published");
 	char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
 	Date* date = nullptr;
-	bool ok = converStrDateToDateObj(strDate, date);
+	bool ok = convertStrgDateToDateObj(strDate, date);
 	delete[]strDate;
 	if (ok)
 		return new Article(name, magazineName, date);
