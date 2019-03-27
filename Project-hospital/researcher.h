@@ -20,7 +20,7 @@ public:
 	// D'tor:
 	~Researcher();
 	bool addArticle(Article& art);
-	char* getName() const;
+	const char* getName() const;
 	void showArticles() const;
 	void reallocationArr();
 

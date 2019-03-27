@@ -113,7 +113,28 @@ void Ui::start()
 			
 
 		}
-
+		case 5:
+		{
+			char*name = getString("Please enter the name of the researcher");
+			Researcher* researcher = new Researcher(name);
+			hospital->addResearcher(*researcher);
+			delete[]name;
+			break;
+		}
+		case 6:
+		{
+			char*researcherName = getString("Which researcher would you like to add an article to?");
+			Researcher* researcher = nullptr;
+			bool exist = hospital->findResearcherAccordingToName(researcherName, researcher);
+			if (exist)
+			{
+				Article * article = createArticle();
+				hospital->addArticleToResearcher(*article, researcher);
+			}
+			else
+				cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
+			break;
+		}
 
 		}
 		printTheOptionsForTheUser();
@@ -122,6 +143,16 @@ void Ui::start()
 		cin.ignore();
 	}
 	hospital->showStaffMembers();
+}
+
+Article* Ui::createArticle()
+{
+	char *name = getString("Please enter the name of the article");
+	char *magazineName = getString("Please enter the name of the magazine where the article was published");
+	cout << "Please enter the date the article was published(day month year)";
+	int day, month, year;
+	cin >> day >> month >> year;
+	return new Article(name, magazineName, *(new Date(day, month, year)));
 }
 
 Nurse* Ui::createNurse(bool& ok,int& indexOfTheRightInDepArr)
@@ -181,7 +212,6 @@ Doctor* Ui::createDoctor(bool& ok, int& indexInDepArr)
 		return doctor;
 	}
 }
-
 Patient* Ui::createPatient()
 {
 	const char* name = getString("Please enter the Patient's name: ");

@@ -10,7 +10,7 @@ class Article
 private:
 	char *name;
 	char *magazineName;
-	Date publicationDate;
+	Date* publicationDate;
 
 public:
 	// C'tor:

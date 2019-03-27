@@ -269,7 +269,7 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 		else if (res < 0)
 			return binSearchPatientByID(arr, size / 2, id, resPat);
 		else if (res > 0)
-			return binSearchPatientByID(arr, size - (size / 2), id, resPat);
+			return binSearchPatientByID(arr+size/2, size - (size / 2), id, resPat);
 	}
 }
 
@@ -297,6 +297,14 @@ bool Hospital::addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn)
 
 }
 
+bool Hospital::findResearcherAccordingToName(const char*name, Researcher*researcher)
+{
+	return researchInst.getResearcherByName(name, researcher);
+}
 
+bool Hospital::addArticleToResearcher(Article & art, Researcher*researcher)
+{
+	return researchInst.addArticeToResearcher(art, researcher)
+}
 
 
