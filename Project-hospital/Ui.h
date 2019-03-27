@@ -1,5 +1,6 @@
 #include "Department.h"
 #include "Hospital.h"
+#include "Patient.h"
 
 class Ui
 {
@@ -9,6 +10,7 @@ public:
 	Ui(Hospital *hos);
 	void start();
 	void printTheOptionsForTheUser() const;
+	//void displayDepartmentsList() const;
 	int inputYearsOfExprience() const;
 	bool checkIfItFirstTimeInHospital() const;
 	enum eGender inputGender();
