@@ -14,13 +14,7 @@ public:
 	enum eGender inputGender();
 	char* getString(const char* prompt);
 	Patient* createPatient();
-
-
-
-
-
-
-
-
-
+	Doctor* createDoctor(bool& ok, int& indexInDepArr);
+	int getInt(const char* str);
+	Nurse*createNurse(bool& ok, int& indexOfTheRightInDepArr);
 };
