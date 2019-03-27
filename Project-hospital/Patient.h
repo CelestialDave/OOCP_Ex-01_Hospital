@@ -33,10 +33,10 @@ public:
 	void reallocationVisitationRecordArr();
 	void reallocationDepartmentsVisitedNameArr();
 	bool addDepatrtmentToDepList(const char* DepartmentName);
-	char* getName()const;
-	char* getId()const;
+	const char* getName()const;
+	const char* getId()const;
 	void showGender() const;
-	char * getYearOfBirth() const;
+	const char * getYearOfBirth() const;
 	void showVisits() const;
 
 	bool hasVisitedDepartment(const char* department) const;
