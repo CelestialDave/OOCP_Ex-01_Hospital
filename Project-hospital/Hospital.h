@@ -45,12 +45,15 @@ public:
 	bool addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
 	bool addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn);
 
-	bool addPatient(Patient& inPatient, const char* inDep);
-
 	bool getDepartmentByName(char* depName, Department* resDepartment);
-	bool getDepartmentByIndex(int aind, Department* resDepartment);
+	Department* getDepartmentByIndex(int ind);
+	//
+	const char * getDepartmentNameByIndex(int ind);
+	//
 	int getNumOfDepartments();
 	bool binDepartmentByName(Department** arr, int size, char* depName, Department* resDep);
+
+	bool addPatient(Patient& inPatient, const char* inDep);
 	bool getPatientByID(char* inID, Patient* resPatient);
 	bool binSearchPatientByID(Patient** arr, int size,char* id, Patient* resPat);
 
