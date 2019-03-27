@@ -101,11 +101,15 @@ void Ui::start()
 		{
 			char*researcherName = getString("Which researcher would you like to add an article to?");
 			Researcher* researcher = nullptr;
-			//check if the researcher exist with researcher adress
-			//if (exist),
+			bool exist = hospital->findResearcherAccordingToName(researcherName, researcher);
+			if (exist)
+			{
 				Article * article = createArticle();
-				
-
+				hospital->addArticleToResearcher(*article, researcher);
+			}
+			else
+				cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
+			break;
 		}
 
 		}

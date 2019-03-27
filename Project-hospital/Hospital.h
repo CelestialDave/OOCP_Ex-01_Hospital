@@ -55,7 +55,7 @@ public:
 	bool binSearchPatientByID(Patient** arr, int size,char* id, Patient* resPat);
 
 	bool findResearcherAccordingToName(const char*name, Researcher*researcher);
-	bool addArticleToResearcher();
+	bool addArticleToResearcher(Article & art, Researcher*researcher);
 
 	void showStaffMembers() const;
 	void showResearchers() const;

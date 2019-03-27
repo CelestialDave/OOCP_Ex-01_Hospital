@@ -301,4 +301,9 @@ bool Hospital::findResearcherAccordingToName(const char*name, Researcher*researc
 	return researchInst.getResearcherByName(name, researcher);
 }
 
+bool Hospital::addArticleToResearcher(Article & art, Researcher*researcher)
+{
+	return researchInst.addArticeToResearcher(art, researcher)
+}
+
 
