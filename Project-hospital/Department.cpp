@@ -114,7 +114,7 @@ bool Department::allocNursesArr()
 	return true;
 }
 
-char* Department:: getName() const
+const char* Department:: getName() const
 {
 	return name;
 }

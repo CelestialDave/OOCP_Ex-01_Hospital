@@ -13,6 +13,8 @@ void Ui::start()
 	printTheOptionsForTheUser();
 	int num;
 	cin >> num;
+	//
+	cin.ignore();
 	while (num <= 10)
 	{
 		switch (num)
@@ -83,10 +85,28 @@ void Ui::start()
 				}
 			}
 
-			char* inDepartment = getString("Please enter the Department for the patient: ");
-			if (!patient->hasVisitedDepartment(inDepartment)) // Patient hasn't visited in this department
+			int depNum;
+			int depInd;
+			cout << "Please choose the Department number from the following list: " << endl;
+			hospital->showDepartments();
+			//char* inDepartment = getString();
+			cin >> depNum;
+			//
+			cin.ignore();
+			if ((depNum <= 0) || (depNum > hospital->getNumOfDepartments))
 			{
-				
+				cout << "Error: The Department number chosen is invalid!" << endl;
+				delete[] inID;
+				break;
+			}
+
+			depInd = depNum - 1;
+			Department* inDep = nullptr;
+			inDep = hospital->getDepartmentByIndex(depInd);
+			//const char* depName = hospital->getDepartmentNameByIndex(depInd);
+			if (!patient->hasVisitedDepartment(inDep->getName())) // Patient hasn't visited in this department
+			{
+				inDep->addPatient(*patient);
 			}
 		}
 
@@ -94,6 +114,8 @@ void Ui::start()
 		}
 		printTheOptionsForTheUser();
 		cin >> num;
+		//
+		cin.ignore();
 	}
 	hospital->showStaffMembers();
 }
@@ -127,7 +149,8 @@ int Ui::getInt(const char* str)
 	int num;
 	cout << str << endl;
 	cin >> num;
-	cin.ignore(5, '\n');
+	//
+	cin.ignore();
 	return num;
 
 }
@@ -164,12 +187,13 @@ Patient* Ui::createPatient()
 	return (new Patient(name, id, gen, yearOfBirth));
 }
 
-char* Ui::getString(const char* prompt)
+char* Ui::getString(const char* prompt = "")
 {
+	if (strlen(prompt) > 0)
+		cout << prompt << endl;
 	char temp[MAX_NAME];
-	cout << prompt << endl;
-	cin.clear();
-	cin.ignore(5, '\n');
+	//cin.clear();
+	//cin.ignore(5, '\n');
 	cin.getline(temp, MAX_NAME);
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);
@@ -182,6 +206,8 @@ enum eGender Ui::inputGender()
 	enum eGender gender;
 	cout << "please enter your male: male-press 1, female-press 0" << endl;
 	cin >> gen;
+	//
+	cin.ignore();
 	gender = (eGender)gen;
 	return gender;
 }
@@ -192,6 +218,8 @@ bool Ui::checkIfItFirstTimeInHospital() const
 	bool res;
 	cout << "Is this your first visit in the hospital?  yes-press 1,no-press 0" << endl;
 	cin >> res;
+	//
+	cin.ignore();
 	return res;
 }
 
@@ -203,6 +231,8 @@ int Ui::inputYearsOfExprience()const
 	int yearsExp;
 	cout << "how many years of exprience she has?" << endl;
 	cin >> yearsExp;
+	//
+	cin.ignore();
 	return yearsExp;
 }
 
@@ -222,7 +252,3 @@ void Ui::printTheOptionsForTheUser() const
 }
 
 
-//void Ui::displayDepartmentsList() const
-//{
-//	
-//}
