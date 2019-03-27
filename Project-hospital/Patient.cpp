@@ -90,12 +90,12 @@ void Patient::reallocationDepartmentsVisitedNameArr()
 	departmentsVisited = newArr;
 }
 
-char* Patient::getName()const
+const char* Patient::getName()const
 {
 	return name;
 }
 
-char*Patient:: getId()const
+const char*Patient:: getId()const
 {
 	return ID;
 }
@@ -106,7 +106,7 @@ void Patient::showGender()const
 	else if(gender==Female)
 		cout << "Female" << endl;
 }
-char* Patient::getYearOfBirth() const
+const char* Patient::getYearOfBirth() const
 {
 	return yearOfBirth;
 }
@@ -114,9 +114,10 @@ void Patient:: showVisits()const
 {
 	for (int i = 0; i < logSizeOfVisits; i++)
 	{ 
-		cout << "The staff member in charge is: " << visits[i]->getstaffMemInChargeName()<< " ";
+		cout << "The staff member in charge is: " << visits[i]->getstaffMemInChargeName() << endl;
 		cout << "The arrival date is: ";
 		visits[i]->showDate();
+		cout << endl;
 		cout << "The visitiation purpose is: ";
 		visits[i]->printVisitationPurpose();
 		cout<<endl;

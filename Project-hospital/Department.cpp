@@ -135,3 +135,18 @@ void Department::showStaffMembers() const
 	}
 	cout << endl;
 }
+
+void Department::showPatients() const
+{
+	cout << "The patients in " << name << " are: " << endl;
+	for (int i = 0; i < logSizeOfDocs; i++)
+	{
+		cout << "name: " <<patientsArr[i]->getName() << endl;
+		cout << "ID: " << patientsArr[i]->getId() << endl;
+		cout << "Gender: ";
+		patientsArr[i]->showGender;
+		cout << endl;
+		cout<<"Year of birth: "<< patientsArr[i]->getYearOfBirth() << endl;
+		patientsArr[i]->showVisits;
+	}
+}

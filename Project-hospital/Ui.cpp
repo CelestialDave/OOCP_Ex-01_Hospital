@@ -161,10 +161,15 @@ Article* Ui::createArticle()
 {
 	char *name = getString("Please enter the name of the article");
 	char *magazineName = getString("Please enter the name of the magazine where the article was published");
-	cout << "Please enter the date the article was published(day month year)";
-	int day, month, year;
-	cin >> day >> month >> year;
-	return new Article(name, magazineName, *(new Date(day, month, year)));
+	char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
+	Date* date = nullptr;
+	bool ok = convertStrgDateToDateObj(strDate, date);
+	delete[]strDate;
+	if (ok)
+		return new Article(name, magazineName, date);
+	else
+		cout << "Error,the date is Invalid" << endl;
+
 }
 
 Nurse* Ui::createNurse(bool& ok,int& indexOfTheRightInDepArr)
