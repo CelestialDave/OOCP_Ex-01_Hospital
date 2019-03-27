@@ -131,7 +131,7 @@ int Ui::getInt(const char* str)
 	return num;
 
 }
-Doctor* Ui::createDoctor(bool& ok,int& indexInDepArr)
+Doctor* Ui::createDoctor(bool& ok, int& indexInDepArr)
 {
 	char* name = getString("Please enter the name of doctor");
 	int employeeID = getInt("choose your employeeID number");
@@ -153,6 +153,8 @@ Doctor* Ui::createDoctor(bool& ok,int& indexInDepArr)
 		delete[]specialty;
 		return doctor;
 	}
+}
+
 Patient* Ui::createPatient()
 {
 	const char* name = getString("Please enter the Patient's name: ");
@@ -220,5 +222,7 @@ void Ui::printTheOptionsForTheUser() const
 }
 
 
-
-
+//void Ui::displayDepartmentsList() const
+//{
+//	
+//}

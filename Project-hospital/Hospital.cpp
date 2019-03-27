@@ -182,6 +182,14 @@ void Hospital::showPatientByID(char* inID) const
 
 } 
 
+void Hospital::showDepartments() const
+{
+	for (int i = 0; i < logSizeOfDepartments; i++)
+	{
+		cout << '\t' << i + 1 << ". " << allDepartments[i]->getName << endl;
+	}
+}
+
 /////////////////////////////////////////
 bool Hospital::getDepartmentByName(char* depName, Department* resDepartment)
 {
@@ -191,7 +199,7 @@ bool Hospital::getDepartmentByName(char* depName, Department* resDepartment)
 bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, Department* resDep)
 {
 	Department* midDep = arr[size / 2];
-	int res = strcmp(depName, *midDep->getName);
+	int res = strcmp(depName, midDep->getName());
 	if (size == 1)
 	{
 		if (res == 0) {
@@ -217,6 +225,21 @@ bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, De
 
 ////////////////////////////////////////
 
+bool Hospital::getDepartmentByIndex(int ind, Department* resDepartment)
+{
+	if ((ind < 0) || (ind >= logSizeOfDepartments))
+		return false;
+	else {
+		resDepartment = allDepartments[ind];
+		return true;
+	}
+}
+
+int Hospital::getNumOfDepartments()
+{
+	return logSizeOfDepartments;
+}
+
 bool Hospital::getPatientByID(char* inID, Patient* resPatient)
 {
 	return binSearchPatientByID(allPatients, logSizeOfPatients, inID, resPatient);
@@ -225,7 +248,7 @@ bool Hospital::getPatientByID(char* inID, Patient* resPatient)
 bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* resPat)
 {
 	Patient* midPat = arr[size / 2];
-	int res = strcmp(id, *midPat->getId);
+	int res = strcmp(id, midPat->getId());
 	if (size == 1)
 	{
 		if (res == 0) {
