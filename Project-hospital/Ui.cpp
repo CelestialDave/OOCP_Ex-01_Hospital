@@ -108,6 +108,10 @@ void Ui::start()
 			{
 				inDep->addPatient(*patient);
 			}
+
+			char* inDate = getString("Please provide the Patient's arrival date [DD/MM/YYYY]): ");
+			
+
 		}
 
 
