@@ -7,6 +7,10 @@
 #include <iostream>
 using namespace std;
 
+#include "Date.h"
+
+#define MAX_MENU_OPTIONS 11
+
 #define MAX_NAME 100
 #define MAX_DAY 31
 #define MAX_MONTH 12

@@ -11,13 +11,13 @@ Ui::Ui(Hospital *hos)
 void Ui::start()
 {
 	printTheOptionsForTheUser();
-	int num;
-	cin >> num;
+	int choise;
+	cin >> choise;
 	//
 	cin.ignore();
-	while (num <= 10)
+	while (choise != MAX_MENU_OPTIONS)
 	{
-		switch (num)
+		switch (choise)
 		{
 		case 1:  //add a department to the hospital
 		{
@@ -110,8 +110,14 @@ void Ui::start()
 			}
 
 			char* inDate = getString("Please provide the Patient's arrival date [DD/MM/YYYY]): ");
-			
-
+			Date* arrivalDate = nullptr;
+			bool isValidDateInput = convertStrgDateToDateObj(inDate, arrivalDate);
+			if (!isValidDateInput)
+			{
+				delete[] inID;
+				delete[] inDate;
+				break;
+			}
 		}
 		case 5:
 		{
@@ -135,14 +141,20 @@ void Ui::start()
 				cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
 			break;
 		}
-
+		default:
+		{
+			cout << "Error: Invalid input, please try again..." << endl;
+			break;
+		}
 		}
 		printTheOptionsForTheUser();
-		cin >> num;
+		cin >> choise;
 		//
 		cin.ignore();
 	}
-	hospital->showStaffMembers();
+
+	cout << "Thank you very much! Hope you enjoyed ;)" << endl;
+	//hospital->showStaffMembers();
 }
 
 Article* Ui::createArticle()
