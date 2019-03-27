@@ -48,7 +48,6 @@ public:
 	bool addPatient(Patient& inPatient, const char* inDep);
 
 	bool getDepartmentByName(char* depName, Department* resDepartment);
-	bool binDepartmentByName(Department** arr, int size,char* depName, Department* resDep);
 	bool getDepartmentByIndex(int aind, Department* resDepartment);
 	int getNumOfDepartments();
 	bool binDepartmentByName(Department** arr, int size, char* depName, Department* resDep);
