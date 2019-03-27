@@ -180,7 +180,75 @@ void Hospital::showResearchers() const
 void Hospital::showPatientByID(char* inID) const
 {
 
+} 
+
+/////////////////////////////////////////
+bool Hospital::getDepartmentByName(char* depName, Department* resDepartment)
+{
+	return binDepartmentByName(allDepartments, logSizeOfDepartments, depName, resDepartment);
 }
+
+bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, Department* resDep)
+{
+	Department* midDep = arr[size / 2];
+	int res = strcmp(depName, *midDep->getName);
+	if (size == 1)
+	{
+		if (res == 0) {
+			resDep = midDep;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		if (res == 0)
+		{
+			resDep = midDep;
+			return true;
+		}
+		else if (res < 0)
+			return binDepartmentByName(arr, size / 2, depName, resDep);
+		else if (res > 0)
+			return binDepartmentByName(arr, size - (size / 2), depName, resDep);
+	}
+}
+
+////////////////////////////////////////
+
+bool Hospital::getPatientByID(char* inID, Patient* resPatient)
+{
+	return binSearchPatientByID(allPatients, logSizeOfPatients, inID, resPatient);
+}
+
+bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* resPat)
+{
+	Patient* midPat = arr[size / 2];
+	int res = strcmp(id, *midPat->getId);
+	if (size == 1)
+	{
+		if (res == 0) {
+			resPat = midPat;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		if (res == 0)
+		{
+			resPat = midPat;
+			return true;
+		}
+		else if (res < 0)
+			return binSearchPatientByID(arr, size / 2, id, resPat);
+		else if (res > 0)
+			return binSearchPatientByID(arr, size - (size / 2), id, resPat);
+	}
+}
+
 
 int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
 {

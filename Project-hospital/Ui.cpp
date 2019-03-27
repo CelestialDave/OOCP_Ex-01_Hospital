@@ -69,19 +69,41 @@ void Ui::start()
 			delete[]specialty;
 			break;
 		}
-		case 4:
+		case 4:	// Add Visitation
 		{
+			Patient* patient = nullptr;
+			Department* department = nullptr;
+			char* inID = getString("Please provide the Patient's ID number: ");
+			bool isFirstTime = checkIfItFirstTimeInHospital();
+			bool isExists = hospital->getPatientByID(inID, patient);
 
-			bool firstTime = checkIfItFirstTimeInHospital();
-			if (firstTime) //this is the first visit in the hospital
+			if (isFirstTime) //this is the first visit in the hospital
 			{
-				Patient* patient = createPatient();
+				if (isExists) // Shouldn't exist
+				{ 
+					cout << "Error: A Patient with the given ID number already in the system." << endl;
+					delete[] inID;
+					break;
+				}
+				else {
+					patient = createPatient();
+				}
 			}
 			else //it is not the first visit
 			{
-
+				if (!isExists) // Should exist
+				{
+					cout << "Error: A Patient with the given ID number is not available." << endl;
+					delete[] inID;
+					break;
+				}
 			}
 
+			char* inDepartment = getString("Please enter the Department for the patient: ");
+			if (!patient->hasVisitedDepartment(inDepartment)) // Patient hasn't visited in this department
+			{
+				
+			}
 		}
 
 
@@ -94,8 +116,13 @@ void Ui::start()
 
 Patient* Ui::createPatient()
 {
-	char*name = getString("Please enter your name: ");
+	const char* name = getString("Please enter the Patient's name: ");
+	eGender gen = inputGender();
+	const char* id = getString("Please enter the Patient's ID number: ");
+	char* yearOfBirth = getString("Please enter the Patient's year of birth: ");
+	return (new Patient(name, id, gen, yearOfBirth));
 }
+
 char* Ui::getString(const char* prompt)
 {
 	char temp[MAX_NAME];

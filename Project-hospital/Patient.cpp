@@ -114,12 +114,23 @@ void Patient:: showVisits()const
 {
 	for (int i = 0; i < logSizeOfVisits; i++)
 	{ 
-		cout << "The staff member in chrge is: " << visits[i]->getstaffMemInChargeName()<< " ";
+		cout << "The staff member in charge is: " << visits[i]->getstaffMemInChargeName()<< " ";
 		cout << "The arrival date is: ";
 		visits[i]->showDate();
 		cout << "The visitiation purpose is: ";
 		visits[i]->printVisitationPurpose();
 		cout<<endl;
 	}
+}
+
+bool Patient::hasVisitedDepartment(const char* department) const
+{
+	bool res = false;
+	for (int i = 0; i < logsizeOfDepartments; i++)
+	{
+		if (strcmp(department, departmentsVisited[i]) == 0)
+			res = true;
+	}
+	return res;
 }
 
