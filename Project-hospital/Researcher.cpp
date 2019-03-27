@@ -46,7 +46,7 @@ void Researcher:: reallocationArr()
 	articleStock = newArr;
 }
 
-char* Researcher::getName() const
+const char* Researcher::getName() const
 {
 	return name;
 }

@@ -48,9 +48,12 @@ public:
 	bool addPatient(Patient& inPatient, const char* inDep);
 
 	bool getDepartmentByName(char* depName, Department* resDepartment);
-	bool binDepartmentByName(Department** arr, int size, char* depName, Department* resDep);
+	bool binDepartmentByName(Department** arr, int size,char* depName, Department* resDep);
 	bool getPatientByID(char* inID, Patient* resPatient);
-	bool binSearchPatientByID(Patient** arr, int size, char* id, Patient* resPat);
+	bool binSearchPatientByID(Patient** arr, int size,char* id, Patient* resPat);
+
+	bool findResearcherAccordingToName(const char*name, Researcher*researcher);
+	bool addArticleToResearcher();
 
 	void showStaffMembers() const;
 	void showResearchers() const;

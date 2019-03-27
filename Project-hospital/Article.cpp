@@ -6,7 +6,7 @@ Article::Article(const char inName[MAX_NAME], char*inMagazineName, Date& inPubli
 	strcpy(name, inName);
 	magazineName = new char[strlen(magazineName) + 1];
 	strcpy(magazineName, magazineName);
-	publicationDate = inPublicitaion;
+	publicationDate = &inPublicitaion;
 }
 
 
@@ -23,6 +23,8 @@ Article::~Article()
 {
 	delete[]name;
 	delete[]magazineName;
+	delete[]publicationDate;
+
 }
 
 const char* Article::getName() const

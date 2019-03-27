@@ -191,7 +191,7 @@ bool Hospital::getDepartmentByName(char* depName, Department* resDepartment)
 bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, Department* resDep)
 {
 	Department* midDep = arr[size / 2];
-	int res = strcmp(depName, *midDep->getName);
+	int res = strcmp(depName, midDep->getName());
 	if (size == 1)
 	{
 		if (res == 0) {
@@ -225,7 +225,7 @@ bool Hospital::getPatientByID(char* inID, Patient* resPatient)
 bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* resPat)
 {
 	Patient* midPat = arr[size / 2];
-	int res = strcmp(id, *midPat->getId);
+	int res = strcmp(id, midPat->getId());
 	if (size == 1)
 	{
 		if (res == 0) {
@@ -245,7 +245,7 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 		else if (res < 0)
 			return binSearchPatientByID(arr, size / 2, id, resPat);
 		else if (res > 0)
-			return binSearchPatientByID(arr, size - (size / 2), id, resPat);
+			return binSearchPatientByID(arr+size/2, size - (size / 2), id, resPat);
 	}
 }
 
@@ -273,6 +273,9 @@ bool Hospital::addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn)
 
 }
 
-
+bool Hospital::findResearcherAccordingToName(const char*name, Researcher*researcher)
+{
+	return researchInst.getResearcherByName(name, researcher);
+}
 
 

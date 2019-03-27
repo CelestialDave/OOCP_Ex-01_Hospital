@@ -7,7 +7,7 @@
 class ResearchInstitute
 {
 private:
-	Researcher** reasearchersArr;
+	Researcher** allResearchers;
 	int logSizeOfResearchers;
 	int phySizeOfResearchers;
 
@@ -22,5 +22,10 @@ public:
 	bool addResearcher(Researcher& researcher);
 	void showResearchers()   const;
 	void reallocationArr();
+	bool addArticeToResearcher(Article& art, Researcher* researcher);
+	bool getResearcherByName(const char*name, Researcher*researcher);
+
+	bool binSearchResearcherByName(Researcher** arr, int size, const char* name,
+	Researcher* researcher);
 };
 #endif
