@@ -33,7 +33,8 @@ void Ui::start()
 		{
 			bool ok;
 			int indexOfTheRightInDepArr;
-			Nurse* nurse=createNurse(ok, indexOfTheRightInDepArr);
+			Nurse*nurse = nullptr;
+			ok=createNurse(nurse, indexOfTheRightInDepArr);
 			if(ok)
 			{
 			hospital->addNurse(*nurse); //add the nurse to the array of nurses in the hospital
@@ -48,7 +49,8 @@ void Ui::start()
 		{
 			bool ok;
 			int indexInDepArr;
-			Doctor*doctor =createDoctor(ok,indexInDepArr);
+			Doctor*doctor = nullptr;
+			ok= createDoctor(doctor, indexInDepArr);
 			if (ok) // if we really create new doctor
 			{
 				hospital->addDoctor(*doctor);   //add doctor to the hospital
@@ -88,21 +90,21 @@ void Ui::start()
 			}
 
 			int depNum;
-			int depInd;
 			cout << "Please choose the Department number from the following list: " << endl;
 			hospital->showDepartments();
 			//char* inDepartment = getString();
 			cin >> depNum;
 			//
 			cin.ignore();
-			if ((depNum <= 0) || (depNum > hospital->getNumOfDepartments()))
+			int depInd = depNum - 1;
+			bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+			if (!exist)
 			{
 				cout << "Error: The Department number chosen is invalid!" << endl;
 				delete[] inID;
 				break;
 			}
 
-			depInd = depNum - 1;
 			Department* inDep = nullptr;
 			inDep = hospital->getDepartmentByIndex(depInd);
 			//const char* depName = hospital->getDepartmentNameByIndex(depInd);
@@ -154,6 +156,35 @@ void Ui::start()
 				cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
 			break;
 		}
+		case 7:
+		{
+			cout << "Please choose the Department number from the following list: " << endl;
+			hospital->showDepartments();
+			int depNum;
+			cin >> depNum;
+			cin.ignore();
+			int depInd = depNum - 1;
+			bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+			if (ok)
+				hospital->showPatientInSpecificDep(depInd);
+			else
+				cout << "Error: The Department number chosen is invalid!" << endl;
+			break;
+		}
+		case 8:
+		{
+			hospital->showStaffMembers(); 
+			break;
+		}
+		case 9:
+		{
+			hospital->showResearchers();
+			break;
+		}
+		case 10:
+		{
+
+		}
 		default:
 		{
 			cout << "Error: Invalid input, please try again..." << endl;
@@ -179,38 +210,59 @@ Article* Ui::createArticle()
 	bool ok = Utils::convertStrDateToDateObj(strDate, date);
 	delete[]strDate;
 	if (ok)
+	{
+		delete[]name;
+		delete[]magazineName;
 		return new Article(name, magazineName, *date);
+	}
 	else
 	{
+		delete[]name;
+		delete[]magazineName;
 		cout << "Error,the date is Invalid" << endl;
 		return nullptr;
 	}
 }
 
-Nurse* Ui::createNurse(bool& ok,int& indexOfTheRightInDepArr)
+bool Ui::createNurse(Nurse*nurse,int& indexOfTheRightInDepArr)
 {
 	char*name = getString("Please enter the name of nurse");
 	int employeeID = getInt("choose your employeeID number");
-	int yearsExprience = getInt("How many years of exprience the nurse has?");
-	char*whichDep = getString("which department she belongs?");
-	indexOfTheRightInDepArr = hospital->findTheIndexOfDepNameInDepArr(whichDep);
-	if (indexOfTheRightInDepArr == -1)
+	bool ok = hospital->veryfactionDoctorEmployeeId(employeeID);
+	if (ok)
 	{
-		ok = false;
-		delete[]name;
-		delete[]whichDep;
-		return NULL;
+		int yearsExprience = getInt("How many years of exprience the nurse has?");
+		int depNum;
+		cout << "Please choose the Department number from the following list: " << endl;
+		hospital->showDepartments();
+		cin >> depNum;
+		cin.ignore();
+		int depInd = depNum - 1;
+		bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+		//check if the input of the department is correct
+		if (exist)
+		{
+			indexOfTheRightInDepArr = depInd;
+			nurse = new Nurse(name, employeeID, yearsExprience);
+			delete[]name;
+			return true;
+		}
+		else
+		{
+			cout << "Error: The Department number chosen is invalid!" << endl;
+			delete[]name;
+			return false;
+		}
 	}
 	else
 	{
-		ok = true;
-		Nurse* nurse = new Nurse(name, employeeID, yearsExprience);
+		cout << "Error: the employeeId already exist" << endl;
 		delete[]name;
-		delete[]whichDep;
-		return nurse;
+		return false;
 	}
-
 }
+
+
 int Ui::getInt(const char* str)
 {
 	int num;
@@ -221,29 +273,46 @@ int Ui::getInt(const char* str)
 	return num;
 
 }
-Doctor* Ui::createDoctor(bool& ok, int& indexInDepArr)
+bool Ui::createDoctor(Doctor* doctor, int& indexInDepArr)
 {
 	char* name = getString("Please enter the name of doctor");
 	int employeeID = getInt("choose your employeeID number");
-	char* specialty = getString("Please enter the specialty of the doctor(name of department");
-	indexInDepArr = hospital->findTheIndexOfDepNameInDepArr(specialty);
-	if (indexInDepArr == -1)
+	bool ok = hospital->veryfactionDoctorEmployeeId(employeeID);
+	if (ok)
 	{
-		cout << "Error, There in no department like doctor's specialy" << endl;
-		ok = false;
-		delete[]name;
-		delete[]specialty;
-		return NULL;
+		char* specialty = getString("Please enter the specialty of the doctor");
+		int depNum;
+		cout << "Please choose the Department number from the following list: " << endl;
+		hospital->showDepartments();
+		cin >> depNum;
+		cin.ignore();
+		int depInd = depNum - 1;
+		bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+		if (exist)
+		{
+			indexInDepArr = depInd;
+			doctor = new Doctor(name, employeeID, specialty);
+			delete[]name;
+			delete[]specialty;
+			return true;
+		
+		}
+		else
+		{
+			cout << "Error: The Department number chosen is invalid!" << endl;
+			delete[]name;
+			delete[]specialty;
+			return false;
+		}
 	}
 	else
 	{
-		ok = true;
-		Doctor* doctor = new Doctor(name, employeeID, specialty);
+		cout << "Error,this employeeID already exist" << endl;
 		delete[]name;
-		delete[]specialty;
-		return doctor;
+		return false;
 	}
 }
+	
 Patient* Ui::createPatient()
 {
 	const char* name = getString("Please enter the Patient's name: ");

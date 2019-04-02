@@ -121,32 +121,46 @@ const char* Department:: getName() const
 
 void Department::showStaffMembers() const
 {
-	cout << "The doctors in " << name << " are: " << endl;
-	for (int i = 0; i < logSizeOfDocs; i++)
+	if (logSizeOfDocs)
 	{
-		cout << docsArr[i]->getName() << " " << docsArr[i]->getEmployeeIDNum()
-		<< " " << docsArr[i]->getSpciality() << endl;
+		cout << "The doctors in " << name << (logSizeOfDocs > 1 ? "are" : "is") << endl;
+		for (int i = 0; i < logSizeOfDocs; i++)
+		{
+			cout << docsArr[i]->getName() << " " << docsArr[i]->getEmployeeIDNum()
+				<< " " << docsArr[i]->getSpciality() << endl;
+		}
 	}
-	cout << endl << "The nurses in " << getName() << " are: " << endl;
-	for (int i = 0; i < logSizeOfNurses; i++)
+	else
+		cout << "There is no doctors in "<<name<< endl;
+	if (logSizeOfNurses)
 	{
-		cout << nursesArr[i]->getName() << " " << nursesArr[i]->getEmployeeIDNum() << " "
-			<< nursesArr[i]->getYearsOfExp() << endl;
+		cout << endl << "The nurses in " << name << (logSizeOfNurses > 1 ? "are" : "is") << endl;
+		for (int i = 0; i < logSizeOfNurses; i++)
+		{
+			cout << nursesArr[i]->getName() << " " << nursesArr[i]->getEmployeeIDNum() << " "
+				<< nursesArr[i]->getYearsOfExp() << endl;
+		}
 	}
-	cout << endl;
+	else
+		cout << "There is no nurses in " <<name << endl;
 }
 
 void Department::showPatients() const
 {
-	cout << "The patients in " << name << " are: " << endl;
-	for (int i = 0; i < logSizeOfDocs; i++)
+	if (logSizeOfPatients > 0)
 	{
-		cout << "name: " <<patientsArr[i]->getName() << endl;
-		cout << "ID: " << patientsArr[i]->getId() << endl;
-		cout << "Gender: ";
-		patientsArr[i]->showGender();
-		cout << endl;
-		cout<<"Year of birth: "<< patientsArr[i]->getYearOfBirth() << endl;
-		patientsArr[i]->showVisits();
+		cout << "The patients in " << name << (logSizeOfPatients > 1 ? "are" : "is") << endl;
+		for (int i = 0; i < logSizeOfDocs; i++)
+		{
+			cout << "name: " << patientsArr[i]->getName() << endl;
+			cout << "ID: " << patientsArr[i]->getId() << endl;
+			cout << "Gender: ";
+			patientsArr[i]->showGender();
+			cout << endl;
+			cout << "Year of birth: " << patientsArr[i]->getYearOfBirth() << endl;
+			patientsArr[i]->showVisits();
+		}
 	}
+	else
+		cout << "There is no patients in this department" << endl;
 }

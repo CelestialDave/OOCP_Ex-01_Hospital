@@ -14,7 +14,7 @@ private:
 
 public:
 	// C'tor:
-	Article(const char inName[MAX_NAME], char*inMagazineName, Date&inPublicitaion);
+	Article(const char *inName, char*inMagazineName, Date&inPublicitaion);
 	// Copy C'tor
 	Article(const Article& other);
 	// D'tor:

@@ -23,3 +23,11 @@ bool Utils::convertStrDateToDateObj(char* strDate, Date* resDate)
 	resDate = new Date(day, month, year);
 	return true;
 }
+
+bool Utils:: ifIndexInRange(const int&index, const int& logSize)
+{
+	if (index >= 0 && index <= logSize)
+		return true;
+	else
+		return false;
+}

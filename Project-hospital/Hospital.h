@@ -47,6 +47,12 @@ public:
 
 	bool getDepartmentByName(char* depName, Department* resDepartment);
 	Department* getDepartmentByIndex(int ind);
+	bool veryfactionDoctorEmployeeId(const int& employeeID);
+	bool veryfactionDoctorEmployeeIdBinSearch(Doctor**arr,int size, const int& employeeID);
+	bool veryfactionNurseEmployeeId(const int& employeeID);
+	bool veryfactionNurseEmployeeIdBinSearch(Nurse**arr, int size, const int& employeeID);
+
+
 	//
 	const char * getDepartmentNameByIndex(int ind);
 	//
@@ -60,7 +66,8 @@ public:
 	bool findResearcherAccordingToName(const char*name, Researcher*researcher);
 	bool addArticleToResearcher(Article & art, Researcher*researcher);
 
-	void showPatient() const;
+	//void showPatient() const;
+	void showPatientInSpecificDep(const int & index) const;
 	void showStaffMembers() const;
 	void showResearchers() const;
 	void showPatientByID(char* inID) const;
