@@ -13,7 +13,7 @@ public:
 	int inputYearsOfExprience() const;
 	bool checkIfItFirstTimeInHospital() const;
 	enum eGender inputGender();
-	char* getString(const char* prompt);
+	char* getString(const char* prompt, const int strMaxLim = MAX_NAME);
 	Patient* createPatient();
 	Doctor* createDoctor(bool& ok, int& indexInDepArr);
 	int getInt(const char* str);

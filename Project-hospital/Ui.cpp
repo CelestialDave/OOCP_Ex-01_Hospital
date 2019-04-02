@@ -114,10 +114,14 @@ void Ui::start()
 			bool isValidDateInput = convertStrgDateToDateObj(inDate, arrivalDate);
 			if (!isValidDateInput)
 			{
+				cout << "Error: The input date is invalid!" << endl;
 				delete[] inID;
 				delete[] inDate;
 				break;
 			}
+
+			char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ", MAX_VISITATION_PURPOSE);
+
 		}
 		case 5:
 		{
@@ -238,16 +242,20 @@ Patient* Ui::createPatient()
 	return (new Patient(name, id, gen, yearOfBirth));
 }
 
-char* Ui::getString(const char* prompt = "")
+char* Ui::getString(const char* prompt = "", const int strMaxLim = MAX_NAME)
 {
 	if (strlen(prompt) > 0)
 		cout << prompt << endl;
-	char temp[MAX_NAME];
+	
 	//cin.clear();
 	//cin.ignore(5, '\n');
-	cin.getline(temp, MAX_NAME);
+	char* temp = new char[strMaxLim];
+	//char temp[MAX_NAME];
+	cin.getline(temp, strMaxLim);
+	
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);
+	delete[] temp;
 	return str;
 }
 

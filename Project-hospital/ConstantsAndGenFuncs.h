@@ -10,8 +10,9 @@ using namespace std;
 #include "Date.h"
 
 #define MAX_MENU_OPTIONS 11
-
 #define MAX_NAME 100
+#define MAX_VISITATION_PURPOSE 150
+// Date MAX values:
 #define MAX_DAY 31
 #define MAX_MONTH 12
 #define MIN_YEAR 2000
