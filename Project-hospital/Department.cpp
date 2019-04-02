@@ -23,33 +23,38 @@ Department::~Department()
 
 bool Department::addPatient(Patient& patient)
 {
-	if (phySizeOfPatients == 0) //if the first researcher
-	{
-		patientsArr = new Patient*;
-		phySizeOfPatients++;
-	}
-	else if (logSizeOfPatients == phySizeOfPatients) //if there is no place in the array
-	{
-		phySizeOfPatients *= 2;
-		allocPatientsArr();  //to reallocte the array to the new size
-	}
-
-	if (logSizeOfPatients < phySizeOfPatients)
+	if (allocPatientsArr()) //to reallocte the array to the new size
 	{
 		patientsArr[logSizeOfPatients] = &patient;
 		logSizeOfPatients++;
+		return true;
 	}
-	return true;
+	else
+		return false;
 }
 
 bool Department::allocPatientsArr()
 {
-	Patient** newArr = new Patient*[phySizeOfPatients];
-	for (int i = 0; i < logSizeOfPatients; i++)
-		newArr[i] = patientsArr[i];
-	delete[]patientsArr;
-	patientsArr = newArr;
-	return true;
+	if (phySizeOfPatients == 0) // If this is the 1st Patient
+	{
+		patientsArr = new Patient*;
+		phySizeOfPatients++;
+		return true;
+	}
+	else if (logSizeOfPatients == phySizeOfPatients) //if there is no more room in the array
+	{
+		phySizeOfPatients *= 2;
+		Patient** newArr = new Patient*[phySizeOfPatients];
+		for (int i = 0; i < logSizeOfPatients; i++)
+		{
+			newArr[i] = patientsArr[i];
+		}
+		delete[] patientsArr;
+		patientsArr = newArr;
+		return true;
+	}
+	else
+		return true;
 }
 
 bool Department::addDoctor(Doctor& doc)
