@@ -181,15 +181,14 @@ void Hospital::showStaffMembers() const
 		}
 	}
 	else
-	{
 		cout << "There is no persons in the medical staff " << endl;
-		cout << "*******************************" << endl;
-	}
+	cout << "*******************************" << endl;
 }
 
 void Hospital::showResearchers() const
 {
 	researchInst.showResearchers();
+	cout << "********************************" << endl;
 }
 
 void Hospital::showPatientByID(char* inID) const

@@ -177,7 +177,13 @@ void Ui::start()
 		}
 		case 10:
 		{
-
+			char*id = getString("Please enter the ID of the patient");
+			Patient* patient = nullptr;
+			bool exist = hospital->getPatientByID(id, patient);
+			if (exist)
+			{
+				cout << "The name of the patient is: " << patient->getName() << endl;
+			}
 		}
 		default:
 		{
