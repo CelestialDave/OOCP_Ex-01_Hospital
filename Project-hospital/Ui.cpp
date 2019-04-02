@@ -120,7 +120,8 @@ void Ui::start()
 				break;
 			}
 
-			char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ", MAX_VISITATION_PURPOSE);
+			char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ");
+			// char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ", MAX_VISITATION_PURPOSE);
 
 		}
 		case 5:
@@ -244,20 +245,21 @@ Patient* Ui::createPatient()
 	return (new Patient(name, id, gen, yearOfBirth));
 }
 
-char* Ui::getString(const char* prompt = "", const int strMaxLim = MAX_NAME)
+char* Ui::getString(const char* prompt)
+
 {
 	if (strlen(prompt) > 0)
 		cout << prompt << endl;
 	
 	//cin.clear();
 	//cin.ignore(5, '\n');
-	char* temp = new char[strMaxLim];
-	//char temp[MAX_NAME];
-	cin.getline(temp, strMaxLim);
+	//char* temp = new char[MAX_NAME];
+	char temp[MAX_NAME];
+	cin.getline(temp, MAX_NAME);
 	
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);
-	delete[] temp;
+	//delete[] temp;
 	return str;
 }
 

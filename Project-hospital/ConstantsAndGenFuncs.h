@@ -7,8 +7,8 @@
 #include <iostream>
 using namespace std;
 
-//#include "Date.h"
-class Date;
+#include "Date.h"
+//class Date;
 
 #define MAX_MENU_OPTIONS 11
 #define MAX_NAME 100
