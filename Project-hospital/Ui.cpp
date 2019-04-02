@@ -189,7 +189,12 @@ void Ui::start()
 			if (exist)
 			{
 				cout << "The name of the patient is: " << patient->getName() << endl;
+				patient->showDepatmentsVisited();
 			}
+			else
+				cout << "Error, there is no patient with this id" << endl;
+			cout << "********************************" << endl;
+			break;
 		}
 		default:
 		{

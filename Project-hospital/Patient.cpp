@@ -1,5 +1,7 @@
 #include "Patient.h"
 
+#include "Department.h"
+
 Patient::Patient(const char* inName,const char* id ,enum eGender inGender, char* inDateOBirth)
 {
 	name = new char[strlen(inName) + 1];
@@ -123,7 +125,16 @@ void Patient:: showVisits()const
 		visits[i]->printVisitationPurpose();
 		cout<<endl;
 	}
+	cout << "****************************" << endl;
 }
+
+void Patient::showDepatmentsVisited() const
+{
+		cout<<(logsizeOfDepartments > 1 ? "The departments which visited are" : "The department the patient visited is") << endl;
+		for (int i = 0; i < logsizeOfDepartments; i++)
+			cout << departmentsVisited[i]->getName() << endl;
+}
+
 
 bool Patient::hasVisitedDepartment(Department& pDepartment) const
 {
