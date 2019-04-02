@@ -246,6 +246,8 @@ bool Hospital::getPatientByID(char* inID, Patient* resPatient)
 	return binSearchPatientByID(allPatients, logSizeOfPatients, inID, resPatient);
 }
 
+
+
 bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* resPat)
 {
 	Patient* midPat = arr[size / 2];
@@ -273,7 +275,69 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 	}
 }
 
+bool Hospital::veryfactionDoctorEmployeeId(const int& employeeID)
+{
+	return veryfactionDoctorEmployeeIdBinSearch(allDoctors,logSizeDoctors,employeeID);
+}
 
+bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const int &employeeID)
+{
+	Doctor* midDoc = arr[size / 2];
+	if (size == 1)
+	{
+		if (midDoc->getEmployeeIDNum() == employeeID) 
+			return true;
+		else 
+			return false;
+	}
+	else
+	{
+		if (midDoc->getEmployeeIDNum() == employeeID)
+			return true;
+		int mid = size / 2;
+		int firstSize = mid;
+		int secondSize = size - size / 2;
+		Doctor** firstArr = arr;
+		Doctor** secondArr = arr + mid;
+		if (midDoc->getEmployeeIDNum() > employeeID)
+			return veryfactionDoctorEmployeeIdBinSearch(firstArr, firstSize, employeeID);
+		else if(midDoc->getEmployeeIDNum() < employeeID)
+			return veryfactionDoctorEmployeeIdBinSearch(secondArr, secondSize, employeeID);
+		
+	}
+}
+
+bool Hospital::veryfactionNurseEmployeeId(const int& employeeID)
+{
+	return veryfactionNurseEmployeeIdBinSearch(allNurses, logSizeNurses, employeeID);
+}
+
+bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const int &employeeID)
+{
+	Nurse* midNurse = arr[size / 2];
+	if (size == 1)
+	{
+		if (midNurse->getEmployeeIDNum() == employeeID)
+			return true;
+		else
+			return false;
+	}
+	else
+	{
+		if (midNurse->getEmployeeIDNum() == employeeID)
+			return true;
+		int mid = size / 2;
+		int firstSize = mid;
+		int secondSize = size - size / 2;
+		Nurse** firstArr = arr;
+		Nurse** secondArr = arr + mid;
+		if (midNurse->getEmployeeIDNum() > employeeID)
+			return veryfactionNurseEmployeeIdBinSearch(firstArr, firstSize, employeeID);
+		else if (midNurse->getEmployeeIDNum() < employeeID)
+			return veryfactionNurseEmployeeIdBinSearch(secondArr, secondSize, employeeID);
+
+	}
+}
 int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
 {
 	for (int i = 0; i < logSizeOfDepartments; i++)

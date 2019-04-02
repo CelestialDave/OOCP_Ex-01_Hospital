@@ -1,7 +1,7 @@
 #ifndef Article__H
 #define Article__H
 
-//#include "Date.h"
+#include "Date.h"
 #include "ConstantsAndGenFuncs.h"
 
 
