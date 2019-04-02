@@ -1,7 +1,7 @@
 #include "Visitation_Record.h"
 
-VisitationRecord::VisitationRecord(Patient& inPatient,const char* inStaffMemInChargeName,
-	const Date inArrivalDate, const char* inVisitPurpose)
+VisitationRecord::VisitationRecord(Patient& inPatient, char* inStaffMemInChargeName,
+	Date& inArrivalDate, char* inVisitPurpose)
 {
 	patient = &inPatient;
 	staffMemInChargeName = new char[strlen(inStaffMemInChargeName) + 1];

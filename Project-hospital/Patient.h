@@ -3,7 +3,9 @@
 #include "Visitation_Record.h"
 //#include "Date.h"
 #include "ConstantsAndGenFuncs.h"
+//#include "Department.h"
 
+class Department;
 
 class Patient
 {
@@ -15,7 +17,7 @@ private:
 	VisitationRecord** visits;
 	int logSizeOfVisits;
 	int phySizeOfVisits;
-	char** departmentsVisited;
+	const Department** departmentsVisited;
 	int logsizeOfDepartments;
 	int phySizeOfDepartments;
 
@@ -30,16 +32,16 @@ public:
 
 	// Methods:
 	bool addVistation(VisitationRecord& newVisit);
-	void reallocationVisitationRecordArr();
-	void reallocationDepartmentsVisitedNameArr();
-	bool addDepatrtmentToDepList(const char* DepartmentName);
+	void reallocVisitsArr();
+	void reallocDepartmentsVisitedArr();
+	bool addDepatrtmentToPatient(const Department& pDepartment);
 	const char* getName()const;
 	const char* getId()const;
 	void showGender() const;
 	const char * getYearOfBirth() const;
 	void showVisits() const;
 
-	bool hasVisitedDepartment(const char* department) const;
+	bool hasVisitedDepartment(Department& pDepartment) const;
 };
 
 #endif
