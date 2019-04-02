@@ -93,7 +93,7 @@ void Ui::start()
 			cin >> depNum;
 			//
 			cin.ignore();
-			if ((depNum <= 0) || (depNum > hospital->getNumOfDepartments))
+			if ((depNum <= 0) || (depNum > hospital->getNumOfDepartments()))
 			{
 				cout << "Error: The Department number chosen is invalid!" << endl;
 				delete[] inID;
@@ -111,7 +111,7 @@ void Ui::start()
 
 			char* inDate = getString("Please provide the Patient's arrival date [DD/MM/YYYY]): ");
 			Date* arrivalDate = nullptr;
-			bool isValidDateInput = convertStrgDateToDateObj(inDate, arrivalDate);
+			bool isValidDateInput = convertStrDateToDateObj(inDate, arrivalDate);
 			if (!isValidDateInput)
 			{
 				cout << "Error: The input date is invalid!" << endl;
@@ -167,13 +167,15 @@ Article* Ui::createArticle()
 	char *magazineName = getString("Please enter the name of the magazine where the article was published");
 	char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
 	Date* date = nullptr;
-	bool ok = convertStrgDateToDateObj(strDate, date);
+	bool ok = convertStrDateToDateObj(strDate, date);
 	delete[]strDate;
 	if (ok)
-		return new Article(name, magazineName, date);
+		return new Article(name, magazineName, *date);
 	else
+	{
 		cout << "Error,the date is Invalid" << endl;
-
+		return nullptr;
+	}
 }
 
 Nurse* Ui::createNurse(bool& ok,int& indexOfTheRightInDepArr)

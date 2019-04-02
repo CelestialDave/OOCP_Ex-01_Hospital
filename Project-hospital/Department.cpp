@@ -144,9 +144,9 @@ void Department::showPatients() const
 		cout << "name: " <<patientsArr[i]->getName() << endl;
 		cout << "ID: " << patientsArr[i]->getId() << endl;
 		cout << "Gender: ";
-		patientsArr[i]->showGender;
+		patientsArr[i]->showGender();
 		cout << endl;
 		cout<<"Year of birth: "<< patientsArr[i]->getYearOfBirth() << endl;
-		patientsArr[i]->showVisits;
+		patientsArr[i]->showVisits();
 	}
 }

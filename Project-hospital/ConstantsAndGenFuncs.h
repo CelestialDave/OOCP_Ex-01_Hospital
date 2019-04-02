@@ -7,7 +7,8 @@
 #include <iostream>
 using namespace std;
 
-#include "Date.h"
+//#include "Date.h"
+class Date;
 
 #define MAX_MENU_OPTIONS 11
 #define MAX_NAME 100
@@ -18,7 +19,7 @@ using namespace std;
 #define MIN_YEAR 2000
 #define MAX_YEAR 2050
 
-bool convertStrgDateToDateObj(char* strDate, Date* resDate)
+bool convertStrDateToDateObj(char* strDate, Date* resDate)
 {
 	int day;
 	int month;

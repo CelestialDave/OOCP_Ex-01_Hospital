@@ -1,6 +1,6 @@
 #include "article.h"
 
-Article::Article(const char inName[MAX_NAME], char*inMagazineName, Date& inPublicitaion)
+Article::Article(const char* inName, char*inMagazineName, Date& inPublicitaion)
 {
 	name = new char[strlen(inName) + 1];
 	strcpy(name, inName);
@@ -37,6 +37,6 @@ const char* Article::getMagazineName() const
 }
 void Article::showDate() const
 {
-	publicationDate.showDate();
+	publicationDate->showDate();
 }
 
