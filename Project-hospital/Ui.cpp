@@ -1,6 +1,8 @@
 #include "Ui.h"
 #include "ConstantsAndGenFuncs.h"
+#include "Date.h"
 #include "Hospital.h"
+#include "Utils.h"
 
 
 Ui::Ui(Hospital *hos)
@@ -111,13 +113,18 @@ void Ui::start()
 
 			char* inDate = getString("Please provide the Patient's arrival date [DD/MM/YYYY]): ");
 			Date* arrivalDate = nullptr;
-			bool isValidDateInput = convertStrDateToDateObj(inDate, arrivalDate);
+			bool isValidDateInput = Utils::convertStrDateToDateObj(inDate, arrivalDate);
 			if (!isValidDateInput)
 			{
+				cout << "Error: The input date is invalid!" << endl;
 				delete[] inID;
 				delete[] inDate;
 				break;
 			}
+
+			char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ");
+			// char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ", MAX_VISITATION_PURPOSE);
+
 		}
 		case 5:
 		{
@@ -163,7 +170,7 @@ Article* Ui::createArticle()
 	char *magazineName = getString("Please enter the name of the magazine where the article was published");
 	char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
 	Date* date = nullptr;
-	bool ok = convertStrDateToDateObj(strDate, date);
+	bool ok = Utils::convertStrDateToDateObj(strDate, date);
 	delete[]strDate;
 	if (ok)
 	{
@@ -246,16 +253,21 @@ Patient* Ui::createPatient()
 	return (new Patient(name, id, gen, yearOfBirth));
 }
 
-char* Ui::getString(const char* prompt = "")
+char* Ui::getString(const char* prompt)
+
 {
 	if (strlen(prompt) > 0)
 		cout << prompt << endl;
-	char temp[MAX_NAME];
+	
 	//cin.clear();
 	//cin.ignore(5, '\n');
+	//char* temp = new char[MAX_NAME];
+	char temp[MAX_NAME];
 	cin.getline(temp, MAX_NAME);
+	
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);
+	//delete[] temp;
 	return str;
 }
 
