@@ -18,7 +18,7 @@ private:
 
 public:
 	// C'tor:
-	VisitationRecord(Patient& inPatient,const char* inStaffMemInChargeName, const Date inArrivalDate, const char* inVisitPurpose);
+	VisitationRecord(Patient& inPatient,char* inStaffMemInChargeName, Date& inArrivalDate, char* inVisitPurpose);
 	// Copy C'tor:
 	VisitationRecord(const VisitationRecord& other);
 	// D'tor:

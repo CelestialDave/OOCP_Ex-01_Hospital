@@ -108,9 +108,10 @@ void Ui::start()
 			Department* inDep = nullptr;
 			inDep = hospital->getDepartmentByIndex(depInd);
 			//const char* depName = hospital->getDepartmentNameByIndex(depInd);
-			if (!patient->hasVisitedDepartment(inDep->getName())) // Patient hasn't visited in this department
+			if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
 			{
 				inDep->addPatient(*patient);
+				patient->addDepatrtmentToPatient(*inDep);
 			}
 
 			char* inDate = getString("Please provide the Patient's arrival date [DD/MM/YYYY]): ");
@@ -126,7 +127,12 @@ void Ui::start()
 
 			char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ");
 			// char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ", MAX_VISITATION_PURPOSE);
+			char* visitPurpose = getString("Please provide the purpose of the Patient's Visit: ");
 
+			VisitationRecord* newVisit = new VisitationRecord(*patient, staffMemIncharge, *arrivalDate, visitPurpose);
+			patient->addVistation(*newVisit);
+
+			cout << "Your visitation has been added successfully." << endl;
 		}
 		case 5:
 		{
