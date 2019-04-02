@@ -233,7 +233,7 @@ bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, De
 		else if (res < 0)
 			return binDepartmentByName(arr, size / 2, depName, resDep);
 		else if (res > 0)
-			return binDepartmentByName(arr, size - (size / 2), depName, resDep);
+			return binDepartmentByName(arr+size/2, size - (size / 2), depName, resDep);
 	}
 }
 
