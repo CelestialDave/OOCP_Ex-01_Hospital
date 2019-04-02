@@ -166,9 +166,15 @@ Article* Ui::createArticle()
 	bool ok = convertStrDateToDateObj(strDate, date);
 	delete[]strDate;
 	if (ok)
+	{
+		delete[]name;
+		delete[]magazineName;
 		return new Article(name, magazineName, *date);
+	}
 	else
 	{
+		delete[]name;
+		delete[]magazineName;
 		cout << "Error,the date is Invalid" << endl;
 		return nullptr;
 	}

@@ -18,6 +18,6 @@ public:
 	Doctor* createDoctor(bool& ok, int& indexInDepArr);
 	int getInt(const char* str);
 	Nurse*createNurse(bool& ok, int& indexOfTheRightInDepArr);
-	Article* Ui::createArticle();
+	Article* createArticle();
 
 };
