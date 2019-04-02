@@ -164,17 +164,32 @@ bool Hospital::addPatient(Patient& inPatient, const char* inDep)
 	return true;
 }
 
+void Hospital::showPatientInSpecificDep(const int &index) const
+{
+	allDepartments[index]->showPatients();
+	cout << "****************************************" << endl;;
+
+}
+
 void Hospital::showStaffMembers() const
 {
-	for (int i = 0; i < logSizeOfDepartments; i++)
+	if (logSizeDoctors && logSizeNurses)
 	{
-		allDepartments[logSizeOfDepartments]->showStaffMembers();
+		for (int i = 0; i < logSizeOfDepartments; i++)
+		{
+			allDepartments[logSizeOfDepartments]->showStaffMembers();
+		}
+	}
+	else
+	{
+		cout << "There is no persons in the medical staff " << endl;
+		cout << "*******************************" << endl;
 	}
 }
 
 void Hospital::showResearchers() const
 {
-
+	researchInst.showResearchers();
 }
 
 void Hospital::showPatientByID(char* inID) const
@@ -307,7 +322,7 @@ bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const 
 	}
 }
 
-bool Hospital::veryfactionNurseEmployeeId(const int& employeeID)
+bool Hospital::veryfactionNurseEmployeeId(const int& employeeID) //check if id exist
 {
 	return veryfactionNurseEmployeeIdBinSearch(allNurses, logSizeNurses, employeeID);
 }

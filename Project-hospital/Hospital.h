@@ -66,7 +66,8 @@ public:
 	bool findResearcherAccordingToName(const char*name, Researcher*researcher);
 	bool addArticleToResearcher(Article & art, Researcher*researcher);
 
-	void showPatient() const;
+	//void showPatient() const;
+	void showPatientInSpecificDep(const int & index) const;
 	void showStaffMembers() const;
 	void showResearchers() const;
 	void showPatientByID(char* inID) const;

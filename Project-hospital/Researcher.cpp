@@ -53,14 +53,19 @@ const char* Researcher::getName() const
 
 void Researcher::showArticles() const
 {
-	for (int i = 0; i < logSizeOfArticles; i++)
+	if (logSizeOfArticles)
 	{
-		cout << "The name of the article is: " << articleStock[i]->getName() << " ";
-		cout << "The name of the magazine that include the article is: " << articleStock[i]->getMagazineName() << " ";
-		cout << "The publication date is: ";
-		articleStock[i]->showDate();
-		cout << endl;
+		for (int i = 0; i < logSizeOfArticles; i++)
+		{
+			cout << "The name of the article is: " << articleStock[i]->getName() << endl;
+			cout << "The name of the magazine that include the article is: " << articleStock[i]->getMagazineName() << endl;;
+			cout << "The publication date is: ";
+			articleStock[i]->showDate();
+		}
 	}
+	else
+		cout << "There is no article for this researcher" << endl;
+	cout << "****************************************" << endl;;
 }
 
 

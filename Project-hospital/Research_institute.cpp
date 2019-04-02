@@ -49,8 +49,11 @@ void ResearchInstitute::reallocationArr()
 void ResearchInstitute::showResearchers()  const
 {
 	for (int i = 0; i < logSizeOfResearchers; i++)
-		cout << allResearchers[i]->getName() << ",";
-	cout << endl;
+	{
+		cout << allResearchers[i]->getName() << endl;
+		allResearchers[i]->showArticles();
+	}
+	cout <<"*******************************"<< endl;
 }
 
 bool ResearchInstitute::getResearcherByName(const char*name, Researcher*researcher)

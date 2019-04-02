@@ -90,14 +90,14 @@ void Ui::start()
 			}
 
 			int depNum;
-			int depInd;
 			cout << "Please choose the Department number from the following list: " << endl;
 			hospital->showDepartments();
 			//char* inDepartment = getString();
 			cin >> depNum;
 			//
 			cin.ignore();
-			bool exist = Utils::ifIndexInRange(depNum, hospital->getNumOfDepartments());
+			int depInd = depNum - 1;
+			bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 			if (!exist)
 			{
 				cout << "Error: The Department number chosen is invalid!" << endl;
@@ -105,7 +105,6 @@ void Ui::start()
 				break;
 			}
 
-			depInd = depNum - 1;
 			Department* inDep = nullptr;
 			inDep = hospital->getDepartmentByIndex(depInd);
 			//const char* depName = hospital->getDepartmentNameByIndex(depInd);
@@ -150,6 +149,35 @@ void Ui::start()
 			else
 				cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
 			break;
+		}
+		case 7:
+		{
+			cout << "Please choose the Department number from the following list: " << endl;
+			hospital->showDepartments();
+			int depNum;
+			cin >> depNum;
+			cin.ignore();
+			int depInd = depNum - 1;
+			bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+			if (ok)
+				hospital->showPatientInSpecificDep(depInd);
+			else
+				cout << "Error: The Department number chosen is invalid!" << endl;
+			break;
+		}
+		case 8:
+		{
+			hospital->showStaffMembers(); 
+			break;
+		}
+		case 9:
+		{
+			hospital->showResearchers();
+			break;
+		}
+		case 10:
+		{
+
 		}
 		default:
 		{
@@ -203,11 +231,12 @@ bool Ui::createNurse(Nurse*nurse,int& indexOfTheRightInDepArr)
 		hospital->showDepartments();
 		cin >> depNum;
 		cin.ignore();
-		bool exist = Utils::ifIndexInRange(depNum, hospital->getNumOfDepartments());
+		int depInd = depNum - 1;
+		bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 		//check if the input of the department is correct
 		if (exist)
 		{
-			indexOfTheRightInDepArr = depNum - 1;
+			indexOfTheRightInDepArr = depInd;
 			nurse = new Nurse(name, employeeID, yearsExprience);
 			delete[]name;
 			return true;
@@ -251,10 +280,11 @@ bool Ui::createDoctor(Doctor* doctor, int& indexInDepArr)
 		hospital->showDepartments();
 		cin >> depNum;
 		cin.ignore();
-		bool exist = Utils::ifIndexInRange(depNum , hospital->getNumOfDepartments());
+		int depInd = depNum - 1;
+		bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 		if (exist)
 		{
-			indexInDepArr = depNum - 1;
+			indexInDepArr = depInd;
 			doctor = new Doctor(name, employeeID, specialty);
 			delete[]name;
 			delete[]specialty;
