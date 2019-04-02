@@ -135,32 +135,33 @@ bool Hospital::addNurse(Nurse& inNurse)
 
 bool Hospital::allocPatientsArr()
 {
-	Patient** newArr = new Patient*[phySizeOfPatients];
-	for (int i = 0; i < logSizeOfPatients; i++)
-		newArr[i] = allPatients[i];
-	delete[]allPatients;
-	allPatients = newArr;
-	return true;
+	if (phySizeOfPatients == 0) // If this is the 1st Patient
+	{
+		allPatients = new Patient*;
+		phySizeOfPatients++;
+		return true;
+	}
+	else if (logSizeOfPatients == phySizeOfPatients) //if there is no more room in the array
+	{
+		phySizeOfPatients *= 2;
+		Patient** newArr = new Patient*[phySizeOfPatients];
+		for (int i = 0; i < logSizeOfPatients; i++)
+		{
+			newArr[i] = allPatients[i];
+		}
+		delete[] allPatients;
+		allPatients = newArr;
+		return true;
+	}
+	else
+		return true;
 }
 
 bool Hospital::addPatient(Patient& inPatient, const char* inDep)
 {
-	if (phySizeOfPatients == 0) //if the first researcher
-	{
-		allPatients = new Patient*;
-		phySizeOfPatients++;
-	}
-	else if (logSizeOfPatients == phySizeOfPatients) //if there is no place in the array
-	{
-		phySizeOfPatients *= 2;
-		allocPatientsArr();  //to reallocte the array to the new size
-	}
-
-	if (logSizeOfPatients < phySizeOfPatients)
-	{
-		allPatients[logSizeOfPatients] = &inPatient;
-		logSizeOfPatients++;
-	}
+	allocPatientsArr();
+	allPatients[logSizeOfPatients] = &inPatient;
+	logSizeOfPatients++;
 	return true;
 }
 
@@ -257,7 +258,10 @@ int Hospital::getNumOfDepartments()
 
 bool Hospital::getPatientByID(char* inID, Patient* resPatient)
 {
-	return binSearchPatientByID(allPatients, logSizeOfPatients, inID, resPatient);
+	if (phySizeOfPatients == 0)
+		return false;
+	else
+		return binSearchPatientByID(allPatients, logSizeOfPatients, inID, resPatient);
 }
 
 
