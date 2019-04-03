@@ -174,7 +174,7 @@ void Hospital::showPatientInSpecificDep(const int &index) const
 
 void Hospital::showStaffMembers() const
 {
-	if (logSizeDoctors && logSizeNurses)
+	if (logSizeDoctors || logSizeNurses)
 	{
 		for (int i = 0; i < logSizeOfDepartments; i++)
 		{
@@ -279,7 +279,7 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 		}
 		else 
 			return false;
-		
+	
 	}
 	else
 	{
@@ -299,8 +299,13 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 
 bool Hospital::validationEmployeeId(const int& employeeID)
 {
-	bool existDocId= veryfactionDoctorEmployeeIdBinSearch(allDoctors,logSizeDoctors,employeeID);
-	return existDocId;
+	bool existDocId = false;
+	bool existNurseId = false;
+	if (logSizeDoctors)
+		existDocId = veryfactionDoctorEmployeeIdBinSearch(allDoctors, logSizeDoctors, employeeID);
+	if(logSizeNurses)
+		existNurseId= veryfactionNurseEmployeeIdBinSearch(allNurses, logSizeNurses, employeeID);
+	return (existDocId||existNurseId);
 }
 
 bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const int &employeeID)
