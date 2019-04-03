@@ -2,7 +2,7 @@
 #include "Date.h"
 #include "Utils.h"
 
-bool Utils::convertStrDateToDateObj(char* strDate, Date* resDate)
+bool Utils::convertStrDateToDateObj(char* strDate, Date** resDate)
 {
 	int day;
 	int month;
@@ -20,7 +20,7 @@ bool Utils::convertStrDateToDateObj(char* strDate, Date* resDate)
 	if ((day < 0) || (day > MAX_DAY) || (month < 0) || (month > MAX_MONTH) || (year < MIN_YEAR) || (year > MAX_YEAR))
 		return false;
 
-	resDate = new Date(day, month, year);
+	*resDate = new Date(day, month, year);
 	return true;
 }
 

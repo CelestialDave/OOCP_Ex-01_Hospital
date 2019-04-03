@@ -158,7 +158,7 @@ bool Hospital::allocPatientsArr()
 		return true;
 }
 
-bool Hospital::addPatient(Patient& inPatient, const char* inDep)
+bool Hospital::addPatient(Patient& inPatient)
 {
 	allocPatientsArr();
 	bool isValidIndex = false;
