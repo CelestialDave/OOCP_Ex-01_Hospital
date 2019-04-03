@@ -204,12 +204,10 @@ void Ui::start()
 		}
 		printTheOptionsForTheUser();
 		cin >> choise;
-		//
 		cin.ignore();
 	}
 
 	cout << "Thank you very much! Hope you enjoyed ;)" << endl;
-	//hospital->showStaffMembers();
 }
 
 Article* Ui::createArticle()
@@ -239,8 +237,8 @@ bool Ui::createNurse(Nurse*nurse,int& indexOfTheRightInDepArr)
 {
 	char*name = getString("Please enter the name of nurse");
 	int employeeID = getInt("choose your employeeID number");
-	bool ok = hospital->veryfactionDoctorEmployeeId(employeeID);
-	if (ok)
+	bool existID = hospital->validationEmployeeId(employeeID);
+	if (!existID)
 	{
 		int yearsExprience = getInt("How many years of exprience the nurse has?");
 		int depNum;
@@ -251,7 +249,7 @@ bool Ui::createNurse(Nurse*nurse,int& indexOfTheRightInDepArr)
 		int depInd = depNum - 1;
 		bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 		//check if the input of the department is correct
-		if (exist)
+		if (!exist)
 		{
 			indexOfTheRightInDepArr = depInd;
 			nurse = new Nurse(name, employeeID, yearsExprience);
@@ -288,8 +286,8 @@ bool Ui::createDoctor(Doctor* doctor, int& indexInDepArr)
 {
 	char* name = getString("Please enter the name of doctor");
 	int employeeID = getInt("choose your employeeID number");
-	bool ok = hospital->veryfactionDoctorEmployeeId(employeeID);
-	if (ok)
+	bool existID = hospital->validationEmployeeId(employeeID);
+	if (!existID)
 	{
 		char* specialty = getString("Please enter the specialty of the doctor");
 		int depNum;
