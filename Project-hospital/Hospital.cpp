@@ -192,10 +192,10 @@ void Hospital::showResearchers() const
 	cout << "********************************" << endl;
 }
 
-void Hospital::showPatientByID(char* inID) const
-{
-
-} 
+//void Hospital::showPatientByID(char* inID) const
+//{
+//
+//} 
 
 void Hospital::showDepartments() const
 {
@@ -333,6 +333,11 @@ bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const 
 			return veryfactionDoctorEmployeeIdBinSearch(secondArr, secondSize, employeeID);
 		
 	}
+}
+
+bool Hospital::veryfactionNurseEmployeeId(const int& employeeID) //check if id exist
+{
+	return veryfactionNurseEmployeeIdBinSearch(allNurses, logSizeNurses, employeeID);
 }
 
 bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const int &employeeID)

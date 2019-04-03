@@ -61,6 +61,7 @@ public:
 	bool addPatient(Patient& inPatient, const char* inDep);
 	bool getPatientByID(char* inID, Patient* resPatient);
 	bool binSearchPatientByID(Patient** arr, int size,char* id, Patient* resPat);
+	//int getIndexForPatientInsertion(char* id);
 
 	bool findResearcherAccordingToName(const char*name, Researcher*researcher);
 	bool addArticleToResearcher(Article & art, Researcher*researcher);
@@ -69,7 +70,7 @@ public:
 	void showPatientInSpecificDep(const int & index) const;
 	void showStaffMembers() const;
 	void showResearchers() const;
-	void showPatientByID(char* inID) const;
+	//void showPatientByID(char* inID) const;
 	void showDepartments() const;
 
 	int findTheIndexOfDepNameInDepArr(char*str) const;
