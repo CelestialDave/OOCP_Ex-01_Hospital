@@ -47,9 +47,8 @@ public:
 
 	bool getDepartmentByName(char* depName, Department* resDepartment);
 	Department* getDepartmentByIndex(int ind);
-	bool veryfactionDoctorEmployeeId(const int& employeeID);
+	bool validationEmployeeId(const int& employeeID);
 	bool veryfactionDoctorEmployeeIdBinSearch(Doctor**arr,int size, const int& employeeID);
-	bool veryfactionNurseEmployeeId(const int& employeeID);
 	bool veryfactionNurseEmployeeIdBinSearch(Nurse**arr, int size, const int& employeeID);
 
 

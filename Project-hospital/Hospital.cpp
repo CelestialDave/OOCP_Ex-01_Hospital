@@ -268,40 +268,45 @@ bool Hospital::getPatientByID(char* inID, Patient* resPatient)
 
 bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* resPat)
 {
-	Patient* midPat = arr[size / 2];
+	Patient* midPat = arr[size/2] ;
 	int res = strcmp(id, midPat->getId());
 	if (size == 1)
 	{
-		if (res == 0) {
+		if (res == 0) 
+		{
 			resPat = midPat;
 			return true;
 		}
-		else {
+		else 
 			return false;
-		}
+		
 	}
-	else {
+	else
+	{
+		int leftSize = size / 2;
+		int rightSize = size - leftSize - 1;
 		if (res == 0)
 		{
 			resPat = midPat;
 			return true;
 		}
-		else if (res < 0)
-			return binSearchPatientByID(arr, size / 2, id, resPat);
-		else if (res > 0)
-			return binSearchPatientByID(arr+size/2, size - (size / 2), id, resPat);
+		if (res < 0) // left side recursion
+			return binSearchPatientByID(arr, leftSize, id, resPat);
+		else if (res > 0) // right side recursion
+			return binSearchPatientByID(arr+leftSize+1, rightSize, id, resPat);
 	}
 }
 
-bool Hospital::veryfactionDoctorEmployeeId(const int& employeeID)
+bool Hospital::validationEmployeeId(const int& employeeID)
 {
-	return veryfactionDoctorEmployeeIdBinSearch(allDoctors,logSizeDoctors,employeeID);
+	bool existDocId= veryfactionDoctorEmployeeIdBinSearch(allDoctors,logSizeDoctors,employeeID);
+	return existDocId;
 }
 
 bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const int &employeeID)
 {
-	Doctor* midDoc = arr[size / 2];
-	if (size == 1)
+	Doctor* midDoc = allDoctors[logSizeDoctors / 2];
+	if (logSizeDoctors == 1)
 	{
 		if (midDoc->getEmployeeIDNum() == employeeID) 
 			return true;
@@ -312,11 +317,11 @@ bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const 
 	{
 		if (midDoc->getEmployeeIDNum() == employeeID)
 			return true;
-		int mid = size / 2;
+		int mid = logSizeDoctors / 2;
 		int firstSize = mid;
-		int secondSize = size - size / 2;
+		int secondSize = size - mid-1;
 		Doctor** firstArr = arr;
-		Doctor** secondArr = arr + mid;
+		Doctor** secondArr = arr + mid+1;
 		if (midDoc->getEmployeeIDNum() > employeeID)
 			return veryfactionDoctorEmployeeIdBinSearch(firstArr, firstSize, employeeID);
 		else if(midDoc->getEmployeeIDNum() < employeeID)
@@ -325,13 +330,10 @@ bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const 
 	}
 }
 
-bool Hospital::veryfactionNurseEmployeeId(const int& employeeID) //check if id exist
-{
-	return veryfactionNurseEmployeeIdBinSearch(allNurses, logSizeNurses, employeeID);
-}
-
 bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const int &employeeID)
 {
+	if (size == 0)
+		return false;
 	Nurse* midNurse = arr[size / 2];
 	if (size == 1)
 	{
@@ -346,9 +348,9 @@ bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const 
 			return true;
 		int mid = size / 2;
 		int firstSize = mid;
-		int secondSize = size - size / 2;
+		int secondSize = size - mid-1;
 		Nurse** firstArr = arr;
-		Nurse** secondArr = arr + mid;
+		Nurse** secondArr = arr + mid+1;
 		if (midNurse->getEmployeeIDNum() > employeeID)
 			return veryfactionNurseEmployeeIdBinSearch(firstArr, firstSize, employeeID);
 		else if (midNurse->getEmployeeIDNum() < employeeID)
