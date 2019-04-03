@@ -279,7 +279,6 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 		}
 		else 
 			return false;
-	
 	}
 	else
 	{
@@ -331,13 +330,7 @@ bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const 
 			return veryfactionDoctorEmployeeIdBinSearch(firstArr, firstSize, employeeID);
 		else if(midDoc->getEmployeeIDNum() < employeeID)
 			return veryfactionDoctorEmployeeIdBinSearch(secondArr, secondSize, employeeID);
-		
 	}
-}
-
-bool Hospital::veryfactionNurseEmployeeId(const int& employeeID) //check if id exist
-{
-	return veryfactionNurseEmployeeIdBinSearch(allNurses, logSizeNurses, employeeID);
 }
 
 bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const int &employeeID)
@@ -368,6 +361,7 @@ bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const 
 
 	}
 }
+
 int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
 {
 	for (int i = 0; i < logSizeOfDepartments; i++)
