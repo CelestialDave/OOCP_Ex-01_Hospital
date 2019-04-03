@@ -180,7 +180,7 @@ void Hospital::showPatientInSpecificDep(const int &index) const
 
 void Hospital::showStaffMembers() const
 {
-	if (logSizeDoctors && logSizeNurses)
+	if (logSizeDoctors || logSizeNurses)
 	{
 		for (int i = 0; i < logSizeOfDepartments; i++)
 		{
@@ -347,8 +347,13 @@ void Hospital::insertPatientToArrInIndex(Patient& newPatient, int index)
 
 bool Hospital::validationEmployeeId(const int& employeeID)
 {
-	bool existDocId= veryfactionDoctorEmployeeIdBinSearch(allDoctors,logSizeDoctors,employeeID);
-	return existDocId;
+	bool existDocId = false;
+	bool existNurseId = false;
+	if (logSizeDoctors)
+		existDocId = veryfactionDoctorEmployeeIdBinSearch(allDoctors, logSizeDoctors, employeeID);
+	if(logSizeNurses)
+		existNurseId= veryfactionNurseEmployeeIdBinSearch(allNurses, logSizeNurses, employeeID);
+	return (existDocId||existNurseId);
 }
 
 bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const int &employeeID)
@@ -374,13 +379,7 @@ bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const 
 			return veryfactionDoctorEmployeeIdBinSearch(firstArr, firstSize, employeeID);
 		else if(midDoc->getEmployeeIDNum() < employeeID)
 			return veryfactionDoctorEmployeeIdBinSearch(secondArr, secondSize, employeeID);
-		
 	}
-}
-
-bool Hospital::veryfactionNurseEmployeeId(const int& employeeID) //check if id exist
-{
-	return veryfactionNurseEmployeeIdBinSearch(allNurses, logSizeNurses, employeeID);
 }
 
 bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const int &employeeID)
@@ -411,6 +410,7 @@ bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const 
 
 	}
 }
+
 int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
 {
 	for (int i = 0; i < logSizeOfDepartments; i++)
