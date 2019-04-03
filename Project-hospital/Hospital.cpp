@@ -192,10 +192,10 @@ void Hospital::showResearchers() const
 	cout << "********************************" << endl;
 }
 
-void Hospital::showPatientByID(char* inID) const
-{
-
-} 
+//void Hospital::showPatientByID(char* inID) const
+//{
+//
+//} 
 
 void Hospital::showDepartments() const
 {
@@ -292,6 +292,11 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 			return binSearchPatientByID(arr+size/2, size - (size / 2), id, resPat);
 	}
 }
+
+//int Hospital::getIndexForPatientInsertion(char* id)
+//{
+//
+//}
 
 bool Hospital::veryfactionDoctorEmployeeId(const int& employeeID)
 {
