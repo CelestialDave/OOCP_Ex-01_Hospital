@@ -2,6 +2,7 @@
 #include "doctor.h"
 #include "nurse.h"
 #include "Patient.h"
+#include "Utils.h"
 
 // C'tor:
 Hospital::Hospital()
@@ -160,9 +161,14 @@ bool Hospital::allocPatientsArr()
 bool Hospital::addPatient(Patient& inPatient, const char* inDep)
 {
 	allocPatientsArr();
-	allPatients[logSizeOfPatients] = &inPatient;
-	logSizeOfPatients++;
-	return true;
+	bool isValidIndex = false;
+	int index = getIndexForPatientInsertion(inPatient.getId(), isValidIndex);
+	if ((index != -1) && (isValidIndex)) {
+		insertPatientToArrInIndex(inPatient, index);
+		return true;
+	}
+	else
+		return false;
 }
 
 void Hospital::showPatientInSpecificDep(const int &index) const
@@ -258,15 +264,20 @@ int Hospital::getNumOfDepartments()
 
 bool Hospital::getPatientByID(char* inID, Patient* resPatient)
 {
-	if (phySizeOfPatients == 0)
+	if (phySizeOfPatients == 0) // No patients available
 		return false;
 	else
-		return binSearchPatientByID(allPatients, logSizeOfPatients, inID, resPatient);
+	{
+		bool res = binSearchPatientByID(allPatients, logSizeOfPatients, inID, resPatient);
+		if (!res)
+			resPatient = nullptr;
+		return res;
+	}
 }
 
 
 
-bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* resPat)
+bool Hospital::binSearchPatientByID(Patient** arr, int size, const char* id, Patient* resPat)
 {
 	Patient* midPat = arr[size/2] ;
 	int res = strcmp(id, midPat->getId());
@@ -278,8 +289,13 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 			return true;
 		}
 		else 
+		{ 
+			if (res < 0)
+				resPat = midPat;
+			else // res > 0
+				resPat = midPat + 1;
 			return false;
-		
+		}
 	}
 	else
 	{
@@ -295,6 +311,38 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 		else if (res > 0) // right side recursion
 			return binSearchPatientByID(arr+leftSize+1, rightSize, id, resPat);
 	}
+}
+
+int Hospital::getIndexForPatientInsertion(const char* id, bool& validIndex)
+{
+	int index;
+	validIndex = false;
+	Patient* rightNeighbor = nullptr;
+	bool isFound = binSearchPatientByID(allPatients, logSizeOfPatients, id, rightNeighbor);
+	if (!isFound) {
+		index = (int)((rightNeighbor - *allPatients) / sizeof(Patient*));
+		if (Utils::ifIndexInRange(index,logSizeOfPatients))
+			validIndex = true;
+		return index;
+	}
+	else
+		return -1;
+}
+
+void Hospital::pushPatientsFwdFromIndex(int index)
+{
+	for (int i = logSizeOfPatients; i > index; i--) {
+		allPatients[i] = allPatients[i - 1];
+	}
+	allPatients[index] = nullptr;
+}
+
+void Hospital::insertPatientToArrInIndex(Patient& newPatient, int index)
+{
+	//allocPatientsArr();
+	pushPatientsFwdFromIndex(index);
+	allPatients[index] = &newPatient;
+	logSizeOfPatients++;
 }
 
 bool Hospital::validationEmployeeId(const int& employeeID)

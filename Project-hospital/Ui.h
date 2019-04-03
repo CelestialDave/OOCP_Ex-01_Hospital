@@ -14,7 +14,7 @@ public:
 	bool checkIfItFirstTimeInHospital() const;
 	enum eGender inputGender();
 	char* getString(const char* prompt);
-	Patient* createPatient();
+	Patient* createPatient(char* id);
 	bool createDoctor(Doctor* doctor, int& indexInDepArr);
 	int getInt(const char* str);
 	bool createNurse(Nurse*nurse, int& indexOfTheRightInDepArr);

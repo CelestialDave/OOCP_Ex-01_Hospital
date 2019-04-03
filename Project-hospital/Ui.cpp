@@ -76,7 +76,7 @@ void Ui::start()
 					break;
 				}
 				else {
-					patient = createPatient();
+					patient = createPatient(inID);
 				}
 			}
 			else //it is not the first visit
@@ -322,11 +322,11 @@ bool Ui::createDoctor(Doctor* doctor, int& indexInDepArr)
 	}
 }
 	
-Patient* Ui::createPatient()
+Patient* Ui::createPatient(char* id)
 {
 	const char* name = getString("Please enter the Patient's name: ");
 	eGender gen = inputGender();
-	const char* id = getString("Please enter the Patient's ID number: ");
+	//const char* id = getString("Please enter the Patient's ID number: ");
 	char* yearOfBirth = getString("Please enter the Patient's year of birth: ");
 	return (new Patient(name, id, gen, yearOfBirth));
 }
