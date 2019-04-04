@@ -96,14 +96,14 @@ void Ui::start()
 
 			if (isFirstTime) //this is the first visit in the hospital
 			{
-				if (isExists) // Shouldn't exist
+				if (isExists) // 1st time = Shouldn't exist
 				{ 
 					cout << "Error: A Patient with the given ID number already in the system." << endl;
 					delete[] inID;
 					break;
 				}
 				else {
-					patient = createPatient();
+					patient = createPatient(inID);
 				}
 			}
 			else //it is not the first visit
@@ -119,9 +119,7 @@ void Ui::start()
 			int depNum;
 			cout << "Please choose the Department number from the following list: " << endl;
 			hospital->showDepartments();
-			//char* inDepartment = getString();
 			cin >> depNum;
-			//
 			cin.ignore();
 			int depInd = depNum - 1;
 			bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
@@ -129,26 +127,24 @@ void Ui::start()
 			{
 				cout << "Error: The Department number chosen is invalid!" << endl;
 				delete[] inID;
+				if (!isExists)
+					delete patient;
 				break;
 			}
 
 			Department* inDep = nullptr;
 			inDep = hospital->getDepartmentByIndex(depInd);
-			//const char* depName = hospital->getDepartmentNameByIndex(depInd);
-			if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
-			{
-				inDep->addPatient(*patient);
-				patient->addDepatrtmentToPatient(*inDep);
-			}
 
 			char* inDate = getString("Please provide the Patient's arrival date [DD/MM/YYYY]): ");
 			Date* arrivalDate = nullptr;
-			bool isValidDateInput = Utils::convertStrDateToDateObj(inDate, arrivalDate);
+			bool isValidDateInput = Utils::convertStrDateToDateObj(inDate, &arrivalDate);
 			if (!isValidDateInput)
 			{
 				cout << "Error: The input date is invalid!" << endl;
 				delete[] inID;
 				delete[] inDate;
+				if (!isExists)
+					delete patient;
 				break;
 			}
 
@@ -158,6 +154,15 @@ void Ui::start()
 
 			VisitationRecord* newVisit = new VisitationRecord(*patient, staffMemIncharge, *arrivalDate, visitPurpose);
 			patient->addVistation(*newVisit);
+
+			// Adding Patient to relevant DB if required:
+			if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
+			{
+				inDep->addPatient(*patient);
+				patient->addDepatrtmentToPatient(*inDep);
+			}
+			if (isFirstTime)
+				hospital->addPatient(*patient);
 
 			cout << "Your visitation has been added successfully." << endl;
 			printSpaceLine();
@@ -291,11 +296,11 @@ Doctor* Ui::createDoctor(int employeeID)
 	return new Doctor(name, employeeID, specialty);
 }
 	
-Patient* Ui::createPatient()
+Patient* Ui::createPatient(char* id)
 {
 	const char* name = getString("Please enter the Patient's name: ");
 	eGender gen = inputGender();
-	const char* id = getString("Please enter the Patient's ID number: ");
+	//const char* id = getString("Please enter the Patient's ID number: ");
 	char* yearOfBirth = getString("Please enter the Patient's year of birth: ");
 	return (new Patient(name, id, gen, yearOfBirth));
 }

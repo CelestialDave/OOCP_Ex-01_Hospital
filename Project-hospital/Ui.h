@@ -14,7 +14,7 @@ public:
 	bool checkIfItFirstTimeInHospital() const;
 	enum eGender inputGender();
 	char* getString(const char* prompt);
-	Patient* createPatient();
+	Patient* createPatient(char* id);
 	Doctor* createDoctor(int employeeID);
 	int getInt(const char* str);
 	Nurse* createNurse(int employeeID);
