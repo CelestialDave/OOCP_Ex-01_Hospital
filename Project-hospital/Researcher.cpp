@@ -65,7 +65,6 @@ void Researcher::showArticles() const
 	}
 	else
 		cout << "There is no article for this researcher" << endl;
-	cout << "****************************************" << endl;;
 }
 
 

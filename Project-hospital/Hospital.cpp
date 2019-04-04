@@ -11,9 +11,7 @@ Hospital::Hospital()
 	logSizeOfPatients = phySizeDoctors = phySizeNurses = phySizeOfPatients = 0;
 }
 
-// D'tor:
-//
-//
+
 Hospital::~Hospital()
 {
 	for(int i=0;i<logSizeDoctors;i++)
@@ -168,28 +166,39 @@ bool Hospital::addPatient(Patient& inPatient, const char* inDep)
 void Hospital::showPatientInSpecificDep(const int &index) const
 {
 	allDepartments[index]->showPatients();
-	cout << "****************************************" << endl;;
-
 }
 
 void Hospital::showStaffMembers() const
 {
-	if (logSizeDoctors || logSizeNurses)
+	if (logSizeDoctors)
 	{
-		for (int i = 0; i < logSizeOfDepartments; i++)
+		cout << "The doctors " << (logSizeDoctors > 1 ? "are: " : "is: ")<<endl;
+		for (int i = 0; i < logSizeDoctors; i++)
 		{
-			allDepartments[logSizeOfDepartments]->showStaffMembers();
+			cout << i + 1 << ". " << "Name:" << allDoctors[i]->getName() << endl;
+			cout << "Employee ID number is: " << allDoctors[i]->getEmployeeIDNum() << endl;
+			cout<< "The specialty's doctor is: " << allDoctors[i]->getSpciality() << endl;
 		}
 	}
 	else
-		cout << "There is no persons in the medical staff " << endl;
-	cout << "*******************************" << endl;
+		cout << "There is no doctor in the medical staff " << endl;
+	if (logSizeNurses)
+	{
+		cout << "The nurses " << (logSizeNurses > 1? "are: " : "is: ");
+		for (int i = 0; i < logSizeNurses; i++)
+		{
+			cout << i + 1 << ". " << "Name:" << allNurses[i]->getName() << endl;
+			cout << "Employee ID number is: " << allNurses[i]->getEmployeeIDNum() << endl;
+			cout<<"Years of exprience: "<< allNurses[i]->getYearsOfExp() << endl;
+		}
+	}
+	else
+		cout << "There is no nurses in the medical staff"<< endl;
 }
 
 void Hospital::showResearchers() const
 {
 	researchInst.showResearchers();
-	cout << "********************************" << endl;
 }
 
 //void Hospital::showPatientByID(char* inID) const
@@ -289,9 +298,9 @@ bool Hospital::binSearchPatientByID(Patient** arr, int size, char* id, Patient* 
 			resPat = midPat;
 			return true;
 		}
-		if (res < 0) // left side recursion
+		else if (res < 0) // left side recursion
 			return binSearchPatientByID(arr, leftSize, id, resPat);
-		else if (res > 0) // right side recursion
+		else  // (res>0) right side recursion
 			return binSearchPatientByID(arr+leftSize+1, rightSize, id, resPat);
 	}
 }

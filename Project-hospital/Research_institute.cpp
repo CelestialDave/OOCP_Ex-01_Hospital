@@ -53,7 +53,6 @@ void ResearchInstitute::showResearchers()  const
 		cout << allResearchers[i]->getName() << endl;
 		allResearchers[i]->showArticles();
 	}
-	cout <<"*******************************"<< endl;
 }
 
 bool ResearchInstitute::getResearcherByName(const char*name, Researcher*researcher)

@@ -34,7 +34,6 @@ public:
 
 	// -- Methods --
 	void showPatients() const;
-	void showStaffMembers() const;
 
 	// Allocation of memory to Array:
 	bool allocPatientsArr();

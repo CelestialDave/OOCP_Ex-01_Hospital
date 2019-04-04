@@ -124,31 +124,6 @@ const char* Department:: getName() const
 	return name;
 }
 
-void Department::showStaffMembers() const
-{
-	if (logSizeOfDocs)
-	{
-		cout << "The doctors in " << name << (logSizeOfDocs > 1 ? "are" : "is") << endl;
-		for (int i = 0; i < logSizeOfDocs; i++)
-		{
-			cout << docsArr[i]->getName() << " " << docsArr[i]->getEmployeeIDNum()
-				<< " " << docsArr[i]->getSpciality() << endl;
-		}
-	}
-	else
-		cout << "There is no doctors in "<<name<< endl;
-	if (logSizeOfNurses)
-	{
-		cout << endl << "The nurses in " << name << (logSizeOfNurses > 1 ? "are" : "is") << endl;
-		for (int i = 0; i < logSizeOfNurses; i++)
-		{
-			cout << nursesArr[i]->getName() << " " << nursesArr[i]->getEmployeeIDNum() << " "
-				<< nursesArr[i]->getYearsOfExp() << endl;
-		}
-	}
-	else
-		cout << "There is no nurses in " <<name << endl;
-}
 
 void Department::showPatients() const
 {
