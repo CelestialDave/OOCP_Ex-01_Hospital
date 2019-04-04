@@ -36,9 +36,9 @@ public:
 	void showPatients() const;
 
 	// Allocation of memory to Array:
-	bool allocPatientsArr();
-	bool allocDocArr();
-	bool allocNursesArr();
+	void allocPatientsArr();
+	void allocDocArr();
+	void allocNursesArr();
 
 	// Add doctor to the list of doctors:
 	bool addDoctor(Doctor& doc);

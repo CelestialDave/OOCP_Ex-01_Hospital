@@ -21,11 +21,9 @@ public:
 	~ResearchInstitute();
 	bool addResearcher(Researcher& researcher);
 	void showResearchers()   const;
-	void reallocationArr();
+	void allocationResearchersArr();
 	bool addArticeToResearcher(Article& art, Researcher* researcher);
-	bool getResearcherByName(const char*name, Researcher*researcher);
-
-	bool binSearchResearcherByName(Researcher** arr, int size, const char* name,
-	Researcher* researcher);
+	Researcher* getResearcherByName(const char*name,bool&exist);
+	Researcher* binSearchResearcherByName(Researcher** arr, int size, const char* name,bool&exist);
 };
 #endif

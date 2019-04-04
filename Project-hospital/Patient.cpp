@@ -35,20 +35,21 @@ Patient::~Patient()
 
 bool Patient::addVistation(VisitationRecord& newVisit)
 {
-	reallocVisitsArr();
+	allocVisitsArr();
 	visits[logSizeOfVisits] = &newVisit;
 	logSizeOfVisits++;
 	return true;
 }
 
-void Patient::reallocVisitsArr()
+void Patient::allocVisitsArr()
 {
 	if (phySizeOfVisits == 0) // This is the 1st visit.
 	{
-		phySizeOfVisits++;
 		visits = new VisitationRecord*;
+		phySizeOfVisits++;
+
 	}
-	else if (logSizeOfVisits == phySizeOfDepartments) // no room left in visits arr
+	else if (logSizeOfVisits == phySizeOfVisits) // no room left in visits arr
 	{
 		phySizeOfVisits *= 2;
 		VisitationRecord** newArr = new VisitationRecord*[phySizeOfVisits];
@@ -65,13 +66,13 @@ void Patient::reallocVisitsArr()
 
 bool Patient::addDepatrtmentToPatient(const Department& pDepartment)
 {
-	reallocDepartmentsVisitedArr();
+	allocDepartmentsVisitedArr();
 	departmentsVisited[logsizeOfDepartments] = &pDepartment;
 	logsizeOfDepartments++;
 	return true;
 }
 
-void Patient::reallocDepartmentsVisitedArr()
+void Patient::allocDepartmentsVisitedArr()
 {
 	if (phySizeOfDepartments == 0) // If this is the 1st Department
 	{

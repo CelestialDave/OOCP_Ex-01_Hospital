@@ -22,7 +22,7 @@ public:
 	bool addArticle(Article& art);
 	const char* getName() const;
 	void showArticles() const;
-	void reallocationArr();
+	void allocationArticlesArr();
 
 };
 #endif 

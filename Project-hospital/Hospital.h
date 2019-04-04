@@ -32,10 +32,10 @@ public:
 
 	// Methods:
 	// Allocation of memory to Array:
-	bool allocDepartmentsArr();
-	bool allocPatientsArr();
-	bool allocDocArr();
-	bool allocNursesArr();
+	void allocDepartmentsArr();
+	void allocPatientsArr();
+	void allocDocArr();
+	void allocNursesArr();
 
 	bool addDepartment(Department& inDep);
 	bool addResearcher(Researcher& inResearcher);
@@ -65,7 +65,7 @@ public:
 	void insertPatientToArrInIndex(Patient& newPatient, int index);
 	void pushPatientsFwdFromIndex(int index);
 
-	bool findResearcherAccordingToName(const char*name, Researcher*researcher);
+	Researcher* findResearcherAccordingToName(const char*name,bool&exist);
 	bool addArticleToResearcher(Article & art, Researcher*researcher);
 
 	//void showPatient() const;

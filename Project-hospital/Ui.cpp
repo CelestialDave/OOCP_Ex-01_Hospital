@@ -181,8 +181,8 @@ void Ui::start()
 		case 6:
 		{
 			char*researcherName = getString("Which researcher would you like to add an article to?");
-			Researcher* researcher = nullptr;
-			bool exist = hospital->findResearcherAccordingToName(researcherName, researcher);
+			bool exist = false;
+			Researcher*researcher=hospital->findResearcherAccordingToName(researcherName,exist);
 			if (exist)
 			{
 				char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
@@ -265,27 +265,11 @@ void Ui::printSpaceLine() const
 	cout << "***************************************************************" << endl;
 }
 
-Article* Ui::createArticle(Date*date)
+Article* Ui::createArticle(Date* date)
 {
 	char *name = getString("Please enter the name of the article");
 	char *magazineName = getString("Please enter the name of the magazine where the article was published");
-	char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
-	Date* date = nullptr;
-	bool ok = Utils::convertStrDateToDateObj(strDate, date);
-	delete[]strDate;
-	if (ok)
-	{
-		delete[]name;
-		delete[]magazineName;
-		return new Article(name, magazineName, *date);
-	}
-	else
-	{
-		delete[]name;
-		delete[]magazineName;
-		cout << "Error,the date is Invalid" << endl;
-		return nullptr;
-	}
+	return new Article(name, magazineName,*date);
 }
 
 Nurse* Ui::createNurse(int employeeID)
@@ -343,34 +327,27 @@ enum eGender Ui::inputGender()
 {
 	int gen;
 	enum eGender gender;
-	cout << "please enter your male: male-press 1, female-press 0" << endl;
+	cout << "please enter your male: male-press 0, female-press 1" << endl;
 	cin >> gen;
-	//
 	cin.ignore();
 	gender = (eGender)gen;
 	return gender;
 }
-
 
 bool Ui::checkIfItFirstTimeInHospital() const
 {
 	bool res;
 	cout << "Is this your first visit in the hospital?  yes-press 1,no-press 0" << endl;
 	cin >> res;
-	//
 	cin.ignore();
 	return res;
 }
-
-
-
 
 int Ui::inputYearsOfExprience()const
 {
 	int yearsExp;
 	cout << "how many years of exprience she has?" << endl;
 	cin >> yearsExp;
-	//
 	cin.ignore();
 	return yearsExp;
 }

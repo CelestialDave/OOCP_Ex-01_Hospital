@@ -32,8 +32,8 @@ public:
 
 	// Methods:
 	bool addVistation(VisitationRecord& newVisit);
-	void reallocVisitsArr();
-	void reallocDepartmentsVisitedArr();
+	void allocVisitsArr();
+	void allocDepartmentsVisitedArr();
 	bool addDepatrtmentToPatient(const Department& pDepartment);
 	const char* getName()const;
 	const char* getId()const;
