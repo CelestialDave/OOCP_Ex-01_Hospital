@@ -269,7 +269,23 @@ Article* Ui::createArticle(Date*date)
 {
 	char *name = getString("Please enter the name of the article");
 	char *magazineName = getString("Please enter the name of the magazine where the article was published");
-	return new Article(name, magazineName, *date);
+	char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
+	Date* date = nullptr;
+	bool ok = Utils::convertStrDateToDateObj(strDate, date);
+	delete[]strDate;
+	if (ok)
+	{
+		delete[]name;
+		delete[]magazineName;
+		return new Article(name, magazineName, *date);
+	}
+	else
+	{
+		delete[]name;
+		delete[]magazineName;
+		cout << "Error,the date is Invalid" << endl;
+		return nullptr;
+	}
 }
 
 Nurse* Ui::createNurse(int employeeID)
