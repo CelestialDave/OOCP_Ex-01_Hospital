@@ -119,14 +119,13 @@ void Department::showPatients() const
 {
 	if (logSizeOfPatients > 0)
 	{
-		cout << "The patients in " << name << (logSizeOfPatients > 1 ? "are" : "is") << endl;
-		for (int i = 0; i < logSizeOfDocs; i++)
+		cout << "The patients in " << name << (logSizeOfPatients > 1 ? " are" : " is") << endl;
+		for (int i = 0; i < logSizeOfPatients; i++)
 		{
 			cout << "name: " << patientsArr[i]->getName() << endl;
 			cout << "ID: " << patientsArr[i]->getId() << endl;
 			cout << "Gender: ";
 			patientsArr[i]->showGender();
-			cout << endl;
 			cout << "Year of birth: " << patientsArr[i]->getYearOfBirth() << endl;
 			patientsArr[i]->showVisits();
 		}

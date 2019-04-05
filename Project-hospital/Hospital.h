@@ -42,8 +42,8 @@ public:
 	bool addDoctor(Doctor& inDoc);
 	bool addNurse(Nurse& inNurse);
 
-	bool addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
-	bool addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn);
+	void addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
+	void addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn);
 
 	bool getDepartmentByName(char* depName, Department* resDepartment);
 	Department* getDepartmentByIndex(int ind);
@@ -68,7 +68,7 @@ public:
 	void pushPatientsFwdFromIndex(int index);
 
 	Researcher* findResearcherAccordingToName(const char*name,bool&exist);
-	bool addArticleToResearcher(Article & art, Researcher*researcher);
+	void addArticleToResearcher(Article & art, Researcher*researcher);
 
 	//void showPatient() const;
 	void showPatientInSpecificDep(const int & index) const;

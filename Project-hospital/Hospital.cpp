@@ -358,63 +358,8 @@ int Hospital::binSearchPatientByID(char* inID)
 }
 
 
-//Patient* Hospital::binSearchPatientByID(Patient** arr, int size, const char* id, bool* isFound)
-//{
-//	Patient* midPat = arr[size/2];
-//	if (size == 0)
-//		return *arr;
-//	int res = strcmp(id, midPat->getId());
-//	if (size == 1)
-//	{
-//		
-//		if (res == 0) 
-//		{
-//			*isFound = true;
-//			return midPat;
-//		}
-//		else 
-//		{ 
-//			*isFound = false;
-//			if (res < 0)
-//				return midPat;
-//			else // res > 0
-//				return midPat + 1;
-//		}
-//	}
-//	else
-//	{
-//		int leftSize = size / 2;
-//		//int rightSize = size - leftSize - 1;
-//		int rightSize = size - leftSize;
-//		if (res == 0)
-//		{
-//			*isFound = true;
-//			return midPat;
-//		}
-//		rightSize--; // Going to ignore the mid patient in right size
-//		if (res < 0) // left side recursion
-//			return binSearchPatientByID(arr, leftSize, id, isFound);
-//		else if (res >= 0) // right side recursion
-//			//return binSearchPatientByID(arr+leftSize+1, rightSize, id, isFound);
-//			return binSearchPatientByID(arr+leftSize+1, rightSize, id, isFound);
-//	}
-//}
-
 int Hospital::getIndexForPatientInsertion(const char* id)
 {
-	/*int index;
-	validIndex = false;
-	
-	bool isFound = false;
-	Patient* rightNeighbor = binSearchPatientByID(allPatients, logSizeOfPatients, id, &isFound);
-	if (!isFound) {
-		index = (int)((rightNeighbor - *allPatients));
-		if (Utils::ifIndexInRange(index,logSizeOfPatients))
-			validIndex = true;
-		return index;
-	}
-	else
-		return -1;*/
 	bool isGreater = false;
 	for (int i = 0; i < logSizeOfPatients; i++)
 	{
@@ -425,7 +370,6 @@ int Hospital::getIndexForPatientInsertion(const char* id)
 		}
 	}
 	return logSizeOfPatients; // to be inserted last
-
 }
 
 void Hospital::pushPatientsFwdFromIndex(int index)
@@ -438,7 +382,6 @@ void Hospital::pushPatientsFwdFromIndex(int index)
 
 void Hospital::insertPatientToArrInIndex(Patient& newPatient, int index)
 {
-	//allocPatientsArr();
 	pushPatientsFwdFromIndex(index);
 	allPatients[index] = &newPatient;
 	logSizeOfPatients++;
@@ -514,16 +457,14 @@ int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
 	return -1;
 }
 
-bool Hospital:: addNurseToSpecificDepartment(Nurse & nurse, int indexToIn)
+void Hospital:: addNurseToSpecificDepartment(Nurse & nurse, int indexToIn)
 {
 	allDepartments[indexToIn]->addNurse(nurse);
-	return true;
 }
 
-bool Hospital::addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn)
+void Hospital::addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn)
 {
 	allDepartments[indexToIn]->addDoctor(doctor);
-	return true;
 
 }
 
@@ -532,9 +473,9 @@ Researcher* Hospital::findResearcherAccordingToName(const char*name, bool&exist)
 	return researchInst.getResearcherByName(name,exist);
 }
 
-bool Hospital::addArticleToResearcher(Article & art, Researcher*researcher)
+void Hospital::addArticleToResearcher(Article & art, Researcher*researcher)
 {
-	return researchInst.addArticeToResearcher(art, researcher);
+	researchInst.addArticeToResearcher(art, researcher);
 }
 
 
