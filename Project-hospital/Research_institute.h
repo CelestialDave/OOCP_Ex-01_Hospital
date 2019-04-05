@@ -22,7 +22,7 @@ public:
 	bool addResearcher(Researcher& researcher);
 	void showResearchers()   const;
 	void allocationResearchersArr();
-	bool addArticeToResearcher(Article& art, Researcher* researcher);
+	void addArticeToResearcher(Article& art, Researcher* researcher);
 	Researcher* getResearcherByName(const char*name,bool&exist);
 	Researcher* binSearchResearcherByName(Researcher** arr, int size, const char* name,bool&exist);
 };

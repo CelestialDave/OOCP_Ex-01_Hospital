@@ -31,10 +31,10 @@ public:
 	~Patient();
 
 	// Methods:
-	bool addVistation(VisitationRecord& newVisit);
+	void addVistation(VisitationRecord& newVisit);
 	void allocVisitsArr();
 	void allocDepartmentsVisitedArr();
-	bool addDepatrtmentToPatient(const Department& pDepartment);
+	void addDepatrtmentToPatient(const Department& pDepartment);
 	const char* getName()const;
 	const char* getId()const;
 	void showGender() const;

@@ -434,7 +434,6 @@ int Hospital::getIndexForPatientInsertion(const char* id)
 		}
 	}
 	return logSizeOfPatients; // to be inserted last
-
 }
 
 void Hospital::pushPatientsFwdFromIndex(int index)
@@ -522,16 +521,14 @@ int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
 	return -1;
 }
 
-bool Hospital:: addNurseToSpecificDepartment(Nurse & nurse, int indexToIn)
+void Hospital:: addNurseToSpecificDepartment(Nurse & nurse, int indexToIn)
 {
 	allDepartments[indexToIn]->addNurse(nurse);
-	return true;
 }
 
-bool Hospital::addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn)
+void Hospital::addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn)
 {
 	allDepartments[indexToIn]->addDoctor(doctor);
-	return true;
 
 }
 
@@ -540,9 +537,9 @@ Researcher* Hospital::findResearcherAccordingToName(const char*name, bool&exist)
 	return researchInst.getResearcherByName(name,exist);
 }
 
-bool Hospital::addArticleToResearcher(Article & art, Researcher*researcher)
+void Hospital::addArticleToResearcher(Article & art, Researcher*researcher)
 {
-	return researchInst.addArticeToResearcher(art, researcher);
+	researchInst.addArticeToResearcher(art, researcher);
 }
 
 

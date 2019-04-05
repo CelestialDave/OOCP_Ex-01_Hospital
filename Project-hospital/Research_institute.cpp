@@ -106,9 +106,9 @@ Researcher*  ResearchInstitute::binSearchResearcherByName(Researcher** arr,int s
 	}
 }
 
-bool ResearchInstitute::addArticeToResearcher(Article& art,Researcher* researcher)
+void ResearchInstitute::addArticeToResearcher(Article& art,Researcher* researcher)
 {
-	return (researcher->addArticle(art));
+	 researcher->addArticle(art);
 }
 
 

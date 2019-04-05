@@ -17,24 +17,11 @@ Researcher::~Researcher()
 	delete[]articleStock;
 }
 
-bool Researcher::addArticle(Article& art)
+void Researcher::addArticle(Article& art)
 {
-		if (phySizeOfArticles == 0) //if the first researcher
-		{
-			articleStock = new Article*;
-			phySizeOfArticles++;
-		}	
-		else if (logSizeOfArticles == phySizeOfArticles) //if there is no place in the array
-		{
-			phySizeOfArticles *= 2;
-			allocationArticlesArr();  //to reallocte the array to the new size
-		}
-		if (logSizeOfArticles < phySizeOfArticles)
-		{
-			articleStock[logSizeOfArticles] = &art;
-			logSizeOfArticles++;
-		}
-		return true;
+	allocationArticlesArr();
+	articleStock[logSizeOfArticles] = &art;
+	logSizeOfArticles++;
 }
 
 void Researcher:: allocationArticlesArr()

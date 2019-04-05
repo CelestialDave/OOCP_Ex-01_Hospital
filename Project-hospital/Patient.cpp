@@ -33,12 +33,11 @@ Patient::~Patient()
 	delete[]departmentsVisited;
 }
 
-bool Patient::addVistation(VisitationRecord& newVisit)
+void Patient::addVistation(VisitationRecord& newVisit)
 {
 	allocVisitsArr();
 	visits[logSizeOfVisits] = &newVisit;
 	logSizeOfVisits++;
-	return true;
 }
 
 void Patient::allocVisitsArr()
@@ -64,12 +63,11 @@ void Patient::allocVisitsArr()
 		return;
 }
 
-bool Patient::addDepatrtmentToPatient(const Department& pDepartment)
+void Patient::addDepatrtmentToPatient(const Department& pDepartment)
 {
 	allocDepartmentsVisitedArr();
 	departmentsVisited[logsizeOfDepartments] = &pDepartment;
 	logsizeOfDepartments++;
-	return true;
 }
 
 void Patient::allocDepartmentsVisitedArr()
@@ -116,17 +114,17 @@ const char* Patient::getYearOfBirth() const
 }
 void Patient:: showVisits()const
 {
+	cout << "visitaion:" << endl;
 	for (int i = 0; i < logSizeOfVisits; i++)
 	{ 
+		cout << i + 1 << "." << endl;
 		cout << "The staff member in charge is: " << visits[i]->getstaffMemInChargeName() << endl;
 		cout << "The arrival date is: ";
 		visits[i]->showDate();
-		cout << endl;
 		cout << "The visitiation purpose is: ";
 		visits[i]->printVisitationPurpose();
 		cout<<endl;
 	}
-	cout << "****************************" << endl;
 }
 
 void Patient::showDepatmentsVisited() const
