@@ -42,7 +42,7 @@ void ResearchInstitute::allocationResearchersArr()
 	if (phySizeOfResearchers == 0) // If this is the 1st Department
 	{
 		allResearchers = new Researcher*;
-		logSizeOfResearchers++;
+		phySizeOfResearchers++;
 	}
 	else if (logSizeOfResearchers == phySizeOfResearchers) //if there is no place in the array
 	{

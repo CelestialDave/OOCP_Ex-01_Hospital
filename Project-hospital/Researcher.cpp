@@ -42,7 +42,7 @@ void Researcher:: allocationArticlesArr()
 	if (phySizeOfArticles == 0) // If this is the 1st Department
 	{
 		articleStock = new Article*;
-		logSizeOfArticles++;
+		phySizeOfArticles++;
 	}
 	else if (logSizeOfArticles == phySizeOfArticles) //if there is no place in the array
 	{

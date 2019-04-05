@@ -129,7 +129,7 @@ void Hospital::allocNursesArr()
 	if (phySizeNurses == 0) // If this is the 1st Department
 	{
 		allNurses = new Nurse*;
-		logSizeNurses++;
+		phySizeNurses++;
 	}
 	else if (logSizeNurses == phySizeNurses) //if there is no place in the array
 	{
