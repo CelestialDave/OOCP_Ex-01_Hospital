@@ -39,7 +39,6 @@ public:
 
 	bool addDepartment(Department& inDep);
 	bool addResearcher(Researcher& inResearcher);
-	//bool addDoctor(Doctor& inDoc);
 	bool addNurse(Nurse& inNurse);
 
 	void addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
@@ -55,14 +54,13 @@ public:
 	int getNumOfDepartments();
 	bool binDepartmentByName(Department** arr, int size, char* depName, Department* resDep);
 
-	////////////////////////////////////////////
+	
 	void addDoctor(Doctor& inDoctor);
 	Doctor* getDoctorByID(int inID, bool* isFound);
 	int binSearchDoctorByID(int inID);
 	int getIndexForDoctorInsertion(int id);
 	void insertDoctorToArrInIndex(Doctor& newDoctor, int index);
 	void pushDoctorsFwdFromIndex(int index);
-	////////////////////////////////////////////
 
 	void addPatient(Patient& inPatient);
 	Patient* getPatientByID(char* inID, bool* isFound);
