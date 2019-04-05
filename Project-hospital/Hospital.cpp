@@ -114,29 +114,29 @@ void Hospital::addDoctor(Doctor& inDoctor)
 	insertDoctorToArrInIndex(inDoctor, index);
 }
 
-Doctor* Hospital::getDoctorByID(int inID, bool* isFound)
-{
-	int index;
-	if (phySizeDoctors == 0) // No Doctors available
-	{
-		*isFound = false;
-		return nullptr;
-	}
-	else
-	{
-		index = binSearchDoctorByID(inID);
-		if (index != -1)
-		{
-			*isFound = true;
-			return allDoctors[index];
-		}
-		else
-		{
-			*isFound = false;
-			return nullptr;
-		}
-	}
-}
+//Doctor* Hospital::getDoctorByID(int inID, bool* isFound)
+//{
+//	int index;
+//	if (phySizeDoctors == 0) // No Doctors available
+//	{
+//		*isFound = false;
+//		return nullptr;
+//	}
+//	else
+//	{
+//		index = binSearchDoctorByID(inID);
+//		if (index != -1)
+//		{
+//			*isFound = true;
+//			return allDoctors[index];
+//		}
+//		else
+//		{
+//			*isFound = false;
+//			return nullptr;
+//		}
+//	}
+//}
 
 
 int Hospital::binSearchDoctorByID(int inID)
@@ -215,25 +215,69 @@ void Hospital::allocNursesArr()
 		return;
 }
 
-bool Hospital::addNurse(Nurse& inNurse)
+void Hospital::addNurse(Nurse& inNurse)
 {
-	if (phySizeNurses == 0) //if the first researcher
+	int index;
+	allocNursesArr();
+	if (logSizeNurses == 0)
+		index = 0;
+	else
+		index = getIndexForNurseInsertion(inNurse.getEmployeeIDNum());
+
+	insertNurseToArrInIndex(inNurse, index);
+}
+
+int Hospital::binSearchNurseByID(int inID)
+{
+	int left = 0;
+	int right = logSizeNurses - 1;
+	while (left <= right)
 	{
-		allNurses = new Nurse*;
-		phySizeNurses++;
-	}
-	else if (logSizeNurses == phySizeNurses) //if there is no place in the array
-	{
-		phySizeNurses *= 2;
-		allocNursesArr();  //to reallocte the array to the new size
+		int mid = left + (right - left) / 2;
+
+		int res = (inID - allNurses[mid]->getEmployeeIDNum());
+		if (res == 0) // found the index
+			return mid;
+
+		if (res > 0) // go right
+			left = mid + 1;
+
+		else // (res < 0) => go left
+			right = mid - 1;
 	}
 
-	if (logSizeNurses < phySizeNurses)
+	// Not found:
+	return -1;
+}
+
+int Hospital::getIndexForNurseInsertion(int id)
+{
+	bool isGreater = false;
+	for (int i = 0; i < logSizeNurses; i++)
 	{
-		allNurses[logSizeNurses] = &inNurse;
-		logSizeNurses++;
+		isGreater = (allNurses[i]->getEmployeeIDNum() > id);
+		if (isGreater) // Found the member to be on the right
+		{
+			return i;
+		}
 	}
-	return true;
+	return logSizeNurses; // to be inserted last
+
+}
+
+void Hospital::pushNursesFwdFromIndex(int index)
+{
+	for (int i = logSizeNurses; i > index; i--) {
+		allNurses[i] = allNurses[i - 1];
+	}
+	allNurses[index] = nullptr;
+}
+
+void Hospital::insertNurseToArrInIndex(Nurse& newNurse, int index)
+{
+	pushNursesFwdFromIndex(index);
+	allNurses[index] = &newNurse;
+	logSizeNurses++;
 }
 
 
@@ -285,7 +329,8 @@ void Hospital::showStaffMembers() const
 		cout << "The doctors " << (logSizeDoctors > 1 ? "are: " : "is: ")<<endl;
 		for (int i = 0; i < logSizeDoctors; i++)
 		{
-			cout << i + 1 << ". " << "Name:" << allDoctors[i]->getName() << endl;
+			cout << i + 1 << ". " << endl;
+			cout<< "Name:" << allDoctors[i]->getName() << endl;
 			cout << "Employee ID number is: " << allDoctors[i]->getEmployeeIDNum() << endl;
 			cout<< "The specialty's doctor is: " << allDoctors[i]->getSpciality() << endl;
 		}
@@ -297,7 +342,8 @@ void Hospital::showStaffMembers() const
 		cout << "The nurses " << (logSizeNurses > 1? "are: " : "is: ");
 		for (int i = 0; i < logSizeNurses; i++)
 		{
-			cout << i + 1 << ". " << "Name:" << allNurses[i]->getName() << endl;
+			cout << i + 1 << ". " << endl;
+			cout<< "Name:" << allNurses[i]->getName() << endl;
 			cout << "Employee ID number is: " << allNurses[i]->getEmployeeIDNum() << endl;
 			cout<<"Years of exprience: "<< allNurses[i]->getYearsOfExp() << endl;
 		}

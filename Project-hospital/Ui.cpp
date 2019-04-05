@@ -15,7 +15,6 @@ void Ui::start()
 	printTheOptionsForTheUser();
 	int choise;
 	cin >> choise;
-	//
 	cin.ignore();
 	while (choise != MAX_MENU_OPTIONS)
 	{

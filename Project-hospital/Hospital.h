@@ -40,7 +40,7 @@ public:
 	bool addDepartment(Department& inDep);
 	bool addResearcher(Researcher& inResearcher);
 	//bool addDoctor(Doctor& inDoc);
-	bool addNurse(Nurse& inNurse);
+	
 
 	void addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
 	void addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn);
@@ -54,10 +54,15 @@ public:
 	const char * getDepartmentNameByIndex(int ind);
 	int getNumOfDepartments();
 	bool binDepartmentByName(Department** arr, int size, char* depName, Department* resDep);
-
+	////////////////////////////////////////////
+	void insertNurseToArrInIndex(Nurse& newNurse, int index);
+	void pushNursesFwdFromIndex(int index);
+	int getIndexForNurseInsertion(int id);
+	int binSearchNurseByID(int inID);
+	void addNurse(Nurse& inNurse);
 	////////////////////////////////////////////
 	void addDoctor(Doctor& inDoctor);
-	Doctor* getDoctorByID(int inID, bool* isFound);
+	//Doctor* getDoctorByID(int inID, bool* isFound); 
 	int binSearchDoctorByID(int inID);
 	int getIndexForDoctorInsertion(int id);
 	void insertDoctorToArrInIndex(Doctor& newDoctor, int index);
