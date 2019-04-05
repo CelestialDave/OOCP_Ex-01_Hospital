@@ -138,12 +138,11 @@ void Patient::showDepatmentsVisited() const
 
 bool Patient::hasVisitedDepartment(Department& pDepartment) const
 {
-	bool res = false;
 	for (int i = 0; i < logsizeOfDepartments; i++)
 	{
 		if (&pDepartment == departmentsVisited[i])
-			res = true;
+			return true;
 	}
-	return res;
+	return false;
 }
 

@@ -87,11 +87,12 @@ void Ui::start()
 		}
 		case 4:	// Add Visitation
 		{
-			Patient* patient = nullptr;
+			
 			Department* department = nullptr;
 			char* inID = getString("Please provide the Patient's ID number: ");
 			bool isFirstTime = checkIfItFirstTimeInHospital();
-			bool isExists = hospital->getPatientByID(inID, patient);
+			bool isExists = false;
+			Patient* patient = hospital->getPatientByID(inID, &isExists);
 
 			if (isFirstTime) //this is the first visit in the hospital
 			{
@@ -164,6 +165,7 @@ void Ui::start()
 				hospital->addPatient(*patient);
 
 			cout << "Your visitation has been added successfully." << endl;
+			break;
 		}
 		case 5:
 		{
@@ -215,9 +217,9 @@ void Ui::start()
 		case 10:
 		{
 			char*id = getString("Please enter the ID of the patient");
-			Patient* patient = nullptr;
-			bool exist = hospital->getPatientByID(id, patient);
-			if (exist)
+			bool isExists = false;
+			Patient* patient = hospital->getPatientByID(id, &isExists);
+			if (isExists)
 			{
 				cout << "The name of the patient is: " << patient->getName() << endl;
 				patient->showDepatmentsVisited();

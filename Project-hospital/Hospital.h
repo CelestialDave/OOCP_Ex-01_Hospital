@@ -58,10 +58,12 @@ public:
 	int getNumOfDepartments();
 	bool binDepartmentByName(Department** arr, int size, char* depName, Department* resDep);
 
-	bool addPatient(Patient& inPatient);
-	bool getPatientByID(char* inID, Patient* resPatient);
-	bool binSearchPatientByID(Patient** arr, int size,const char* id, Patient* resPat);
-	int getIndexForPatientInsertion(const char* id, bool& validIndex);
+	void addPatient(Patient& inPatient);
+	Patient* getPatientByID(char* inID, bool* isFound);
+	//bool binSearchPatientByID(Patient** arr, int size,const char* id, Patient* resPat);
+	int binSearchPatientByID(char* inID);
+	//Patient* binSearchPatientByID(Patient** arr, int size, const char* id, bool* isFound);
+	int getIndexForPatientInsertion(const char* id);
 	void insertPatientToArrInIndex(Patient& newPatient, int index);
 	void pushPatientsFwdFromIndex(int index);
 

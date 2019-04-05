@@ -158,17 +158,16 @@ bool Hospital::allocPatientsArr()
 		return true;
 }
 
-bool Hospital::addPatient(Patient& inPatient)
+void Hospital::addPatient(Patient& inPatient)
 {
+	int index;
 	allocPatientsArr();
-	bool isValidIndex = false;
-	int index = getIndexForPatientInsertion(inPatient.getId(), isValidIndex);
-	if ((index != -1) && (isValidIndex)) {
-		insertPatientToArrInIndex(inPatient, index);
-		return true;
-	}
-	else
-		return false;
+	if (logSizeOfPatients == 0)
+		index = 0;
+	else 
+		 index = getIndexForPatientInsertion(inPatient.getId());
+
+	insertPatientToArrInIndex(inPatient, index);
 }
 
 void Hospital::showPatientInSpecificDep(const int &index) const
@@ -262,71 +261,123 @@ int Hospital::getNumOfDepartments()
 	return logSizeOfDepartments;
 }
 
-bool Hospital::getPatientByID(char* inID, Patient* resPatient)
-{
-	if (phySizeOfPatients == 0) // No patients available
-		return false;
-	else
-	{
-		bool res = binSearchPatientByID(allPatients, logSizeOfPatients, inID, resPatient);
-		if (!res)
-			resPatient = nullptr;
-		return res;
-	}
-}
-
-
-
-bool Hospital::binSearchPatientByID(Patient** arr, int size, const char* id, Patient* resPat)
-{
-	Patient* midPat = arr[size/2] ;
-	int res = strcmp(id, midPat->getId());
-	if (size == 1)
-	{
-		if (res == 0) 
-		{
-			resPat = midPat;
-			return true;
-		}
-		else 
-		{ 
-			if (res < 0)
-				resPat = midPat;
-			else // res > 0
-				resPat = midPat + 1;
-			return false;
-		}
-	}
-	else
-	{
-		int leftSize = size / 2;
-		int rightSize = size - leftSize - 1;
-		if (res == 0)
-		{
-			resPat = midPat;
-			return true;
-		}
-		if (res < 0) // left side recursion
-			return binSearchPatientByID(arr, leftSize, id, resPat);
-		else if (res > 0) // right side recursion
-			return binSearchPatientByID(arr+leftSize+1, rightSize, id, resPat);
-	}
-}
-
-int Hospital::getIndexForPatientInsertion(const char* id, bool& validIndex)
+Patient* Hospital::getPatientByID(char* inID, bool* isFound)
 {
 	int index;
+	if (phySizeOfPatients == 0) // No patients available
+	{
+		*isFound = false;
+		return nullptr;
+	}
+	else
+	{
+		 index = binSearchPatientByID(inID);
+		 if (index != -1)
+		 {
+			 *isFound = true;
+			 return allPatients[index];
+		 }
+		 else
+		 {
+			 *isFound = false;
+			 return nullptr;
+		 }
+	}
+}
+
+
+int Hospital::binSearchPatientByID(char* inID)
+{
+	int left = 0;
+	int right = logSizeOfPatients - 1;
+	while (left <= right)
+	{
+		int mid = left + (right - left) / 2;
+
+		int res = (atoi(inID) - atoi(allPatients[mid]->getId()));
+		if (res == 0) // found the index
+			return mid;
+
+		if (res > 0) // go right
+			left = mid + 1;
+
+		else // (res < 0) => go left
+			right = mid - 1;
+	}
+
+	// Not found:
+	return -1;
+}
+
+
+//Patient* Hospital::binSearchPatientByID(Patient** arr, int size, const char* id, bool* isFound)
+//{
+//	Patient* midPat = arr[size/2];
+//	if (size == 0)
+//		return *arr;
+//	int res = strcmp(id, midPat->getId());
+//	if (size == 1)
+//	{
+//		
+//		if (res == 0) 
+//		{
+//			*isFound = true;
+//			return midPat;
+//		}
+//		else 
+//		{ 
+//			*isFound = false;
+//			if (res < 0)
+//				return midPat;
+//			else // res > 0
+//				return midPat + 1;
+//		}
+//	}
+//	else
+//	{
+//		int leftSize = size / 2;
+//		//int rightSize = size - leftSize - 1;
+//		int rightSize = size - leftSize;
+//		if (res == 0)
+//		{
+//			*isFound = true;
+//			return midPat;
+//		}
+//		rightSize--; // Going to ignore the mid patient in right size
+//		if (res < 0) // left side recursion
+//			return binSearchPatientByID(arr, leftSize, id, isFound);
+//		else if (res >= 0) // right side recursion
+//			//return binSearchPatientByID(arr+leftSize+1, rightSize, id, isFound);
+//			return binSearchPatientByID(arr+leftSize+1, rightSize, id, isFound);
+//	}
+//}
+
+int Hospital::getIndexForPatientInsertion(const char* id)
+{
+	/*int index;
 	validIndex = false;
-	Patient* rightNeighbor = nullptr;
-	bool isFound = binSearchPatientByID(allPatients, logSizeOfPatients, id, rightNeighbor);
+	
+	bool isFound = false;
+	Patient* rightNeighbor = binSearchPatientByID(allPatients, logSizeOfPatients, id, &isFound);
 	if (!isFound) {
-		index = (int)((rightNeighbor - *allPatients) / sizeof(Patient*));
+		index = (int)((rightNeighbor - *allPatients));
 		if (Utils::ifIndexInRange(index,logSizeOfPatients))
 			validIndex = true;
 		return index;
 	}
 	else
-		return -1;
+		return -1;*/
+	bool isGreater = false;
+	for (int i = 0; i < logSizeOfPatients; i++)
+	{
+		isGreater = (atoi(allPatients[i]->getId()) > atoi(id));
+		if (isGreater) // Found the member to be on the right
+		{
+			return i;
+		}
+	}
+	return logSizeOfPatients; // to be inserted last
+
 }
 
 void Hospital::pushPatientsFwdFromIndex(int index)
