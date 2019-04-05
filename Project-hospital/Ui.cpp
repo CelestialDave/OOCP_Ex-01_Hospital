@@ -27,12 +27,11 @@ void Ui::start()
 			Department* department = new Department(name);
 			hospital->addDepartment(*department); //add to the departments array
 			delete[] name;
+			printSpaceLine();
 			break;
 		}
 		case 2:   //add a nurse
 		{
-			bool ok;
-			int indexOfTheRightInDepArr;
 			int employeeID = getInt("choose your employeeID number");
 			bool existID = hospital->validationEmployeeId(employeeID);
 			if (!existID)
@@ -43,8 +42,8 @@ void Ui::start()
 				cin >> depNum;
 				cin.ignore();
 				int depInd = depNum - 1;
-				bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-				if (exist)
+				bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+				if (existDep)
 				{
 					Nurse*nurse = createNurse(employeeID);
 					hospital->addNurse(*nurse);
@@ -55,7 +54,8 @@ void Ui::start()
 			}
 			else
 				cout << "Error,this employee ID number already exist" << endl;
-					break;
+			printSpaceLine();
+			break;
 		}
 		case 3: //add doctor to the hospital
 		{
@@ -69,8 +69,8 @@ void Ui::start()
 				cin >> depNum;
 				cin.ignore();
 				int depInd = depNum - 1;
-				bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-				if (exist)
+				bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+				if (existDep)
 				{
 					Doctor*doctor=createDoctor(employeeID);
 					hospital->addDoctor(*doctor);
@@ -83,6 +83,7 @@ void Ui::start()
 			}
 			else
 				cout << "Error,this employee ID number already exist" << endl;
+			printSpaceLine();
 			break;
 		}
 		case 4:	// Add Visitation
@@ -165,7 +166,9 @@ void Ui::start()
 				hospital->addPatient(*patient);
 
 			cout << "Your visitation has been added successfully." << endl;
+			printSpaceLine();
 			break;
+
 		}
 		case 5:
 		{
@@ -173,20 +176,32 @@ void Ui::start()
 			Researcher* researcher = new Researcher(name);
 			hospital->addResearcher(*researcher);
 			delete[]name;
+			printSpaceLine();
 			break;
 		}
 		case 6:
 		{
 			char*researcherName = getString("Which researcher would you like to add an article to?");
-			Researcher* researcher = nullptr;
-			bool exist = hospital->findResearcherAccordingToName(researcherName, researcher);
+			bool exist = false;
+			Researcher*researcher=hospital->findResearcherAccordingToName(researcherName,exist);
 			if (exist)
 			{
-				Article * article = createArticle();
-				hospital->addArticleToResearcher(*article, researcher);
+				char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
+				Date* date = nullptr;
+				bool okDate = Utils::convertStrDateToDateObj(strDate, &date);
+				if (okDate)
+				{
+					Article * article = createArticle(date);
+					hospital->addArticleToResearcher(*article, researcher);
+				}
+				else
+					cout << "Error,the date is Invalid" << endl;
+				delete[]strDate;
 			}
 			else
 				cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
+			delete[]researcherName;
+			printSpaceLine();
 			break;
 		}
 		case 7:
@@ -202,16 +217,19 @@ void Ui::start()
 				hospital->showPatientInSpecificDep(depInd);
 			else
 				cout << "Error: The Department number chosen is invalid!" << endl;
+			printSpaceLine();
 			break;
 		}
 		case 8:
 		{
 			hospital->showStaffMembers(); 
+			printSpaceLine();
 			break;
 		}
 		case 9:
 		{
 			hospital->showResearchers();
+			printSpaceLine();
 			break;
 		}
 		case 10:
@@ -226,7 +244,7 @@ void Ui::start()
 			}
 			else
 				cout << "Error, there is no patient with this id" << endl;
-			cout << "********************************" << endl;
+			printSpaceLine();
 			break;
 		}
 		default:
@@ -243,27 +261,16 @@ void Ui::start()
 	cout << "Thank you very much! Hope you enjoyed ;)" << endl;
 }
 
-Article* Ui::createArticle()
+void Ui::printSpaceLine() const
+{
+	cout << "***************************************************************" << endl;
+}
+
+Article* Ui::createArticle(Date* date)
 {
 	char *name = getString("Please enter the name of the article");
 	char *magazineName = getString("Please enter the name of the magazine where the article was published");
-	char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
-	Date* date = nullptr;
-	bool ok = Utils::convertStrDateToDateObj(strDate, &date);
-	delete[]strDate;
-	if (ok)
-	{
-		delete[]name;
-		delete[]magazineName;
-		return new Article(name, magazineName, *date);
-	}
-	else
-	{
-		delete[]name;
-		delete[]magazineName;
-		cout << "Error,the date is Invalid" << endl;
-		return nullptr;
-	}
+	return new Article(name, magazineName,*date);
 }
 
 Nurse* Ui::createNurse(int employeeID)
@@ -279,7 +286,6 @@ int Ui::getInt(const char* str)
 	int num;
 	cout << str << endl;
 	cin >> num;
-	//
 	cin.ignore();
 	return num;
 
@@ -322,34 +328,27 @@ enum eGender Ui::inputGender()
 {
 	int gen;
 	enum eGender gender;
-	cout << "please enter your male: male-press 1, female-press 0" << endl;
+	cout << "please enter your male: male-press 0, female-press 1" << endl;
 	cin >> gen;
-	//
 	cin.ignore();
 	gender = (eGender)gen;
 	return gender;
 }
-
 
 bool Ui::checkIfItFirstTimeInHospital() const
 {
 	bool res;
 	cout << "Is this your first visit in the hospital?  yes-press 1,no-press 0" << endl;
 	cin >> res;
-	//
 	cin.ignore();
 	return res;
 }
-
-
-
 
 int Ui::inputYearsOfExprience()const
 {
 	int yearsExp;
 	cout << "how many years of exprience she has?" << endl;
 	cin >> yearsExp;
-	//
 	cin.ignore();
 	return yearsExp;
 }

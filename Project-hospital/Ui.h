@@ -18,7 +18,8 @@ public:
 	Doctor* createDoctor(int employeeID);
 	int getInt(const char* str);
 	Nurse* createNurse(int employeeID);
-	Article* createArticle();
+	Article* createArticle(Date*date);
+	void printSpaceLine() const;
 
 
 };

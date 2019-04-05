@@ -26,7 +26,7 @@ bool ResearchInstitute::addResearcher(Researcher& researcher)
 	else if (logSizeOfResearchers == phySizeOfResearchers) //if there is no place in the array
 	{
 		phySizeOfResearchers *= 2;
-		reallocationArr();  //to reallocte the array to the new size
+		allocationResearchersArr();  //to reallocte the array to the new size
 	}
 
 	if (logSizeOfResearchers < phySizeOfResearchers)
@@ -37,13 +37,26 @@ bool ResearchInstitute::addResearcher(Researcher& researcher)
 	return true;
 }
 
-void ResearchInstitute::reallocationArr()
+void ResearchInstitute::allocationResearchersArr()
 {
-	Researcher** newArr = new Researcher*[phySizeOfResearchers];
-	for (int i = 0; i < logSizeOfResearchers; i++)
-		newArr[i] = allResearchers[i];
-	delete[]allResearchers;
-	allResearchers = newArr;
+	if (phySizeOfResearchers == 0) // If this is the 1st Department
+	{
+		allResearchers = new Researcher*;
+		logSizeOfResearchers++;
+	}
+	else if (logSizeOfResearchers == phySizeOfResearchers) //if there is no place in the array
+	{
+		phySizeOfResearchers *= 2;
+		Researcher** newArr = new Researcher*[phySizeOfResearchers];
+		for (int i = 0; i < logSizeOfResearchers; i++)
+		{
+			newArr[i] = allResearchers[i];
+		}
+		delete[] allResearchers;
+		allResearchers = newArr;
+	}
+	else
+		return;
 }
 
 void ResearchInstitute::showResearchers()  const
@@ -53,39 +66,43 @@ void ResearchInstitute::showResearchers()  const
 		cout << allResearchers[i]->getName() << endl;
 		allResearchers[i]->showArticles();
 	}
-	cout <<"*******************************"<< endl;
 }
 
-bool ResearchInstitute::getResearcherByName(const char*name, Researcher*researcher)
+Researcher* ResearchInstitute::getResearcherByName(const char*name, bool &exist)
 {
-	return binSearchResearcherByName(allResearchers, logSizeOfResearchers, name, researcher);
+	return binSearchResearcherByName(allResearchers, logSizeOfResearchers, name, exist);
 }
 
-bool ResearchInstitute::binSearchResearcherByName(Researcher** arr,int size,const char* name,
-	Researcher* researcher)
+Researcher*  ResearchInstitute::binSearchResearcherByName(Researcher** arr,int size,const char* name,
+	bool &exist)
 {
 	Researcher* midReasercher = arr[size / 2];
 	int res = strcmp(name, midReasercher->getName());
 	if (size == 1)
 	{
-		if (res == 0) {
-			researcher = midReasercher;
-			return true;
+		if (res == 0) 
+		{
+			exist = true;
+			return midReasercher;
 		}
-		else {
-			return false;
+		else
+		{
+			return nullptr;
 		}
 	}
-	else {
+	else 
+	{	
+		int leftSize = size / 2;
+		int secondSize = size - leftSize - 1;
 		if (res == 0)
 		{
-			researcher = midReasercher;
-			return true;
+			exist = true;
+			return midReasercher;
 		}
 		else if (res < 0)
-			return binSearchResearcherByName(arr, size / 2, name, researcher);
+			return binSearchResearcherByName(arr, leftSize, name,exist);
 		else if (res > 0)
-			return binSearchResearcherByName(arr+size/2, size - (size / 2), name, researcher);
+			return binSearchResearcherByName(arr+ leftSize+1, secondSize, name,exist);
 	}
 }
 

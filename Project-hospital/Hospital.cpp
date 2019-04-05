@@ -12,9 +12,7 @@ Hospital::Hospital()
 	logSizeOfPatients = phySizeDoctors = phySizeNurses = phySizeOfPatients = 0;
 }
 
-// D'tor:
-//
-//
+
 Hospital::~Hospital()
 {
 	for(int i=0;i<logSizeDoctors;i++)
@@ -32,14 +30,26 @@ Hospital::~Hospital()
 }
 
 
-bool Hospital::allocDepartmentsArr()
+void Hospital::allocDepartmentsArr()
 {
-	Department** newArr = new Department*[phySizeOfDepartments];
-	for (int i = 0; i < logSizeOfDepartments; i++)
-		newArr[i] = allDepartments[i];
-	delete[]allDepartments;
-	allDepartments = newArr;
-	return true;
+	if (phySizeOfDepartments == 0) // If this is the 1st Department
+	{
+		allDepartments = new Department*;
+		phySizeOfDepartments++;
+	}
+	else if (logSizeOfDepartments == phySizeOfDepartments) //if there is no place in the array
+	{
+		phySizeOfDepartments *= 2;
+		Department** newArr = new Department*[phySizeOfDepartments];
+		for (int i = 0; i < logSizeOfDepartments; i++)
+		{
+			newArr[i] = allDepartments[i];
+		}
+		delete[] allDepartments;
+		allDepartments = newArr;
+	}
+	else
+		return;
 }
 
 
@@ -70,14 +80,26 @@ bool Hospital::addResearcher(Researcher& inResearcher)
 	return true;
 }
 
-bool Hospital::allocDocArr()
+void Hospital::allocDocArr()
 {
-	Doctor** newArr = new Doctor*[phySizeDoctors];
-	for (int i = 0; i < logSizeDoctors; i++)
-		newArr[i] = allDoctors[i];
-	delete[]allDoctors;
-	allDoctors = newArr;
-	return true;
+	if (phySizeDoctors == 0) // If this is the 1st Department
+	{
+		allDoctors = new Doctor*;
+		phySizeDoctors++;
+	}
+	else if (logSizeDoctors == phySizeDoctors) //if there is no place in the array
+	{
+		phySizeDoctors *= 2;
+		Doctor** newArr = new Doctor*[phySizeDoctors];
+		for (int i = 0; i < logSizeDoctors; i++)
+		{
+			newArr[i] = allDoctors[i];
+		}
+		delete[] allDoctors;
+		allDoctors = newArr;
+	}
+	else
+		return;
 }
 
 bool Hospital::addDoctor(Doctor& inDoc)
@@ -102,14 +124,26 @@ bool Hospital::addDoctor(Doctor& inDoc)
 }
 
 
-bool Hospital::allocNursesArr()
+void Hospital::allocNursesArr()
 {
-	Nurse** newArr = new Nurse*[phySizeNurses];
-	for (int i = 0; i < logSizeNurses; i++)
-		newArr[i] = allNurses[i];
-	delete[]allNurses;
-	allNurses = newArr;
-	return true;
+	if (phySizeNurses == 0) // If this is the 1st Department
+	{
+		allNurses = new Nurse*;
+		logSizeNurses++;
+	}
+	else if (logSizeNurses == phySizeNurses) //if there is no place in the array
+	{
+		phySizeNurses *= 2;
+		Nurse** newArr = new Nurse*[phySizeNurses];
+		for (int i = 0; i < logSizeNurses; i++)
+		{
+			newArr[i] = allNurses[i];
+		}
+		delete[] allNurses;
+		allNurses = newArr;
+	}
+	else
+		return;
 }
 
 bool Hospital::addNurse(Nurse& inNurse)
@@ -134,15 +168,15 @@ bool Hospital::addNurse(Nurse& inNurse)
 }
 
 
-bool Hospital::allocPatientsArr()
+void Hospital::allocPatientsArr()
 {
-	if (phySizeOfPatients == 0) // If this is the 1st Patient
+	if (phySizeOfPatients == 0) // If this is the 1st Department
 	{
 		allPatients = new Patient*;
 		phySizeOfPatients++;
-		return true;
+		return;
 	}
-	else if (logSizeOfPatients == phySizeOfPatients) //if there is no more room in the array
+	else if (logSizeOfPatients == phySizeOfPatients) //if there is no place in the array
 	{
 		phySizeOfPatients *= 2;
 		Patient** newArr = new Patient*[phySizeOfPatients];
@@ -152,10 +186,10 @@ bool Hospital::allocPatientsArr()
 		}
 		delete[] allPatients;
 		allPatients = newArr;
-		return true;
+		return;
 	}
 	else
-		return true;
+		return;
 }
 
 void Hospital::addPatient(Patient& inPatient)
@@ -173,28 +207,39 @@ void Hospital::addPatient(Patient& inPatient)
 void Hospital::showPatientInSpecificDep(const int &index) const
 {
 	allDepartments[index]->showPatients();
-	cout << "****************************************" << endl;;
-
 }
 
 void Hospital::showStaffMembers() const
 {
-	if (logSizeDoctors || logSizeNurses)
+	if (logSizeDoctors)
 	{
-		for (int i = 0; i < logSizeOfDepartments; i++)
+		cout << "The doctors " << (logSizeDoctors > 1 ? "are: " : "is: ")<<endl;
+		for (int i = 0; i < logSizeDoctors; i++)
 		{
-			allDepartments[logSizeOfDepartments]->showStaffMembers();
+			cout << i + 1 << ". " << "Name:" << allDoctors[i]->getName() << endl;
+			cout << "Employee ID number is: " << allDoctors[i]->getEmployeeIDNum() << endl;
+			cout<< "The specialty's doctor is: " << allDoctors[i]->getSpciality() << endl;
 		}
 	}
 	else
-		cout << "There is no persons in the medical staff " << endl;
-	cout << "*******************************" << endl;
+		cout << "There is no doctor in the medical staff " << endl;
+	if (logSizeNurses)
+	{
+		cout << "The nurses " << (logSizeNurses > 1? "are: " : "is: ");
+		for (int i = 0; i < logSizeNurses; i++)
+		{
+			cout << i + 1 << ". " << "Name:" << allNurses[i]->getName() << endl;
+			cout << "Employee ID number is: " << allNurses[i]->getEmployeeIDNum() << endl;
+			cout<<"Years of exprience: "<< allNurses[i]->getYearsOfExp() << endl;
+		}
+	}
+	else
+		cout << "There is no nurses in the medical staff"<< endl;
 }
 
 void Hospital::showResearchers() const
 {
 	researchInst.showResearchers();
-	cout << "********************************" << endl;
 }
 
 //void Hospital::showPatientByID(char* inID) const
@@ -230,16 +275,19 @@ bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, De
 			return false;
 		}
 	}
-	else {
+	else 
+	{
+		int leftSize = size / 2;
+		int rightSize = size - leftSize - 1;
 		if (res == 0)
 		{
 			resDep = midDep;
 			return true;
 		}
 		else if (res < 0)
-			return binDepartmentByName(arr, size / 2, depName, resDep);
+			return binDepartmentByName(arr, leftSize, depName, resDep);
 		else if (res > 0)
-			return binDepartmentByName(arr+size/2, size - (size / 2), depName, resDep);
+			return binDepartmentByName(arr+ leftSize+1,rightSize, depName, resDep);
 	}
 }
 
@@ -409,8 +457,8 @@ bool Hospital::validationEmployeeId(const int& employeeID)
 
 bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const int &employeeID)
 {
-	Doctor* midDoc = allDoctors[logSizeDoctors / 2];
-	if (logSizeDoctors == 1)
+	Doctor* midDoc = allDoctors[size / 2];
+	if (size == 1)
 	{
 		if (midDoc->getEmployeeIDNum() == employeeID) 
 			return true;
@@ -421,15 +469,12 @@ bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const 
 	{
 		if (midDoc->getEmployeeIDNum() == employeeID)
 			return true;
-		int mid = logSizeDoctors / 2;
-		int firstSize = mid;
-		int secondSize = size - mid-1;
-		Doctor** firstArr = arr;
-		Doctor** secondArr = arr + mid+1;
+		int leftSize = size / 2;
+		int rightSize = size - leftSize-1;
 		if (midDoc->getEmployeeIDNum() > employeeID)
-			return veryfactionDoctorEmployeeIdBinSearch(firstArr, firstSize, employeeID);
+			return veryfactionDoctorEmployeeIdBinSearch(arr, leftSize, employeeID);
 		else if(midDoc->getEmployeeIDNum() < employeeID)
-			return veryfactionDoctorEmployeeIdBinSearch(secondArr, secondSize, employeeID);
+			return veryfactionDoctorEmployeeIdBinSearch(arr+ leftSize+1, rightSize, employeeID);
 	}
 }
 
@@ -449,15 +494,12 @@ bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const 
 	{
 		if (midNurse->getEmployeeIDNum() == employeeID)
 			return true;
-		int mid = size / 2;
-		int firstSize = mid;
-		int secondSize = size - mid-1;
-		Nurse** firstArr = arr;
-		Nurse** secondArr = arr + mid+1;
+		int leftSize = size / 2;
+		int rightSize = size - leftSize -1;
 		if (midNurse->getEmployeeIDNum() > employeeID)
-			return veryfactionNurseEmployeeIdBinSearch(firstArr, firstSize, employeeID);
+			return veryfactionNurseEmployeeIdBinSearch(arr, leftSize, employeeID);
 		else if (midNurse->getEmployeeIDNum() < employeeID)
-			return veryfactionNurseEmployeeIdBinSearch(secondArr, secondSize, employeeID);
+			return veryfactionNurseEmployeeIdBinSearch(arr+leftSize+1, rightSize, employeeID);
 
 	}
 }
@@ -485,9 +527,9 @@ bool Hospital::addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn)
 
 }
 
-bool Hospital::findResearcherAccordingToName(const char*name, Researcher*researcher)
+Researcher* Hospital::findResearcherAccordingToName(const char*name, bool&exist)
 {
-	return researchInst.getResearcherByName(name, researcher);
+	return researchInst.getResearcherByName(name,exist);
 }
 
 bool Hospital::addArticleToResearcher(Article & art, Researcher*researcher)

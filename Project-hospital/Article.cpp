@@ -4,8 +4,8 @@ Article::Article(const char* inName, char*inMagazineName, Date& inPublicitaion)
 {
 	name = new char[strlen(inName) + 1];
 	strcpy(name, inName);
-	magazineName = new char[strlen(magazineName) + 1];
-	strcpy(magazineName, magazineName);
+	magazineName = new char[strlen(inMagazineName) + 1];
+	strcpy(magazineName, inMagazineName);
 	publicationDate = &inPublicitaion;
 }
 

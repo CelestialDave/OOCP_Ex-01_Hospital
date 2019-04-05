@@ -33,13 +33,12 @@ bool Department::addPatient(Patient& patient)
 		return false;
 }
 
-bool Department::allocPatientsArr()
+void Department::allocPatientsArr()
 {
 	if (phySizeOfPatients == 0) // If this is the 1st Patient
 	{
 		patientsArr = new Patient*;
 		phySizeOfPatients++;
-		return true;
 	}
 	else if (logSizeOfPatients == phySizeOfPatients) //if there is no more room in the array
 	{
@@ -51,10 +50,9 @@ bool Department::allocPatientsArr()
 		}
 		delete[] patientsArr;
 		patientsArr = newArr;
-		return true;
 	}
 	else
-		return true;
+		return;
 }
 
 bool Department::addDoctor(Doctor& doc)
@@ -78,14 +76,26 @@ bool Department::addDoctor(Doctor& doc)
 	return true;
 }
 
-bool Department::allocDocArr()
+void Department::allocDocArr()
 {
-	Doctor** newArr = new Doctor*[phySizeOfDocs];
-	for (int i = 0; i < logSizeOfDocs; i++)
-		newArr[i] = docsArr[i];
-	delete[]docsArr;
-	docsArr = newArr;
-	return true;
+	if (phySizeOfDocs == 0) // If this is the 1st Department
+	{
+		docsArr = new Doctor*;
+		phySizeOfDocs++;
+	}
+	else if (logSizeOfDocs == phySizeOfDocs) //if there is no place in the array
+	{
+		phySizeOfDocs *= 2;
+		Doctor** newArr = new Doctor*[phySizeOfDocs];
+		for (int i = 0; i < logSizeOfDocs; i++)
+		{
+			newArr[i] = docsArr[i];
+		}
+		delete[] docsArr;
+		docsArr = newArr;
+	}
+	else
+		return;
 }
 
 bool Department::addNurse(Nurse& nurse)
@@ -109,14 +119,26 @@ bool Department::addNurse(Nurse& nurse)
 	return true;
 }
 
-bool Department::allocNursesArr()
+void Department::allocNursesArr()
 {
-	Nurse** newArr = new Nurse*[phySizeOfNurses];
-	for (int i = 0; i < logSizeOfNurses; i++)
-		newArr[i] = nursesArr[i];
-	delete[]nursesArr;
-	nursesArr = newArr;
-	return true;
+	if (phySizeOfNurses == 0) // If this is the 1st Department
+	{
+		nursesArr = new Nurse*;
+		phySizeOfNurses++;
+	}
+	else if (logSizeOfNurses == phySizeOfNurses) //if there is no place in the array
+	{
+		phySizeOfNurses *= 2;
+		Nurse** newArr = new Nurse*[phySizeOfNurses];
+		for (int i = 0; i < logSizeOfNurses; i++)
+		{
+			newArr[i] = nursesArr[i];
+		}
+		delete[] nursesArr;
+		nursesArr = newArr;
+	}
+	else
+		return;
 }
 
 const char* Department:: getName() const
@@ -124,31 +146,6 @@ const char* Department:: getName() const
 	return name;
 }
 
-void Department::showStaffMembers() const
-{
-	if (logSizeOfDocs)
-	{
-		cout << "The doctors in " << name << (logSizeOfDocs > 1 ? "are" : "is") << endl;
-		for (int i = 0; i < logSizeOfDocs; i++)
-		{
-			cout << docsArr[i]->getName() << " " << docsArr[i]->getEmployeeIDNum()
-				<< " " << docsArr[i]->getSpciality() << endl;
-		}
-	}
-	else
-		cout << "There is no doctors in "<<name<< endl;
-	if (logSizeOfNurses)
-	{
-		cout << endl << "The nurses in " << name << (logSizeOfNurses > 1 ? "are" : "is") << endl;
-		for (int i = 0; i < logSizeOfNurses; i++)
-		{
-			cout << nursesArr[i]->getName() << " " << nursesArr[i]->getEmployeeIDNum() << " "
-				<< nursesArr[i]->getYearsOfExp() << endl;
-		}
-	}
-	else
-		cout << "There is no nurses in " <<name << endl;
-}
 
 void Department::showPatients() const
 {

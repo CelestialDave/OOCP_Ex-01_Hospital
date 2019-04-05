@@ -27,7 +27,7 @@ bool Researcher::addArticle(Article& art)
 		else if (logSizeOfArticles == phySizeOfArticles) //if there is no place in the array
 		{
 			phySizeOfArticles *= 2;
-			reallocationArr();  //to reallocte the array to the new size
+			allocationArticlesArr();  //to reallocte the array to the new size
 		}
 		if (logSizeOfArticles < phySizeOfArticles)
 		{
@@ -37,13 +37,26 @@ bool Researcher::addArticle(Article& art)
 		return true;
 }
 
-void Researcher:: reallocationArr()
+void Researcher:: allocationArticlesArr()
 {
-	Article** newArr = new Article*[phySizeOfArticles];
-	for (int i = 0; i < logSizeOfArticles; i++)
-		newArr[i] = articleStock[i];
-	delete[]articleStock;
-	articleStock = newArr;
+	if (phySizeOfArticles == 0) // If this is the 1st Department
+	{
+		articleStock = new Article*;
+		logSizeOfArticles++;
+	}
+	else if (logSizeOfArticles == phySizeOfArticles) //if there is no place in the array
+	{
+		phySizeOfArticles *= 2;
+		Article** newArr = new Article*[phySizeOfArticles];
+		for (int i = 0; i < logSizeOfArticles; i++)
+		{
+			newArr[i] = articleStock[i];
+		}
+		delete[] articleStock;
+		articleStock = newArr;
+	}
+	else
+		return;
 }
 
 const char* Researcher::getName() const
@@ -65,7 +78,6 @@ void Researcher::showArticles() const
 	}
 	else
 		cout << "There is no article for this researcher" << endl;
-	cout << "****************************************" << endl;;
 }
 
 
