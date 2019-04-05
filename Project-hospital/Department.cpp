@@ -21,16 +21,11 @@ Department::~Department()
 
 //
 
-bool Department::addPatient(Patient& patient)
+void Department::addPatient(Patient& patient)
 {
-	if (allocPatientsArr()) //to reallocte the array to the new size
-	{
-		patientsArr[logSizeOfPatients] = &patient;
-		logSizeOfPatients++;
-		return true;
-	}
-	else
-		return false;
+	allocPatientsArr();//to reallocte the array to the new size
+	patientsArr[logSizeOfPatients] = &patient;
+	logSizeOfPatients++;
 }
 
 void Department::allocPatientsArr()
@@ -55,25 +50,12 @@ void Department::allocPatientsArr()
 		return;
 }
 
-bool Department::addDoctor(Doctor& doc)
+void Department::addDoctor(Doctor& doc)
 {
-	if (phySizeOfDocs == 0) //if the first researcher
-	{
-		docsArr = new Doctor*;
-		phySizeOfDocs++;
-	}
-	else if (logSizeOfDocs == phySizeOfDocs) //if there is no place in the array
-	{
-		phySizeOfDocs *= 2;
-		allocDocArr();  //to reallocte the array to the new size
-	}
-
-	if (logSizeOfDocs< phySizeOfDocs)
-	{
-		docsArr[logSizeOfDocs] = &doc;
-		logSizeOfDocs++;
-	}
-	return true;
+	allocDocArr();
+	docsArr[logSizeOfDocs] = &doc;
+	logSizeOfDocs++;
+	
 }
 
 void Department::allocDocArr()
@@ -98,25 +80,11 @@ void Department::allocDocArr()
 		return;
 }
 
-bool Department::addNurse(Nurse& nurse)
+void Department::addNurse(Nurse& nurse)
 {
-	if (phySizeOfNurses == 0) //if the first researcher
-	{
-		nursesArr = new Nurse*;
-		phySizeOfNurses++;
-	}
-	else if (logSizeOfNurses == phySizeOfNurses) //if there is no place in the array
-	{
-		phySizeOfNurses *= 2;
-		allocNursesArr();  //to reallocte the array to the new size
-	}
-
-	if (logSizeOfNurses < phySizeOfNurses)
-	{
-		nursesArr[logSizeOfNurses] = &nurse;
-		logSizeOfNurses++;
-	}
-	return true;
+	allocNursesArr();
+	nursesArr[logSizeOfNurses] = &nurse;
+	logSizeOfNurses++;
 }
 
 void Department::allocNursesArr()

@@ -41,11 +41,11 @@ public:
 	void allocNursesArr();
 
 	// Add doctor to the list of doctors:
-	bool addDoctor(Doctor& doc);
+	void addDoctor(Doctor& doc);
 	// Add nurse to the list of nurses:
-	bool addNurse(Nurse& nurse);
+	void addNurse(Nurse& nurse);
 	// Add patient to the department list of patients:
-	bool addPatient(Patient& patient);
+	void addPatient(Patient& patient);
 	const char* getName() const; // test
 	
 };
