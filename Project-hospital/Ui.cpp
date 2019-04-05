@@ -24,7 +24,11 @@ void Ui::start()
 		{
 			char* name = getString("Please enter the name of department you want to create");
 			Department* department = new Department(name);
-			hospital->addDepartment(*department); //add to the departments array
+			int index = hospital->binSearchDepartmentByID(department->getName()); //check if it new department
+			if (index == -1)
+				hospital->addDepartment(*department); //add to the departments array
+			else
+				cout << "Error,this name of department already exist" << endl;
 			delete[] name;
 			printSpaceLine();
 			break;

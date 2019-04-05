@@ -37,7 +37,6 @@ public:
 	void allocDocArr();
 	void allocNursesArr();
 
-	bool addDepartment(Department& inDep);
 	bool addResearcher(Researcher& inResearcher);
 	//bool addDoctor(Doctor& inDoc);
 	
@@ -54,6 +53,13 @@ public:
 	const char * getDepartmentNameByIndex(int ind);
 	int getNumOfDepartments();
 	bool binDepartmentByName(Department** arr, int size, char* depName, Department* resDep);
+
+
+	void addDepartment(Department& inDepartment);
+	int binSearchDepartmentByID(const char*name);
+	int getIndexForDepartmentInsertion(const char*name);
+	void pushDepartmentsFwdFromIndex(int index);
+	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
 	////////////////////////////////////////////
 	void insertNurseToArrInIndex(Nurse& newNurse, int index);
 	void pushNursesFwdFromIndex(int index);

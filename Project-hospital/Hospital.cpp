@@ -53,26 +53,7 @@ void Hospital::allocDepartmentsArr()
 }
 
 
-bool Hospital::addDepartment(Department& inDep)
-{
-	if (phySizeOfDepartments == 0) //if the first researcher
-	{
-		allDepartments = new Department*;
-		phySizeOfDepartments++;
-	}
-	else if (logSizeOfDepartments == phySizeOfDepartments) //if there is no place in the array
-	{
-		phySizeOfDepartments *= 2;
-		allocDepartmentsArr();  //to reallocte the array to the new size
-	}
 
-	if (logSizeOfDepartments < phySizeOfDepartments)
-	{
-		allDepartments[logSizeOfDepartments] = &inDep;
-		logSizeOfDepartments++;
-	}
-	return true;
-}
 
 bool Hospital::addResearcher(Researcher& inResearcher)
 {
@@ -113,31 +94,6 @@ void Hospital::addDoctor(Doctor& inDoctor)
 
 	insertDoctorToArrInIndex(inDoctor, index);
 }
-
-//Doctor* Hospital::getDoctorByID(int inID, bool* isFound)
-//{
-//	int index;
-//	if (phySizeDoctors == 0) // No Doctors available
-//	{
-//		*isFound = false;
-//		return nullptr;
-//	}
-//	else
-//	{
-//		index = binSearchDoctorByID(inID);
-//		if (index != -1)
-//		{
-//			*isFound = true;
-//			return allDoctors[index];
-//		}
-//		else
-//		{
-//			*isFound = false;
-//			return nullptr;
-//		}
-//	}
-//}
-
 
 int Hospital::binSearchDoctorByID(int inID)
 {
@@ -278,6 +234,68 @@ void Hospital::insertNurseToArrInIndex(Nurse& newNurse, int index)
 	pushNursesFwdFromIndex(index);
 	allNurses[index] = &newNurse;
 	logSizeNurses++;
+}
+
+void Hospital::addDepartment(Department& inDepartment)
+{
+	int index;
+	allocDepartmentsArr();
+	if (logSizeOfDepartments == 0)
+		index = 0;
+	else
+		index = getIndexForDepartmentInsertion(inDepartment.getName());
+
+	insertDepartmentToArrInIndex(inDepartment, index);
+}
+
+int Hospital::binSearchDepartmentByID(const char*name)
+{
+	int left = 0;
+	int right = logSizeOfDepartments - 1;
+	while (left <= right)
+	{
+		int mid = left + (right - left) / 2;
+
+		int res = strcmp(name, allDepartments[mid]->getName());
+		if (res == 0) // found the index
+			return mid;
+
+		if (res > 0) // go right
+			left = mid + 1;
+
+		else // (res < 0) => go left
+			right = mid - 1;
+	}
+
+	// Not found:
+	return -1;
+}
+
+int Hospital::getIndexForDepartmentInsertion(const char*name)
+{
+	for (int i = 0; i < logSizeOfDepartments; i++)
+	{
+		int res = strcmp(allDepartments[i]->getName(),name);
+		if(res==1)
+			return i;
+	}
+	return logSizeOfDepartments; // to be inserted last
+
+}
+
+void Hospital::pushDepartmentsFwdFromIndex(int index)
+{
+	for (int i = logSizeOfDepartments; i > index; i--) {
+		allDepartments[i] = allDepartments[i - 1];
+	}
+	allDepartments[index] = nullptr;
+}
+
+void Hospital::insertDepartmentToArrInIndex(Department& newDepartment, int index)
+{
+	pushDepartmentsFwdFromIndex(index);
+	allDepartments[index] = &newDepartment;
+	logSizeOfDepartments++;
 }
 
 
