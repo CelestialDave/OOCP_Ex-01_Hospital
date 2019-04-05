@@ -39,7 +39,7 @@ public:
 
 	bool addDepartment(Department& inDep);
 	bool addResearcher(Researcher& inResearcher);
-	bool addDoctor(Doctor& inDoc);
+	//bool addDoctor(Doctor& inDoc);
 	bool addNurse(Nurse& inNurse);
 
 	bool addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
@@ -51,18 +51,22 @@ public:
 	bool veryfactionDoctorEmployeeIdBinSearch(Doctor**arr,int size, const int& employeeID);
 	bool veryfactionNurseEmployeeIdBinSearch(Nurse**arr, int size, const int& employeeID);
 
-
-	//
 	const char * getDepartmentNameByIndex(int ind);
-	//
 	int getNumOfDepartments();
 	bool binDepartmentByName(Department** arr, int size, char* depName, Department* resDep);
 
+	////////////////////////////////////////////
+	void addDoctor(Doctor& inDoctor);
+	Doctor* getDoctorByID(int inID, bool* isFound);
+	int binSearchDoctorByID(int inID);
+	int getIndexForDoctorInsertion(int id);
+	void insertDoctorToArrInIndex(Doctor& newDoctor, int index);
+	void pushDoctorsFwdFromIndex(int index);
+	////////////////////////////////////////////
+
 	void addPatient(Patient& inPatient);
 	Patient* getPatientByID(char* inID, bool* isFound);
-	//bool binSearchPatientByID(Patient** arr, int size,const char* id, Patient* resPat);
 	int binSearchPatientByID(char* inID);
-	//Patient* binSearchPatientByID(Patient** arr, int size, const char* id, bool* isFound);
 	int getIndexForPatientInsertion(const char* id);
 	void insertPatientToArrInIndex(Patient& newPatient, int index);
 	void pushPatientsFwdFromIndex(int index);
@@ -70,11 +74,9 @@ public:
 	Researcher* findResearcherAccordingToName(const char*name,bool&exist);
 	bool addArticleToResearcher(Article & art, Researcher*researcher);
 
-	//void showPatient() const;
 	void showPatientInSpecificDep(const int & index) const;
 	void showStaffMembers() const;
 	void showResearchers() const;
-	//void showPatientByID(char* inID) const;
 	void showDepartments() const;
 
 	int findTheIndexOfDepNameInDepArr(char*str) const;
