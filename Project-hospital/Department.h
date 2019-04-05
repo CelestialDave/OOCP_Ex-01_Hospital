@@ -46,7 +46,7 @@ public:
 	void addNurse(Nurse& nurse);
 	// Add patient to the department list of patients:
 	void addPatient(Patient& patient);
-	const char* getName() const; // test
+	const char* getName() const; 
 	
 };
 
