@@ -24,7 +24,7 @@ void Ui::start()
 		{
 			char* name = getString("Please enter the name of department you want to create");
 			Department* department = new Department(name);
-			int index = hospital->binSearchDepartmentByID(department->getName()); //check if it new department
+			int index = hospital->binSearchDepartmentByName(department->getName()); //check if it new department
 			if (index == -1)
 				hospital->addDepartment(*department); //add to the departments array
 			else
@@ -35,7 +35,7 @@ void Ui::start()
 		}
 		case 2:   //add a nurse
 		{
-			int employeeID = getInt("choose your employeeID number");
+			int employeeID = getInt("choose your employeeID number (until 9 digits)");
 			bool existID = hospital->validationEmployeeId(employeeID);
 			if (!existID)
 			{
@@ -62,7 +62,7 @@ void Ui::start()
 		}
 		case 3: //add doctor to the hospital
 		{
-			int employeeID = getInt("choose your employeeID number");
+			int employeeID = getInt("choose your employeeID number (until 9 digits)");
 			bool existID = hospital->validationEmployeeId(employeeID);
 			if (!existID)
 			{ 

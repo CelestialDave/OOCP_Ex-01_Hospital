@@ -19,11 +19,17 @@ public:
 	ResearchInstitute(const ResearchInstitute& other)=delete;
 	// D'tor:
 	~ResearchInstitute();
-	bool addResearcher(Researcher& researcher);
 	void showResearchers()   const;
-	void allocationResearchersArr();
 	void addArticeToResearcher(Article& art, Researcher* researcher);
 	Researcher* getResearcherByName(const char*name,bool&exist);
 	Researcher* binSearchResearcherByName(Researcher** arr, int size, const char* name,bool&exist);
+
+	void addResearcher(Researcher& inResearcher);
+	int binSearchResearcherByID(const char*name);
+	int getIndexForResearcherInsertion(const char*name);
+	void pushResearchersFwdFromIndex(int index);
+	void insertResearcherToArrInIndex(Researcher& newResearcher, int index);
+	void allocationResearchersArr();
+
 };
 #endif

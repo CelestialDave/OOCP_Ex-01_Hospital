@@ -55,10 +55,9 @@ void Hospital::allocDepartmentsArr()
 
 
 
-bool Hospital::addResearcher(Researcher& inResearcher)
+void Hospital::addResearcher(Researcher& inResearcher)
 {
 	researchInst.addResearcher(inResearcher);
-	return true;
 }
 
 void Hospital::allocDocArr()
@@ -248,7 +247,7 @@ void Hospital::addDepartment(Department& inDepartment)
 	insertDepartmentToArrInIndex(inDepartment, index);
 }
 
-int Hospital::binSearchDepartmentByID(const char*name)
+int Hospital::binSearchDepartmentByName(const char*name)
 {
 	int left = 0;
 	int right = logSizeOfDepartments - 1;

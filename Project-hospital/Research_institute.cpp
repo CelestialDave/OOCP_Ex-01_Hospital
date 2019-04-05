@@ -16,25 +16,66 @@ ResearchInstitute::~ResearchInstitute()
 	delete []allResearchers;
 }
 
-bool ResearchInstitute::addResearcher(Researcher& researcher)
+void ResearchInstitute::addResearcher(Researcher& inResearcher)
 {
-	if (phySizeOfResearchers == 0) //if the first researcher
+	int index;
+	allocationResearchersArr();
+	if (logSizeOfResearchers == 0)
+		index = 0;
+	else
+		index = getIndexForResearcherInsertion(inResearcher.getName());
+
+	insertResearcherToArrInIndex(inResearcher, index);
+}
+
+int ResearchInstitute::binSearchResearcherByID(const char*name)
+{
+	int left = 0;
+	int right = logSizeOfResearchers - 1;
+	while (left <= right)
 	{
-		allResearchers = new Researcher*;
-		phySizeOfResearchers++;
-	}
-	else if (logSizeOfResearchers == phySizeOfResearchers) //if there is no place in the array
-	{
-		phySizeOfResearchers *= 2;
-		allocationResearchersArr();  //to reallocte the array to the new size
+		int mid = left + (right - left) / 2;
+
+		int res = strcmp(name, allResearchers[mid]->getName());
+		if (res == 0) // found the index
+			return mid;
+
+		if (res > 0) // go right
+			left = mid + 1;
+
+		else // (res < 0) => go left
+			right = mid - 1;
 	}
 
-	if (logSizeOfResearchers < phySizeOfResearchers)
+	// Not found:
+	return -1;
+}
+
+int ResearchInstitute::getIndexForResearcherInsertion(const char*name)
+{
+	for (int i = 0; i < logSizeOfResearchers; i++)
 	{
-		allResearchers[logSizeOfResearchers] = &researcher;
-		logSizeOfResearchers++;
+		int res = strcmp(allResearchers[i]->getName(), name);
+		if (res == 1)
+			return i;
 	}
-	return true;
+	return logSizeOfResearchers; // to be inserted last
+
+}
+
+void ResearchInstitute::pushResearchersFwdFromIndex(int index)
+{
+	for (int i = logSizeOfResearchers; i > index; i--) {
+		allResearchers[i] = allResearchers[i - 1];
+	}
+	allResearchers[index] = nullptr;
+}
+
+void ResearchInstitute::insertResearcherToArrInIndex(Researcher& newResearcher, int index)
+{
+	pushResearchersFwdFromIndex(index);
+	allResearchers[index] = &newResearcher;
+	logSizeOfResearchers++;
 }
 
 void ResearchInstitute::allocationResearchersArr()
@@ -61,6 +102,7 @@ void ResearchInstitute::allocationResearchersArr()
 
 void ResearchInstitute::showResearchers()  const
 {
+	cout << "The researchers " << (logSizeOfResearchers > 1 ? " are" : " is") << ":" << endl;
 	for (int i = 0; i < logSizeOfResearchers; i++)
 	{
 		cout << allResearchers[i]->getName() << endl;
