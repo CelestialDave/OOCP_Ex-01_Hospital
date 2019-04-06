@@ -16,6 +16,11 @@ ResearchInstitute::~ResearchInstitute()
 	delete []allResearchers;
 }
 
+const int ResearchInstitute:: getSize() const
+{
+	return logSizeOfResearchers;
+}
+
 void ResearchInstitute::addResearcher(Researcher& inResearcher)
 {
 	int index;
@@ -102,12 +107,17 @@ void ResearchInstitute::allocationResearchersArr()
 
 void ResearchInstitute::showResearchers()  const
 {
-	cout << "The researchers " << (logSizeOfResearchers > 1 ? " are" : " is") << ":" << endl;
-	for (int i = 0; i < logSizeOfResearchers; i++)
+	if (logSizeOfResearchers)
 	{
-		cout << allResearchers[i]->getName() << endl;
-		allResearchers[i]->showArticles();
+		cout << "The researchers " << (logSizeOfResearchers > 1 ? " are" : " is") << ":" << endl;
+		for (int i = 0; i < logSizeOfResearchers; i++)
+		{
+			cout << allResearchers[i]->getName() << endl;
+			allResearchers[i]->showArticles();
+		}
 	}
+	else
+		cout << "There is no researchers in the researcher institute" << endl;
 }
 
 Researcher* ResearchInstitute::getResearcherByName(const char*name, bool &exist)

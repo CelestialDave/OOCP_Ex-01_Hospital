@@ -356,7 +356,7 @@ void Hospital::showStaffMembers() const
 		cout << "There is no doctor in the medical staff " << endl;
 	if (logSizeNurses)
 	{
-		cout << "The nurses " << (logSizeNurses > 1? "are: " : "is: ");
+		cout << "The nurses " << (logSizeNurses > 1 ? "are: " : "is: ") << endl;
 		for (int i = 0; i < logSizeNurses; i++)
 		{
 			cout << i + 1 << ". " << endl;
@@ -610,4 +610,8 @@ void Hospital::addArticleToResearcher(Article & art, Researcher*researcher)
 	researchInst.addArticeToResearcher(art, researcher);
 }
 
+const int Hospital::getSizeOfResearchers() const
+{
+	return  researchInst.getSize();
+}
 

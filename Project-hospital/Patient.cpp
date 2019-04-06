@@ -129,7 +129,7 @@ void Patient:: showVisits()const
 
 void Patient::showDepatmentsVisited() const
 {
-		cout<<(logsizeOfDepartments > 1 ? "The departments which visited are" : "The department the patient visited is") << endl;
+	cout << (logsizeOfDepartments > 1 ? "The departments which visited are" : "The department the patient visited is") << ": ";
 		for (int i = 0; i < logsizeOfDepartments; i++)
 			cout << departmentsVisited[i]->getName() << endl;
 }
