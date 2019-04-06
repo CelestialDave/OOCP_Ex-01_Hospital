@@ -39,21 +39,27 @@ void Ui::start()
 			bool existID = hospital->validationEmployeeId(employeeID);
 			if (!existID)
 			{
-				int depNum;
-				cout << "Please choose the Department number from the following list: " << endl;
-				hospital->showDepartments();
-				cin >> depNum;
-				cin.ignore();
-				int depInd = depNum - 1;
-				bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-				if (existDep)
+				if(hospital->getNumOfDepartments()>0)
 				{
-					Nurse*nurse = createNurse(employeeID);
-					hospital->addNurse(*nurse);
-					hospital->addNurseToSpecificDepartment(*nurse, depInd);
+					int depNum;
+					cout << "Please choose the Department number from the following list: " << endl;
+					hospital->showDepartments();
+					cin >> depNum;
+					cin.ignore();
+					int depInd = depNum - 1;
+					bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+					if (existDep)
+					{
+						Nurse*nurse = createNurse(employeeID);
+						hospital->addNurse(*nurse);
+						hospital->addNurseToSpecificDepartment(*nurse, depInd);
+					}
+					else
+						cout << "Error, This department doesn't exist" << endl;
+
 				}
 				else
-					cout << "Error, This department doesn't exist" << endl;
+					cout << "Error, you must enter departments to hospital before nurses" << endl;
 			}
 			else
 				cout << "Error,this employee ID number already exist" << endl;
@@ -66,23 +72,30 @@ void Ui::start()
 			bool existID = hospital->validationEmployeeId(employeeID);
 			if (!existID)
 			{ 
-				int depNum;
-				cout << "Please choose the Department number from the following list: " << endl;
-				hospital->showDepartments();
-				cin >> depNum;
-				cin.ignore();
-				int depInd = depNum - 1;
-				bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-				if (existDep)
+				if (hospital->getNumOfDepartments() > 0)
 				{
-					Doctor*doctor=createDoctor(employeeID);
-					hospital->addDoctor(*doctor);
-					hospital->addDoctorToSpecificDepartment(*doctor,depInd);
+					int depNum;
+					cout << "Please choose the Department number from the following list: " << endl;
+					hospital->showDepartments();
+					cin >> depNum;
+					cin.ignore();
+					int depInd = depNum - 1;
+					bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+					if (existDep)
+					{
+						Doctor*doctor = createDoctor(employeeID);
+						hospital->addDoctor(*doctor);
+						hospital->addDoctorToSpecificDepartment(*doctor, depInd);
 
 
+					}
+					else
+						cout << "Error, This department doesn't exist" << endl;
+	
 				}
 				else
-					cout << "Error, This department doesn't exist" << endl;
+					cout << "Error, you must enter departments to hospital before doctors" << endl;
+
 			}
 			else
 				cout << "Error,this employee ID number already exist" << endl;
@@ -184,42 +197,53 @@ void Ui::start()
 		}
 		case 6:
 		{
-			char*researcherName = getString("Which researcher would you like to add an article to?");
-			bool exist = false;
-			Researcher*researcher=hospital->findResearcherAccordingToName(researcherName,exist);
-			if (exist)
+			if (hospital->getSizeOfResearchers() > 0)
 			{
-				char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
-				Date* date = nullptr;
-				bool okDate = Utils::convertStrDateToDateObj(strDate, &date);
-				if (okDate)
+				char*researcherName = getString("Which researcher would you like to add an article to?");
+				bool exist = false;
+				Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
+				if (exist)
 				{
-					Article * article = createArticle(date);
-					hospital->addArticleToResearcher(*article, researcher);
+					char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
+					Date* date = nullptr;
+					bool okDate = Utils::convertStrDateToDateObj(strDate, &date);
+					if (okDate)
+					{
+						Article * article = createArticle(date);
+						hospital->addArticleToResearcher(*article, researcher);
+					}
+					else
+						cout << "Error,the date is Invalid" << endl;
+					delete[]strDate;
 				}
 				else
-					cout << "Error,the date is Invalid" << endl;
-				delete[]strDate;
+					cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
+				delete[]researcherName;
+
 			}
 			else
-				cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
-			delete[]researcherName;
+				cout << "There is no researchers in the researcher institute yet" << endl;
 			printSpaceLine();
 			break;
 		}
 		case 7:
 		{
-			cout << "Please choose the Department number from the following list: " << endl;
-			hospital->showDepartments();
-			int depNum;
-			cin >> depNum;
-			cin.ignore();
-			int depInd = depNum - 1;
-			bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-			if (ok)
-				hospital->showPatientInSpecificDep(depInd);
+			if (hospital->getNumOfDepartments() > 0)
+			{
+				cout << "Please choose the Department number from the following list: " << endl;
+				hospital->showDepartments();
+				int depNum;
+				cin >> depNum;
+				cin.ignore();
+				int depInd = depNum - 1;
+				bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+				if (ok)
+					hospital->showPatientInSpecificDep(depInd);
+				else
+					cout << "Error: The Department number chosen is invalid!" << endl;
+			}
 			else
-				cout << "Error: The Department number chosen is invalid!" << endl;
+				cout << "There are no departments yet" << endl;
 			printSpaceLine();
 			break;
 		}

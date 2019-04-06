@@ -21,6 +21,7 @@ public:
 	~ResearchInstitute();
 	void showResearchers()   const;
 	void addArticeToResearcher(Article& art, Researcher* researcher);
+	const int getSize() const;
 	Researcher* getResearcherByName(const char*name,bool&exist);
 	Researcher* binSearchResearcherByName(Researcher** arr, int size, const char* name,bool&exist);
 

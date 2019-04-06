@@ -80,6 +80,7 @@ public:
 
 	Researcher* findResearcherAccordingToName(const char*name,bool&exist);
 	void addArticleToResearcher(Article & art, Researcher*researcher);
+	const int getSizeOfResearchers() const;
 
 	void showPatientInSpecificDep(const int & index) const;
 	void showStaffMembers() const;
