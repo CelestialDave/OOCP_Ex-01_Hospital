@@ -48,6 +48,7 @@ public:
 	bool validationEmployeeId(const int& employeeID);
 	bool veryfactionDoctorEmployeeIdBinSearch(Doctor**arr,int size, const int& employeeID);
 	bool veryfactionNurseEmployeeIdBinSearch(Nurse**arr, int size, const int& employeeID);
+	bool isDepartmentsEmpty() const;
 
 	const char * getDepartmentNameByIndex(int ind);
 	int getNumOfDepartments();
