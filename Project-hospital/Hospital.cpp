@@ -292,7 +292,7 @@ void Hospital::pushDepartmentsFwdFromIndex(int index)
 
 void Hospital::insertDepartmentToArrInIndex(Department& newDepartment, int index)
 {
-	pushDepartmentsFwdFromIndex(index);
+	pushDepartmentsFwdFromIndex(index); //make the place for insert department
 	allDepartments[index] = &newDepartment;
 	logSizeOfDepartments++;
 }
@@ -514,7 +514,7 @@ void Hospital::insertPatientToArrInIndex(Patient& newPatient, int index)
 	logSizeOfPatients++;
 }
 
-bool Hospital::validationEmployeeId(const int& employeeID)
+bool Hospital::validationEmployeeId(const int& employeeID) //check if employeeID dosent exist
 {
 	bool existDocId = false;
 	bool existNurseId = false;

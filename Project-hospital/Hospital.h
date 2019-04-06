@@ -60,7 +60,7 @@ public:
 	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
 
 	void insertNurseToArrInIndex(Nurse& newNurse, int index);
-	void pushNursesFwdFromIndex(int index);
+	void pushNursesFwdFromIndex(int index); 
 	int getIndexForNurseInsertion(int id);
 	int binSearchNurseByID(int inID);
 	void addNurse(Nurse& inNurse);

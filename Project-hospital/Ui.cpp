@@ -25,7 +25,7 @@ void Ui::start()
 			char* name = getString("Please enter the name of department you want to create");
 			Department* department = new Department(name);
 			int index = hospital->binSearchDepartmentByName(department->getName()); //check if it new department
-			if (index == -1)
+			if (index == -1) //if this is new department name
 				hospital->addDepartment(*department); //add to the departments array
 			else
 				cout << "Error,this name of department already exist" << endl;
@@ -48,7 +48,7 @@ void Ui::start()
 					cin.ignore();
 					int depInd = depNum - 1;
 					bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-					if (existDep)
+					if (existDep) //the input of the department number is correct
 					{
 						Nurse*nurse = createNurse(employeeID);
 						hospital->addNurse(*nurse);
@@ -81,6 +81,7 @@ void Ui::start()
 					cin.ignore();
 					int depInd = depNum - 1;
 					bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+					//the input of the department number is correct
 					if (existDep)
 					{
 						Doctor*doctor = createDoctor(employeeID);
@@ -166,7 +167,6 @@ void Ui::start()
 			}
 
 			char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ");
-			// char* staffMemIncharge = getString("Please provide the staff member in charge for the Patient: ", MAX_VISITATION_PURPOSE);
 			char* visitPurpose = getString("Please provide the purpose of the Patient's Visit: ");
 
 			VisitationRecord* newVisit = new VisitationRecord(*patient, staffMemIncharge, *arrivalDate, visitPurpose);
@@ -186,7 +186,7 @@ void Ui::start()
 			break;
 
 		}
-		case 5:
+		case 5: //add researcher to the researcher insistute
 		{
 			char*name = getString("Please enter the name of the researcher");
 			Researcher* researcher = new Researcher(name);
@@ -195,14 +195,14 @@ void Ui::start()
 			printSpaceLine();
 			break;
 		}
-		case 6:
+		case 6:   //add article to specific researcher
 		{
 			if (hospital->getSizeOfResearchers() > 0)
 			{
 				char*researcherName = getString("Which researcher would you like to add an article to?");
 				bool exist = false;
 				Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
-				if (exist)
+				if (exist) //if the researcher name input is ok
 				{
 					char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
 					Date* date = nullptr;
@@ -226,7 +226,7 @@ void Ui::start()
 			printSpaceLine();
 			break;
 		}
-		case 7:
+		case 7: //show patients in specific department
 		{
 			if (hospital->getNumOfDepartments() > 0)
 			{
@@ -247,24 +247,24 @@ void Ui::start()
 			printSpaceLine();
 			break;
 		}
-		case 8:
+		case 8: //show staff medical members
 		{
 			hospital->showStaffMembers(); 
 			printSpaceLine();
 			break;
 		}
-		case 9:
+		case 9: //show the researchers in the researcher institute
 		{
 			hospital->showResearchers();
 			printSpaceLine();
 			break;
 		}
-		case 10:
+		case 10: //search patient by ID number
 		{
 			char*id = getString("Please enter the ID of the patient");
 			bool isExists = false;
 			Patient* patient = hospital->getPatientByID(id, &isExists);
-			if (isExists)
+			if (isExists)  //the ID numebr input of patient is exist
 			{
 				cout << "The name of the patient is: " << patient->getName() << endl;
 				patient->showDepatmentsVisited();
@@ -274,7 +274,7 @@ void Ui::start()
 			printSpaceLine();
 			break;
 		}
-		default:
+		default: 
 		{
 			cout << "Error: Invalid input, please try again..." << endl;
 			break;
@@ -338,16 +338,10 @@ char* Ui::getString(const char* prompt)
 {
 	if (strlen(prompt) > 0)
 		cout << prompt << endl;
-	
-	//cin.clear();
-	//cin.ignore(5, '\n');
-	//char* temp = new char[MAX_NAME];
 	char temp[MAX_NAME];
 	cin.getline(temp, MAX_NAME);
-	
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);
-	//delete[] temp;
 	return str;
 }
 
