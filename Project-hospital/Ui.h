@@ -9,7 +9,7 @@ private:
 public:
 	Ui(Hospital *hos);
 	void start();
-	void printTheOptionsForTheUser() const;
+	void printMainMenu() const;
 	int inputYearsOfExprience() const;
 	bool checkIfItFirstTimeInHospital() const;
 	enum eGender inputGender();

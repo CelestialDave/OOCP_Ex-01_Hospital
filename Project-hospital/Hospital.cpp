@@ -574,6 +574,11 @@ bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const 
 	}
 }
 
+bool Hospital::isDepartmentsEmpty() const
+{
+	return (logSizeOfDepartments == 0);
+}
+
 int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
 {
 	for (int i = 0; i < logSizeOfDepartments; i++)
