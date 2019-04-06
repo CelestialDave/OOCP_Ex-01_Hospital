@@ -21,14 +21,12 @@ Patient::Patient(const char* inName,const char* id ,enum eGender inGender, char*
 
 Patient::~Patient()
 {
-	delete name;
-	delete ID;
-	delete yearOfBirth;
+	delete[] name;
+	delete[] ID;
+	delete[] yearOfBirth;
 	for (int i = 0; i < logSizeOfVisits; i++)
 		delete visits[i];
 	delete[] visits;
-//	for (int i = 0; i < logsizeOfDepartments; i++)
-//		delete departmentsVisited[i];
 	delete[] departmentsVisited;
 }
 
@@ -103,9 +101,9 @@ const char*Patient:: getId()const
 void Patient::showGender()const
 {
 	if (gender == Male)
-		cout << "Male" << endl;
+		cout << "Male";
 	else if(gender==Female)
-		cout << "Female" << endl;
+		cout << "Female";
 }
 const char* Patient::getYearOfBirth() const
 {
@@ -113,24 +111,25 @@ const char* Patient::getYearOfBirth() const
 }
 void Patient:: showVisits()const
 {
-	cout << "visitaion:" << endl;
+	cout << "Patient's Visitations:" << endl;
 	for (int i = 0; i < logSizeOfVisits; i++)
 	{ 
-		cout << i + 1 << "." << endl;
-		cout << "The staff member in charge is: " << visits[i]->getstaffMemInChargeName() << endl;
-		cout << "The arrival date is: ";
+		cout << "\n\t" << i + 1 << ". ";
 		visits[i]->showDate();
-		cout << "The visitiation purpose is: ";
+		cout << ": " << endl;
+		cout << "\tMedical staff member in charge: " << visits[i]->getstaffMemInChargeName() << endl;
+		cout << "\tVisitation purpose: ";
 		visits[i]->printVisitationPurpose();
-		cout<<endl;
+		cout << endl;
 	}
+	cout << endl;
 }
 
 void Patient::showDepatmentsVisited() const
 {
-	cout << (logsizeOfDepartments > 1 ? "The departments which visited are" : "The department the patient visited is") << ": ";
+	cout << "\nDepartments in which patient has visited in the past: " << endl;
 		for (int i = 0; i < logsizeOfDepartments; i++)
-			cout << departmentsVisited[i]->getName() << endl;
+			cout << "\t" << departmentsVisited[i]->getName() << endl;
 }
 
 

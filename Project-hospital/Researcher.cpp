@@ -11,10 +11,10 @@ Researcher::Researcher(const char inName[MAX_NAME])
 
 Researcher::~Researcher()
 {
-	delete[]name;
+	delete[] name;
 	for (int i = 0; i < logSizeOfArticles; i++)
 		delete articleStock[i];
-	delete[]articleStock;
+	delete[] articleStock;
 }
 
 void Researcher::addArticle(Article& art)
@@ -57,10 +57,11 @@ void Researcher::showArticles() const
 	{
 		for (int i = 0; i < logSizeOfArticles; i++)
 		{
-			cout << "The name of the article is: " << articleStock[i]->getName() << endl;
-			cout << "The name of the magazine that include the article is: " << articleStock[i]->getMagazineName() << endl;;
-			cout << "The publication date is: ";
+			cout << "Article name: " << articleStock[i]->getName() << endl;
+			cout << "Magazine in which was published: " << articleStock[i]->getMagazineName() << endl;;
+			cout << "Publication date: ";
 			articleStock[i]->showDate();
+			cout << endl;
 		}
 	}
 	else

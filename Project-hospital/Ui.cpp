@@ -17,9 +17,9 @@ void Ui::start()
 	bool exit = false;
 	cin >> choise;
 	cin.ignore();
-	//while (choise != MAX_MENU_OPTIONS)
 	while (!exit)
 	{
+		bool askToContinue = false;
 		switch (choise)
 		{
 		case 1:  //add a department to the hospital
@@ -30,7 +30,10 @@ void Ui::start()
 			if (index == -1) //if this is new department name
 				hospital->addDepartment(*department); //add to the departments array
 			else
+			{
 				cout << "Error: A Department by the given name already exist." << endl;
+				askToContinue = true;
+			}
 			delete[] name;
 			//printSpaceLine();
 			break;
@@ -40,6 +43,7 @@ void Ui::start()
 			if (hospital->isDepartmentsEmpty())
 			{
 				cout << "Error: No Departments availble in Hospital." << endl;
+				askToContinue = true;
 				break;
 			}
 			int employeeID = getInt("Nurse's Employee ID Number: [1-9 digits]");
@@ -64,7 +68,6 @@ void Ui::start()
 			}
 			else
 				cout << "Error: An employee of the given ID number already exists." << endl;
-			//printSpaceLine();
 			break;
 		}
 		case 3: //add doctor to the hospital
@@ -72,6 +75,7 @@ void Ui::start()
 			if (hospital->isDepartmentsEmpty())
 			{
 				cout << "Error: No Departments availble in Hospital." << endl;
+				bool askToContinue = false;
 				break;
 			}
 			int employeeID = getInt("Doctor's Employee ID Number: [1-9 digits]");
@@ -94,11 +98,16 @@ void Ui::start()
 
 				}
 				else
+				{
 					cout << "Error: The Department specified doesn't exist." << endl;
+					bool askToContinue = false;
+				}
 			}
 			else
+			{
 				cout << "Error: An employee with the given Employee ID number already exists" << endl;
-			//printSpaceLine();
+				bool askToContinue = false;
+			}
 			break;
 		}
 		case 4:	// Add Visitation
@@ -115,6 +124,7 @@ void Ui::start()
 				if (isExists) // 1st time = Shouldn't exist
 				{ 
 					cout << "Error: A Patient with the given ID number already exists." << endl;
+					bool askToContinue = false;
 					delete[] inID;
 					break;
 				}
@@ -127,6 +137,7 @@ void Ui::start()
 				if (!isExists) // Should exist
 				{
 					cout << "Error: A Patient with the ID number was not found." << endl;
+					bool askToContinue = false;
 					delete[] inID;
 					break;
 				}
@@ -142,6 +153,7 @@ void Ui::start()
 			if (!exist)
 			{
 				cout << "Error: The Department number chosen is invalid!" << endl;
+				bool askToContinue = false;
 				delete[] inID;
 				if (!isExists)
 					delete patient;
@@ -157,6 +169,7 @@ void Ui::start()
 			if (!isValidDateInput)
 			{
 				cout << "Error: Input date is invalid or not according to format." << endl;
+				bool askToContinue = false;
 				delete[] inID;
 				delete[] inDate;
 				if (!isExists)
@@ -180,7 +193,6 @@ void Ui::start()
 				hospital->addPatient(*patient);
 
 			cout << "Your visitation has been added successfully." << endl;
-			//printSpaceLine();
 			break;
 
 		}
@@ -202,7 +214,7 @@ void Ui::start()
 				Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
 				if (exist) //if the researcher name input is ok
 				{
-					char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
+					char*strDate = getString("Publication Date: [DD/MM/YYYY]");
 					Date* date = nullptr;
 					bool okDate = Utils::convertStrDateToDateObj(strDate, &date);
 					if (okDate)
@@ -211,16 +223,16 @@ void Ui::start()
 						hospital->addArticleToResearcher(*article, researcher);
 					}
 					else
-						cout << "Error,the date is Invalid" << endl;
+						cout << "Error: Date is invalid." << endl;
 					delete[]strDate;
 				}
 				else
-					cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
+					cout << "Error: Researcher doesn't exist in the Research Institute" << endl;
 				delete[]researcherName;
 
 			}
 			else
-				cout << "There is no researchers in the researcher institute yet" << endl;
+				cout << "No Researchers available in the Research Institute." << endl;
 			printSpaceLine();
 			break;
 		}
@@ -242,7 +254,6 @@ void Ui::start()
 			}
 			else
 				cout << "There are no departments yet" << endl;
-			printSpaceLine();
 			break;
 		}
 		case 8: //show staff medical members
@@ -267,7 +278,6 @@ void Ui::start()
 			}
 			else
 				cout << "Error: Patient's ID was not found." << endl;
-			//printSpaceLine();
 			break;
 		}
 		case 11:
@@ -281,18 +291,26 @@ void Ui::start()
 		}
 
 		printSpaceLine();
-		char* reply = getString("Would you like to continue? [y/n]");
-		while ((strcmp(reply, "y") != 0) && (strcmp(reply, "n") != 0))
-		{
-			cout << "Error: invalid input. please enter 'y' for \"Yes\", 'n' for \"No\"..." << endl;
-			reply = getString("Would you like to continue? [y/n]");
+		if (askToContinue) {
+			char* reply = getString("Would you like to continue? [y/n]");
+			while ((strcmp(reply, "y") != 0) && (strcmp(reply, "n") != 0))
+			{
+				cout << "Error: invalid input. please enter 'y' for \"Yes\", 'n' for \"No\"..." << endl;
+				reply = getString("Would you like to continue? [y/n]");
+			}
+			if (strcmp(reply, "n") == 0)
+			{
+				exit = true;
+				printSpaceLine();
+			}
+			else
+			{
+				printMainMenu();
+				cin >> choise;
+				cin.ignore();
+			}
 		}
-		if (strcmp(reply, "n") == 0)
-		{
-			exit = true;
-			printSpaceLine();
-		}
-		else
+		else if (!exit)
 		{
 			printSpaceLine();
 			printMainMenu();
