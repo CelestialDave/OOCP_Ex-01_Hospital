@@ -21,16 +21,15 @@ Patient::Patient(const char* inName,const char* id ,enum eGender inGender, char*
 
 Patient::~Patient()
 {
-	delete[]name;
-	delete[]ID;
-	delete[]yearOfBirth;
-	int i;
-	for (i = 0; i < logSizeOfVisits; i++)
-		delete[]visits[i];
-	delete[]visits;
-	for (i = 0; i < logsizeOfDepartments; i++)
-		delete departmentsVisited[i];
-	delete[]departmentsVisited;
+	delete name;
+	delete ID;
+	delete yearOfBirth;
+	for (int i = 0; i < logSizeOfVisits; i++)
+		delete visits[i];
+	delete[] visits;
+//	for (int i = 0; i < logsizeOfDepartments; i++)
+//		delete departmentsVisited[i];
+	delete[] departmentsVisited;
 }
 
 void Patient::addVistation(VisitationRecord& newVisit)

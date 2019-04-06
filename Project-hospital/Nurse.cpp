@@ -10,7 +10,7 @@ Nurse::Nurse(char*inName,const int  inEmployeeIDNumber, int inYearExp)
 
 Nurse::~Nurse()
 {
-	delete[]name;
+	delete name;
 }
 const char* Nurse::getName()const
 {

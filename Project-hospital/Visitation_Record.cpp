@@ -23,8 +23,8 @@ VisitationRecord::VisitationRecord(const VisitationRecord& other)
 
 VisitationRecord::~VisitationRecord()
 {
-	delete[]staffMemInChargeName;
-	delete[]visitationPurpose;
+	delete staffMemInChargeName;
+	delete visitationPurpose;
 }
 
 const char* VisitationRecord::getstaffMemInChargeName() const

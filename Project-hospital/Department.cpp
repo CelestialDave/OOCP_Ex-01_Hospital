@@ -16,7 +16,7 @@ Department::Department(const char* inName)
 // D'tor:
 Department::~Department()
 {
-	delete[]name;
+	delete name;
 }
 
 //

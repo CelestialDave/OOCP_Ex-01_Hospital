@@ -13,7 +13,7 @@ ResearchInstitute::~ResearchInstitute()
 {
 	for (int i = 0; i < logSizeOfResearchers; i++)
 		delete allResearchers[i];
-	delete []allResearchers;
+	delete[] allResearchers;
 }
 
 const int ResearchInstitute:: getSize() const
