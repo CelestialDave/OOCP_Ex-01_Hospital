@@ -27,7 +27,7 @@ void Ui::start()
 			char* name = getString("Department's name: ");
 			Department* department = new Department(name);
 			int index = hospital->binSearchDepartmentByName(department->getName()); //check if it new department
-			if (index == -1)
+			if (index == -1) //if this is new department name
 				hospital->addDepartment(*department); //add to the departments array
 			else
 				cout << "Error: A Department by the given name already exist." << endl;
@@ -184,74 +184,85 @@ void Ui::start()
 			break;
 
 		}
-		case 5:
+		case 5: //add researcher to the researcher insistute
 		{
 			char*name = getString("Researcher's name: ");
 			Researcher* researcher = new Researcher(name);
 			hospital->addResearcher(*researcher);
 			delete[]name;
-			//printSpaceLine();
+			printSpaceLine();
 			break;
 		}
-		case 6:
+		case 6:   //add article to specific researcher
 		{
-			char*researcherName = getString("Researcher name for which to add an Article: ");
-			bool exist = false;
-			Researcher*researcher=hospital->findResearcherAccordingToName(researcherName,exist);
-			if (exist)
+			if (hospital->getSizeOfResearchers() > 0)
 			{
-				char*strDate = getString("Publiction date: [DD/MM/YYYY]");
-				Date* date = nullptr;
-				bool okDate = Utils::convertStrDateToDateObj(strDate, &date);
-				if (okDate)
+				char*researcherName = getString("Which researcher would you like to add an article to?");
+				bool exist = false;
+				Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
+				if (exist) //if the researcher name input is ok
 				{
-					Article * article = createArticle(date);
-					hospital->addArticleToResearcher(*article, researcher);
+					char*strDate = getString("Please enter the date of the publication [DD/MM/YYYY]");
+					Date* date = nullptr;
+					bool okDate = Utils::convertStrDateToDateObj(strDate, &date);
+					if (okDate)
+					{
+						Article * article = createArticle(date);
+						hospital->addArticleToResearcher(*article, researcher);
+					}
+					else
+						cout << "Error,the date is Invalid" << endl;
+					delete[]strDate;
 				}
 				else
-					cout << "Error: Input date is invalid or not according to format." << endl;
-				delete[]strDate;
+					cout << "Error,this researcher doesn't exist in the Research Institute" << endl;
+				delete[]researcherName;
+
 			}
 			else
-				cout << "Error: Researcher was not found." << endl;
-			delete[]researcherName;
-			//printSpaceLine();
+				cout << "There is no researchers in the researcher institute yet" << endl;
+			printSpaceLine();
 			break;
 		}
-		case 7:
+		case 7: //show patients in specific department
 		{
-			cout << "Please choose the Department number from the following list: " << endl;
-			hospital->showDepartments();
-			int depNum;
-			cin >> depNum;
-			cin.ignore();
-			int depInd = depNum - 1;
-			bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-			if (ok)
-				hospital->showPatientInSpecificDep(depInd);
+			if (hospital->getNumOfDepartments() > 0)
+			{
+				cout << "Please choose the Department number from the following list: " << endl;
+				hospital->showDepartments();
+				int depNum;
+				cin >> depNum;
+				cin.ignore();
+				int depInd = depNum - 1;
+				bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+				if (ok)
+					hospital->showPatientInSpecificDep(depInd);
+				else
+					cout << "Error: The Department number chosen is invalid!" << endl;
+			}
 			else
-				cout << "Error: The Department number chosen is invalid!" << endl;
-			//printSpaceLine();
+				cout << "There are no departments yet" << endl;
+			printSpaceLine();
 			break;
 		}
-		case 8:
+		case 8: //show staff medical members
 		{
 			hospital->showStaffMembers(); 
 			//printSpaceLine();
 			break;
 		}
-		case 9:
+		case 9: //show the researchers in the researcher institute
 		{
 			hospital->showResearchers();
 			//printSpaceLine();
 			break;
 		}
-		case 10:
+		case 10: //search patient by ID number
 		{
 			char*id = getString("Patient's ID number: ");
 			bool isExists = false;
 			Patient* patient = hospital->getPatientByID(id, &isExists);
-			if (isExists)
+			if (isExists)  //the ID numebr input of patient is exist
 			{
 				cout << "Patient's name: " << patient->getName() << endl;
 				patient->showDepatmentsVisited();
@@ -347,7 +358,6 @@ char* Ui::getString(const char* prompt)
 	
 	char temp[MAX_NAME];
 	cin.getline(temp, MAX_NAME);
-	
  	char* str = new char[strlen(temp) + 1];
 	strcpy(str, temp);
 	return str;
