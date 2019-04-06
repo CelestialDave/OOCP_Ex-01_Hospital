@@ -248,13 +248,11 @@ void Ui::start()
 		case 8: //show staff medical members
 		{
 			hospital->showStaffMembers(); 
-			//printSpaceLine();
 			break;
 		}
 		case 9: //show the researchers in the researcher institute
 		{
 			hospital->showResearchers();
-			//printSpaceLine();
 			break;
 		}
 		case 10: //search patient by ID number
