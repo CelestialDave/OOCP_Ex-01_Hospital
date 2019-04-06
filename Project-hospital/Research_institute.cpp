@@ -109,7 +109,7 @@ void ResearchInstitute::showResearchers()  const
 {
 	if (logSizeOfResearchers)
 	{
-		cout << "The researchers " << (logSizeOfResearchers > 1 ? " are" : " is") << ":" << endl;
+		cout << "\nThe researchers " << (logSizeOfResearchers > 1 ? " are" : " is") << ":" << endl;
 		for (int i = 0; i < logSizeOfResearchers; i++)
 		{
 			cout << allResearchers[i]->getName() << endl;
@@ -117,7 +117,7 @@ void ResearchInstitute::showResearchers()  const
 		}
 	}
 	else
-		cout << "There is no researchers in the researcher institute" << endl;
+		cout << "No Researchers available in Research Institute." << endl;
 }
 
 Researcher* ResearchInstitute::getResearcherByName(const char*name, bool &exist)

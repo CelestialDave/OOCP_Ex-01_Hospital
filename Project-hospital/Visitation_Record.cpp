@@ -23,14 +23,15 @@ VisitationRecord::VisitationRecord(const VisitationRecord& other)
 
 VisitationRecord::~VisitationRecord()
 {
-	delete staffMemInChargeName;
-	delete visitationPurpose;
+	delete[] staffMemInChargeName;
+	delete[] visitationPurpose;
 }
 
 const char* VisitationRecord::getstaffMemInChargeName() const
 {
 	return staffMemInChargeName;
 }
+
 const void VisitationRecord::showDate() const
 {
 	arrivalDate.showDate();
@@ -38,5 +39,5 @@ const void VisitationRecord::showDate() const
 
 void VisitationRecord:: printVisitationPurpose() const
 {
-	cout << visitationPurpose << endl;
+	cout << visitationPurpose;
 };

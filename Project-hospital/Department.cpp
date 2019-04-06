@@ -16,10 +16,12 @@ Department::Department(const char* inName)
 // D'tor:
 Department::~Department()
 {
-	delete name;
+	delete[] name;
+	delete[] docsArr;
+	delete[] nursesArr;
+	delete[] patientsArr;
 }
 
-//
 
 void Department::addPatient(Patient& patient)
 {
@@ -119,17 +121,15 @@ void Department::showPatients() const
 {
 	if (logSizeOfPatients > 0)
 	{
-		cout << "The patients in " << name << (logSizeOfPatients > 1 ? " are" : " is") << endl;
+		cout << "Patients visited in " << name << " are: " << endl;
 		for (int i = 0; i < logSizeOfPatients; i++)
 		{
-			cout << "name: " << patientsArr[i]->getName() << endl;
-			cout << "ID: " << patientsArr[i]->getId() << endl;
-			cout << "Gender: ";
+			cout << "\nName: " << patientsArr[i]->getName() << "\tID: " << patientsArr[i]->getId() << "\tGender: ";
 			patientsArr[i]->showGender();
-			cout << "Year of birth: " << patientsArr[i]->getYearOfBirth() << endl;
+			cout << "\tYear of birth: " << patientsArr[i]->getYearOfBirth() << endl;
 			patientsArr[i]->showVisits();
 		}
 	}
 	else
-		cout << "There is no patients in this department" << endl;
+		cout << "\nNo Patients available in this department." << endl;
 }
