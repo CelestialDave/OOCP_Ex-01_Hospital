@@ -11,8 +11,8 @@ Doctor::Doctor(const char*inName,int inEmployeeIDNumber, const char* inSpecialty
 
 Doctor::~Doctor()
 {
-	delete[]name;
-	delete[]specialty;
+	delete name;
+	delete specialty;
 }
 
 const char* Doctor::getName()const

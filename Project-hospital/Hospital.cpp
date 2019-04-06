@@ -15,17 +15,17 @@ Hospital::Hospital()
 
 Hospital::~Hospital()
 {
-	for(int i=0;i<logSizeDoctors;i++)
-		delete[]allDoctors[logSizeDoctors];
+	for(int i = 0; i < logSizeDoctors; i++)
+		delete allDoctors[i];
 	delete[]allDoctors;
-	for (int i = 0; i<logSizeNurses; i++)
-			delete[]allNurses[logSizeNurses];
+	for (int i = 0; i < logSizeNurses; i++)
+			delete allNurses[i];
 	delete[]allNurses;
-	for (int i = 0; i<logSizeOfDepartments; i++)
-		delete[]allDepartments[logSizeOfDepartments];
+	for (int i = 0; i < logSizeOfDepartments; i++)
+		delete allDepartments[i];
 	delete[]allDepartments;
 	for (int i = 0; i<logSizeOfPatients; i++)
-		delete[]allPatients[logSizeOfPatients];
+		delete allPatients[i];
 	delete[]allPatients;
 }
 

@@ -21,9 +21,9 @@ Article::Article(const Article& other)
 
 Article::~Article()
 {
-	delete[]name;
-	delete[]magazineName;
-	delete[]publicationDate;
+	delete name;
+	delete magazineName;
+	delete publicationDate;
 
 }
 
