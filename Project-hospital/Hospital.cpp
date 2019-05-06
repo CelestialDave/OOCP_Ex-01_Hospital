@@ -89,12 +89,13 @@ void Hospital::addDoctor(Doctor& inDoctor)
 	if (logSizeDoctors == 0)
 		index = 0;
 	else
-		index = getIndexForDoctorInsertion(inDoctor.getEmployeeIDNumber());
+		index = getIndexForDoctorInsertion(inDoctor.getEmployeeIDNum());
+	//find the index to push the doctor
 
 	insertDoctorToArrInIndex(inDoctor, index);
 }
 
-int Hospital::binSearchDoctorByID(int inID)
+int Hospital::binSearchDoctorByID(int inID) 
 {
 	int left = 0;
 	int right = logSizeDoctors - 1;
@@ -117,7 +118,7 @@ int Hospital::binSearchDoctorByID(int inID)
 	return -1;
 }
 
-int Hospital::getIndexForDoctorInsertion(int id)
+int Hospital::getIndexForDoctorInsertion(int id) //the index to insert doctor
 {
 	bool isGreater = false;
 	for (int i = 0; i < logSizeDoctors; i++)
@@ -132,7 +133,8 @@ int Hospital::getIndexForDoctorInsertion(int id)
 
 }
 
-void Hospital::pushDoctorsFwdFromIndex(int index)
+void Hospital::pushDoctorsFwdFromIndex(int index) 
+//to shift 1 right all the doctor with bigger employee ID number
 {
 	for (int i = logSizeDoctors; i > index; i--) {
 		allDoctors[i] = allDoctors[i - 1];
@@ -140,7 +142,8 @@ void Hospital::pushDoctorsFwdFromIndex(int index)
 	allDoctors[index] = nullptr;
 }
 
-void Hospital::insertDoctorToArrInIndex(Doctor& newDoctor, int index)
+void Hospital::insertDoctorToArrInIndex(Doctor& newDoctor, int index) 
+//add the doctor in the right index
 {
 	pushDoctorsFwdFromIndex(index);
 	allDoctors[index] = &newDoctor;
@@ -177,9 +180,10 @@ void Hospital::addNurse(Nurse& inNurse)
 	if (logSizeNurses == 0)
 		index = 0;
 	else
-		index = getIndexForNurseInsertion(inNurse.getEmployeeIDNumber());
+		index = getIndexForNurseInsertion(inNurse.getEmployeeIDNum());
+	//find the index to insert nurse to nurse array
 
-	insertNurseToArrInIndex(inNurse, index);
+	insertNurseToArrInIndex(inNurse, index); //insert the nurse to nurse array
 }
 
 int Hospital::binSearchNurseByID(int inID)
@@ -205,7 +209,7 @@ int Hospital::binSearchNurseByID(int inID)
 	return -1;
 }
 
-int Hospital::getIndexForNurseInsertion(int id)
+int Hospital::getIndexForNurseInsertion(int id) //find the index to insert nurses
 {
 	bool isGreater = false;
 	for (int i = 0; i < logSizeNurses; i++)
@@ -220,9 +224,11 @@ int Hospital::getIndexForNurseInsertion(int id)
 
 }
 
-void Hospital::pushNursesFwdFromIndex(int index)
+void Hospital::pushNursesFwdFromIndex(int index) 
+//to shift 1 right all the nurses with bigger employee ID number
 {
-	for (int i = logSizeNurses; i > index; i--) {
+	for (int i = logSizeNurses; i > index; i--)
+	{
 		allNurses[i] = allNurses[i - 1];
 	}
 	allNurses[index] = nullptr;
@@ -271,6 +277,7 @@ int Hospital::binSearchDepartmentByName(const char*name)
 }
 
 int Hospital::getIndexForDepartmentInsertion(const char*name)
+//find the index to insert the department to the right place according to alphabet
 {
 	for (int i = 0; i < logSizeOfDepartments; i++)
 	{
@@ -322,7 +329,7 @@ void Hospital::allocPatientsArr()
 		return;
 }
 
-void Hospital::addPatient(Patient& inPatient)
+void Hospital::addPatient(Patient& inPatient) 
 {
 	int index;
 	allocPatientsArr();
@@ -330,6 +337,7 @@ void Hospital::addPatient(Patient& inPatient)
 		index = 0;
 	else 
 		 index = getIndexForPatientInsertion(inPatient.getId());
+	//find the index to insert patient
 
 	insertPatientToArrInIndex(inPatient, index);
 }
@@ -385,11 +393,13 @@ void Hospital::showDepartments() const
 
 
 bool Hospital::getDepartmentByName(char* depName, Department* resDepartment)
+//find if the department is exist and return by pointer the address
 {
 	return binDepartmentByName(allDepartments, logSizeOfDepartments, depName, resDepartment);
 }
 
 bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, Department* resDep)
+//find if department exist and return by pointer the adress
 {
 	Department* midDep = arr[size / 2];
 	int res = strcmp(depName, midDep->getName());
@@ -437,6 +447,7 @@ int Hospital::getNumOfDepartments()
 }
 
 Patient* Hospital::getPatientByID(char* inID, bool* isFound)
+//if patient exist return his address
 {
 	int index;
 	if (phySizeOfPatients == 0) // No patients available
@@ -462,6 +473,7 @@ Patient* Hospital::getPatientByID(char* inID, bool* isFound)
 
 
 int Hospital::binSearchPatientByID(char* inID)
+//find the index of patient according to his ID,else not found return -1
 {
 	int left = 0;
 	int right = logSizeOfPatients - 1;
@@ -485,7 +497,8 @@ int Hospital::binSearchPatientByID(char* inID)
 }
 
 
-int Hospital::getIndexForPatientInsertion(const char* id)
+int Hospital::getIndexForPatientInsertion(const char* id) 
+//find the right index to insert patient according to the ID number
 {
 	bool isGreater = false;
 	for (int i = 0; i < logSizeOfPatients; i++)
@@ -500,6 +513,7 @@ int Hospital::getIndexForPatientInsertion(const char* id)
 }
 
 void Hospital::pushPatientsFwdFromIndex(int index)
+//shift 1 right all patient that have bigger ID number
 {
 	for (int i = logSizeOfPatients; i > index; i--) {
 		allPatients[i] = allPatients[i - 1];
