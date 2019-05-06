@@ -119,6 +119,7 @@
     <ClInclude Include="nurse.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="researcher.h" />
+    <ClInclude Include="ResearcherDoctor.h" />
     <ClInclude Include="Research_institute.h" />
     <ClInclude Include="Surgeon.h" />
     <ClInclude Include="Ui.h" />
@@ -136,6 +137,7 @@
     <ClCompile Include="Nurse.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Researcher.cpp" />
+    <ClCompile Include="ResearcherDoctor.cpp" />
     <ClCompile Include="Research_institute.cpp" />
     <ClCompile Include="Surgeon.cpp" />
     <ClCompile Include="Ui.cpp" />

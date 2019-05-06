@@ -16,7 +16,7 @@ public:
 	// C'tor:
 	Researcher(const char inName[MAX_NAME]);
 	// Disable Copy C'tor:
-	Researcher(const Researcher& other) = delete;
+	Researcher(const Researcher& other);
 	// D'tor:
 	~Researcher();
 	void addArticle(Article& art);

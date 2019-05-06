@@ -60,6 +60,9 @@
     <ClInclude Include="Visit_Surgery.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ResearcherDoctor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Department.cpp">
@@ -105,6 +108,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Visit_Surgery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResearcherDoctor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
