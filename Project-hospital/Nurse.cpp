@@ -1,25 +1,22 @@
 #include "nurse.h"
 
-Nurse::Nurse(char*inName,const int  inEmployeeIDNumber, int inYearExp)
+Nurse::Nurse(const StaffMember& staffMember, int inYearExp)
+	: StaffMember(staffMember)
 {
-	name = new char[strlen(inName) + 1];
-	strcpy(name, inName);
-	yearsOfExperience = inYearExp;
-	employeeIDNumber = inEmployeeIDNumber;
+	yearsOfExperience = inYearExp; 
+}
+
+Nurse::Nurse(const Nurse& other)
+	// ???
+	: StaffMember(other)
+{
+	if (this->yearsOfExperience != other.yearsOfExperience)
+		this->yearsOfExperience = other.yearsOfExperience;
 }
 
 Nurse::~Nurse()
-{
-	delete[] name;
-}
-const char* Nurse::getName()const
-{
-	return name;
-}
-const int Nurse::getEmployeeIDNum()const
-{
-	return employeeIDNumber;
-}
+{}
+
 int Nurse::getYearsOfExp()const
 {
 	return yearsOfExperience;
