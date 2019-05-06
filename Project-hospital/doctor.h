@@ -15,7 +15,7 @@ public:
 	// C'tor:
 	Doctor(const char* inName,int inEmployeeIDNumber,const char* inSpecialty);
 	// Copy C'tor:
-	Doctor(const Doctor& other) = delete;
+	Doctor(const Doctor& other);
 	// D'tor:
 	~Doctor();
 

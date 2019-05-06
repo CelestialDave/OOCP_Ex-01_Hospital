@@ -120,9 +120,11 @@
     <ClInclude Include="Patient.h" />
     <ClInclude Include="researcher.h" />
     <ClInclude Include="Research_institute.h" />
+    <ClInclude Include="Surgeon.h" />
     <ClInclude Include="Ui.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Visitation_Record.h" />
+    <ClInclude Include="Visit_Surgery.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Article.cpp" />
@@ -135,9 +137,11 @@
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Researcher.cpp" />
     <ClCompile Include="Research_institute.cpp" />
+    <ClCompile Include="Surgeon.cpp" />
     <ClCompile Include="Ui.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Visitation_Record.cpp" />
+    <ClCompile Include="Visit_Surgery.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
