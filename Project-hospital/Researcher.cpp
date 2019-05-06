@@ -9,6 +9,24 @@ Researcher::Researcher(const char inName[MAX_NAME])
 	phySizeOfArticles = 0;
 }
 
+Researcher::Researcher(const Researcher& other)
+{
+	if (this != &other)
+	{
+		delete[]name;
+		this->name = strdup(other.name);
+		int i;
+		for (i = 0; i < logSizeOfArticles; i++)
+			delete articleStock[i];
+		delete []articleStock;
+		this->logSizeOfArticles = other.logSizeOfArticles;
+		this->phySizeOfArticles = other.phySizeOfArticles;
+		for (i = 0; i < logSizeOfArticles; i++)
+			articleStock[i]=new Article(*(other.articleStock[i]));
+	}
+}
+
+
 Researcher::~Researcher()
 {
 	delete[] name;
