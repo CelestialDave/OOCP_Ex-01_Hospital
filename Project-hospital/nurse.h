@@ -10,12 +10,13 @@ private:
 	int yearsOfExperience;
 
 protected:
-	// C'tor:
-	Nurse(const StaffMember& staffMember, int inYearExp);
+	// ???
 	// Copy C'tor:
-	Nurse(const Nurse& other);
+	//Nurse(const Nurse& other);
 
 public:
+	// C'tor:
+	Nurse(const char* name, int employeeIDNumber, int inYearExp);
 	// D'tor:
 	~Nurse();
 	

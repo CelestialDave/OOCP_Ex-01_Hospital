@@ -9,13 +9,12 @@ class Doctor : virtual public StaffMember
 {
 protected:
 	char* specialty; //name of exist department
-	// C'tor:
-	Doctor(const StaffMember& staffMember, const char* inSpecialty);
 	// Copy C'tor:
 	Doctor(const Doctor& other);
 
 public:
-	
+	// C'tor:
+	Doctor(const char* name, int employeeIDNumber, const char* inSpecialty);
 	// D'tor:
 	~Doctor();
 

@@ -28,6 +28,7 @@ const char* StaffMember::getName()const
 {
 	return name;
 }
+
 const int StaffMember::getEmployeeIDNumber() const
 {
 	return employeeIDNumber;

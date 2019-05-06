@@ -89,7 +89,7 @@ void Hospital::addDoctor(Doctor& inDoctor)
 	if (logSizeDoctors == 0)
 		index = 0;
 	else
-		index = getIndexForDoctorInsertion(inDoctor.getEmployeeIDNum());
+		index = getIndexForDoctorInsertion(inDoctor.getEmployeeIDNumber());
 
 	insertDoctorToArrInIndex(inDoctor, index);
 }
@@ -102,7 +102,7 @@ int Hospital::binSearchDoctorByID(int inID)
 	{
 		int mid = left + (right - left) / 2;
 
-		int res = (inID - allDoctors[mid]->getEmployeeIDNum());
+		int res = (inID - allDoctors[mid]->getEmployeeIDNumber());
 		if (res == 0) // found the index
 			return mid;
 
@@ -122,7 +122,7 @@ int Hospital::getIndexForDoctorInsertion(int id)
 	bool isGreater = false;
 	for (int i = 0; i < logSizeDoctors; i++)
 	{
-		isGreater = (allDoctors[i]->getEmployeeIDNum() > id);
+		isGreater = (allDoctors[i]->getEmployeeIDNumber() > id);
 		if (isGreater) // Found the member to be on the right
 		{
 			return i;
@@ -177,7 +177,7 @@ void Hospital::addNurse(Nurse& inNurse)
 	if (logSizeNurses == 0)
 		index = 0;
 	else
-		index = getIndexForNurseInsertion(inNurse.getEmployeeIDNum());
+		index = getIndexForNurseInsertion(inNurse.getEmployeeIDNumber());
 
 	insertNurseToArrInIndex(inNurse, index);
 }
@@ -190,7 +190,7 @@ int Hospital::binSearchNurseByID(int inID)
 	{
 		int mid = left + (right - left) / 2;
 
-		int res = (inID - allNurses[mid]->getEmployeeIDNum());
+		int res = (inID - allNurses[mid]->getEmployeeIDNumber());
 		if (res == 0) // found the index
 			return mid;
 
@@ -210,7 +210,7 @@ int Hospital::getIndexForNurseInsertion(int id)
 	bool isGreater = false;
 	for (int i = 0; i < logSizeNurses; i++)
 	{
-		isGreater = (allNurses[i]->getEmployeeIDNum() > id);
+		isGreater = (allNurses[i]->getEmployeeIDNumber() > id);
 		if (isGreater) // Found the member to be on the right
 		{
 			return i;
@@ -348,7 +348,7 @@ void Hospital::showStaffMembers() const
 		{
 			cout << i + 1 << ". " << endl;
 			cout<< "Name:" << allDoctors[i]->getName() << endl;
-			cout << "Employee ID number is: " << allDoctors[i]->getEmployeeIDNum() << endl;
+			cout << "Employee ID number is: " << allDoctors[i]->getEmployeeIDNumber() << endl;
 			cout<< "The specialty's doctor is: " << allDoctors[i]->getSpciality() << endl;
 		}
 	}
@@ -361,7 +361,7 @@ void Hospital::showStaffMembers() const
 		{
 			cout << i + 1 << ". " << endl;
 			cout<< "Name:" << allNurses[i]->getName() << endl;
-			cout << "Employee ID number is: " << allNurses[i]->getEmployeeIDNum() << endl;
+			cout << "Employee ID number is: " << allNurses[i]->getEmployeeIDNumber() << endl;
 			cout<<"Years of exprience: "<< allNurses[i]->getYearsOfExp() << endl;
 		}
 	}
@@ -530,20 +530,20 @@ bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const 
 	Doctor* midDoc = allDoctors[size / 2];
 	if (size == 1)
 	{
-		if (midDoc->getEmployeeIDNum() == employeeID) 
+		if (midDoc->getEmployeeIDNumber() == employeeID) 
 			return true;
 		else 
 			return false;
 	}
 	else
 	{
-		if (midDoc->getEmployeeIDNum() == employeeID)
+		if (midDoc->getEmployeeIDNumber() == employeeID)
 			return true;
 		int leftSize = size / 2;
 		int rightSize = size - leftSize-1;
-		if (midDoc->getEmployeeIDNum() > employeeID)
+		if (midDoc->getEmployeeIDNumber() > employeeID)
 			return veryfactionDoctorEmployeeIdBinSearch(arr, leftSize, employeeID);
-		else if(midDoc->getEmployeeIDNum() < employeeID)
+		else if(midDoc->getEmployeeIDNumber() < employeeID)
 			return veryfactionDoctorEmployeeIdBinSearch(arr+ leftSize+1, rightSize, employeeID);
 	}
 }
@@ -555,20 +555,20 @@ bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const 
 	Nurse* midNurse = arr[size / 2];
 	if (size == 1)
 	{
-		if (midNurse->getEmployeeIDNum() == employeeID)
+		if (midNurse->getEmployeeIDNumber() == employeeID)
 			return true;
 		else
 			return false;
 	}
 	else
 	{
-		if (midNurse->getEmployeeIDNum() == employeeID)
+		if (midNurse->getEmployeeIDNumber() == employeeID)
 			return true;
 		int leftSize = size / 2;
 		int rightSize = size - leftSize -1;
-		if (midNurse->getEmployeeIDNum() > employeeID)
+		if (midNurse->getEmployeeIDNumber() > employeeID)
 			return veryfactionNurseEmployeeIdBinSearch(arr, leftSize, employeeID);
-		else if (midNurse->getEmployeeIDNum() < employeeID)
+		else if (midNurse->getEmployeeIDNumber() < employeeID)
 			return veryfactionNurseEmployeeIdBinSearch(arr+leftSize+1, rightSize, employeeID);
 
 	}
