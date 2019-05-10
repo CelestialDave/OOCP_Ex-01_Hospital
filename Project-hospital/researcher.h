@@ -3,18 +3,18 @@
 
 #include "article.h"
 #include "ConstantsAndGenFuncs.h"
+#include "StaffMember.h"
 
-class Researcher
+class Researcher :virtual public StaffMember
 {
 private:
-	char* name;
 	Article ** articleStock;
 	int logSizeOfArticles;
 	int phySizeOfArticles;
 
 public:
 	// C'tor:
-	Researcher(const char inName[MAX_NAME]);
+	Researcher(const char inName[MAX_NAME],int employeeIDNumber);
 	// Disable Copy C'tor:
 	Researcher(const Researcher& other);
 	// D'tor:
