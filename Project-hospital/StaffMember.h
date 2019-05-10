@@ -16,7 +16,7 @@ protected:
 
 public:
 	// D'tor:
-	~StaffMember();
+	virtual ~StaffMember();
 
 	const char*getName()const;
 	const int getEmployeeIDNumber()const;

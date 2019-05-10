@@ -1,20 +1,19 @@
 #include "researcher.h"
 
-Researcher::Researcher(const char inName[MAX_NAME])
+
+Researcher::Researcher(const char inName[MAX_NAME],int employeeIDNumber) :StaffMember(inName,employeeIDNumber)
 {
-	name = new char[strlen(inName) + 1];
-	strcpy(name, inName);
 	articleStock = nullptr;
 	logSizeOfArticles = 0;
 	phySizeOfArticles = 0;
 }
 
-Researcher::Researcher(const Researcher& other)
+Researcher::Researcher(const Researcher& other) :StaffMember(other)
 {
 	if (this != &other)
 	{
-		delete[]name;
-		this->name = strdup(other.name);
+		/*delete[]name;
+		this->name = strdup(other.name);*/
 		int i;
 		for (i = 0; i < logSizeOfArticles; i++)
 			delete articleStock[i];
@@ -29,7 +28,7 @@ Researcher::Researcher(const Researcher& other)
 
 Researcher::~Researcher()
 {
-	delete[] name;
+	//delete[] name;
 	for (int i = 0; i < logSizeOfArticles; i++)
 		delete articleStock[i];
 	delete[] articleStock;

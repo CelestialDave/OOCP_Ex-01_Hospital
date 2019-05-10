@@ -10,7 +10,8 @@ Doctor::Doctor(const Doctor& other)
 // ???
 	: StaffMember(other)
 {
-	if (strcmp(this->specialty, other.specialty) != 0)
+
+	if (this!=&other)
 	{
 		delete[] specialty;
 		this->specialty = strdup(other.specialty);
