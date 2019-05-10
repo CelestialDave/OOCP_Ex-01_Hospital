@@ -2,6 +2,8 @@
 #define Research_Institute__H
 
 #include "researcher.h"
+#include "Surgeon.h"
+#include "SurgeonResearcher.h"
 #include "ConstantsAndGenFuncs.h"
 
 class ResearchInstitute
@@ -19,7 +21,10 @@ public:
 	ResearchInstitute(const ResearchInstitute& other)=delete;
 	// D'tor:
 	~ResearchInstitute();
+
+	void showDoctorsResearchers() const;
 	void showResearchers()   const;
+
 	void addArticeToResearcher(Article& art, Researcher* researcher);
 	const int getSize() const;
 	Researcher* getResearcherByName(const char*name,bool&exist);

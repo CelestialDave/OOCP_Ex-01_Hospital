@@ -180,7 +180,7 @@ void Hospital::addNurse(Nurse& inNurse)
 	if (logSizeNurses == 0)
 		index = 0;
 	else
-		index = getIndexForNurseInsertion(inNurse.getEmployeeIDNum());
+		index = getIndexForNurseInsertion(inNurse.getEmployeeIDNumber());
 	//find the index to insert nurse to nurse array
 
 	insertNurseToArrInIndex(inNurse, index); //insert the nurse to nurse array

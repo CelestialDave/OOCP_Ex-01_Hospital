@@ -105,11 +105,25 @@ void ResearchInstitute::allocationResearchersArr()
 		return;
 }
 
+void ResearchInstitute::showDoctorsResearchers() const
+{
+	
+	for (int i = 0; i < logSizeOfResearchers; i++)
+	{
+		S
+		cout <<"\t"<<i+1<<" ,"<< allResearchers[i]->getName() << endl;
+		allResearchers[i]->showArticles();
+	}
+}
+else
+	cout << "No researchers that also doctors available in Research Institute." << endl;
+}
+
 void ResearchInstitute::showResearchers()  const
 {
 	if (logSizeOfResearchers)
 	{
-		cout << "\nThe researchers " << (logSizeOfResearchers > 1 ? " are" : " is") << ":" << endl;
+		cout << "\nThe researchers: " << endl;
 		for (int i = 0; i < logSizeOfResearchers; i++)
 		{
 			cout << allResearchers[i]->getName() << endl;
