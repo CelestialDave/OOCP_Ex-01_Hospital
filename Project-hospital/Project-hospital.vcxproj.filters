@@ -66,6 +66,9 @@
     <ClInclude Include="StaffMember.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SurgeonResearher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Department.cpp">
