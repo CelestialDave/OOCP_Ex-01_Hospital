@@ -198,8 +198,9 @@ void Ui::start()
 		}
 		case 5: //add researcher to the researcher insistute
 		{
+			int employeeID = getInt("Researcher's Employee ID Number: [1-9 digits]");
 			char*name = getString("Researcher's name: ");
-			Researcher* researcher = new Researcher(name);
+			Researcher* researcher = new Researcher(name, employeeID);
 			hospital->addResearcher(*researcher);
 			delete[]name;
 			printSpaceLine();

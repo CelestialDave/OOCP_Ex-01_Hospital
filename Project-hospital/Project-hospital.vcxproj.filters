@@ -122,5 +122,8 @@
     <ClCompile Include="StaffMember.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SurgeonResearcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

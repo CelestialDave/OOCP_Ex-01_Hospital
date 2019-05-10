@@ -11,12 +11,16 @@ private:
 	Department** allDepartments;
 	int logSizeOfDepartments;
 	int phySizeOfDepartments;
-	Doctor** allDoctors;
+	
+	StaffMember** staffArr;
+	int logSizeOfStaff;
+	int phySizeOfStaff;
+	/*Doctor** allDoctors;
 	int logSizeDoctors;
 	int phySizeDoctors;
 	Nurse** allNurses;
 	int logSizeNurses;
-	int phySizeNurses;
+	int phySizeNurses;*/
 	Patient** allPatients;
 	int logSizeOfPatients;
 	int phySizeOfPatients;
@@ -34,20 +38,22 @@ public:
 	// Allocation of memory to Array:
 	void allocDepartmentsArr();
 	void allocPatientsArr();
-	void allocDocArr();
-	void allocNursesArr();
+	void allocStaffArr();
+	/*void allocDocArr();
+	void allocNursesArr();*/
 
 	void addResearcher(Researcher& inResearcher);
 	
-
-	void addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
-	void addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn);
+	void addStaffMemberToDepartment(StaffMember& staffMember, int indexToIn);
+	/*void addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
+	void addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn);*/
 
 	bool getDepartmentByName(char* depName, Department* resDepartment);
 	Department* getDepartmentByIndex(int ind);
-	bool validationEmployeeId(const int& employeeID);
-	bool veryfactionDoctorEmployeeIdBinSearch(Doctor**arr,int size, const int& employeeID);
-	bool veryfactionNurseEmployeeIdBinSearch(Nurse**arr, int size, const int& employeeID);
+	bool verifyEmployeeIDNumber(const int& employeeID);
+	bool verifyStaffMemberEmployeeIDBinSearch(StaffMember** arr, int size, const int& employeeID);
+	/*bool veryfactionDoctorEmployeeIdBinSearch(Doctor**arr,int size, const int& employeeID);
+	bool veryfactionNurseEmployeeIdBinSearch(Nurse**arr, int size, const int& employeeID);*/
 	bool isDepartmentsEmpty() const;
 
 	const char * getDepartmentNameByIndex(int ind);
@@ -60,7 +66,13 @@ public:
 	void pushDepartmentsFwdFromIndex(int index);
 	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
 
-	void insertNurseToArrInIndex(Nurse& newNurse, int index);
+	void addStaffMember(StaffMember& inStaffMember);
+	void inserStaffMemberToArrInIndex(StaffMember& newStaffMember, int index);
+	void pushStaffMembersFwdFromIndex(int index);
+	int getIndexForStaffMemberInsertion(int id);
+	int binSearchStaffMemberByID(int inID);
+
+	/*void insertNurseToArrInIndex(Nurse& newNurse, int index);
 	void pushNursesFwdFromIndex(int index); 
 	int getIndexForNurseInsertion(int id);
 	int binSearchNurseByID(int inID);
@@ -70,7 +82,7 @@ public:
 	int binSearchDoctorByID(int inID);
 	int getIndexForDoctorInsertion(int id);
 	void insertDoctorToArrInIndex(Doctor& newDoctor, int index);
-	void pushDoctorsFwdFromIndex(int index);
+	void pushDoctorsFwdFromIndex(int index);*/
 
 	void addPatient(Patient& inPatient);
 	Patient* getPatientByID(char* inID, bool* isFound);

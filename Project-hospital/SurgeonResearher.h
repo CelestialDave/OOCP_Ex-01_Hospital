@@ -7,6 +7,9 @@
 class SurgeonResearcher : public Surgeon, public Researcher
 {
 
+public:
+	SurgeonResearcher(const Surgeon& surgeon, const Researcher& researcher);
+	~SurgeonResearcher() {}
 };
 
 #endif // !__SURGEON_RESEARCHER_H

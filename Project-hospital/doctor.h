@@ -16,7 +16,7 @@ public:
 	// C'tor:
 	Doctor(const char* name, int employeeIDNumber, const char* inSpecialty);
 	// D'tor:
-	~Doctor();
+	virtual ~Doctor();
 
 	const char* getSpciality()const;
 };

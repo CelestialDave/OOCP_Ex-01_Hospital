@@ -18,7 +18,7 @@ public:
 	// Disable Copy C'tor:
 	Researcher(const Researcher& other);
 	// D'tor:
-	~Researcher();
+	virtual ~Researcher();
 	void addArticle(Article& art);
 	const char* getName() const;
 	void showArticles() const;
