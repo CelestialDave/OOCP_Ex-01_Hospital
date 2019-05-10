@@ -89,7 +89,7 @@ void Hospital::addDoctor(Doctor& inDoctor)
 	if (logSizeDoctors == 0)
 		index = 0;
 	else
-		index = getIndexForDoctorInsertion(inDoctor.getEmployeeIDNum());
+		index = getIndexForDoctorInsertion(inDoctor.getEmployeeIDNumber());
 	//find the index to push the doctor
 
 	insertDoctorToArrInIndex(inDoctor, index);

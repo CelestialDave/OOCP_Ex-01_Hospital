@@ -3,7 +3,7 @@
 
 #include "researcher.h"
 #include "Surgeon.h"
-#include "SurgeonResearcher.h"
+#include "SurgeonResearher.h"
 #include "ConstantsAndGenFuncs.h"
 
 class ResearchInstitute

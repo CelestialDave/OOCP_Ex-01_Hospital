@@ -107,16 +107,17 @@ void ResearchInstitute::allocationResearchersArr()
 
 void ResearchInstitute::showDoctorsResearchers() const
 {
-	
 	for (int i = 0; i < logSizeOfResearchers; i++)
 	{
-		S
-		cout <<"\t"<<i+1<<" ,"<< allResearchers[i]->getName() << endl;
-		allResearchers[i]->showArticles();
+		Researcher* researcher = dynamic_cast<Researcher*>(allResearchers[i]);
+		if (!researcher)
+		{
+			cout << "\t" << i + 1 << " ,";
+			cout<<researcher->getName() << endl;
+			researcher->showArticles();
+		}
 	}
-}
-else
-	cout << "No researchers that also doctors available in Research Institute." << endl;
+	cout << endl;
 }
 
 void ResearchInstitute::showResearchers()  const

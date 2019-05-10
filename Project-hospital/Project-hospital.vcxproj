@@ -143,6 +143,7 @@
     <ClCompile Include="Research_institute.cpp" />
     <ClCompile Include="StaffMember.cpp" />
     <ClCompile Include="Surgeon.cpp" />
+    <ClCompile Include="SurgeonResearcher.cpp" />
     <ClCompile Include="Ui.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Visitation_Record.cpp" />
