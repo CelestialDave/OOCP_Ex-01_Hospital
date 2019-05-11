@@ -8,7 +8,7 @@
 using namespace std;
 
 
-#define MAX_MENU_OPTIONS 11
+//#define MAX_MENU_OPTIONS 11
 #define MAX_NAME 100
 // Date MAX values:
 #define MAX_DAY 31

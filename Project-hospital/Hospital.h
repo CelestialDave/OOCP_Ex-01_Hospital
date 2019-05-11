@@ -74,6 +74,7 @@ public:
 	void showPatientInSpecificDep(const int & index) const;
 	void showMedicalStaffMembers() const;
 	void showResearchers() const;
+	void showDoctorResearchers() const;
 	void showDepartments() const;
 
 	int findTheIndexOfDepNameInDepArr(char*str) const;

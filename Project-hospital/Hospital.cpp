@@ -281,6 +281,10 @@ void Hospital::showResearchers() const
 	researchInst.showResearchers();
 }
 
+void Hospital::showDoctorResearchers() const
+{
+	researchInst.showDoctorsResearchers();
+}
 
 void Hospital::showDepartments() const
 {
