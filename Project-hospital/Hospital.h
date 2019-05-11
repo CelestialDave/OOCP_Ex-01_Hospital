@@ -42,9 +42,9 @@ public:
 	/*void allocDocArr();
 	void allocNursesArr();*/
 
-	void addResearcher(Researcher& inResearcher);
+	void addResearcher(Researcher* inResearcher);
 	
-	void addStaffMemberToDepartment(StaffMember& staffMember, int indexToIn);
+	void addStaffMemberToDepartment(StaffMember* staffMember, int indexToIn);
 	/*void addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
 	void addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn);*/
 
@@ -66,8 +66,8 @@ public:
 	void pushDepartmentsFwdFromIndex(int index);
 	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
 
-	void addStaffMember(StaffMember& inStaffMember);
-	void inserStaffMemberToArrInIndex(StaffMember& newStaffMember, int index);
+	void addStaffMember(StaffMember* inStaffMember);
+	void inserStaffMemberToArrInIndex(StaffMember* newStaffMember, int index);
 	void pushStaffMembersFwdFromIndex(int index);
 	int getIndexForStaffMemberInsertion(int id);
 	int binSearchStaffMemberByID(int inID);
@@ -91,6 +91,7 @@ public:
 	void insertPatientToArrInIndex(Patient& newPatient, int index);
 	void pushPatientsFwdFromIndex(int index);
 
+	Researcher* getResearcherByIndex(int index) const;
 	Researcher* findResearcherAccordingToName(const char*name,bool&exist);
 	void addArticleToResearcher(Article & art, Researcher*researcher);
 	const int getSizeOfResearchers() const;

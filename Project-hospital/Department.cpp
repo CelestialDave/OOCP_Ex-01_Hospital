@@ -56,10 +56,10 @@ void Department::allocPatientsArr()
 		return;
 }
 
-void Department::addStaffMember(StaffMember& staffMember)
+void Department::addStaffMember(StaffMember* staffMember)
 {
 	allocStaffArr();
-	staffArr[logSizeOfStaff] = &staffMember;
+	staffArr[logSizeOfStaff] = staffMember;
 	logSizeOfStaff++;
 }
 
@@ -166,4 +166,9 @@ void Department::showPatients() const
 	}
 	else
 		cout << "\nNo Patients available in this department." << endl;
+}
+
+StaffMember** Department::operator+=(StaffMember* staffMember)
+{
+	addStaffMember(staffMember);
 }

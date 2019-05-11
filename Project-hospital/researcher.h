@@ -20,9 +20,12 @@ public:
 	// D'tor:
 	virtual ~Researcher();
 	void addArticle(Article& art);
-	const char* getName() const;
+	//const char* getName() const;
+	int getSizeOfArticles() const;
 	void showArticles() const;
 	void allocationArticlesArr();
+
+	bool operator>(const Researcher& other) const;
 
 };
 #endif 

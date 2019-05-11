@@ -60,7 +60,7 @@ void Hospital::allocDepartmentsArr()
 }
 
 
-void Hospital::addResearcher(Researcher& inResearcher)
+void Hospital::addResearcher(Researcher* inResearcher)
 {
 	researchInst.addResearcher(inResearcher);
 }
@@ -88,7 +88,7 @@ void Hospital::allocStaffArr()
 		return;
 }
 
-void Hospital::addStaffMember(StaffMember& inStaffMember)
+void Hospital::addStaffMember(StaffMember* inStaffMember)
 {
 	int index;
 	allocStaffArr();
@@ -96,15 +96,15 @@ void Hospital::addStaffMember(StaffMember& inStaffMember)
 		index = 0;
 	else
 		//find the index to push the staff member
-		index = getIndexForStaffMemberInsertion(inStaffMember.getEmployeeIDNumber());
+		index = getIndexForStaffMemberInsertion(inStaffMember->getEmployeeIDNumber());
 
 	inserStaffMemberToArrInIndex(inStaffMember, index);
 }
 
-void Hospital::inserStaffMemberToArrInIndex(StaffMember& newStaffMember, int index)
+void Hospital::inserStaffMemberToArrInIndex(StaffMember* newStaffMember, int index)
 {
 	pushStaffMembersFwdFromIndex(index);
-	staffArr[index] = &newStaffMember;
+	staffArr[index] = newStaffMember;
 	logSizeOfStaff++;
 }
 
@@ -736,6 +736,10 @@ int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
 //	allDepartments[indexToIn]->addDoctor(doctor);
 //
 //}
+Researcher* Hospital::getResearcherByIndex(int index) const
+{
+	return researchInst.getResearcherByIndex(index);
+}
 
 Researcher* Hospital::findResearcherAccordingToName(const char*name, bool&exist)
 {

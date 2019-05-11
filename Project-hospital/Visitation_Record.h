@@ -22,11 +22,11 @@ public:
 	// Copy C'tor:
 	VisitationRecord(const VisitationRecord& other);
 	// D'tor:
-	~VisitationRecord();
+	virtual ~VisitationRecord();
 
 	const char* getstaffMemInChargeName() const;
-	const void showDate() const;
-	const Date& getArrivalDate() const;
+	void showDate() const;
+	Date getArrivalDate() const;
 	void  printVisitationPurpose() const;
 };
 
