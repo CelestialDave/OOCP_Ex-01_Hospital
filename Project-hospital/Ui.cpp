@@ -49,7 +49,6 @@ void Ui::start()
 				break;
 			}
 			int employeeID = getInt("Nurse's Employee ID Number: [1-9 digits]");
-			//bool existID = hospital->validationEmployeeId(employeeID);
 			bool existID = hospital->verifyEmployeeIDNumber(employeeID);
 			if (!existID)
 			{
@@ -183,9 +182,7 @@ void Ui::start()
 			int choice = getInt("Press 1 for checkup,0 for surgery");
 			bool ok = true;
 			VisitationRecord* newVisit = createVisit(*patient,arrivalDate,choice,ok);
-			/*char* staffMemIncharge = getString("Medical staff member in charge: ");
-			char* visitPurpose = getString("Visitation purpose: ");*/
-			//VisitationRecord* newVisit = new VisitationRecord(*patient, staffMemIncharge, *arrivalDate, visitPurpose);
+
 			if (ok)
 				patient->addVisitiaionRecord(newVisit);
 			else
@@ -269,12 +266,17 @@ void Ui::start()
 			hospital->showMedicalStaffMembers(); 
 			break;
 		}
-		case 9: //show the researchers in the researcher institute
+		case 9: // Show all researchers in Research Institute
 		{
 			hospital->showResearchers();
 			break;
 		}
-		case 10: //search patient by ID number
+		case 10: // Show all Researchers that are Doctors in the Research Institute
+		{
+			hospital->showDoctorResearchers();
+			break;
+		}
+		case 11: //search patient by ID number
 		{
 			char*id = getString("Patient's ID number: ");
 			bool isExists = false;
@@ -289,11 +291,11 @@ void Ui::start()
 				cout << "Error: Patient's ID was not found." << endl;
 			break;
 		}
-		case 11:// Which researcher has more articles
+		case 12:// Which researcher has more articles
 		{
 			compare2Researchers();
 		}
-		case 12:
+		case 13:
 			exit = true;
 			break;
 		default:
@@ -528,8 +530,10 @@ void Ui::printMainMenu() const
 	cout << "\t7. Show all Patients by Department." << endl;
 	cout << "\t8. Show all the Hospital's Medical Staff Members." << endl;
 	cout << "\t9. Show all Researchers in the Research Institute." << endl;
-	cout << "\t10. Get a Patient information by ID." << endl;
-	cout << "\t11. Exit Program." << endl;
+	cout << "\t10. Show all Researchers that are Doctors in the Research Institute." << endl;
+	cout << "\t11. Get a Patient information by ID." << endl;
+	cout << "\t12. Compare Researchers (>): \n\t\tShow between 2 chosen researchers if left has greater number of articles then the one on the right." << endl;
+	cout << "\t13. Exit Program." << endl;
 }
 
 
