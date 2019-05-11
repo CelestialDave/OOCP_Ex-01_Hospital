@@ -26,17 +26,9 @@ Patient::~Patient()
 	for (int i = 0; i < logSizeOfVisits; i++)
 		delete visits[i];
 	delete[] visits;
-	for (int i = 0; i < logsizeOfDepartments; i++)
-		delete departmentsVisited[i];
 	delete[] departmentsVisited;
 }
 
-//void Patient::addVistation(VisitationRecord& newVisit)
-//{
-//	allocVisitsArr();
-//	visits[logSizeOfVisits] = &newVisit;
-//	logSizeOfVisits++;
-//}
 void Patient::addVisitiaionRecord(VisitationRecord* inVisitiationRecord)
 {
 	int index;

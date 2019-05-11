@@ -346,7 +346,7 @@ void Ui::printSpaceLine() const
 
 void Ui::compare2Researchers() const
 {
-	cout << "please enter 2 numbers of researchers for comparing amout of articles from the following list" << endl;
+	cout << "Choose 2 Researchers for article number comparison from the list below: " << endl;
 	hospital->showResearchers();
 	int researcher1Ind, researcher2Ind;
 	cin >> researcher1Ind >> researcher2Ind;
@@ -387,16 +387,13 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 	}
 	else if (choice == SURGERY)
 	{
-		int surgeryRoomNum = getInt("Please provide the Surgery room number");
-		int fasting = getInt("The patient in fasting? Yes-press 1,No-press 0");
+		int surgeryRoomNum = getInt("Surgery Room Number: ");
+		int fasting = getInt("Has the Patient been fasting? \n\t1.Yes\t2. No.\n");
+
 		if (fasting == 1 || fasting == 0)
 		{
-			bool ifFast;
-			if (fasting == 1)
-				ifFast = true;
-			else
-				ifFast = false;
-			VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, ifFast);
+			bool isFasting = (bool)fasting;
+			VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, isFasting);
 			delete[]staffMemIncharge;
 			delete[]visitPurpose;
 			delete visit;
@@ -408,7 +405,7 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 			delete[]visitPurpose;
 			delete visit;
 			ok = false;
-			return NULL;
+			return nullptr;
 		}
 	}
 	else
@@ -476,10 +473,10 @@ enum eGender Ui::inputGender()
 {
 	int gen;
 	enum eGender gender;
-	cout << "Patient's gender:  [0: Male, 1: Female]" << endl;
+	cout << "Patient's gender:  [1. Male\t2. Female]" << endl;
 	cin >> gen;
 	cin.ignore();
-	gender = (eGender)gen;
+	gender = (eGender)(gen - 1);
 	return gender;
 }
 
