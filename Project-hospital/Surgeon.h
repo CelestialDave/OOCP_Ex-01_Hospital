@@ -9,6 +9,7 @@ protected:
 	int numSurgeries;
 public:
 	Surgeon(const Doctor & other, int numSurgeries);
+	virtual ~Surgeon() {}
 	int getNumSurgeries() const;
 
 };

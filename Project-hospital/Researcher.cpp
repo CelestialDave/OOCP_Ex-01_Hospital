@@ -1,14 +1,16 @@
 #include "researcher.h"
 
 
-Researcher::Researcher(const char inName[MAX_NAME],int employeeIDNumber) :StaffMember(inName,employeeIDNumber)
+Researcher::Researcher(const char inName[MAX_NAME],int employeeIDNumber) 
+	: StaffMember(inName, employeeIDNumber)
 {
 	articleStock = nullptr;
 	logSizeOfArticles = 0;
 	phySizeOfArticles = 0;
 }
 
-Researcher::Researcher(const Researcher& other) :StaffMember(other)
+Researcher::Researcher(const Researcher& other) :
+	StaffMember(other)
 {
 	if (this != &other)
 	{
