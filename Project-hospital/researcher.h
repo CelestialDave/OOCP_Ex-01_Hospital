@@ -20,11 +20,14 @@ public:
 	// D'tor:
 	virtual ~Researcher();
 	void addArticle(Article& art);
-	const char* getName() const;
+	//const char* getName() const;
+	int getSizeOfArticles() const;
 	void showArticles() const;
 	void allocationArticlesArr();
 
 	friend ostream& operator<<(ostream& os, const Researcher& researcher);
+
+	bool operator>(const Researcher& other) const;
 
 };
 #endif 

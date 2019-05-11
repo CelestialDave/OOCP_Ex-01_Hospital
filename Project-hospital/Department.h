@@ -55,7 +55,7 @@ public:
 	//void addNurse(Nurse& nurse);
 	// Add patient to the department list of patients:
 	void addPatient(Patient& patient);
-	
+	StaffMember** operator+=(StaffMember* staffMember);
 	const char* getName() const; 
 	
 };

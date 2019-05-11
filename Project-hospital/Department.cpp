@@ -167,3 +167,8 @@ void Department::showPatients() const
 	else
 		cout << "\nNo Patients available in this department." << endl;
 }
+
+StaffMember** Department::operator+=(StaffMember* staffMember)
+{
+	addStaffMember(staffMember);
+}

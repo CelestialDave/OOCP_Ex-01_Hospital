@@ -65,10 +65,10 @@ void Researcher:: allocationArticlesArr()
 		return;
 }
 
-const char* Researcher::getName() const
-{
-	return name;
-}
+//const char* Researcher::getName() const
+//{
+//	return name;
+//}
 
 void Researcher::showArticles() const
 {
@@ -85,6 +85,16 @@ void Researcher::showArticles() const
 	}
 	else
 		cout << "There is no article for this researcher" << endl;
+}
+
+bool Researcher::operator>(const Researcher& other) const
+{
+	return (this->getSizeOfArticles() > other.getSizeOfArticles());
+}
+
+int Researcher::getSizeOfArticles() const
+{
+	return logSizeOfArticles;
 }
 
 ostream& operator<<(ostream& os, const Researcher& researcher)

@@ -3,6 +3,8 @@
 #include "Date.h"
 #include "Hospital.h"
 #include "Utils.h"
+#include "Visit_Surgery.h"
+
 
 
 Ui::Ui(Hospital *hos)
@@ -178,12 +180,16 @@ void Ui::start()
 				break;
 			}
 
-			char* staffMemIncharge = getString("Medical staff member in charge: ");
-			char* visitPurpose = getString("Visitation purpose: ");
-
-			VisitationRecord* newVisit = new VisitationRecord(*patient, staffMemIncharge, *arrivalDate, visitPurpose);
-			patient->addVistation(*newVisit);
-
+			int choice = getInt("Press 1 for checkup,0 for surgery");
+			bool ok = true;
+			VisitationRecord* newVisit = createVisit(*patient,arrivalDate,choice,ok);
+			/*char* staffMemIncharge = getString("Medical staff member in charge: ");
+			char* visitPurpose = getString("Visitation purpose: ");*/
+			//VisitationRecord* newVisit = new VisitationRecord(*patient, staffMemIncharge, *arrivalDate, visitPurpose);
+			if (ok)
+				patient->addVisitiaionRecord(*newVisit);
+			else
+				cout << "Error: Input is invalid or not according to format." << endl;
 			// Adding Patient to relevant DB if required:
 			if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
 			{
@@ -202,7 +208,7 @@ void Ui::start()
 			int employeeID = getInt("Researcher's Employee ID Number: [1-9 digits]");
 			char*name = getString("Researcher's name: ");
 			Researcher* researcher = new Researcher(name, employeeID);
-			hospital->addResearcher(*researcher);
+			hospital->addResearcher(researcher);
 			delete[]name;
 			printSpaceLine();
 			break;
@@ -276,13 +282,18 @@ void Ui::start()
 			if (isExists)  //the ID numebr input of patient is exist
 			{
 				cout << "Patient's name: " << patient->getName() << endl;
-				patient->showDepatmentsVisited();
+				printVisitationPorpuse(patient);
+				//patient->showDepatmentsVisited();
 			}
 			else
 				cout << "Error: Patient's ID was not found." << endl;
 			break;
 		}
-		case 11:
+		case 11:// Which researcher has more articles
+		{
+			compare2Researchers();
+		}
+		case 12:
 			exit = true;
 			break;
 		default:
@@ -329,6 +340,67 @@ void Ui::printSpaceLine() const
 	cout << "\n==================================================================\n" << endl;
 }
 
+
+void Ui::compare2Researchers() const
+{
+	cout << "please enter 2 numbers of researchers for comparing amout of articles from the following list" << endl;
+	hospital->showResearchers();
+	int researcher1Ind, researcher2Ind;
+	cin >> researcher1Ind >> researcher2Ind;
+	researcher1Ind--;
+	researcher2Ind--;
+	bool ok1 = Utils::ifIndexInRange(researcher1Ind, hospital->getSizeOfResearchers());
+	bool ok2 = Utils::ifIndexInRange(researcher2Ind, hospital->getSizeOfResearchers());
+	if (ok1 && ok2)
+	{
+		Researcher* researcher1 = hospital->getResearcherByIndex(researcher1Ind);
+		Researcher* researcher2 = hospital->getResearcherByIndex(researcher2Ind);
+
+		if (researcher1 > researcher2)
+		{
+			cout << "True: " << researcher1->getName() <<
+				"has more articles than " << researcher2->getName() << endl;
+		}
+		else
+		{
+			cout << "False: " << researcher1->getName() <<
+				"has less or equal aritcle than " << researcher2->getName() << endl;
+		}
+	}
+	else
+		cout << "Error: invalid input" << endl;
+}
+
+VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice,bool& ok)
+{
+	char* staffMemIncharge = getString("Medical staff member in charge: ");
+	char* visitPurpose = getString("Visitation purpose: ");
+	VisitationRecord* visit=new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
+	if (choice == CHECKUP)
+	{
+		delete[]staffMemIncharge;
+		delete[]visitPurpose;
+		return visit;
+	}
+	else if (choice==SURGERY)
+	{
+		int surgeryRoomNum = getInt("Please provide the Surgery room number");
+		bool fasting = getInt("The patient in fasting? Yes-press 1,No-press 0");
+		VisitSurgery* newVisit= new VisitSurgery(*visit, surgeryRoomNum, fasting);
+		delete[]staffMemIncharge;
+		delete[]visitPurpose;
+		delete visit;
+		return newVisit;
+	}
+	else
+	{
+		delete[]staffMemIncharge;
+		delete[]visitPurpose;
+		delete visit;
+		ok = false;
+		return NULL;
+	}
+}
 Article* Ui::createArticle(Date* date)
 {
 	char *name = getString("Article's name: ");
@@ -410,6 +482,22 @@ int Ui::inputYearsOfExprience()const
 	cin.ignore();
 	return yearsExp;
 }
+
+void Ui::printVisitationPorpuse(Patient* patient) const
+{
+	int numVisits = patient->getSizeVisits();
+	numVisits--;
+	/*The number of visit more than one because we know the patient is exist,
+	we want to get the last visitation to check if it was for Surgery or checkup */
+	VisitationRecord* lastVisit = patient->getVisitByIndex(numVisits);
+
+	VisitationRecord* temp = dynamic_cast<VisitationRecord*>(lastVisit);
+	if (temp)
+		cout << "The last patient visitation was for checkup" << endl;
+	else
+		cout << "The last patient visitation was for surgery" << endl;
+}
+
 
 void Ui::printMainMenu() const
 {

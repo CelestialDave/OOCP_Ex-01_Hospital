@@ -60,7 +60,7 @@ void Hospital::allocDepartmentsArr()
 }
 
 
-void Hospital::addResearcher(Researcher& inResearcher)
+void Hospital::addResearcher(Researcher* inResearcher)
 {
 	researchInst.addResearcher(inResearcher);
 }
@@ -734,6 +734,10 @@ void Hospital::addStaffMemberToDepartment(StaffMember* staffMember, int indexToI
 //	allDepartments[indexToIn]->addDoctor(doctor);
 //
 //}
+Researcher* Hospital::getResearcherByIndex(int index) const
+{
+	return researchInst.getResearcherByIndex(index);
+}
 
 Researcher* Hospital::findResearcherAccordingToName(const char*name, bool&exist)
 {

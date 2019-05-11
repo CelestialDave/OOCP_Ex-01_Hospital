@@ -32,7 +32,12 @@ const char* VisitationRecord::getstaffMemInChargeName() const
 	return staffMemInChargeName;
 }
 
-const void VisitationRecord::showDate() const
+Date VisitationRecord::getArrivalDate() const
+{
+	return arrivalDate;
+}
+
+void VisitationRecord::showDate() const
 {
 	arrivalDate.showDate();
 }

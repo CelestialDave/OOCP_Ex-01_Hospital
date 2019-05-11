@@ -4,6 +4,7 @@
 #include "researcher.h"
 #include "Surgeon.h"
 #include "SurgeonResearher.h"
+#include "ResearcherDoctor.h"
 #include "ConstantsAndGenFuncs.h"
 
 class ResearchInstitute
@@ -29,12 +30,12 @@ public:
 	const int getSize() const;
 	Researcher* getResearcherByName(const char*name,bool&exist);
 	Researcher* binSearchResearcherByName(Researcher** arr, int size, const char* name,bool&exist);
-
-	void addResearcher(Researcher& inResearcher);
+	Researcher* getResearcherByIndex(int index) const;
+	void addResearcher(Researcher* inResearcher);
 	int binSearchResearcherByID(const char*name);
 	int getIndexForResearcherInsertion(const char*name);
 	void pushResearchersFwdFromIndex(int index);
-	void insertResearcherToArrInIndex(Researcher& newResearcher, int index);
+	void insertResearcherToArrInIndex(Researcher* newResearcher, int index);
 	void allocationResearchersArr();
 
 };

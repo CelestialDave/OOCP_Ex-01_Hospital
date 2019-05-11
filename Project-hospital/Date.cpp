@@ -14,3 +14,15 @@ const void Date::showDate() const
 		((month < 10) ? "0" : "") << "/" << year;
 }
 
+int Date::getYear() const
+{
+	return year;
+}
+int Date::getMonth() const
+{
+	return month;
+}
+int Date::getDay() const
+{
+	return day;
+}
