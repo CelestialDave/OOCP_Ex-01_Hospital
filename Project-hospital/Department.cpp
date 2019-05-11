@@ -171,4 +171,5 @@ void Department::showPatients() const
 StaffMember** Department::operator+=(StaffMember* staffMember)
 {
 	addStaffMember(staffMember);
+	return staffArr;
 }

@@ -187,7 +187,7 @@ void Ui::start()
 			char* visitPurpose = getString("Visitation purpose: ");*/
 			//VisitationRecord* newVisit = new VisitationRecord(*patient, staffMemIncharge, *arrivalDate, visitPurpose);
 			if (ok)
-				patient->addVisitiaionRecord(*newVisit);
+				patient->addVisitiaionRecord(newVisit);
 			else
 				cout << "Error: Input is invalid or not according to format." << endl;
 			// Adding Patient to relevant DB if required:

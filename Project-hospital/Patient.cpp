@@ -54,7 +54,7 @@ int Patient::getIndexForVisitiationInsertion(Date & date) //the index to insert 
 {
 	for (int i = 0; i < logSizeOfVisits; i++)
 	{
-		Date curr = visits[i]->getArrivalDate;
+		Date curr = visits[i]->getArrivalDate();
 		if (curr.getYear()>date.getYear())
 		{
 			return i;
