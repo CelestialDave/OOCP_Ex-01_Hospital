@@ -112,7 +112,7 @@ void ResearchInstitute::showDoctorsResearchers() const
 	{
 		ResearcherDoctor* researcherDoctor = dynamic_cast<ResearcherDoctor*>(allResearchers[i]);
 		SurgeonResearcher* surgeonResearcher = dynamic_cast<SurgeonResearcher*>(allResearchers[i]);
-		if (researcherDoctor)
+		if (researcherDoctor) 
 		{
 			cout << "\t" <<j<< " ,";
 			cout<< researcherDoctor->getName() << endl;

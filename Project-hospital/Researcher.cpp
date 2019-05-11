@@ -89,12 +89,7 @@ void Researcher::showArticles() const
 
 bool Researcher::operator>(const Researcher& other) const
 {
-	return (this->getSizeOfArticles() > other.getSizeOfArticles());
-}
-
-int Researcher::getSizeOfArticles() const
-{
-	return logSizeOfArticles;
+	return (this->logSizeOfArticles > other.logSizeOfArticles);
 }
 
 ostream& operator<<(ostream& os, const Researcher& researcher)

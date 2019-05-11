@@ -182,6 +182,7 @@ void Patient:: showVisits()const
 		cout << "\tMedical staff member in charge: " << visits[i]->getstaffMemInChargeName() << endl;
 		cout << "\tVisitation purpose: ";
 		visits[i]->printVisitationPurpose();
+		cout << endl;
 		VisitSurgery*temp = dynamic_cast<VisitSurgery*>(visits[i]);
 		if (temp)
 		{

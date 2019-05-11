@@ -382,15 +382,31 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		delete[]visitPurpose;
 		return visit;
 	}
-	else if (choice==SURGERY)
+	else if (choice == SURGERY)
 	{
 		int surgeryRoomNum = getInt("Please provide the Surgery room number");
-		bool fasting = getInt("The patient in fasting? Yes-press 1,No-press 0");
-		VisitSurgery* newVisit= new VisitSurgery(*visit, surgeryRoomNum, fasting);
-		delete[]staffMemIncharge;
-		delete[]visitPurpose;
-		delete visit;
-		return newVisit;
+		int fasting = getInt("The patient in fasting? Yes-press 1,No-press 0");
+		if (fasting == 1 || fasting == 0)
+		{
+			bool ifFast;
+			if (fasting == 1)
+				ifFast = true;
+			else
+				ifFast = false;
+			VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, ifFast);
+			delete[]staffMemIncharge;
+			delete[]visitPurpose;
+			delete visit;
+			return newVisit;
+		}
+		else
+		{
+			delete[]staffMemIncharge;
+			delete[]visitPurpose;
+			delete visit;
+			ok = false;
+			return NULL;
+		}
 	}
 	else
 	{
@@ -491,11 +507,11 @@ void Ui::printVisitationPorpuse(Patient* patient) const
 	we want to get the last visitation to check if it was for Surgery or checkup */
 	VisitationRecord* lastVisit = patient->getVisitByIndex(numVisits);
 
-	VisitationRecord* temp = dynamic_cast<VisitationRecord*>(lastVisit);
+	VisitSurgery* temp = dynamic_cast<VisitSurgery*>(lastVisit);
 	if (temp)
-		cout << "The last patient visitation was for checkup" << endl;
-	else
 		cout << "The last patient visitation was for surgery" << endl;
+	else
+		cout << "The last patient visitation was for checkup" << endl;
 }
 
 

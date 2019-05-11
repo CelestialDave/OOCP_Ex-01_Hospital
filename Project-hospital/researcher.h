@@ -21,7 +21,6 @@ public:
 	virtual ~Researcher();
 	void addArticle(Article& art);
 	//const char* getName() const;
-	int getSizeOfArticles() const;
 	void showArticles() const;
 	void allocationArticlesArr();
 
