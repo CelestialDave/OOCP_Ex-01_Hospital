@@ -7,10 +7,7 @@
 // C'tor:
 Hospital::Hospital()
 	: allDepartments(nullptr), staffArr(nullptr), allPatients(nullptr)
-//	:  allDoctors(nullptr), allNurses(nullptr), allPatients(nullptr)
 {
-	//logSizeOfDepartments = logSizeDoctors = logSizeNurses = 
-	//logSizeOfPatients = phySizeDoctors = phySizeNurses = phySizeOfPatients = 0;
 	logSizeOfDepartments = phySizeOfDepartments = logSizeOfStaff = 
 		phySizeOfStaff = logSizeOfPatients = phySizeOfPatients = 0;
 }
@@ -18,12 +15,6 @@ Hospital::Hospital()
 
 Hospital::~Hospital()
 {
-	//for(int i = 0; i < logSizeDoctors; i++)
-	//	delete allDoctors[i];
-	//delete[]allDoctors;
-	//for (int i = 0; i < logSizeNurses; i++)
-	//		delete allNurses[i];
-	//delete[]allNurses;
 	for (int i = 0; i < logSizeOfStaff; i++)
 		delete staffArr[i];
 	delete[] staffArr;
@@ -155,188 +146,6 @@ int Hospital::binSearchStaffMemberByID(int inID)
 	return -1;
 }
 
-
-
-//void Hospital::allocDocArr()
-//{
-//	if (phySizeDoctors == 0) // If this is the 1st Department
-//	{
-//		allDoctors = new Doctor*;
-//		phySizeDoctors++;
-//	}
-//	else if (logSizeDoctors == phySizeDoctors) //if there is no place in the array
-//	{
-//		phySizeDoctors *= 2;
-//		Doctor** newArr = new Doctor*[phySizeDoctors];
-//		for (int i = 0; i < logSizeDoctors; i++)
-//		{
-//			newArr[i] = allDoctors[i];
-//		}
-//		delete[] allDoctors;
-//		allDoctors = newArr;
-//	}
-//	else
-//		return;
-//}
-//
-//void Hospital::addDoctor(Doctor& inDoctor)
-//{
-//	int index;
-//	allocDocArr();
-//	if (logSizeDoctors == 0)
-//		index = 0;
-//	else
-//		index = getIndexForDoctorInsertion(inDoctor.getEmployeeIDNumber());
-//	//find the index to push the doctor
-//
-//	insertDoctorToArrInIndex(inDoctor, index);
-//}
-//
-//int Hospital::binSearchDoctorByID(int inID) 
-//{
-//	int left = 0;
-//	int right = logSizeDoctors - 1;
-//	while (left <= right)
-//	{
-//		int mid = left + (right - left) / 2;
-//
-//		int res = (inID - allDoctors[mid]->getEmployeeIDNumber());
-//		if (res == 0) // found the index
-//			return mid;
-//
-//		if (res > 0) // go right
-//			left = mid + 1;
-//
-//		else // (res < 0) => go left
-//			right = mid - 1;
-//	}
-//
-//	// Not found:
-//	return -1;
-//}
-//
-//int Hospital::getIndexForDoctorInsertion(int id) //the index to insert doctor
-//{
-//	bool isGreater = false;
-//	for (int i = 0; i < logSizeDoctors; i++)
-//	{
-//		isGreater = (allDoctors[i]->getEmployeeIDNumber() > id);
-//		if (isGreater) // Found the member to be on the right
-//		{
-//			return i;
-//		}
-//	}
-//	return logSizeDoctors; // to be inserted last
-//
-//}
-//
-//void Hospital::pushDoctorsFwdFromIndex(int index) 
-////to shift 1 right all the doctor with bigger employee ID number
-//{
-//	for (int i = logSizeDoctors; i > index; i--) {
-//		allDoctors[i] = allDoctors[i - 1];
-//	}
-//	allDoctors[index] = nullptr;
-//}
-//
-//void Hospital::insertDoctorToArrInIndex(Doctor& newDoctor, int index) 
-////add the doctor in the right index
-//{
-//	pushDoctorsFwdFromIndex(index);
-//	allDoctors[index] = &newDoctor;
-//	logSizeDoctors++;
-//}
-//
-//
-//void Hospital::allocNursesArr()
-//{
-//	if (phySizeNurses == 0) // If this is the 1st Department
-//	{
-//		allNurses = new Nurse*;
-//		phySizeNurses++;
-//	}
-//	else if (logSizeNurses == phySizeNurses) //if there is no place in the array
-//	{
-//		phySizeNurses *= 2;
-//		Nurse** newArr = new Nurse*[phySizeNurses];
-//		for (int i = 0; i < logSizeNurses; i++)
-//		{
-//			newArr[i] = allNurses[i];
-//		}
-//		delete[] allNurses;
-//		allNurses = newArr;
-//	}
-//	else
-//		return;
-//}
-//
-//void Hospital::addNurse(Nurse& inNurse)
-//{
-//	int index;
-//	allocNursesArr();
-//	if (logSizeNurses == 0)
-//		index = 0;
-//	else
-//		index = getIndexForNurseInsertion(inNurse.getEmployeeIDNumber());
-//	//find the index to insert nurse to nurse array
-//
-//	insertNurseToArrInIndex(inNurse, index); //insert the nurse to nurse array
-//}
-//
-//int Hospital::binSearchNurseByID(int inID)
-//{
-//	int left = 0;
-//	int right = logSizeNurses - 1;
-//	while (left <= right)
-//	{
-//		int mid = left + (right - left) / 2;
-//
-//		int res = (inID - allNurses[mid]->getEmployeeIDNumber());
-//		if (res == 0) // found the index
-//			return mid;
-//
-//		if (res > 0) // go right
-//			left = mid + 1;
-//
-//		else // (res < 0) => go left
-//			right = mid - 1;
-//	}
-//
-//	// Not found:
-//	return -1;
-//}
-//
-//int Hospital::getIndexForNurseInsertion(int id) //find the index to insert nurses
-//{
-//	bool isGreater = false;
-//	for (int i = 0; i < logSizeNurses; i++)
-//	{
-//		isGreater = (allNurses[i]->getEmployeeIDNumber() > id);
-//		if (isGreater) // Found the member to be on the right
-//		{
-//			return i;
-//		}
-//	}
-//	return logSizeNurses; // to be inserted last
-//
-//}
-//
-//void Hospital::pushNursesFwdFromIndex(int index) 
-////to shift 1 right all the nurses with bigger employee ID number
-//{
-//	for (int i = logSizeNurses; i > index; i--)
-//	{
-//		allNurses[i] = allNurses[i - 1];
-//	}
-//	allNurses[index] = nullptr;
-//}
-//
-//void Hospital::insertNurseToArrInIndex(Nurse& newNurse, int index)
-//{
-//	pushNursesFwdFromIndex(index);
-//	allNurses[index] = &newNurse;
-//	logSizeNurses++;
-//}
 
 void Hospital::addDepartment(Department& inDepartment)
 {
@@ -482,48 +291,48 @@ void Hospital::showDepartments() const
 }
 
 
-bool Hospital::getDepartmentByName(char* depName, Department* resDepartment)
-//find if the department is exist and return by pointer the address
-{
-	return binDepartmentByName(allDepartments, logSizeOfDepartments, depName, resDepartment);
-}
+//bool Hospital::getDepartmentByName(char* depName, Department* resDepartment)
+////find if the department is exist and return by pointer the address
+//{
+//	return binDepartmentByName(allDepartments, logSizeOfDepartments, depName, resDepartment);
+//}
 
-bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, Department* resDep)
-//find if department exist and return by pointer the adress
-{
-	Department* midDep = arr[size / 2];
-	int res = strcmp(depName, midDep->getName());
-	if (size == 1)
-	{
-		if (res == 0) {
-			resDep = midDep;
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	else 
-	{
-		int leftSize = size / 2;
-		int rightSize = size - leftSize - 1;
-		if (res == 0)
-		{
-			resDep = midDep;
-			return true;
-		}
-		else if (res < 0)
-			return binDepartmentByName(arr, leftSize, depName, resDep);
-		else if (res > 0)
-			return binDepartmentByName(arr+ leftSize+1,rightSize, depName, resDep);
-	}
-}
+//bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, Department* resDep)
+////find if department exist and return by pointer the adress
+//{
+//	Department* midDep = arr[size / 2];
+//	int res = strcmp(depName, midDep->getName());
+//	if (size == 1)
+//	{
+//		if (res == 0) {
+//			resDep = midDep;
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
+//	else 
+//	{
+//		int leftSize = size / 2;
+//		int rightSize = size - leftSize - 1;
+//		if (res == 0)
+//		{
+//			resDep = midDep;
+//			return true;
+//		}
+//		else if (res < 0)
+//			return binDepartmentByName(arr, leftSize, depName, resDep);
+//		else if (res > 0)
+//			return binDepartmentByName(arr+ leftSize+1,rightSize, depName, resDep);
+//	}
+//}
 
 
-const char * Hospital::getDepartmentNameByIndex(int ind)
-{
-	return allDepartments[ind]->getName();
-}
+//const char * Hospital::getDepartmentNameByIndex(int ind)
+//{
+//	return allDepartments[ind]->getName();
+//}
 
 Department* Hospital::getDepartmentByIndex(int ind)
 {
@@ -631,78 +440,30 @@ bool Hospital::verifyEmployeeIDNumber(const int& employeeID) //check if employee
 
 bool Hospital::verifyStaffMemberEmployeeIDBinSearch(StaffMember** arr, int size, const int& employeeID) 
 {
-	///// NEED TO BE CUSTOMIZED:
-	//	Doctor* midDoc = allDoctors[size / 2];
-	//	if (size == 1)
-	//	{
-	//		if (midDoc->getEmployeeIDNumber() == employeeID) 
-	//			return true;
-	//		else 
-	//			return false;
-	//	}
-	//	else
-	//	{
-	//		if (midDoc->getEmployeeIDNumber() == employeeID)
-	//			return true;
-	//		int leftSize = size / 2;
-	//		int rightSize = size - leftSize-1;
-	//		if (midDoc->getEmployeeIDNumber() > employeeID)
-	//			return veryfactionDoctorEmployeeIdBinSearch(arr, leftSize, employeeID);
-	//		else if(midDoc->getEmployeeIDNumber() < employeeID)
-	//			return veryfactionDoctorEmployeeIdBinSearch(arr+ leftSize+1, rightSize, employeeID);
-	//	}
+		StaffMember* mid = arr[size / 2];
+		if (logSizeOfStaff == 0)
+			return false;
+		else if (size == 1)
+		{
+			if (mid->getEmployeeIDNumber() == employeeID) 
+				return true;
+			else 
+				return false;
+		}
+		else
+		{
+			if (mid->getEmployeeIDNumber() == employeeID)
+				return true;
+			int leftSize = size / 2;
+			int rightSize = size - leftSize-1;
+			if (mid->getEmployeeIDNumber() > employeeID)
+				return verifyStaffMemberEmployeeIDBinSearch(arr, leftSize, employeeID);
+			else if(mid->getEmployeeIDNumber() < employeeID)
+				return verifyStaffMemberEmployeeIDBinSearch(arr+ leftSize+1, rightSize, employeeID);
+		}
 	return false;
 }
 
-
-//bool Hospital::veryfactionDoctorEmployeeIdBinSearch(Doctor** arr,int size,const int &employeeID)
-//{
-//	Doctor* midDoc = allDoctors[size / 2];
-//	if (size == 1)
-//	{
-//		if (midDoc->getEmployeeIDNumber() == employeeID) 
-//			return true;
-//		else 
-//			return false;
-//	}
-//	else
-//	{
-//		if (midDoc->getEmployeeIDNumber() == employeeID)
-//			return true;
-//		int leftSize = size / 2;
-//		int rightSize = size - leftSize-1;
-//		if (midDoc->getEmployeeIDNumber() > employeeID)
-//			return veryfactionDoctorEmployeeIdBinSearch(arr, leftSize, employeeID);
-//		else if(midDoc->getEmployeeIDNumber() < employeeID)
-//			return veryfactionDoctorEmployeeIdBinSearch(arr+ leftSize+1, rightSize, employeeID);
-//	}
-//}
-//
-//bool Hospital::veryfactionNurseEmployeeIdBinSearch(Nurse** arr, int size, const int &employeeID)
-//{
-//	if (size == 0)
-//		return false;
-//	Nurse* midNurse = arr[size / 2];
-//	if (size == 1)
-//	{
-//		if (midNurse->getEmployeeIDNumber() == employeeID)
-//			return true;
-//		else
-//			return false;
-//	}
-//	else
-//	{
-//		if (midNurse->getEmployeeIDNumber() == employeeID)
-//			return true;
-//		int leftSize = size / 2;
-//		int rightSize = size - leftSize -1;
-//		if (midNurse->getEmployeeIDNumber() > employeeID)
-//			return veryfactionNurseEmployeeIdBinSearch(arr, leftSize, employeeID);
-//		else if (midNurse->getEmployeeIDNumber() < employeeID)
-//			return veryfactionNurseEmployeeIdBinSearch(arr+leftSize+1, rightSize, employeeID);
-//
-//	}
-//}
 
 bool Hospital::isDepartmentsEmpty() const
 {
@@ -724,16 +485,6 @@ void Hospital::addStaffMemberToDepartment(StaffMember* staffMember, int indexToI
 	allDepartments[indexToIn]->addStaffMember(staffMember);
 }
 
-//void Hospital:: addNurseToSpecificDepartment(Nurse & nurse, int indexToIn)
-//{
-//	allDepartments[indexToIn]->addNurse(nurse);
-//}
-//
-//void Hospital::addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn)
-//{
-//	allDepartments[indexToIn]->addDoctor(doctor);
-//
-//}
 Researcher* Hospital::getResearcherByIndex(int index) const
 {
 	return researchInst.getResearcherByIndex(index);
