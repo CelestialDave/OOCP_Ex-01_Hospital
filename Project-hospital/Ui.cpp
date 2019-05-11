@@ -179,7 +179,7 @@ void Ui::start()
 				break;
 			}
 
-			int choice = getInt("Press 1 for checkup,0 for surgery");
+			int choice = getInt("Visitation purpose:\n\t1. Checkup.\n\t2. Surgery.\n");
 			bool ok = true;
 			VisitationRecord* newVisit = createVisit(*patient,arrivalDate,choice,ok);
 
@@ -294,6 +294,7 @@ void Ui::start()
 		case 12:// Which researcher has more articles
 		{
 			compare2Researchers();
+			break;
 		}
 		case 13:
 			exit = true;
@@ -361,12 +362,12 @@ void Ui::compare2Researchers() const
 		if (researcher1 > researcher2)
 		{
 			cout << "True: " << researcher1->getName() <<
-				"has more articles than " << researcher2->getName() << endl;
+				" has more articles than " << researcher2->getName() << endl;
 		}
 		else
 		{
 			cout << "False: " << researcher1->getName() <<
-				"has less or equal aritcle than " << researcher2->getName() << endl;
+				" has less or equal number of aritcles than " << researcher2->getName() << endl;
 		}
 	}
 	else
@@ -386,8 +387,8 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 	}
 	else if (choice==SURGERY)
 	{
-		int surgeryRoomNum = getInt("Please provide the Surgery room number");
-		bool fasting = getInt("The patient in fasting? Yes-press 1,No-press 0");
+		int surgeryRoomNum = getInt("Surgery Room Number: ");
+		bool fasting = getInt("Has the Patient been fasting? \n\t1.Yes\t2. No.\n");
 		VisitSurgery* newVisit= new VisitSurgery(*visit, surgeryRoomNum, fasting);
 		delete[]staffMemIncharge;
 		delete[]visitPurpose;
@@ -516,7 +517,7 @@ void Ui::printMainMenu() const
 	cout << "\t9. Show all Researchers in the Research Institute." << endl;
 	cout << "\t10. Show all Researchers that are Doctors in the Research Institute." << endl;
 	cout << "\t11. Get a Patient information by ID." << endl;
-	cout << "\t12. Compare Researchers (>): \n\t\tShow between 2 chosen researchers if left has greater number of articles then the one on the right." << endl;
+	cout << "\t12. Compare Researchers (>): \n\t\tShow between 2 chosen researchers if left has \n\t\tgreater number of articles then the one on the right." << endl;
 	cout << "\t13. Exit Program." << endl;
 }
 
