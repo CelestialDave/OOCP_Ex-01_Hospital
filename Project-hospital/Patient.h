@@ -40,7 +40,8 @@ public:
 	void showGender() const;
 	const char * getYearOfBirth() const;
 	void showVisits() const;
-	void showDepatmentsVisited() const;
+	//void showDepatmentsVisited() const;
+
 
 	bool hasVisitedDepartment(Department& pDepartment) const;
 };

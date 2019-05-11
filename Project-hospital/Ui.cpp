@@ -274,7 +274,7 @@ void Ui::start()
 			if (isExists)  //the ID numebr input of patient is exist
 			{
 				cout << "Patient's name: " << patient->getName() << endl;
-				patient->showDepatmentsVisited();
+				//patient->showDepatmentsVisited();
 			}
 			else
 				cout << "Error: Patient's ID was not found." << endl;

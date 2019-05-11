@@ -10,7 +10,7 @@ enum eGender { Male, Female};
 
 class VisitationRecord
 {
-private:
+protected:
 	Patient* patient;
 	char* staffMemInChargeName;
 	Date arrivalDate;
@@ -26,6 +26,7 @@ public:
 
 	const char* getstaffMemInChargeName() const;
 	const void showDate() const;
+	const Date& getArrivalDate() const;
 	void  printVisitationPurpose() const;
 };
 
