@@ -9,8 +9,9 @@ protected:
 	int numSurgeries;
 public:
 	Surgeon(const Doctor & other, int numSurgeries);
-	virtual ~Surgeon() {}
+	virtual ~Surgeon();
 	int getNumSurgeries() const;
+	friend ostream& operator<<(ostream& os, const Surgeon& surgeon);
 
 };
 

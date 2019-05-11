@@ -49,7 +49,7 @@ public:
 
 	// Add doctor to the list of doctors:
 	// Add staff memver to list of Staff Members:
-	void addStaffMember(StaffMember& staffMember);
+	void addStaffMember(StaffMember* staffMember);
 	//void addDoctor(Doctor& doc);
 	//// Add nurse to the list of nurses:
 	//void addNurse(Nurse& nurse);

@@ -19,6 +19,7 @@ public:
 	virtual ~Doctor();
 
 	const char* getSpciality()const;
+	friend ostream& operator<<(ostream& os, const Doctor& doctor);
 };
 
 #endif // !Doctor__H

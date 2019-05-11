@@ -20,6 +20,7 @@ public:
 
 	const char*getName()const;
 	const int getEmployeeIDNumber()const;
+	friend ostream& operator<<(ostream& os, const StaffMember& staffmember);
 };
 
 #endif // __STAFF_MEMBER_H

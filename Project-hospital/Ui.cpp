@@ -47,7 +47,8 @@ void Ui::start()
 				break;
 			}
 			int employeeID = getInt("Nurse's Employee ID Number: [1-9 digits]");
-			bool existID = hospital->validationEmployeeId(employeeID);
+			//bool existID = hospital->validationEmployeeId(employeeID);
+			bool existID = hospital->verifyEmployeeIDNumber(employeeID);
 			if (!existID)
 			{
 				int depNum;
@@ -60,8 +61,8 @@ void Ui::start()
 				if (existDep)
 				{
 					Nurse*nurse = createNurse(employeeID);
-					hospital->addNurse(*nurse);
-					hospital->addNurseToSpecificDepartment(*nurse, depInd);
+					hospital->addStaffMember(nurse);
+					hospital->addStaffMemberToDepartment(nurse, depInd);
 				}
 				else
 					cout << "Error: Department specified doesn't exist." << endl;
@@ -79,7 +80,7 @@ void Ui::start()
 				break;
 			}
 			int employeeID = getInt("Doctor's Employee ID Number: [1-9 digits]");
-			bool existID = hospital->validationEmployeeId(employeeID);
+			bool existID = hospital->verifyEmployeeIDNumber(employeeID);
 			if (!existID)
 			{ 
 				int depNum;
@@ -92,8 +93,8 @@ void Ui::start()
 				if (existDep)
 				{
 					Doctor*doctor=createDoctor(employeeID);
-					hospital->addDoctor(*doctor);
-					hospital->addDoctorToSpecificDepartment(*doctor,depInd);
+					hospital->addStaffMember(doctor);
+					hospital->addStaffMemberToDepartment(doctor,depInd);
 
 
 				}
@@ -257,9 +258,9 @@ void Ui::start()
 				cout << "There are no departments yet" << endl;
 			break;
 		}
-		case 8: //show staff medical members
+		case 8: //show medical staff members
 		{
-			hospital->showStaffMembers(); 
+			hospital->showMedicalStaffMembers(); 
 			break;
 		}
 		case 9: //show the researchers in the researcher institute

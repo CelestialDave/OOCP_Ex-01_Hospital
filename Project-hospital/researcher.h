@@ -7,7 +7,7 @@
 
 class Researcher :virtual public StaffMember
 {
-private:
+protected:
 	Article ** articleStock;
 	int logSizeOfArticles;
 	int phySizeOfArticles;
@@ -23,6 +23,8 @@ public:
 	const char* getName() const;
 	void showArticles() const;
 	void allocationArticlesArr();
+
+	friend ostream& operator<<(ostream& os, const Researcher& researcher);
 
 };
 #endif 

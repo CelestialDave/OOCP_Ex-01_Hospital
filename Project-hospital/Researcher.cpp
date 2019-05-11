@@ -87,7 +87,11 @@ void Researcher::showArticles() const
 		cout << "There is no article for this researcher" << endl;
 }
 
-
+ostream& operator<<(ostream& os, const Researcher& researcher)
+{
+	os << (StaffMember&)researcher << "\tRole: Researcher." << "\n\tResearchers Published: " << researcher.logSizeOfArticles;
+	return os;
+}
 
 
 

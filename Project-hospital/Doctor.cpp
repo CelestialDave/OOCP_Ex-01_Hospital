@@ -28,3 +28,9 @@ const char* Doctor::getSpciality()const
 {
 	return specialty;
 }
+
+ostream& operator<<(ostream& os, const Doctor& doctor)
+{
+	os << (StaffMember&)doctor << "\tRole: Doctor." << "\n\tSpecialty: " << doctor.specialty;
+	return os;
+}

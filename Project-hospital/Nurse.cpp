@@ -21,3 +21,9 @@ int Nurse::getYearsOfExp()const
 {
 	return yearsOfExperience;
 }
+
+ostream& operator<<(ostream& os, const Nurse& nurse)
+{
+	os << (StaffMember&)nurse << "\tRole: Nurse." << "\n\tYears Of Experience: " << nurse.yearsOfExperience;
+	return os;
+}

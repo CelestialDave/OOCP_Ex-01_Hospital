@@ -88,7 +88,7 @@ void Hospital::allocStaffArr()
 		return;
 }
 
-void Hospital::addStaffMember(StaffMember& inStaffMember)
+void Hospital::addStaffMember(StaffMember* inStaffMember)
 {
 	int index;
 	allocStaffArr();
@@ -96,15 +96,15 @@ void Hospital::addStaffMember(StaffMember& inStaffMember)
 		index = 0;
 	else
 		//find the index to push the staff member
-		index = getIndexForStaffMemberInsertion(inStaffMember.getEmployeeIDNumber());
+		index = getIndexForStaffMemberInsertion(inStaffMember->getEmployeeIDNumber());
 
 	inserStaffMemberToArrInIndex(inStaffMember, index);
 }
 
-void Hospital::inserStaffMemberToArrInIndex(StaffMember& newStaffMember, int index)
+void Hospital::inserStaffMemberToArrInIndex(StaffMember* newStaffMember, int index)
 {
 	pushStaffMembersFwdFromIndex(index);
-	staffArr[index] = &newStaffMember;
+	staffArr[index] = newStaffMember;
 	logSizeOfStaff++;
 }
 
@@ -444,34 +444,27 @@ void Hospital::showPatientInSpecificDep(const int &index) const
 	allDepartments[index]->showPatients();
 }
 
-void Hospital::showStaffMembers() const
+void Hospital::showMedicalStaffMembers() const
 {
-	if (logSizeDoctors)
+
+	if (logSizeOfStaff)
 	{
-		cout << "The doctors " << (logSizeDoctors > 1 ? "are: " : "is: ")<<endl;
-		for (int i = 0; i < logSizeDoctors; i++)
+		cout << "Staff Members: " << endl;
+		for (int i = 0; i < logSizeOfStaff; i++)
 		{
-			cout << i + 1 << ". " << endl;
-			cout<< "Name:" << allDoctors[i]->getName() << endl;
+			/* cout << "\t" << i + 1 << ". Employee ID Number: " << allDoctors[i]->getEmployeeIDNumber()<< endl;
+			cout << "\t\t" << "Name:" << allDoctors[i]->getName() << endl;
 			cout << "Employee ID number is: " << allDoctors[i]->getEmployeeIDNumber() << endl;
 			cout<< "The specialty's doctor is: " << allDoctors[i]->getSpciality() << endl;
+			*/
+
+			cout << "\n\t" << i + 1 << ". " << staffArr[i] << "\n\n";
+			//printStaffMember(*(staffArr[i]));
+			//cout << endl;
 		}
 	}
 	else
-		cout << "There is no doctor in the medical staff " << endl;
-	if (logSizeNurses)
-	{
-		cout << "The nurses " << (logSizeNurses > 1 ? "are: " : "is: ") << endl;
-		for (int i = 0; i < logSizeNurses; i++)
-		{
-			cout << i + 1 << ". " << endl;
-			cout<< "Name:" << allNurses[i]->getName() << endl;
-			cout << "Employee ID number is: " << allNurses[i]->getEmployeeIDNumber() << endl;
-			cout<<"Years of exprience: "<< allNurses[i]->getYearsOfExp() << endl;
-		}
-	}
-	else
-		cout << "There is no nurses in the medical staff"<< endl;
+		cout << "There are no Staff Members availavle in Hospital." << endl;
 }
 
 void Hospital::showResearchers() const
@@ -724,6 +717,11 @@ int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
 			return i;
 	}
 	return -1;
+}
+
+void Hospital::addStaffMemberToDepartment(StaffMember* staffMember, int indexToIn)
+{
+	allDepartments[indexToIn]->addStaffMember(staffMember);
 }
 
 //void Hospital:: addNurseToSpecificDepartment(Nurse & nurse, int indexToIn)

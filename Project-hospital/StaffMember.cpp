@@ -33,3 +33,9 @@ const int StaffMember::getEmployeeIDNumber() const
 {
 	return employeeIDNumber;
 }
+
+ostream& operator<<(ostream& os, const StaffMember& staffmember)
+{
+	os << "Employee-ID Number: " << staffmember.employeeIDNumber << "\n\tName: " << staffmember.name;
+	return os;
+}

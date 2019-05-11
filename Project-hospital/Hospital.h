@@ -44,7 +44,7 @@ public:
 
 	void addResearcher(Researcher& inResearcher);
 	
-	void addStaffMemberToDepartment(StaffMember& staffMember, int indexToIn);
+	void addStaffMemberToDepartment(StaffMember* staffMember, int indexToIn);
 	/*void addNurseToSpecificDepartment(Nurse & nurse, int indexToIn);
 	void addDoctorToSpecificDepartment(Doctor & doctor, int indexToIn);*/
 
@@ -66,8 +66,8 @@ public:
 	void pushDepartmentsFwdFromIndex(int index);
 	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
 
-	void addStaffMember(StaffMember& inStaffMember);
-	void inserStaffMemberToArrInIndex(StaffMember& newStaffMember, int index);
+	void addStaffMember(StaffMember* inStaffMember);
+	void inserStaffMemberToArrInIndex(StaffMember* newStaffMember, int index);
 	void pushStaffMembersFwdFromIndex(int index);
 	int getIndexForStaffMemberInsertion(int id);
 	int binSearchStaffMemberByID(int inID);
@@ -96,7 +96,7 @@ public:
 	const int getSizeOfResearchers() const;
 
 	void showPatientInSpecificDep(const int & index) const;
-	void showStaffMembers() const;
+	void showMedicalStaffMembers() const;
 	void showResearchers() const;
 	void showDepartments() const;
 
