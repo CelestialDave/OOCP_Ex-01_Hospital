@@ -16,7 +16,7 @@ using namespace std;
 #define MIN_YEAR 2000
 #define MAX_YEAR 2050
 #define CHECKUP 1
-#define SURGERY 0
+#define SURGERY 2
 
 //bool convertStrDateToDateObj(char* strDate, Date* resDate)
 //{

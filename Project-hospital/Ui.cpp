@@ -179,7 +179,7 @@ void Ui::start()
 				break;
 			}
 
-			int choice = getInt("Press 1 for checkup,0 for surgery");
+			int choice = getInt("Visitation purpose:\n\t1. Checkup.\n\t2. Surgery.\n");
 			bool ok = true;
 			VisitationRecord* newVisit = createVisit(*patient,arrivalDate,choice,ok);
 
@@ -294,6 +294,7 @@ void Ui::start()
 		case 12:// Which researcher has more articles
 		{
 			compare2Researchers();
+			break;
 		}
 		case 13:
 			exit = true;
@@ -345,7 +346,7 @@ void Ui::printSpaceLine() const
 
 void Ui::compare2Researchers() const
 {
-	cout << "please enter 2 numbers of researchers for comparing amout of articles from the following list" << endl;
+	cout << "Choose 2 Researchers for article number comparison from the list below: " << endl;
 	hospital->showResearchersName();
 	int researcher1Ind, researcher2Ind;
 	cin >> researcher1Ind >> researcher2Ind;
@@ -361,12 +362,12 @@ void Ui::compare2Researchers() const
 		if (researcher1 > researcher2)
 		{
 			cout << "True: " << researcher1->getName() <<
-				"has more articles than " << researcher2->getName() << endl;
+				" has more articles than " << researcher2->getName() << endl;
 		}
 		else
 		{
 			cout << "False: " << researcher1->getName() <<
-				"has less or equal aritcle than " << researcher2->getName() << endl;
+				" has less or equal number of aritcles than " << researcher2->getName() << endl;
 		}
 	}
 	else
@@ -386,16 +387,13 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 	}
 	else if (choice == SURGERY)
 	{
-		int surgeryRoomNum = getInt("Please provide the Surgery room number");
-		int fasting = getInt("The patient in fasting? Yes-press 1,No-press 0");
+		int surgeryRoomNum = getInt("Surgery Room Number: ");
+		int fasting = getInt("Has the Patient been fasting? \n\t1.Yes\t2. No.\n");
+
 		if (fasting == 1 || fasting == 0)
 		{
-			bool ifFast;
-			if (fasting == 1)
-				ifFast = true;
-			else
-				ifFast = false;
-			VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, ifFast);
+			bool isFasting = (bool)fasting;
+			VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, isFasting);
 			delete[]staffMemIncharge;
 			delete[]visitPurpose;
 			delete visit;
@@ -407,7 +405,7 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 			delete[]visitPurpose;
 			delete visit;
 			ok = false;
-			return NULL;
+			return nullptr;
 		}
 	}
 	else
@@ -416,7 +414,7 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		delete[]visitPurpose;
 		delete visit;
 		ok = false;
-		return NULL;
+		return nullptr;
 	}
 }
 Article* Ui::createArticle(Date* date)
@@ -475,10 +473,10 @@ enum eGender Ui::inputGender()
 {
 	int gen;
 	enum eGender gender;
-	cout << "Patient's gender:  [0: Male, 1: Female]" << endl;
+	cout << "Patient's gender:  [1. Male\t2. Female]" << endl;
 	cin >> gen;
 	cin.ignore();
-	gender = (eGender)gen;
+	gender = (eGender)(gen - 1);
 	return gender;
 }
 
@@ -532,7 +530,7 @@ void Ui::printMainMenu() const
 	cout << "\t9. Show all Researchers in the Research Institute." << endl;
 	cout << "\t10. Show all Researchers that are Doctors in the Research Institute." << endl;
 	cout << "\t11. Get a Patient information by ID." << endl;
-	cout << "\t12. Compare Researchers (>): \n\t\tShow between 2 chosen researchers if left has greater number of articles then the one on the right." << endl;
+	cout << "\t12. Compare Researchers (>): \n\t\tShow between 2 chosen researchers if left has \n\t\tgreater number of articles then the one on the right." << endl;
 	cout << "\t13. Exit Program." << endl;
 }
 
