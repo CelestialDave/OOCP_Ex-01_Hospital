@@ -346,7 +346,7 @@ void Ui::printSpaceLine() const
 void Ui::compare2Researchers() const
 {
 	cout << "please enter 2 numbers of researchers for comparing amout of articles from the following list" << endl;
-	hospital->showResearchers();
+	hospital->showResearchersName();
 	int researcher1Ind, researcher2Ind;
 	cin >> researcher1Ind >> researcher2Ind;
 	researcher1Ind--;

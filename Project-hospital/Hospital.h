@@ -74,6 +74,7 @@ public:
 	void showPatientInSpecificDep(const int & index) const;
 	void showMedicalStaffMembers() const;
 	void showResearchers() const;
+	void showResearchersName() const;
 	void showDoctorResearchers() const;
 	void showDepartments() const;
 

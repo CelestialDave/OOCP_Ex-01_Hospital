@@ -25,6 +25,8 @@ public:
 
 	void showDoctorsResearchers() const;
 	void showResearchers()   const;
+	void showResearchersName() const;
+
 
 	void addArticeToResearcher(Article& art, Researcher* researcher);
 	const int getSize() const;

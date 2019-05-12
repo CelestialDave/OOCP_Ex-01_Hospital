@@ -276,6 +276,10 @@ void Hospital::showMedicalStaffMembers() const
 		cout << "There are no Staff Members availavle in Hospital." << endl;
 }
 
+void Hospital::showResearchersName() const
+{
+	researchInst.showResearchersName();
+}
 void Hospital::showResearchers() const
 {
 	researchInst.showResearchers();
@@ -340,7 +344,6 @@ void Hospital::showDepartments() const
 
 Department* Hospital::getDepartmentByIndex(int ind)
 {
-	if ((ind >= 0) && (ind < logSizeOfDepartments))
 		return allDepartments[ind];
 }
 
