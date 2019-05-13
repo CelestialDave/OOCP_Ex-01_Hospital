@@ -146,6 +146,21 @@ void ResearchInstitute::showResearchers()  const
 		cout << "No Researchers available in Research Institute." << endl;
 }
 
+void ResearchInstitute::showResearchersName() const
+{
+	if (logSizeOfResearchers)
+	{
+		cout << "\nThe researchers: " << endl;
+		for (int i = 0; i < logSizeOfResearchers; i++)
+		{
+			cout << "\t" << i + 1 << " ,";
+			cout << allResearchers[i]->getName() << endl;
+		}
+	}
+	else
+		cout << "No Researchers available in Research Institute." << endl;
+}
+
 Researcher* ResearchInstitute::getResearcherByName(const char*name, bool &exist)
 {
 	return binSearchResearcherByName(allResearchers, logSizeOfResearchers, name, exist);

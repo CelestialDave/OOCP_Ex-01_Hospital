@@ -384,7 +384,7 @@ void Ui::printSpaceLine() const
 void Ui::compare2Researchers() const
 {
 	cout << "Choose 2 Researchers for article number comparison from the list below: " << endl;
-	hospital->showResearchers();
+	hospital->showResearchersName();
 	int researcher1Ind, researcher2Ind;
 	cin >> researcher1Ind >> researcher2Ind;
 	researcher1Ind--;
@@ -451,7 +451,7 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		delete[]visitPurpose;
 		delete visit;
 		ok = false;
-		return NULL;
+		return nullptr;
 	}
 }
 Article* Ui::createArticle(Date* date)
