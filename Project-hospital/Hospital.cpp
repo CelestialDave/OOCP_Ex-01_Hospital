@@ -267,7 +267,7 @@ void Hospital::showMedicalStaffMembers() const
 			cout<< "The specialty's doctor is: " << allDoctors[i]->getSpciality() << endl;
 			*/
 
-			cout << "\n\t" << i + 1 << ". " << staffArr[i] << "\n\n";
+			cout << "\n\t" << i + 1 << ". " << *(staffArr[i]) << "\n\n";
 			//printStaffMember(*(staffArr[i]));
 			//cout << endl;
 		}

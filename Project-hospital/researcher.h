@@ -24,6 +24,7 @@ public:
 	void showArticles() const;
 	void allocationArticlesArr();
 
+	virtual void print(ostream& os) const;
 	friend ostream& operator<<(ostream& os, const Researcher& researcher);
 
 	bool operator>(const Researcher& other) const;

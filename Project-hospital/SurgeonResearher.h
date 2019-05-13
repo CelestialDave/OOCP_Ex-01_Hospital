@@ -10,6 +10,8 @@ class SurgeonResearcher : public Surgeon, public Researcher
 public:
 	SurgeonResearcher(const Surgeon& surgeon, const Researcher& researcher);
 	~SurgeonResearcher() {}
+
+	virtual void print(ostream& os) const;
 	friend ostream& operator<<(ostream& os, const SurgeonResearcher& surgeonResearcher);
 };
 

@@ -13,9 +13,15 @@ int Surgeon:: getNumSurgeries() const
 	return numSurgeries;
 }
 
+void Surgeon::print(ostream& os) const
+{
+	StaffMember::print(os);
+	os << "\tRole: Surgeon." << "\n\tSpecialty: " << this->specialty
+		<< "\n\tNumber of Surgeries Performed: " << this->numSurgeries;
+}
+
 ostream& operator<<(ostream& os, const Surgeon& surgeon)
 {
-	os << (StaffMember&)surgeon << "\tRole: Surgeon." << "\n\tSpecialty: " << surgeon.specialty
-		<< "\n\tNumber of Surgeries Performed: " << surgeon.numSurgeries;
+	surgeon.print(os);
 	return os;
 }

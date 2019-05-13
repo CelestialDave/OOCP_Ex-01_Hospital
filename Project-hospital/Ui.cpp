@@ -80,10 +80,17 @@ void Ui::start()
 				bool askToContinue = false;
 				break;
 			}
+			int docType = getInt("Please choose whether the Doctor is also:\n\t1.Researcher.\n\t2.Surgeon.\n\t3.Surgeon - Researcher.\n\t4.None.\n");
+				if ((docType < 1) || (docType > 4))
+				{
+					cout << "Error: Invalid input.";
+					bool askToContinue = false;
+					break;
+				}
 			int employeeID = getInt("Doctor's Employee ID Number: [1-9 digits]");
 			bool existID = hospital->verifyEmployeeIDNumber(employeeID);
 			if (!existID)
-			{ 
+			{
 				int depNum;
 				cout << "Please choose the Department number from the following list: " << endl;
 				hospital->showDepartments();
@@ -93,10 +100,40 @@ void Ui::start()
 				bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 				if (existDep)
 				{
-					Doctor*doctor=createDoctor(employeeID);
-					hospital->addStaffMember(doctor);
-					hospital->addStaffMemberToDepartment(doctor,depInd);
-
+					Doctor* doctor = createDoctor(employeeID);
+					if (docType == 4)
+					{
+						hospital->addStaffMember(doctor);
+						hospital->addStaffMemberToDepartment(doctor, depInd);
+					}
+					else if ((docType == 2) || (docType == 3))
+					{
+						int numSurgeries = getInt("Please provide number of Surgeries perfromed: ");
+						Surgeon* surgeon = new Surgeon(*doctor, numSurgeries);
+						if (docType == 3)
+						{
+							Researcher* researcher = new Researcher(doctor->getName(), doctor->getEmployeeIDNumber());
+							SurgeonResearcher* surgeonResearcher = new SurgeonResearcher(*surgeon, *researcher);
+							hospital->addStaffMember(surgeonResearcher);
+							hospital->addStaffMemberToDepartment(surgeonResearcher, depInd);
+							delete doctor;
+							delete surgeon;
+							delete researcher;
+						}
+						else // (docType == 2)
+						{
+							hospital->addStaffMember(surgeon);
+							hospital->addStaffMemberToDepartment(surgeon, depInd);
+							delete doctor;
+						}
+					}
+					else // (docType == 1) -> Researcher
+					{
+						Researcher* researcher = new Researcher(doctor->getName(), doctor->getEmployeeIDNumber());
+						hospital->addStaffMember(researcher);
+						hospital->addStaffMemberToDepartment(researcher, depInd);
+						delete doctor;
+					}
 
 				}
 				else

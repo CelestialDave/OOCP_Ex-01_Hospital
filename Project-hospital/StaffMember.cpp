@@ -26,16 +26,21 @@ StaffMember::~StaffMember()
 
 const char* StaffMember::getName()const
 {
-	return name;
+	return this->name;
 }
 
 const int StaffMember::getEmployeeIDNumber() const
 {
-	return employeeIDNumber;
+	return this->employeeIDNumber;
+}
+
+void StaffMember::print(ostream& os) const
+{
+	os << "Employee-ID Number: " << this->employeeIDNumber << "\n\tName: " << this->name;
 }
 
 ostream& operator<<(ostream& os, const StaffMember& staffmember)
 {
-	os << "Employee-ID Number: " << staffmember.employeeIDNumber << "\n\tName: " << staffmember.name;
+	staffmember.print(os);
 	return os;
 }

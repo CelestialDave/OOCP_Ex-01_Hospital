@@ -20,6 +20,8 @@ public:
 
 	const char*getName()const;
 	const int getEmployeeIDNumber()const;
+
+	virtual void print(ostream& os) const =0;
 	friend ostream& operator<<(ostream& os, const StaffMember& staffmember);
 };
 

@@ -21,6 +21,8 @@ public:
 	~Nurse();
 	
 	int getYearsOfExp()const;
+
+	virtual void print(ostream& os) const;
 	friend ostream& operator<<(ostream& os, const Nurse& nurse);
 };
 #endif 

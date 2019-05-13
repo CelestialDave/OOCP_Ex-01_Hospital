@@ -22,8 +22,14 @@ int Nurse::getYearsOfExp()const
 	return yearsOfExperience;
 }
 
+void Nurse::print(ostream& os) const
+{
+	StaffMember::print(os);
+	os << "\tRole: Nurse." << "\n\tYears Of Experience: " << this->yearsOfExperience;
+}
+
 ostream& operator<<(ostream& os, const Nurse& nurse)
 {
-	os << (StaffMember&)nurse << "\tRole: Nurse." << "\n\tYears Of Experience: " << nurse.yearsOfExperience;
+	nurse.print(os);
 	return os;
 }

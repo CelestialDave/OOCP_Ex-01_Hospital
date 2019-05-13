@@ -29,8 +29,14 @@ const char* Doctor::getSpciality()const
 	return specialty;
 }
 
+void Doctor::print(ostream& os) const
+{
+	StaffMember::print(os);
+	os << "\tRole: Doctor." << "\n\tSpecialty: " << this->specialty;
+}
+
 ostream& operator<<(ostream& os, const Doctor& doctor)
 {
-	os << (StaffMember&)doctor << "\tRole: Doctor." << "\n\tSpecialty: " << doctor.specialty;
+	doctor.print(os);
 	return os;
 }

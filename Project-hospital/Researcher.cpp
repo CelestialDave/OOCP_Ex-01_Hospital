@@ -92,9 +92,15 @@ bool Researcher::operator>(const Researcher& other) const
 	return (this->logSizeOfArticles > other.logSizeOfArticles);
 }
 
+void Researcher::print(ostream& os) const
+{
+	StaffMember::print(os);
+	os << "\tRole: Researcher." << "\n\tResearchers Published: " << this->logSizeOfArticles;
+}
+
 ostream& operator<<(ostream& os, const Researcher& researcher)
 {
-	os << (StaffMember&)researcher << "\tRole: Researcher." << "\n\tResearchers Published: " << researcher.logSizeOfArticles;
+	researcher.print(os);
 	return os;
 }
 
