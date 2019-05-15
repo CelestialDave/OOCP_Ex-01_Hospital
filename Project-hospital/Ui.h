@@ -23,4 +23,15 @@ public:
 	void printVisitationPorpuse(Patient* patient) const;
 	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice,bool& ok);
 	void compare2Researchers() const;
+
+	// UI Flows:
+	Results addNewDepartment();
+	Results addNewNurse();
+	Results addNewDoctor();
+	Results addNewVisitation();
+	Results addNewResearcher();
+	Results addArticleToResearcher();
+
+	// UI Warnings:
+	void warnings(Results result);
 };
