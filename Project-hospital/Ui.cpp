@@ -33,16 +33,6 @@ void Ui::start()
 				warnings(res);
 				askToContinue = true;
 			}
-			
-			//Department* department = new Department(name);
-			//int index = hospital->binSearchDepartmentByName(department->getName()); //check if it new department
-			//if (index == -1) //if this is new department name
-			//	hospital->addDepartment(*department); //add to the departments array
-			//else
-			//{
-			//	cout << "Error: A Department by the given name already exist." << endl;
-			//	askToContinue = true;
-			//}
 			break;
 		}
 		case 2:   //add a nurse
@@ -54,36 +44,6 @@ void Ui::start()
 				warnings(res);
 				askToContinue = true;
 			}
-			
-			//if (hospital->isDepartmentsEmpty())
-			//{
-			//	cout << "Error: No Departments availble in Hospital." << endl;
-			//	askToContinue = true;
-			//	break;
-			//}
-			//int employeeID = getInt("Nurse's Employee ID Number: [1-9 digits]");
-			//bool existID = hospital->verifyEmployeeIDNumber(employeeID);
-			//if (!existID)
-			//{
-			//	int depNum;
-			//	cout << "Please choose the Department number from the following list: " << endl;
-			//	hospital->showDepartments();
-			//	cin >> depNum;
-			//	cin.ignore();
-			//	int depInd = depNum - 1;
-			//	bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-			//	if (existDep)
-			//	{
-			//		Nurse*nurse = createNurse(employeeID);
-			//		hospital->addStaffMember(nurse);
-			//		hospital->addStaffMemberToDepartment(nurse, depInd);
-			//	}
-			//	else
-			//		// invalid input
-			//		cout << "Error: Department specified doesn't exist." << endl;
-			//}
-			//else
-			//	cout << "Error: An employee of the given ID number already exists." << endl;
 			break;
 		}
 		case 3: //add doctor to the hospital
@@ -95,82 +55,6 @@ void Ui::start()
 				warnings(res);
 				askToContinue = true;
 			}
-			/*
-			if (hospital->isDepartmentsEmpty())
-			{
-				cout << "Error: No Departments availble in Hospital." << endl;
-				bool askToContinue = false;
-				break;
-			}
-			int docType = getInt("Please choose whether the Doctor is also:\n\t1.Researcher.\n\t2.Surgeon.\n\t3.Surgeon - Researcher.\n\t4.None.\n");
-				if ((docType < 1) || (docType > 4))
-				{
-					cout << "Error: Invalid input.";
-					bool askToContinue = false;
-					break;
-				}
-			int employeeID = getInt("Doctor's Employee ID Number: [1-9 digits]");
-			bool existID = hospital->verifyEmployeeIDNumber(employeeID);
-			if (!existID)
-			{
-				int depNum;
-				cout << "Please choose the Department number from the following list: " << endl;
-				hospital->showDepartments();
-				cin >> depNum;
-				cin.ignore();
-				int depInd = depNum - 1;
-				bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-				if (existDep)
-				{
-					Doctor* doctor = createDoctor(employeeID);
-					if (docType == 4)
-					{
-						hospital->addStaffMember(doctor);
-						hospital->addStaffMemberToDepartment(doctor, depInd);
-					}
-					else if ((docType == 2) || (docType == 3))
-					{
-						int numSurgeries = getInt("Please provide number of Surgeries perfromed: ");
-						Surgeon* surgeon = new Surgeon(*doctor, numSurgeries);
-						if (docType == 3)
-						{
-							Researcher* researcher = new Researcher(doctor->getName(), doctor->getEmployeeIDNumber());
-							SurgeonResearcher* surgeonResearcher = new SurgeonResearcher(*surgeon, *researcher);
-							hospital->addStaffMember(surgeonResearcher);
-							hospital->addStaffMemberToDepartment(surgeonResearcher, depInd);
-							delete doctor;
-							delete surgeon;
-							delete researcher;
-						}
-						else // (docType == 2)
-						{
-							hospital->addStaffMember(surgeon);
-							hospital->addStaffMemberToDepartment(surgeon, depInd);
-							delete doctor;
-						}
-					}
-					else // (docType == 1) -> Researcher
-					{
-						Researcher* researcher = new Researcher(doctor->getName(), doctor->getEmployeeIDNumber());
-						hospital->addStaffMember(researcher);
-						hospital->addStaffMemberToDepartment(researcher, depInd);
-						delete doctor;
-					}
-
-				}
-				else
-				{
-					// bad input:
-					cout << "Error: The Department specified doesn't exist." << endl;
-					bool askToContinue = false;
-				}
-			}
-			else
-			{
-				cout << "Error: An employee with the given Employee ID number already exists" << endl;
-				bool askToContinue = false;
-			}
-			*/
 			break;
 		}
 		case 4:	// Add Visitation
@@ -182,91 +66,6 @@ void Ui::start()
 				warnings(res);
 				askToContinue = true;
 			}
-			//Department* department = nullptr;
-			//char* inID = getString("Patient's ID number: ");
-			//bool isFirstTime = checkIfItFirstTimeInHospital();
-			//bool isExists = false;
-			//Patient* patient = hospital->getPatientByID(inID, &isExists);
-
-			//if (isFirstTime) //this is the first visit in the hospital
-			//{
-			//	if (isExists) // 1st time = Shouldn't exist
-			//	{ 
-			//		cout << "Error: A Patient with the given ID number already exists." << endl;
-			//		bool askToContinue = false;
-			//		delete[] inID;
-			//		break;
-			//	}
-			//	else {
-			//		patient = createPatient(inID);
-			//	}
-			//}
-			//else //it is not the first visit
-			//{
-			//	if (!isExists) // Should exist
-			//	{
-			//		cout << "Error: A Patient with the ID number was not found." << endl;
-			//		bool askToContinue = false;
-			//		delete[] inID;
-			//		break;
-			//	}
-			//}
-
-			//int depNum;
-			//cout << "Please choose the Department number from the following list: " << endl;
-			//hospital->showDepartments();
-			//cin >> depNum;
-			//cin.ignore();
-			//int depInd = depNum - 1;
-			//bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-			//if (!exist)
-			//{
-			//	// bad input:
-			//	cout << "Error: The Department number chosen is invalid!" << endl;
-			//	bool askToContinue = false;
-			//	delete[] inID;
-			//	if (!isExists)
-			//		delete patient;
-			//	break;
-			//}
-
-			//Department* inDep = nullptr;
-			//inDep = hospital->getDepartmentByIndex(depInd);
-
-			//char* inDate = getString("Patient's arrival date: [DD/MM/YYYY]");
-			//Date* arrivalDate = nullptr;
-			//bool isValidDateInput = Utils::convertStrDateToDateObj(inDate, &arrivalDate);
-			//if (!isValidDateInput)
-			//{
-			//	// bad input2:
-			//	cout << "Error: Input date is invalid or not according to format." << endl;
-			//	bool askToContinue = false;
-			//	delete[] inID;
-			//	delete[] inDate;
-			//	if (!isExists)
-			//		delete patient;
-			//	break;
-			//}
-
-			//int choice = getInt("Visitation purpose:\n\t1. Checkup.\n\t2. Surgery.\n");
-			//bool ok = true;
-			//VisitationRecord* newVisit = createVisit(*patient,arrivalDate,choice,ok);
-
-			//if (ok)
-			//	patient->addVisitiaionRecord(newVisit);
-			//else
-			//	// bad input2:
-			//	cout << "Error: Input is invalid or not according to format." << endl;
-			//// Adding Patient to relevant DB if required:
-			//if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
-			//{
-			//	inDep->addPatient(*patient);
-			//	patient->addDepatrtmentToPatient(*inDep);
-			//}
-			//if (isFirstTime)
-			//	hospital->addPatient(*patient);
-
-			//cout << "Your visitation has been added successfully." << endl;
 			break;
 
 		}
@@ -279,11 +78,6 @@ void Ui::start()
 				warnings(res);
 				askToContinue = true;
 			}
-			/*int employeeID = getInt("Researcher's Employee ID Number: [1-9 digits]");
-			char*name = getString("Researcher's name: ");
-			Researcher* researcher = new Researcher(name, employeeID);
-			hospital->addResearcher(researcher);
-			delete[]name;*/
 			//printSpaceLine();
 			break;
 		}
@@ -296,33 +90,6 @@ void Ui::start()
 				warnings(res);
 				askToContinue = true;
 			}
-			//if (hospital->getSizeOfResearchers() > 0)
-			//{
-			//	char*researcherName = getString("Which researcher would you like to add an article to?");
-			//	bool exist = false;
-			//	Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
-			//	if (exist) //if the researcher name input is ok
-			//	{
-			//		char*strDate = getString("Publication Date: [DD/MM/YYYY]");
-			//		Date* date = nullptr;
-			//		bool okDate = Utils::convertStrDateToDateObj(strDate, &date);
-			//		if (okDate)
-			//		{
-			//			Article * article = createArticle(date);
-			//			hospital->addArticleToResearcher(*article, researcher);
-			//		}
-			//		else
-			//			// bad input2:
-			//			cout << "Error: Date is invalid." << endl;
-			//		delete[]strDate;
-			//	}
-			//	else
-			//		cout << "Error: Researcher doesn't exist in the Research Institute" << endl;
-			//	delete[]researcherName;
-
-			//}
-			//else
-			//	cout << "No Researchers available in the Research Institute." << endl;
 			//printSpaceLine();
 			break;
 		}
