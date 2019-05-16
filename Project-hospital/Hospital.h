@@ -66,17 +66,21 @@ public:
 	void insertPatientToArrInIndex(Patient& newPatient, int index);
 	void pushPatientsFwdFromIndex(int index);
 
+	StaffMember* getStaffMemberByIndex(int index) const;
 	Researcher* getResearcherByIndex(int index) const;
 	Researcher* findResearcherAccordingToName(const char*name,bool&exist);
 	void addArticleToResearcher(Article & art, Researcher*researcher);
 	const int getSizeOfResearchers() const;
 
+
 	void showPatientInSpecificDep(const int & index) const;
 	Results showMedicalStaffMembers() const;
 	void showResearchers() const;
 	void showResearchersName() const;
+	Results showSurgeons() const;
 	void showDoctorResearchers() const;
 	void showDepartments() const;
+
 
 	int findTheIndexOfDepNameInDepArr(char*str) const;
 };

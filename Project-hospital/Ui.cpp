@@ -237,43 +237,64 @@ void Ui::compare2Researchers() const
 
 VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice,bool& ok)
 {
-	char* staffMemIncharge = getString("Medical staff member in charge: ");
+	//char* staffMemIncharge = getString("Medical staff member in charge: ");
 	char* visitPurpose = getString("Visitation purpose: ");
-	VisitationRecord* visit=new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
+	//VisitationRecord* visit=new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
 	if (choice == CHECKUP)
 	{
+		char* staffMemIncharge = getString("Medical staff member in charge: ");
+		VisitationRecord* visit=new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
 		delete[]staffMemIncharge;
 		delete[]visitPurpose;
 		return visit;
 	}
 	else if (choice == SURGERY)
 	{
-		int surgeryRoomNum = getInt("Surgery Room Number: ");
-		int fasting = getInt("Has the Patient been fasting? \n\t1.Yes\t2. No.\n");
-
-		if (fasting == 1 || fasting == 0)
+		cout << "Please provide the Employee-ID number of your surgeon from the following list: "
+		<< endl;
+		Results res=hospital->showSurgeons();
+		if (res == SUCCESS)
 		{
-			bool isFasting = (bool)fasting;
-			VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, isFasting);
-			delete[]staffMemIncharge;
-			delete[]visitPurpose;
-			delete visit;
-			return newVisit;
+			int employeeIDNum;
+			cin >> employeeIDNum;
+			int  indexSurgeon = hospital->binSearchStaffMemberByID(employeeIDNum);
+			if (indexSurgeon != -1)
+			{
+				Surgeon*surgeon = dynamic_cast<Surgeon*>(hospital->getStaffMemberByIndex(indexSurgeon));
+				surgeon->addSurgery();
+				char* staffMemIncharge = strdup(surgeon->getName());
+				VisitationRecord* visit = new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
+				int surgeryRoomNum = getInt("Surgery Room Number: ");
+				int fasting = getInt("Has the Patient been fasting? \n\t1.Yes\t2. No.\n");
+
+				if (fasting == 1 || fasting == 0)
+				{
+					bool isFasting = (bool)fasting;
+					VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, isFasting);
+					delete[]staffMemIncharge;
+					delete[]visitPurpose;
+					delete visit;
+					return newVisit;
+				}
+			}
+			else
+			{
+				delete[]visitPurpose;
+				ok = false;
+				return nullptr;
+			}
+
 		}
 		else
 		{
-			delete[]staffMemIncharge;
 			delete[]visitPurpose;
-			delete visit;
 			ok = false;
 			return nullptr;
 		}
 	}
 	else
 	{
-		delete[]staffMemIncharge;
 		delete[]visitPurpose;
-		delete visit;
 		ok = false;
 		return nullptr;
 	}
@@ -576,6 +597,7 @@ Results Ui::addNewVisitation()
 					}
 					if (isFirstTime)
 						hospital->addPatient(*patient);
+					cout << "Visitation added successfully." << endl;
 				}
 				else
 				{
@@ -588,7 +610,6 @@ Results Ui::addNewVisitation()
 			}
 		}
 	}
-	cout << "Visitation added successfully." << endl;
 	return res;
 }
 

@@ -181,6 +181,10 @@ int Hospital::binSearchDepartmentByName(const char*name)
 	// Not found:
 	return -1;
 }
+StaffMember* Hospital::getStaffMemberByIndex(int index) const
+{
+	return staffArr[index];
+}
 
 int Hospital::getIndexForDepartmentInsertion(const char*name)
 //find the index to insert the department to the right place according to alphabet
@@ -277,6 +281,24 @@ Results Hospital::showMedicalStaffMembers() const
 	return res;
 }
 
+Results Hospital::showSurgeons() const
+{
+	Results res= SUCCESS;
+	int j = 1;
+	for (int i = 0; i < logSizeOfStaff; i++)
+	{
+		Surgeon*surgeon = dynamic_cast<Surgeon*>(staffArr[i]);
+		if (surgeon)
+		{
+			cout << "\t" << j << ". " << *(staffArr[i]) << endl;
+			j++;
+		}
+	}
+	if (j == 1)
+		res = NOSTAFF;
+	return res;
+}
+
 void Hospital::showResearchersName() const
 {
 	researchInst.showResearchersName();
@@ -338,10 +360,6 @@ void Hospital::showDepartments() const
 //}
 
 
-//const char * Hospital::getDepartmentNameByIndex(int ind)
-//{
-//	return allDepartments[ind]->getName();
-//}
 
 Department* Hospital::getDepartmentByIndex(int ind)
 {

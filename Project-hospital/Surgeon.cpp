@@ -13,6 +13,11 @@ int Surgeon:: getNumSurgeries() const
 	return numSurgeries;
 }
 
+void Surgeon::addSurgery()
+{
+	numSurgeries++;
+}
+
 void Surgeon::print(ostream& os) const
 {
 	StaffMember::print(os);
