@@ -31,6 +31,7 @@ public:
 	Results addNewVisitation();
 	Results addNewResearcher();
 	Results addArticleToResearcher();
+	Results showPatientsInDepartment();
 
 	// UI Warnings:
 	void warnings(Results result);

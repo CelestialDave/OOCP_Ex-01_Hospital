@@ -72,7 +72,7 @@ public:
 	const int getSizeOfResearchers() const;
 
 	void showPatientInSpecificDep(const int & index) const;
-	void showMedicalStaffMembers() const;
+	Results showMedicalStaffMembers() const;
 	void showResearchers() const;
 	void showResearchersName() const;
 	void showDoctorResearchers() const;

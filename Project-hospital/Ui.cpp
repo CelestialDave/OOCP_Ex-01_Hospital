@@ -95,27 +95,35 @@ void Ui::start()
 		}
 		case 7: //show patients in specific department
 		{
-			if (hospital->getNumOfDepartments() > 0)
+			Results res;
+			res = showPatientsInDepartment();
+			if (res != SUCCESS)
 			{
-				cout << "Please choose the Department number from the following list: " << endl;
-				hospital->showDepartments();
-				int depNum;
-				cin >> depNum;
-				cin.ignore();
-				int depInd = depNum - 1;
-				bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-				if (ok)
-					hospital->showPatientInSpecificDep(depInd);
-				else
-					// bad input1:
-					cout << "Error: The Department number chosen is invalid!" << endl;
+				warnings(res);
+				askToContinue = true;
 			}
-			else
-				cout << "There are no departments yet" << endl;
+			//if (hospital->getNumOfDepartments() > 0)
+			//{
+			//	cout << "Please choose the Department number from the following list: " << endl;
+			//	hospital->showDepartments();
+			//	int depNum;
+			//	cin >> depNum;
+			//	cin.ignore();
+			//	int depInd = depNum - 1;
+			//	bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+			//	if (ok)
+			//		hospital->showPatientInSpecificDep(depInd);
+			//	else
+			//		// bad input1:
+			//		cout << "Error: The Department number chosen is invalid!" << endl;
+			//}
+			//else
+			//	cout << "There are no departments yet" << endl;
 			break;
 		}
 		case 8: //show medical staff members
 		{
+			//***** Add to check of dynamic_cast to hospital->showMedicalStaffMembers()
 			hospital->showMedicalStaffMembers(); 
 			break;
 		}
@@ -634,6 +642,29 @@ Results Ui::addArticleToResearcher()
 	return res;
 }
 
+Results Ui::showPatientsInDepartment()
+{
+	Results res = SUCCESS;
+	if (hospital->getNumOfDepartments() > 0)
+	{
+		cout << "Please choose the Department number from the following list: " << endl;
+		hospital->showDepartments();
+		int depNum;
+		cin >> depNum;
+		cin.ignore();
+		int depInd = depNum - 1;
+		bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+		if (ok)
+			hospital->showPatientInSpecificDep(depInd);
+		else
+			// bad input1:
+			res = BADINPUT1;
+	}
+	else
+		res = NODEPS;
+	return res;
+}
+
 void Ui::warnings(Results result)
 {
 	if (result != SUCCESS)
@@ -654,18 +685,18 @@ void Ui::warnings(Results result)
 		case DEPEXIST:
 			cout << "Error: A Department by the given name already exist." << endl;
 			break;
-			//case DEPNONEXIST:
-			//	cout << "";
-			//	break;
+		case NOSTAFF:
+			cout << "There are no Staff Members availavle in Hospital." << endl;
+			break;
 		case EIDEXIST:
 			cout << "Error: An Employee with the given Employee-ID Number already exists." << endl;
 			break;
 		case PIDEXIST:
 			cout << "Error: A Patient with the given ID number already exists." << endl;
 			break;
-		case EIDNOTFOUND:
+		/*case EIDNOTFOUND:
 			cout << "";
-			break;
+			break;*/
 		case PIDNOTFOUND:
 			cout << "Error: Patient's ID was not found." << endl;
 			break;

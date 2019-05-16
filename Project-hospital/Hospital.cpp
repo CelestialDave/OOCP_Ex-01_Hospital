@@ -253,9 +253,9 @@ void Hospital::showPatientInSpecificDep(const int &index) const
 	allDepartments[index]->showPatients();
 }
 
-void Hospital::showMedicalStaffMembers() const
+Results Hospital::showMedicalStaffMembers() const
 {
-
+	Results res = SUCCESS;
 	if (logSizeOfStaff)
 	{
 		cout << "Staff Members: " << endl;
@@ -273,7 +273,8 @@ void Hospital::showMedicalStaffMembers() const
 		}
 	}
 	else
-		cout << "There are no Staff Members availavle in Hospital." << endl;
+		res = NOSTAFF;
+	return res;
 }
 
 void Hospital::showResearchersName() const
