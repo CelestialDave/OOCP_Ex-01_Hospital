@@ -2,26 +2,25 @@
 #define Doctor__H
 
 #include "ConstantsAndGenFuncs.h"
+#include "StaffMember.h"
 
 
-class Doctor
+class Doctor : virtual public StaffMember
 {
-private:
-	char* name;
-	int employeeIDNumber;
+protected:
 	char* specialty; //name of exist department
+	// Copy C'tor:
+	Doctor(const Doctor& other);
 
 public:
 	// C'tor:
-	Doctor(const char* inName,int inEmployeeIDNumber,const char* inSpecialty);
-	// Copy C'tor:
-	Doctor(const Doctor& other) = delete;
+	Doctor(const char* name, int employeeIDNumber, const char* inSpecialty);
 	// D'tor:
-	~Doctor();
+	virtual ~Doctor();
 
-	const char*getName()const;
-	const int getEmployeeIDNum()const;
 	const char* getSpciality()const;
+	virtual void print(ostream& os) const;
+	friend ostream& operator<<(ostream& os, const Doctor& doctor);
 };
 
 #endif // !Doctor__H

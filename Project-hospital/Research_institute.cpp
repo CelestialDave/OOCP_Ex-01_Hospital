@@ -21,14 +21,14 @@ const int ResearchInstitute:: getSize() const
 	return logSizeOfResearchers;
 }
 
-void ResearchInstitute::addResearcher(Researcher& inResearcher)
+void ResearchInstitute::addResearcher(Researcher* inResearcher)
 {
 	int index;
 	allocationResearchersArr();
 	if (logSizeOfResearchers == 0)
 		index = 0;
 	else
-		index = getIndexForResearcherInsertion(inResearcher.getName());
+		index = getIndexForResearcherInsertion(inResearcher->getName());
 
 	insertResearcherToArrInIndex(inResearcher, index);
 }
@@ -76,10 +76,10 @@ void ResearchInstitute::pushResearchersFwdFromIndex(int index)
 	allResearchers[index] = nullptr;
 }
 
-void ResearchInstitute::insertResearcherToArrInIndex(Researcher& newResearcher, int index)
+void ResearchInstitute::insertResearcherToArrInIndex(Researcher* newResearcher, int index)
 {
 	pushResearchersFwdFromIndex(index);
-	allResearchers[index] = &newResearcher;
+	allResearchers[index] = newResearcher;
 	logSizeOfResearchers++;
 }
 
@@ -105,15 +105,56 @@ void ResearchInstitute::allocationResearchersArr()
 		return;
 }
 
+void ResearchInstitute::showDoctorsResearchers() const
+{
+	int j=1;
+	for (int i = 0; i < logSizeOfResearchers; i++)
+	{
+		ResearcherDoctor* researcherDoctor = dynamic_cast<ResearcherDoctor*>(allResearchers[i]);
+		SurgeonResearcher* surgeonResearcher = dynamic_cast<SurgeonResearcher*>(allResearchers[i]);
+		if (researcherDoctor) 
+		{
+			cout << "\t" <<j<< " ,";
+			cout<< researcherDoctor->getName() << endl;
+			researcherDoctor->showArticles();
+			j++;
+		}
+		else if(surgeonResearcher)
+		{
+			cout << "\t" <<j<< " ,";
+			cout << surgeonResearcher->getName() << endl;
+			surgeonResearcher->showArticles();
+			j++;
+		}
+	}
+	cout << endl;
+}
+
 void ResearchInstitute::showResearchers()  const
 {
 	if (logSizeOfResearchers)
 	{
-		cout << "\nThe researchers " << (logSizeOfResearchers > 1 ? " are" : " is") << ":" << endl;
+		cout << "\nThe researchers: " << endl;
 		for (int i = 0; i < logSizeOfResearchers; i++)
 		{
+			cout << "\t" << i + 1 << " ,";
 			cout << allResearchers[i]->getName() << endl;
 			allResearchers[i]->showArticles();
+		}
+	}
+	else
+		cout << "No Researchers available in Research Institute." << endl;
+}
+
+void ResearchInstitute::showResearchersName() const
+{
+	if (logSizeOfResearchers)
+	{
+		cout << "\nThe researchers: " << endl;
+		for (int i = 0; i < logSizeOfResearchers; i++)
+		{
+			cout << "\t" << i + 1 << " ,";
+			cout << allResearchers[i]->getName() << endl;
 		}
 	}
 	else
@@ -162,6 +203,13 @@ void ResearchInstitute::addArticeToResearcher(Article& art,Researcher* researche
 {
 	 researcher->addArticle(art);
 }
+
+Researcher* ResearchInstitute::getResearcherByIndex(int index) const
+{
+	return allResearchers[index];
+}
+
+
 
 
 

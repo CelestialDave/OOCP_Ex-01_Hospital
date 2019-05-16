@@ -20,6 +20,19 @@ public:
 	Nurse* createNurse(int employeeID);
 	Article* createArticle(Date*date);
 	void printSpaceLine() const;
+	void printVisitationPorpuse(Patient* patient) const;
+	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice,bool& ok);
+	void compare2Researchers() const;
 
+	// UI Flows:
+	Results addNewDepartment();
+	Results addNewNurse();
+	Results addNewDoctor();
+	Results addNewVisitation();
+	Results addNewResearcher();
+	Results addArticleToResearcher();
+	Results showPatientsInDepartment();
 
+	// UI Warnings:
+	void warnings(Results result);
 };

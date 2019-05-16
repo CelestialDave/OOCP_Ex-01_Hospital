@@ -1,17 +1,36 @@
 #include "researcher.h"
 
-Researcher::Researcher(const char inName[MAX_NAME])
+
+Researcher::Researcher(const char inName[MAX_NAME],int employeeIDNumber) 
+	: StaffMember(inName, employeeIDNumber)
 {
-	name = new char[strlen(inName) + 1];
-	strcpy(name, inName);
 	articleStock = nullptr;
 	logSizeOfArticles = 0;
 	phySizeOfArticles = 0;
 }
 
+Researcher::Researcher(const Researcher& other) :
+	StaffMember(other)
+{
+	if (this != &other)
+	{
+		/*delete[]name;
+		this->name = strdup(other.name);*/
+		int i;
+		for (i = 0; i < logSizeOfArticles; i++)
+			delete articleStock[i];
+		delete []articleStock;
+		this->logSizeOfArticles = other.logSizeOfArticles;
+		this->phySizeOfArticles = other.phySizeOfArticles;
+		for (i = 0; i < logSizeOfArticles; i++)
+			articleStock[i]=new Article(*(other.articleStock[i]));
+	}
+}
+
+
 Researcher::~Researcher()
 {
-	delete[] name;
+	//delete[] name;
 	for (int i = 0; i < logSizeOfArticles; i++)
 		delete articleStock[i];
 	delete[] articleStock;
@@ -46,10 +65,10 @@ void Researcher:: allocationArticlesArr()
 		return;
 }
 
-const char* Researcher::getName() const
-{
-	return name;
-}
+//const char* Researcher::getName() const
+//{
+//	return name;
+//}
 
 void Researcher::showArticles() const
 {
@@ -68,7 +87,22 @@ void Researcher::showArticles() const
 		cout << "There is no article for this researcher" << endl;
 }
 
+bool Researcher::operator>(const Researcher& other) const
+{
+	return (this->logSizeOfArticles > other.logSizeOfArticles);
+}
 
+void Researcher::print(ostream& os) const
+{
+	StaffMember::print(os);
+	os << "\tRole: Researcher." << "\n\tResearchers Published: " << this->logSizeOfArticles;
+}
+
+ostream& operator<<(ostream& os, const Researcher& researcher)
+{
+	researcher.print(os);
+	return os;
+}
 
 
 

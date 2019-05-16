@@ -2,23 +2,27 @@
 #define Nurse__H
 
 #include "ConstantsAndGenFuncs.h"
+#include "StaffMember.h"
 
-class Nurse
+class Nurse : virtual public StaffMember
 {
 private:
-	char* name;
-	int employeeIDNumber;
 	int yearsOfExperience;
+
+protected:
+	// ???
+	// Copy C'tor:
+	//Nurse(const Nurse& other);
 
 public:
 	// C'tor:
-	Nurse(char* inName,const int inEmployeeIDNumber, int inYearExp);
-	// Copy C'tor:
-	Nurse(const Nurse& other) = delete;
+	Nurse(const char* name, int employeeIDNumber, int inYearExp);
 	// D'tor:
 	~Nurse();
-	const char* getName()const;
-	const int getEmployeeIDNum()const;
+	
 	int getYearsOfExp()const;
+
+	virtual void print(ostream& os) const;
+	friend ostream& operator<<(ostream& os, const Nurse& nurse);
 };
 #endif 

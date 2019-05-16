@@ -10,7 +10,19 @@ Date::Date(int inDay, int inMonth, int inYear)
 
 const void Date::showDate() const
 {
-	cout << ((day < 10) ? "0" : "") << "/" <<
-		((month < 10) ? "0" : "") << "/" << year;
+	cout << ((day < 10) ? "0" : "") << day << "/" <<
+		((month < 10) ? "0" : "") << month << "/" << year;
 }
 
+int Date::getYear() const
+{
+	return year;
+}
+int Date::getMonth() const
+{
+	return month;
+}
+int Date::getDay() const
+{
+	return day;
+}

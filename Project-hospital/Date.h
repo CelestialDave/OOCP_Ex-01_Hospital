@@ -15,5 +15,9 @@ public:
 	//copy C'tor
 	//Date(const Date &other);     ***
 	const void showDate() const;
+	int getYear() const;
+	int getMonth() const;
+	int getDay() const;
+
 };
 #endif

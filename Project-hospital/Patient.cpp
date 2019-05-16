@@ -1,5 +1,4 @@
 #include "Patient.h"
-
 #include "Department.h"
 
 Patient::Patient(const char* inName,const char* id ,enum eGender inGender, char* inDateOBirth)
@@ -30,12 +29,67 @@ Patient::~Patient()
 	delete[] departmentsVisited;
 }
 
-void Patient::addVistation(VisitationRecord& newVisit)
+void Patient::addVisitiaionRecord(VisitationRecord* inVisitiationRecord)
 {
+	int index;
 	allocVisitsArr();
-	visits[logSizeOfVisits] = &newVisit;
+	if (logSizeOfVisits == 0)
+		index = 0;
+	else
+		index = getIndexForVisitiationInsertion(inVisitiationRecord->getArrivalDate());
+	//find the index to insert VisitiaionRecord to VisitiaionRecord array
+
+	insertVisitToArrInIndex(inVisitiationRecord, index); //insert the VisitiaionRecord to VisitiaionRecord array
+}
+
+int Patient::getIndexForVisitiationInsertion(Date & date) //the index to insert Visitiation record
+{
+	for (int i = 0; i < logSizeOfVisits; i++)
+	{
+		Date curr = visits[i]->getArrivalDate();
+		if (curr.getYear()>date.getYear())
+		{
+			return i;
+		}
+		else if (curr.getYear()==date.getYear())
+		{
+			if (curr.getMonth()>date.getMonth())
+			{
+				return i;
+			}
+			else if (curr.getMonth()== date.getMonth())
+			{
+				if (curr.getDay()>date.getDay())
+				{
+					return i;
+				}
+
+			}
+		}
+	}
+	return logSizeOfVisits; // to be inserted last
+
+}
+
+void Patient::insertVisitToArrInIndex(VisitationRecord* visitiationRecord, int index)
+//add the visit in the right index according to date
+{
+	pushVisitsFwdFromIndex(index);
+	visits[index] = visitiationRecord;
 	logSizeOfVisits++;
 }
+
+
+void Patient::pushVisitsFwdFromIndex(int index)
+//to shift 1 right all the nurses with bigger employee ID number
+{
+	for (int i = logSizeOfVisits; i > index; i--)
+	{
+		visits[i] = visits[i - 1];
+	}
+	visits[index] = nullptr;
+}
+
 
 void Patient::allocVisitsArr()
 {
@@ -121,16 +175,27 @@ void Patient:: showVisits()const
 		cout << "\tVisitation purpose: ";
 		visits[i]->printVisitationPurpose();
 		cout << endl;
+		VisitSurgery*temp = dynamic_cast<VisitSurgery*>(visits[i]);
+		if (temp)
+		{
+			cout << "\tThe surgery room number is: " << temp->getSurgeryRoomNum() << endl;
+			if (temp->getFasting())
+				cout << "\tThe patient is in fasting" << endl;
+			else
+				cout << "\tThe patient is not in fasting" << endl;
+
+		}
+		cout << endl;
 	}
 	cout << endl;
 }
-
-void Patient::showDepatmentsVisited() const
-{
-	cout << "\nDepartments in which patient has visited in the past: " << endl;
-		for (int i = 0; i < logsizeOfDepartments; i++)
-			cout << "\t" << departmentsVisited[i]->getName() << endl;
-}
+//
+//void Patient::showDepatmentsVisited() const
+//{
+//	cout << "\nDepartments in which patient has visited in the past: " << endl;
+//		for (int i = 0; i < logsizeOfDepartments; i++)
+//			cout << "\t" << departmentsVisited[i]->getName() << endl;
+//}
 
 
 bool Patient::hasVisitedDepartment(Department& pDepartment) const
@@ -143,3 +208,12 @@ bool Patient::hasVisitedDepartment(Department& pDepartment) const
 	return false;
 }
 
+int Patient::getSizeVisits() const
+{
+	return logSizeOfVisits;
+}
+
+VisitationRecord* Patient::getVisitByIndex(int index) const
+{
+	return visits[index];
+}

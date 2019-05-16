@@ -5,17 +5,23 @@
 #include "doctor.h"
 #include "nurse.h"
 #include "Patient.h"
+#include "StaffMember.h"
 
 class Department
 {
 private:
 	char* name;
-	Doctor** docsArr;
+	StaffMember** staffArr;
+	int logSizeOfStaff;
+	int phySizeOfStaff;
+
+	/*Doctor** docsArr;
 	int logSizeOfDocs;
 	int phySizeOfDocs;
 	Nurse** nursesArr;
 	int logSizeOfNurses;
-	int phySizeOfNurses;
+	int phySizeOfNurses;*/
+
 	Patient** patientsArr;
 	int logSizeOfPatients;
 	int phySizeOfPatients;
@@ -37,15 +43,19 @@ public:
 
 	// Allocation of memory to Array:
 	void allocPatientsArr();
-	void allocDocArr();
-	void allocNursesArr();
+	void allocStaffArr();
+	/*void allocDocArr();
+	void allocNursesArr();*/
 
 	// Add doctor to the list of doctors:
-	void addDoctor(Doctor& doc);
-	// Add nurse to the list of nurses:
-	void addNurse(Nurse& nurse);
+	// Add staff memver to list of Staff Members:
+	void addStaffMember(StaffMember* staffMember);
+	//void addDoctor(Doctor& doc);
+	//// Add nurse to the list of nurses:
+	//void addNurse(Nurse& nurse);
 	// Add patient to the department list of patients:
 	void addPatient(Patient& patient);
+	StaffMember** operator+=(StaffMember* staffMember);
 	const char* getName() const; 
 	
 };

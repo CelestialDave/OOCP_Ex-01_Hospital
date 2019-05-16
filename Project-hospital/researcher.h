@@ -3,26 +3,31 @@
 
 #include "article.h"
 #include "ConstantsAndGenFuncs.h"
+#include "StaffMember.h"
 
-class Researcher
+class Researcher :virtual public StaffMember
 {
-private:
-	char* name;
+protected:
 	Article ** articleStock;
 	int logSizeOfArticles;
 	int phySizeOfArticles;
 
 public:
 	// C'tor:
-	Researcher(const char inName[MAX_NAME]);
+	Researcher(const char inName[MAX_NAME],int employeeIDNumber);
 	// Disable Copy C'tor:
-	Researcher(const Researcher& other) = delete;
+	Researcher(const Researcher& other);
 	// D'tor:
-	~Researcher();
+	virtual ~Researcher();
 	void addArticle(Article& art);
-	const char* getName() const;
+	//const char* getName() const;
 	void showArticles() const;
 	void allocationArticlesArr();
+
+	virtual void print(ostream& os) const;
+	friend ostream& operator<<(ostream& os, const Researcher& researcher);
+
+	bool operator>(const Researcher& other) const;
 
 };
 #endif 
