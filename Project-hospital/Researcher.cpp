@@ -65,11 +65,6 @@ void Researcher:: allocationArticlesArr()
 		return;
 }
 
-//const char* Researcher::getName() const
-//{
-//	return name;
-//}
-
 void Researcher::showArticles() const
 {
 	if (logSizeOfArticles)

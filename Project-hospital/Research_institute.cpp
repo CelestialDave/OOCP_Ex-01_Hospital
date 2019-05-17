@@ -156,7 +156,7 @@ void ResearchInstitute::showResearchersName() const
 		cout << "\nThe researchers: " << endl;
 		for (int i = 0; i < logSizeOfResearchers; i++)
 		{
-			cout << "\t" << i + 1 << " ,";
+			cout << "\t" << i + 1 << " .";
 			cout << allResearchers[i]->getName() << endl;
 		}
 	}
