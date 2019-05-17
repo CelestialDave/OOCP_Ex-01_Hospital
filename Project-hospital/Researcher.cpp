@@ -98,11 +98,11 @@ void Researcher::print(ostream& os) const
 	os << "\tRole: Researcher." << "\n\tResearchers Published: " << this->logSizeOfArticles;
 }
 
-ostream& operator<<(ostream& os, const Researcher& researcher)
-{
-	researcher.print(os);
-	return os;
-}
+//ostream& operator<<(ostream& os, const Researcher& researcher)
+//{
+//	researcher.print(os);
+//	return os;
+//}
 
 
 
