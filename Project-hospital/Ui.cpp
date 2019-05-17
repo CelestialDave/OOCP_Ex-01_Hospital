@@ -102,23 +102,6 @@ void Ui::start()
 				warnings(res);
 				askToContinue = true;
 			}
-			//if (hospital->getNumOfDepartments() > 0)
-			//{
-			//	cout << "Please choose the Department number from the following list: " << endl;
-			//	hospital->showDepartments();
-			//	int depNum;
-			//	cin >> depNum;
-			//	cin.ignore();
-			//	int depInd = depNum - 1;
-			//	bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-			//	if (ok)
-			//		hospital->showPatientInSpecificDep(depInd);
-			//	else
-			//		// bad input1:
-			//		cout << "Error: The Department number chosen is invalid!" << endl;
-			//}
-			//else
-			//	cout << "There are no departments yet" << endl;
 			break;
 		}
 		case 8: //show medical staff members
@@ -419,26 +402,26 @@ Results Ui::addNewNurse()
 		res = NODEPS;
 	}
 	else {
-		int employeeID = getInt("Nurse's Employee ID Number: [1-9 digits]");
+	/*	int employeeID = getInt("Nurse's Employee ID Number: [1-9 digits]");
 		bool existID = hospital->verifyEmployeeIDNumber(employeeID);
 		if (!existID)
+		{*/
+		int depNum;
+		cout << "Please choose the Department number from the following list: " << endl;
+		hospital->showDepartments();
+		cin >> depNum;
+		cin.ignore();
+		int depInd = depNum - 1;
+		bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+		if (existDep)
 		{
-			int depNum;
-			cout << "Please choose the Department number from the following list: " << endl;
-			hospital->showDepartments();
-			cin >> depNum;
-			cin.ignore();
-			int depInd = depNum - 1;
-			bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-			if (existDep)
-			{
-				Nurse*nurse = createNurse(employeeID);
-				hospital->addStaffMember(nurse);
-				hospital->addStaffMemberToDepartment(nurse, depInd);
-			}
-			else
-				res = BADINPUT1;
+			Nurse*nurse = createNurse(employeeID);
+			hospital->addStaffMember(nurse);
+			hospital->addStaffMemberToDepartment(nurse, depInd);
 		}
+		else
+			res = BADINPUT1;
+	//	}
 		else
 			res = EIDEXIST;
 	}
@@ -494,6 +477,7 @@ Results Ui::addNewDoctor()
 							SurgeonResearcher* surgeonResearcher = new SurgeonResearcher(*surgeon, *researcher);
 							hospital->addStaffMember(surgeonResearcher);
 							hospital->addStaffMemberToDepartment(surgeonResearcher, depInd);
+							hospital->addResearcher(surgeonResearcher);
 							delete doctor;
 							delete surgeon;
 							delete researcher;
@@ -505,11 +489,12 @@ Results Ui::addNewDoctor()
 							delete doctor;
 						}
 					}
-					else // (docType == 1) -> Researcher
+					else // (docType == 1) -> ResearcherDoctor
 					{
-						Researcher* researcher = new Researcher(doctor->getName(), doctor->getEmployeeIDNumber());
-						hospital->addStaffMember(researcher);
-						hospital->addStaffMemberToDepartment(researcher, depInd);
+						Researcher* researcherDoctor = new Researcher(doctor->getName(), doctor->getEmployeeIDNumber());
+						hospital->addStaffMember(researcherDoctor);
+						hospital->addStaffMemberToDepartment(researcherDoctor, depInd);
+						hospital->addResearcher(researcherDoctor);
 						delete doctor;
 					}
 				}

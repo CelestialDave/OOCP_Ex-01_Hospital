@@ -1,10 +1,10 @@
 #include "StaffMember.h"
 
 // C'tor:
-StaffMember::StaffMember(const char* name, int employeeIDNumber)
+StaffMember::StaffMember(const char* name, int employeeIDNumber) :employeeIDNumber(counterEmployeeID++)
 {
 	this->name = strdup(name);
-	this->employeeIDNumber = employeeIDNumber;
+	//this->employeeIDNumber = employeeIDNumber;
 }
 
 // Copy C'tor:

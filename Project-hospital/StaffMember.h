@@ -7,6 +7,7 @@
 class StaffMember
 {
 protected: 
+	static int counterEmployeeID;
 	char* name;
 	int employeeIDNumber;
 	// C'tor:
@@ -26,3 +27,5 @@ public:
 };
 
 #endif // __STAFF_MEMBER_H
+
+int StaffMember::counterEmployeeID = 0;

@@ -265,15 +265,9 @@ Results Hospital::showMedicalStaffMembers() const
 		cout << "Staff Members: " << endl;
 		for (int i = 0; i < logSizeOfStaff; i++)
 		{
-			/* cout << "\t" << i + 1 << ". Employee ID Number: " << allDoctors[i]->getEmployeeIDNumber()<< endl;
-			cout << "\t\t" << "Name:" << allDoctors[i]->getName() << endl;
-			cout << "Employee ID number is: " << allDoctors[i]->getEmployeeIDNumber() << endl;
-			cout<< "The specialty's doctor is: " << allDoctors[i]->getSpciality() << endl;
-			*/
-
-			cout << "\n\t" << i + 1 << ". " << *(staffArr[i]) << "\n\n";
-			//printStaffMember(*(staffArr[i]));
-			//cout << endl;
+			if(strcmp(typeid(*staffArr[i]).name(),typeid(Researcher).name())!=0)
+			//print if staff member is not only Researcher
+				cout << "\n\t" << i + 1 << ". " << *(staffArr[i]) << "\n\n";
 		}
 	}
 	else
