@@ -10,7 +10,7 @@ public:
 	ResearcherDoctor(const Researcher & researcher, const Doctor& doctor);
 	
 	virtual void print(ostream& os) const;
-	friend ostream& operator<<(ostream& os, const ResearcherDoctor& researcherDoc);
+	//friend ostream& operator<<(ostream& os, const ResearcherDoctor& researcherDoc);
 };
 
 #endif // ! ResearcherDoctor__H

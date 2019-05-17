@@ -14,8 +14,8 @@ void ResearcherDoctor::print(ostream& os) const
 		<< "\n\tNumber of Articles published: " << this->logSizeOfArticles;
 }
 
-ostream& operator<<(ostream& os, const ResearcherDoctor& researcherDoc)
-{
-	researcherDoc.print(os);
-	return os;
-}
+//ostream& operator<<(ostream& os, const ResearcherDoctor& researcherDoc)
+//{
+//	researcherDoc.print(os);
+//	return os;
+//}

@@ -25,8 +25,8 @@ void Surgeon::print(ostream& os) const
 		<< "\n\tNumber of Surgeries Performed: " << this->numSurgeries;
 }
 
-ostream& operator<<(ostream& os, const Surgeon& surgeon)
-{
-	surgeon.print(os);
-	return os;
-}
+//ostream& operator<<(ostream& os, const Surgeon& surgeon)
+//{
+//	surgeon.print(os);
+//	return os;
+//}

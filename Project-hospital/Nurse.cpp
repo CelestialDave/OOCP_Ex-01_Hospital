@@ -28,8 +28,8 @@ void Nurse::print(ostream& os) const
 	os << "\tRole: Nurse." << "\n\tYears Of Experience: " << this->yearsOfExperience;
 }
 
-ostream& operator<<(ostream& os, const Nurse& nurse)
-{
-	nurse.print(os);
-	return os;
-}
+//ostream& operator<<(ostream& os, const Nurse& nurse)
+//{
+//	nurse.print(os);
+//	return os;
+//}

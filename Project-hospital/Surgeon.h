@@ -13,7 +13,7 @@ public:
 	int getNumSurgeries() const;
 
 	virtual void print(ostream& os) const;
-	friend ostream& operator<<(ostream& os, const Surgeon& surgeon);
+	//friend ostream& operator<<(ostream& os, const Surgeon& surgeon);
 	void addSurgery();
 
 
