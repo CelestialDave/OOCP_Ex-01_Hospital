@@ -115,7 +115,7 @@ void ResearchInstitute::showDoctorsResearchers() const
 		if (researcherDoctor) 
 		{
 			cout << "\t" <<j<< "."<<" employee ID number: "<<
-			researcherDoctor->getEmployeeIDNumber()<<"\n\t\t"<< "Name: "<<
+			researcherDoctor->getEmployeeIDNumber()<<"\n\t\tName: "<<
 			researcherDoctor->getName() << endl;
 			researcherDoctor->showArticles();
 			j++;
@@ -139,8 +139,8 @@ void ResearchInstitute::showResearchers()  const
 		cout << "\nThe researchers: " << endl;
 		for (int i = 0; i < logSizeOfResearchers; i++)
 		{
-			cout << "\t" << i + 1 << " ." <<" employee ID number: "<<"\n\t\t"<<
-			allResearchers[i]->getEmployeeIDNumber()<<"Name: "<<
+			cout << "\t" << i + 1 << " ." <<" employee ID number: "<<
+			allResearchers[i]->getEmployeeIDNumber()<< "\n\t\tName: "<<
 			allResearchers[i]->getName() << endl;
 			allResearchers[i]->showArticles();
 		}

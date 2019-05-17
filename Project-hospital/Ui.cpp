@@ -71,14 +71,7 @@ void Ui::start()
 		}
 		case 5: //add researcher to the researcher insistute
 		{
-			Results res;
 			addNewResearcher();
-		/*	if (res != SUCCESS)
-			{
-				warnings(res);
-				askToContinue = true;
-			}*/
-			//printSpaceLine();
 			break;
 		}
 		case 6:   //add article to specific researcher
@@ -485,7 +478,8 @@ Results Ui::addNewDoctor()
 				}
 				else // (docType == 1) -> ResearcherDoctor
 				{
-					Researcher* researcherDoctor = new Researcher(doctor->getName());
+					Researcher* researcher = new Researcher(doctor->getName());
+					ResearcherDoctor* researcherDoctor = new ResearcherDoctor(*researcher, *doctor);
 					hospital->addStaffMember(researcherDoctor);
 					hospital->addStaffMemberToDepartment(researcherDoctor, depInd);
 					hospital->addResearcher(researcherDoctor);
