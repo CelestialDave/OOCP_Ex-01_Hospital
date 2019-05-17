@@ -14,7 +14,7 @@ protected:
 
 public:
 	// C'tor:
-	Researcher(const char inName[MAX_NAME],int employeeIDNumber);
+	Researcher(const char inName[MAX_NAME]);
 	// Disable Copy C'tor:
 	Researcher(const Researcher& other);
 	// D'tor:

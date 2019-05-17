@@ -72,12 +72,12 @@ void Ui::start()
 		case 5: //add researcher to the researcher insistute
 		{
 			Results res;
-			res = addNewResearcher();
-			if (res != SUCCESS)
+			addNewResearcher();
+		/*	if (res != SUCCESS)
 			{
 				warnings(res);
 				askToContinue = true;
-			}
+			}*/
 			//printSpaceLine();
 			break;
 		}
@@ -289,11 +289,11 @@ Article* Ui::createArticle(Date* date)
 	return new Article(name, magazineName,*date);
 }
 
-Nurse* Ui::createNurse(int employeeID)
+Nurse* Ui::createNurse()
 {
 	char*name = getString("Nurse's name: ");
 	int yearsExprience = getInt("Years of Experience: ");
- 	return new Nurse(name, employeeID, yearsExprience);
+ 	return new Nurse(name, yearsExprience);
 }
 
 
@@ -306,11 +306,11 @@ int Ui::getInt(const char* str)
 	return num;
 
 }
-Doctor* Ui::createDoctor(int employeeID)
+Doctor* Ui::createDoctor()
 {
 	char* name = getString("Doctor's name: ");
 	char* specialty = getString("Doctor's speciality: ");
-	return new Doctor(name, employeeID, specialty);
+	return new Doctor(name,specialty);
 }
 	
 Patient* Ui::createPatient(char* id)
@@ -415,15 +415,15 @@ Results Ui::addNewNurse()
 		bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 		if (existDep)
 		{
-			Nurse*nurse = createNurse(employeeID);
+			Nurse*nurse = createNurse();
 			hospital->addStaffMember(nurse);
 			hospital->addStaffMemberToDepartment(nurse, depInd);
 		}
 		else
 			res = BADINPUT1;
 	//	}
-		else
-			res = EIDEXIST;
+	/*	else
+			res = EIDEXIST;*/
 	}
 	return res;
 }
@@ -441,62 +441,55 @@ Results Ui::addNewDoctor()
 		{
 			res = BADINPUT1;
 		}
-		else {
-			int employeeID = getInt("Doctor's Employee ID Number: [1-9 digits]");
-			bool existID = hospital->verifyEmployeeIDNumber(employeeID);
-			if (existID)
+		else
+		{
+			int depNum;
+			cout << "Please choose the Department number from the following list: " << endl;
+			hospital->showDepartments();
+			cin >> depNum;
+			cin.ignore();
+			int depInd = depNum - 1;
+			bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+			if (!existDep)
 			{
-				res = EIDEXIST;
+				res = BADINPUT1;
 			}
 			else {
-				int depNum;
-				cout << "Please choose the Department number from the following list: " << endl;
-				hospital->showDepartments();
-				cin >> depNum;
-				cin.ignore();
-				int depInd = depNum - 1;
-				bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-				if (!existDep)
+				Doctor* doctor = createDoctor();
+				if (docType == 4)
 				{
-					res = BADINPUT1;
+					hospital->addStaffMember(doctor);
+					hospital->addStaffMemberToDepartment(doctor, depInd);
 				}
-				else {
-					Doctor* doctor = createDoctor(employeeID);
-					if (docType == 4)
+				else if ((docType == 2) || (docType == 3))
+				{
+					int numSurgeries = getInt("Please provide number of Surgeries perfromed: ");
+					Surgeon* surgeon = new Surgeon(*doctor, numSurgeries);
+					if (docType == 3)
 					{
-						hospital->addStaffMember(doctor);
-						hospital->addStaffMemberToDepartment(doctor, depInd);
+						Researcher* researcher = new Researcher(doctor->getName());
+						SurgeonResearcher* surgeonResearcher = new SurgeonResearcher(*surgeon, *researcher);
+						hospital->addStaffMember(surgeonResearcher);
+						hospital->addStaffMemberToDepartment(surgeonResearcher, depInd);
+						hospital->addResearcher(surgeonResearcher);
+						delete doctor;
+						delete surgeon;
+						delete researcher;
 					}
-					else if ((docType == 2) || (docType == 3))
+					else // (docType == 2)
 					{
-						int numSurgeries = getInt("Please provide number of Surgeries perfromed: ");
-						Surgeon* surgeon = new Surgeon(*doctor, numSurgeries);
-						if (docType == 3)
-						{
-							Researcher* researcher = new Researcher(doctor->getName(), doctor->getEmployeeIDNumber());
-							SurgeonResearcher* surgeonResearcher = new SurgeonResearcher(*surgeon, *researcher);
-							hospital->addStaffMember(surgeonResearcher);
-							hospital->addStaffMemberToDepartment(surgeonResearcher, depInd);
-							hospital->addResearcher(surgeonResearcher);
-							delete doctor;
-							delete surgeon;
-							delete researcher;
-						}
-						else // (docType == 2)
-						{
-							hospital->addStaffMember(surgeon);
-							hospital->addStaffMemberToDepartment(surgeon, depInd);
-							delete doctor;
-						}
-					}
-					else // (docType == 1) -> ResearcherDoctor
-					{
-						Researcher* researcherDoctor = new Researcher(doctor->getName(), doctor->getEmployeeIDNumber());
-						hospital->addStaffMember(researcherDoctor);
-						hospital->addStaffMemberToDepartment(researcherDoctor, depInd);
-						hospital->addResearcher(researcherDoctor);
+						hospital->addStaffMember(surgeon);
+						hospital->addStaffMemberToDepartment(surgeon, depInd);
 						delete doctor;
 					}
+				}
+				else // (docType == 1) -> ResearcherDoctor
+				{
+					Researcher* researcherDoctor = new Researcher(doctor->getName());
+					hospital->addStaffMember(researcherDoctor);
+					hospital->addStaffMemberToDepartment(researcherDoctor, depInd);
+					hospital->addResearcher(researcherDoctor);
+					delete doctor;
 				}
 			}
 		}
@@ -598,23 +591,23 @@ Results Ui::addNewVisitation()
 	return res;
 }
 
-Results Ui::addNewResearcher()
+void Ui::addNewResearcher()
 {
-	Results res = SUCCESS;
-	int employeeID = getInt("Researcher's Employee ID Number: [1-9 digits]");
-	bool existID = hospital->verifyEmployeeIDNumber(employeeID);
-	if (existID)
+	//Results res = SUCCESS;
+	//int employeeID = getInt("Researcher's Employee ID Number: [1-9 digits]");
+	//bool existID = hospital->verifyEmployeeIDNumber(employeeID);
+	/*if (existID)
 	{
 		res = EIDEXIST;
-	}
-	else
-	{
+	}*/
+	//else
+	//{
 		char*name = getString("Researcher's name: ");
-		Researcher* researcher = new Researcher(name, employeeID);
+		Researcher* researcher = new Researcher(name);
 		hospital->addResearcher(researcher);
 		delete[]name;
-	}
-	return res;
+	//}
+	//return res;
 }
 
 Results Ui::addArticleToResearcher()

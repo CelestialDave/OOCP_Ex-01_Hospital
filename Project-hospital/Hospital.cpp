@@ -265,7 +265,7 @@ Results Hospital::showMedicalStaffMembers() const
 		cout << "Staff Members: " << endl;
 		for (int i = 0; i < logSizeOfStaff; i++)
 		{
-			if(strcmp(typeid(*staffArr[i]).name(),typeid(Researcher).name())!=0)
+			if(strcmp(typeid(*(staffArr[i])).name(),typeid(Researcher).name())!=0)
 			//print if staff member is not only Researcher
 				cout << "\n\t" << i + 1 << ". " << *(staffArr[i]) << "\n\n";
 		}

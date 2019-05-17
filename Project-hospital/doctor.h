@@ -14,7 +14,7 @@ protected:
 
 public:
 	// C'tor:
-	Doctor(const char* name, int employeeIDNumber, const char* inSpecialty);
+	Doctor(const char* name,const char* inSpecialty);
 	// D'tor:
 	virtual ~Doctor();
 

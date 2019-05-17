@@ -11,7 +11,7 @@ protected:
 	char* name;
 	int employeeIDNumber;
 	// C'tor:
-	StaffMember(const char* inName, int inEmployeeIDNumber);
+	StaffMember(const char* inName);
 	// Copy C'tor:
 	StaffMember(const StaffMember& other);
 
@@ -26,6 +26,7 @@ public:
 	friend ostream& operator<<(ostream& os, const StaffMember& staffmember);
 };
 
+
+
 #endif // __STAFF_MEMBER_H
 
-int StaffMember::counterEmployeeID = 0;

@@ -1,7 +1,7 @@
 #include "nurse.h"
 
-Nurse::Nurse(const char* name, int employeeIDNumber, int inYearExp)
-	: StaffMember(name, employeeIDNumber)
+Nurse::Nurse(const char* name,int inYearExp)
+	: StaffMember(name)
 {
 	yearsOfExperience = inYearExp; 
 }

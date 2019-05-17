@@ -114,15 +114,17 @@ void ResearchInstitute::showDoctorsResearchers() const
 		SurgeonResearcher* surgeonResearcher = dynamic_cast<SurgeonResearcher*>(allResearchers[i]);
 		if (researcherDoctor) 
 		{
-			cout << "\t" <<j<< " ,";
-			cout<< researcherDoctor->getName() << endl;
+			cout << "\t" <<j<< "."<<" employee ID number: "<<
+			researcherDoctor->getEmployeeIDNumber()<<"\n\t\t"<< "Name: "<<
+			researcherDoctor->getName() << endl;
 			researcherDoctor->showArticles();
 			j++;
 		}
 		else if(surgeonResearcher)
 		{
-			cout << "\t" <<j<< " ,";
-			cout << surgeonResearcher->getName() << endl;
+			cout << "\t" <<j<< "." << " employee ID number: " <<
+			surgeonResearcher->getEmployeeIDNumber() <<"\n\t\t"<<"Name: "<<
+			surgeonResearcher->getName() << endl;
 			surgeonResearcher->showArticles();
 			j++;
 		}
@@ -137,8 +139,9 @@ void ResearchInstitute::showResearchers()  const
 		cout << "\nThe researchers: " << endl;
 		for (int i = 0; i < logSizeOfResearchers; i++)
 		{
-			cout << "\t" << i + 1 << " ,";
-			cout << allResearchers[i]->getName() << endl;
+			cout << "\t" << i + 1 << " ." <<" employee ID number: "<<"\n\t\t"<<
+			allResearchers[i]->getEmployeeIDNumber()<<"Name: "<<
+			allResearchers[i]->getName() << endl;
 			allResearchers[i]->showArticles();
 		}
 	}

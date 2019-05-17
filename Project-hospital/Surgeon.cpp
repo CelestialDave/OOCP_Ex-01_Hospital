@@ -2,7 +2,7 @@
 #include "ConstantsAndGenFuncs.h"
 
 Surgeon::Surgeon(const Doctor& doctor, int numSurgeries) :
-	StaffMember(doctor.getName(), doctor.getEmployeeIDNumber()), Doctor(doctor)
+	StaffMember(doctor.getName()), Doctor(doctor)
 {
 	this->numSurgeries = numSurgeries;
 }

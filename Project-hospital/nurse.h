@@ -16,7 +16,7 @@ protected:
 
 public:
 	// C'tor:
-	Nurse(const char* name, int employeeIDNumber, int inYearExp);
+	Nurse(const char* name, int inYearExp);
 	// D'tor:
 	~Nurse();
 	

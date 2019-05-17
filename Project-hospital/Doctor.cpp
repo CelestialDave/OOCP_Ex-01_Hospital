@@ -1,7 +1,7 @@
 #include "doctor.h"
 
-Doctor::Doctor(const char* name, int employeeIDNumber, const char* inSpecialty)
-	: StaffMember(name, employeeIDNumber)
+Doctor::Doctor(const char* name, const char* inSpecialty)
+	: StaffMember(name)
 {
 	specialty = strdup(inSpecialty);
 }

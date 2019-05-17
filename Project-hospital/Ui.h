@@ -15,9 +15,9 @@ public:
 	enum eGender inputGender();
 	char* getString(const char* prompt);
 	Patient* createPatient(char* id);
-	Doctor* createDoctor(int employeeID);
+	Doctor* createDoctor();
 	int getInt(const char* str);
-	Nurse* createNurse(int employeeID);
+	Nurse* createNurse();
 	Article* createArticle(Date*date);
 	void printSpaceLine() const;
 	void printVisitationPorpuse(Patient* patient) const;
@@ -29,7 +29,7 @@ public:
 	Results addNewNurse();
 	Results addNewDoctor();
 	Results addNewVisitation();
-	Results addNewResearcher();
+	void addNewResearcher();
 	Results addArticleToResearcher();
 	Results showPatientsInDepartment();
 

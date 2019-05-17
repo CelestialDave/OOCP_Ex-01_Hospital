@@ -1,8 +1,8 @@
 #include "researcher.h"
 
 
-Researcher::Researcher(const char inName[MAX_NAME],int employeeIDNumber) 
-	: StaffMember(inName, employeeIDNumber)
+Researcher::Researcher(const char inName[MAX_NAME]) 
+	: StaffMember(inName)
 {
 	articleStock = nullptr;
 	logSizeOfArticles = 0;

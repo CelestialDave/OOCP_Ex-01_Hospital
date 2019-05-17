@@ -1,7 +1,7 @@
 #include "StaffMember.h"
 
 // C'tor:
-StaffMember::StaffMember(const char* name, int employeeIDNumber) :employeeIDNumber(counterEmployeeID++)
+StaffMember::StaffMember(const char* name) :employeeIDNumber(counterEmployeeID++)
 {
 	this->name = strdup(name);
 	//this->employeeIDNumber = employeeIDNumber;
@@ -44,3 +44,5 @@ ostream& operator<<(ostream& os, const StaffMember& staffmember)
 	staffmember.print(os);
 	return os;
 }
+
+int StaffMember::counterEmployeeID = 1;
