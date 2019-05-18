@@ -2,6 +2,7 @@
 #include "Department.h"
 #include "ConstantsAndGenFuncs.h"
 #include "Patient.h"
+#include "Surgeon.h"
 
 // C'tor:
 //Department::Department(const char* inName)
@@ -10,7 +11,7 @@
 //	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0)
 Department::Department(const char* inName)
 	: name(nullptr), staffArr(nullptr), logSizeOfStaff(0), phySizeOfStaff(0),
-	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0)
+	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0), numOfSurgeons(0)
 {
 	name = new char [strlen(inName) + 1];
 	strcpy(name, inName);
@@ -61,6 +62,8 @@ void Department::addStaffMember(StaffMember* staffMember)
 	allocStaffArr();
 	staffArr[logSizeOfStaff] = staffMember;
 	logSizeOfStaff++;
+	Surgeon* tempSurgeon = dynamic_cast<Surgeon*>(staffMember);
+	if (tempSurgeon) this->numOfSurgeons++;
 }
 
 void Department::allocStaffArr()
@@ -150,6 +153,10 @@ const char* Department:: getName() const
 	return name;
 }
 
+int Department::getNumOfSurgeons() const
+{
+	return this->numOfSurgeons;
+}
 
 void Department::showPatients() const
 {

@@ -17,6 +17,7 @@ private:
 	StaffMember** staffArr;
 	int logSizeOfStaff;
 	int phySizeOfStaff;
+	int numOfSurgeons;
 	
 	Patient** allPatients;
 	int logSizeOfPatients;
@@ -48,6 +49,7 @@ public:
 	bool isDepartmentsEmpty() const;
 
 	int getNumOfDepartments();
+	int getNumOfSurgeons();
 
 	void addDepartment(Department& inDepartment);
 	int binSearchDepartmentByName(const char*name);

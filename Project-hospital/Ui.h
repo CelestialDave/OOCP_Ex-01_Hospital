@@ -21,7 +21,7 @@ public:
 	Article* createArticle(Date*date);
 	void printSpaceLine() const;
 	void printVisitationPorpuse(Patient* patient) const;
-	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice,bool& ok);
+	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice, Results& res);
 	void compare2Researchers() const;
 
 	// UI Flows:

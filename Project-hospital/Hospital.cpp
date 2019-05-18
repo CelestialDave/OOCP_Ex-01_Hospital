@@ -9,7 +9,7 @@ Hospital::Hospital()
 	: allDepartments(nullptr), staffArr(nullptr), allPatients(nullptr)
 {
 	logSizeOfDepartments = phySizeOfDepartments = logSizeOfStaff = 
-		phySizeOfStaff = logSizeOfPatients = phySizeOfPatients = 0;
+		phySizeOfStaff = logSizeOfPatients = phySizeOfPatients = numOfSurgeons = 0;
 }
 
 
@@ -86,10 +86,12 @@ void Hospital::addStaffMember(StaffMember* inStaffMember)
 	if (logSizeOfStaff == 0)
 		index = 0;
 	else
-		//find the index to push the staff member
+		// Find the index to push the staff member, maintainning asortment by EID
 		index = getIndexForStaffMemberInsertion(inStaffMember->getEmployeeIDNumber());
 
 	inserStaffMemberToArrInIndex(inStaffMember, index);
+	Surgeon* tempSurgeon = dynamic_cast<Surgeon*>(inStaffMember);
+	if (tempSurgeon) numOfSurgeons++;
 }
 
 void Hospital::inserStaffMemberToArrInIndex(StaffMember* newStaffMember, int index)
@@ -265,7 +267,7 @@ Results Hospital::showMedicalStaffMembers() const
 		cout << "Staff Members: " << endl;
 		for (int i = 0; i < logSizeOfStaff; i++)
 		{
-			if(strcmp(typeid(*(staffArr[i])).name(),typeid(Researcher).name())!=0)
+			if(strcmp(typeid(*(staffArr[i])).name() + 6, typeid(Researcher).name() + 6)!=0)
 			//print if staff member is not only Researcher
 				cout << "\n\t" << i + 1 << ". " << *(staffArr[i]) << "\n\n";
 		}
@@ -278,18 +280,24 @@ Results Hospital::showMedicalStaffMembers() const
 Results Hospital::showSurgeons() const
 {
 	Results res= SUCCESS;
-	int j = 1;
-	for (int i = 0; i < logSizeOfStaff; i++)
+	if (numOfSurgeons)
 	{
-		Surgeon*surgeon = dynamic_cast<Surgeon*>(staffArr[i]);
-		if (surgeon)
+		int j = 1;
+		for (int i = 0; i < logSizeOfStaff; i++)
 		{
-			cout << "\t" << j << ". " << *(staffArr[i]) << endl;
-			j++;
+			Surgeon*surgeon = dynamic_cast<Surgeon*>(staffArr[i]);
+			if (surgeon)
+			{
+				cout << "\t" << j << ". " << *(staffArr[i]) << endl;
+				j++;
+			}
 		}
 	}
-	if (j == 1)
-		res = NOSTAFF;
+	else
+	{ 
+		res = NOSURGINHOS;
+	}
+	
 	return res;
 }
 
@@ -363,6 +371,11 @@ Department* Hospital::getDepartmentByIndex(int ind)
 int Hospital::getNumOfDepartments()
 {
 	return logSizeOfDepartments;
+}
+
+int Hospital::getNumOfSurgeons()
+{
+	return this->numOfSurgeons;
 }
 
 Patient* Hospital::getPatientByID(char* inID, bool* isFound)

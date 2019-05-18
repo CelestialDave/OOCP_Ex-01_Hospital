@@ -99,7 +99,6 @@ void Ui::start()
 		}
 		case 8: //show medical staff members
 		{
-			//***** Add to check of dynamic_cast to hospital->showMedicalStaffMembers()
 			hospital->showMedicalStaffMembers(); 
 			break;
 		}
@@ -211,7 +210,7 @@ void Ui::compare2Researchers() const
 		cout << "Error: invalid input" << endl;
 }
 
-VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice,bool& ok)
+VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice, Results& res)
 {
 	//char* staffMemIncharge = getString("Medical staff member in charge: ");
 	char* visitPurpose = getString("Visitation purpose: ");
@@ -228,8 +227,8 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 	{
 		cout << "Please provide the Employee-ID number of your surgeon from the following list: "
 		<< endl;
-		Results res=hospital->showSurgeons();
-		if (res == SUCCESS)
+		hospital->showSurgeons();
+		if (hospital->getNumOfSurgeons() > 0)
 		{
 			int employeeIDNum;
 			cin >> employeeIDNum;
@@ -256,7 +255,7 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 			else
 			{
 				delete[]visitPurpose;
-				ok = false;
+				res = BADINPUT;
 				return nullptr;
 			}
 
@@ -264,14 +263,14 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		else
 		{
 			delete[]visitPurpose;
-			ok = false;
+			res = NOSURGINDEP;
 			return nullptr;
 		}
 	}
 	else
 	{
 		delete[]visitPurpose;
-		ok = false;
+		res = BADINPUT;
 		return nullptr;
 	}
 }
@@ -340,11 +339,11 @@ enum eGender Ui::inputGender()
 
 bool Ui::checkIfItFirstTimeInHospital() const
 {
-	bool res;
-	cout << "Is this the Patient's first visit?  [0: No, 1: Yes]" << endl;
-	cin >> res;
+	int input;
+	cout << "Is this the Patient's first visit?\n\t1. No.\n\t2. Yes]" << endl;
+	cin >> input;
 	cin.ignore();
-	return res;
+	return (input == 2);
 }
 
 
@@ -413,7 +412,7 @@ Results Ui::addNewNurse()
 			hospital->addStaffMemberToDepartment(nurse, depInd);
 		}
 		else
-			res = BADINPUT1;
+			res = BADINPUT;
 	//	}
 	/*	else
 			res = EIDEXIST;*/
@@ -432,7 +431,7 @@ Results Ui::addNewDoctor()
 		int docType = getInt("Please choose whether the Doctor is also:\n\t1.Researcher.\n\t2.Surgeon.\n\t3.Surgeon - Researcher.\n\t4.None.\n");
 		if ((docType < 1) || (docType > 4))
 		{
-			res = BADINPUT1;
+			res = BADINPUT;
 		}
 		else
 		{
@@ -445,7 +444,7 @@ Results Ui::addNewDoctor()
 			bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 			if (!existDep)
 			{
-				res = BADINPUT1;
+				res = BADINPUT;
 			}
 			else {
 				Doctor* doctor = createDoctor();
@@ -531,7 +530,7 @@ Results Ui::addNewVisitation()
 		bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 		if (!exist)
 		{
-			res = BADINPUT1;
+			res = BADINPUT;
 			delete[] inID;
 			if (!isExists)
 				delete patient;
@@ -546,7 +545,7 @@ Results Ui::addNewVisitation()
 			bool isValidDateInput = Utils::convertStrDateToDateObj(inDate, &arrivalDate);
 			if (!isValidDateInput)
 			{
-				res = BADINPUT2;
+				res = BADFORMAT;
 				delete[] inID;
 				delete[] inDate;
 				if (!isExists)
@@ -555,10 +554,20 @@ Results Ui::addNewVisitation()
 			else
 			{
 				int visitChosen = getInt("Visitation purpose:\n\t1. Checkup.\n\t2. Surgery.\n");
+
 				bool ok = true;
+				if (visitChosen == SURGERY)
+				{
+					if (hospital->getNumOfSurgeons() == 0)
+						res = NOSURGINDEP;
+					else if (inDep->getNumOfSurgeons() == 0)
+						res = NOSURGINHOS;
+				}
+
+				
 				VisitationRecord* newVisit = createVisit(*patient, arrivalDate, visitChosen, ok);
 
-				if (ok)
+				if ((res = SUCCESS) && (ok))
 				{
 					patient->addVisitiaionRecord(newVisit);
 					// Adding Patient to relevant DB if required:
@@ -573,7 +582,7 @@ Results Ui::addNewVisitation()
 				}
 				else
 				{
-					res = BADINPUT2;
+					res = BADFORMAT;
 					delete[] inID;
 					delete[] inDate;
 					if (!isExists)
@@ -623,7 +632,7 @@ Results Ui::addArticleToResearcher()
 				hospital->addArticleToResearcher(*article, researcher);
 			}
 			else
-				res = BADINPUT2;
+				res = BADFORMAT;
 			delete[]strDate;
 		}
 		else
@@ -651,7 +660,7 @@ Results Ui::showPatientsInDepartment()
 			hospital->showPatientInSpecificDep(depInd);
 		else
 			// bad input1:
-			res = BADINPUT1;
+			res = BADINPUT;
 	}
 	else
 		res = NODEPS;
@@ -666,10 +675,10 @@ void Ui::warnings(Results result)
 		case NOTFOUND:
 			cout << "";
 			break;
-		case BADINPUT1:
+		case BADINPUT:
 			cout << "Error: Invalid input." << endl;
 			break;
-		case BADINPUT2:
+		case BADFORMAT:
 			cout << "Error: Invalid input or not according to format." << endl;
 			break;
 		case NODEPS:
@@ -680,6 +689,12 @@ void Ui::warnings(Results result)
 			break;
 		case NOSTAFF:
 			cout << "There are no Staff Members availavle in Hospital." << endl;
+			break;
+		case NOSURGINHOS:
+			cout << "There are no Surgeons available in Hospital." << endl;
+			break;
+		case NOSURGINDEP:
+			cout << "There are no Surgeons available in the chosen Department." << endl;
 			break;
 		case EIDEXIST:
 			cout << "Error: An Employee with the given Employee-ID Number already exists." << endl;

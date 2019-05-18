@@ -12,7 +12,12 @@ ResearchInstitute::ResearchInstitute()
 ResearchInstitute::~ResearchInstitute()
 {
 	for (int i = 0; i < logSizeOfResearchers; i++)
-		delete allResearchers[i];
+	{
+		// Vaidate current Researcher obj is purely a researcher;
+		//	i.e. The rest will be released from Hospital::StaffMember*[] by ~Hospital()
+		if ((typeid(allResearchers[i]).name() + 6, "Researcher") == 0)
+			delete allResearchers[i];
+	}
 	delete[] allResearchers;
 }
 

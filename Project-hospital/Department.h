@@ -14,6 +14,7 @@ private:
 	StaffMember** staffArr;
 	int logSizeOfStaff;
 	int phySizeOfStaff;
+	int numOfSurgeons;
 
 	/*Doctor** docsArr;
 	int logSizeOfDocs;
@@ -57,6 +58,7 @@ public:
 	void addPatient(Patient& patient);
 	StaffMember** operator+=(StaffMember* staffMember);
 	const char* getName() const; 
+	int getNumOfSurgeons() const;
 	
 };
 
