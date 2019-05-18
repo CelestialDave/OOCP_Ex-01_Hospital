@@ -565,9 +565,9 @@ Results Ui::addNewVisitation()
 			if (visitChosen == SURGERY)
 			{
 				if (hospital->getNumOfSurgeons() == 0)
-					res = NOSURGINDEP;
-				else if (inDep->getNumOfSurgeons() == 0)
 					res = NOSURGINHOS;
+				else if (inDep->getNumOfSurgeons() == 0)
+					res = NOSURGINDEP;
 			}
 
 			if (!res == SUCCESS)
