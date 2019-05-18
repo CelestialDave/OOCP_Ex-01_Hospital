@@ -5,10 +5,6 @@
 #include "Surgeon.h"
 
 // C'tor:
-//Department::Department(const char* inName)
-//	: name(nullptr), docsArr(nullptr), logSizeOfDocs(0), phySizeOfDocs(0),
-//	nursesArr(nullptr), logSizeOfNurses(0), phySizeOfNurses(0),
-//	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0)
 Department::Department(const char* inName)
 	: name(nullptr), staffArr(nullptr), logSizeOfStaff(0), phySizeOfStaff(0),
 	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0), numOfSurgeons(0)
@@ -22,8 +18,6 @@ Department::~Department()
 {
 	delete[] name;
 	delete[] staffArr;
-	/*delete[] docsArr;
-	delete[] nursesArr;*/
 	delete[] patientsArr;
 }
 
@@ -87,66 +81,6 @@ void Department::allocStaffArr()
 	else
 		return;
 }
-
-
-//void Department::addDoctor(Doctor& doc)
-//{
-//	allocDocArr();
-//	docsArr[logSizeOfDocs] = &doc;
-//	logSizeOfDocs++;
-//	
-//}
-//
-//void Department::allocDocArr()
-//{
-//	if (phySizeOfDocs == 0) // If this is the 1st Department
-//	{
-//		docsArr = new Doctor*;
-//		phySizeOfDocs++;
-//	}
-//	else if (logSizeOfDocs == phySizeOfDocs) //if there is no place in the array
-//	{
-//		phySizeOfDocs *= 2;
-//		Doctor** newArr = new Doctor*[phySizeOfDocs];
-//		for (int i = 0; i < logSizeOfDocs; i++)
-//		{
-//			newArr[i] = docsArr[i];
-//		}
-//		delete[] docsArr;
-//		docsArr = newArr;
-//	}
-//	else
-//		return;
-//}
-//
-//void Department::addNurse(Nurse& nurse)
-//{
-//	allocNursesArr();
-//	nursesArr[logSizeOfNurses] = &nurse;
-//	logSizeOfNurses++;
-//}
-//
-//void Department::allocNursesArr()
-//{
-//	if (phySizeOfNurses == 0) // If this is the 1st Department
-//	{
-//		nursesArr = new Nurse*;
-//		phySizeOfNurses++;
-//	}
-//	else if (logSizeOfNurses == phySizeOfNurses) //if there is no place in the array
-//	{
-//		phySizeOfNurses *= 2;
-//		Nurse** newArr = new Nurse*[phySizeOfNurses];
-//		for (int i = 0; i < logSizeOfNurses; i++)
-//		{
-//			newArr[i] = nursesArr[i];
-//		}
-//		delete[] nursesArr;
-//		nursesArr = newArr;
-//	}
-//	else
-//		return;
-//}
 
 const char* Department:: getName() const
 {
