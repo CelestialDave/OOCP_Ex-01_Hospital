@@ -99,7 +99,13 @@ void Ui::start()
 		}
 		case 8: //show medical staff members
 		{
-			hospital->showMedicalStaffMembers(); 
+			Results res = SUCCESS;
+			res=hospital->showMedicalStaffMembers(); 
+			if (res != SUCCESS)
+			{
+				warnings(res);
+				askToContinue = true;
+			}
 			break;
 		}
 		case 9: // Show all researchers in Research Institute
@@ -393,10 +399,6 @@ Results Ui::addNewNurse()
 		res = NODEPS;
 	}
 	else {
-	/*	int employeeID = getInt("Nurse's Employee ID Number: [1-9 digits]");
-		bool existID = hospital->verifyEmployeeIDNumber(employeeID);
-		if (!existID)
-		{*/
 		int depNum;
 		cout << "Please choose the Department number from the following list: " << endl;
 		hospital->showDepartments();
@@ -412,9 +414,6 @@ Results Ui::addNewNurse()
 		}
 		else
 			res = BADINPUT;
-	//	}
-	/*	else
-			res = EIDEXIST;*/
 	}
 	return res;
 }
