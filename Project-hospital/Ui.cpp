@@ -99,7 +99,13 @@ void Ui::start()
 		}
 		case 8: //show medical staff members
 		{
-			hospital->showMedicalStaffMembers(); 
+			Results res = SUCCESS;
+			res=hospital->showMedicalStaffMembers(); 
+			if (res != SUCCESS)
+			{
+				warnings(res);
+				askToContinue = true;
+			}
 			break;
 		}
 		case 9: // Show all researchers in Research Institute
