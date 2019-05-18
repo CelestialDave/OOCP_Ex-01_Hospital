@@ -7,7 +7,6 @@ Doctor::Doctor(const char* name, const char* inSpecialty)
 }
 
 Doctor::Doctor(const Doctor& other)
-// ???
 	: StaffMember(other)
 {
 

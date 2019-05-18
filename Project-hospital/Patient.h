@@ -2,9 +2,7 @@
 #define PATIENT_H
 #include "Visitation_Record.h"
 #include "Visit_Surgery.h"
-//#include "Date.h"
 #include "ConstantsAndGenFuncs.h"
-//#include "Department.h"
 
 class Department;
 
@@ -32,7 +30,6 @@ public:
 	~Patient();
 
 	// Methods:
-	//void addVistation(VisitationRecord& newVisit);
 	void addVisitiaionRecord(VisitationRecord* inVisitiaionRecord);
 	int getIndexForVisitiationInsertion(Date & date); //the index to insert Visitiation record
 	void insertVisitToArrInIndex(VisitationRecord* visitationRecord, int index);
@@ -48,7 +45,6 @@ public:
 	void showGender() const;
 	const char * getYearOfBirth() const;
 	void showVisits() const;
-	//void showDepatmentsVisited() const;
 
 
 	bool hasVisitedDepartment(Department& pDepartment) const;

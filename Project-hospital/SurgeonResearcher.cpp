@@ -12,8 +12,3 @@ void SurgeonResearcher::print(ostream& os) const
 		<< "\n\tNumber of Surgeries Performed: " << this->numSurgeries << "\tArticles Published: " << this->logSizeOfArticles;
 }
 
-//ostream& operator<<(ostream& os, const SurgeonResearcher& surgeonResearcher)
-//{
-//	surgeonResearcher.print(os);
-//	return os;
-//}

@@ -8,11 +8,10 @@ class Nurse : virtual public StaffMember
 {
 private:
 	int yearsOfExperience;
-
+	
 protected:
-	// ???
 	// Copy C'tor:
-	//Nurse(const Nurse& other);
+	Nurse(const Nurse& other) = delete;
 
 public:
 	// C'tor:
@@ -23,6 +22,5 @@ public:
 	int getYearsOfExp()const;
 
 	virtual void print(ostream& os) const;
-	//friend ostream& operator<<(ostream& os, const Nurse& nurse);
 };
 #endif 

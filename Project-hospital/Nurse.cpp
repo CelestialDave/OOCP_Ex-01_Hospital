@@ -6,14 +6,6 @@ Nurse::Nurse(const char* name,int inYearExp)
 	yearsOfExperience = inYearExp; 
 }
 
-//Nurse::Nurse(const Nurse& other)
-//	// ???
-//	: StaffMember(other)
-//{
-//	if (this->yearsOfExperience != other.yearsOfExperience)
-//		this->yearsOfExperience = other.yearsOfExperience;
-//}
-
 Nurse::~Nurse()
 {}
 
@@ -27,9 +19,3 @@ void Nurse::print(ostream& os) const
 	StaffMember::print(os);
 	os << "\tRole: Nurse." << "\n\tYears Of Experience: " << this->yearsOfExperience;
 }
-
-//ostream& operator<<(ostream& os, const Nurse& nurse)
-//{
-//	nurse.print(os);
-//	return os;
-//}

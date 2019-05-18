@@ -189,13 +189,6 @@ void Patient:: showVisits()const
 	}
 	cout << endl;
 }
-//
-//void Patient::showDepatmentsVisited() const
-//{
-//	cout << "\nDepartments in which patient has visited in the past: " << endl;
-//		for (int i = 0; i < logsizeOfDepartments; i++)
-//			cout << "\t" << departmentsVisited[i]->getName() << endl;
-//}
 
 
 bool Patient::hasVisitedDepartment(Department& pDepartment) const

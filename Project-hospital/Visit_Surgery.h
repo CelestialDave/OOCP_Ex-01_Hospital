@@ -12,7 +12,6 @@ public:
 	VisitSurgery(const VisitationRecord & other, int surgeryRoomNum, bool fasting);
 	int getSurgeryRoomNum() const;
 	bool getFasting()const;
-
 };
 
 #endif // ! Visit_Surgery__H

@@ -12,7 +12,6 @@ public:
 	~SurgeonResearcher() {}
 
 	virtual void print(ostream& os) const;
-	//friend ostream& operator<<(ostream& os, const SurgeonResearcher& surgeonResearcher);
 };
 
 #endif // !__SURGEON_RESEARCHER_H

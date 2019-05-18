@@ -20,7 +20,6 @@ public:
 
 	const char* getSpciality()const;
 	virtual void print(ostream& os) const;
-	//friend ostream& operator<<(ostream& os, const Doctor& doctor);
 };
 
 #endif // !Doctor__H

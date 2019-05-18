@@ -15,17 +15,16 @@ protected:
 public:
 	// C'tor:
 	Researcher(const char inName[MAX_NAME]);
-	// Disable Copy C'tor:
+	// Copy C'tor:
 	Researcher(const Researcher& other);
 	// D'tor:
 	virtual ~Researcher();
+
 	void addArticle(Article& art);
-	//const char* getName() const;
 	void showArticles() const;
 	void allocationArticlesArr();
 
 	virtual void print(ostream& os) const;
-	//friend ostream& operator<<(ostream& os, const Researcher& researcher);
 
 	bool operator>(const Researcher& other) const;
 

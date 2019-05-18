@@ -323,46 +323,6 @@ void Hospital::showDepartments() const
 	}
 }
 
-
-//bool Hospital::getDepartmentByName(char* depName, Department* resDepartment)
-////find if the department is exist and return by pointer the address
-//{
-//	return binDepartmentByName(allDepartments, logSizeOfDepartments, depName, resDepartment);
-//}
-
-//bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, Department* resDep)
-////find if department exist and return by pointer the adress
-//{
-//	Department* midDep = arr[size / 2];
-//	int res = strcmp(depName, midDep->getName());
-//	if (size == 1)
-//	{
-//		if (res == 0) {
-//			resDep = midDep;
-//			return true;
-//		}
-//		else {
-//			return false;
-//		}
-//	}
-//	else 
-//	{
-//		int leftSize = size / 2;
-//		int rightSize = size - leftSize - 1;
-//		if (res == 0)
-//		{
-//			resDep = midDep;
-//			return true;
-//		}
-//		else if (res < 0)
-//			return binDepartmentByName(arr, leftSize, depName, resDep);
-//		else if (res > 0)
-//			return binDepartmentByName(arr+ leftSize+1,rightSize, depName, resDep);
-//	}
-//}
-
-
-
 Department* Hospital::getDepartmentByIndex(int ind)
 {
 		return allDepartments[ind];

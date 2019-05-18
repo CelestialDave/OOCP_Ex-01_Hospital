@@ -13,9 +13,3 @@ void ResearcherDoctor::print(ostream& os) const
 	os << "\tRole: Doctor-Researcher." << "\n\tSpecialty: " << this->specialty
 		<< "\n\tNumber of Articles published: " << this->logSizeOfArticles;
 }
-
-//ostream& operator<<(ostream& os, const ResearcherDoctor& researcherDoc)
-//{
-//	researcherDoc.print(os);
-//	return os;
-//}
