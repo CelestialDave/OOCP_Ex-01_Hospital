@@ -219,6 +219,7 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 	{
 		char* staffMemIncharge = getString("Medical staff member in charge: ");
 		VisitationRecord* visit=new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
+		res = SUCCESS;
 		delete[]staffMemIncharge;
 		delete[]visitPurpose;
 		return visit;
@@ -565,9 +566,9 @@ Results Ui::addNewVisitation()
 				}
 
 				
-				VisitationRecord* newVisit = createVisit(*patient, arrivalDate, visitChosen, ok);
+				VisitationRecord* newVisit = createVisit(*patient, arrivalDate, visitChosen, res);
 
-				if ((res = SUCCESS) && (ok))
+				if (res = SUCCESS)
 				{
 					patient->addVisitiaionRecord(newVisit);
 					// Adding Patient to relevant DB if required:
@@ -582,7 +583,7 @@ Results Ui::addNewVisitation()
 				}
 				else
 				{
-					res = BADFORMAT;
+					//res = BADFORMAT;
 					delete[] inID;
 					delete[] inDate;
 					if (!isExists)
