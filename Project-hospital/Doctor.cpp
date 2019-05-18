@@ -33,9 +33,3 @@ void Doctor::print(ostream& os) const
 	StaffMember::print(os);
 	os << "\tRole: Doctor." << "\n\tSpecialty: " << this->specialty;
 }
-
-//ostream& operator<<(ostream& os, const Doctor& doctor)
-//{
-//	doctor.print(os);
-//	return os;
-//}

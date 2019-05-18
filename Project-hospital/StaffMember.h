@@ -2,6 +2,7 @@
 #define __STAFF_MEMBER_H
 
 #include "ConstantsAndGenFuncs.h"
+#include <ostream>
 
 
 class StaffMember
@@ -23,6 +24,7 @@ public:
 	const int getEmployeeIDNumber()const;
 
 	virtual void print(ostream& os) const =0;
+	//friend ostream& operator<<(ostream& os, const StaffMember& staffmember);
 	friend ostream& operator<<(ostream& os, const StaffMember& staffmember);
 };
 

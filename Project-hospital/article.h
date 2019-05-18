@@ -22,6 +22,7 @@ public:
 
 	const char* getName() const;
 	const char* getMagazineName() const;
+	const Date& getPublicationDate() const;
 	void showDate() const;
 };
 

@@ -141,10 +141,10 @@ void ResearchInstitute::showResearchers()  const
 {
 	if (logSizeOfResearchers)
 	{
-		cout << "\nThe researchers: " << endl;
+		cout << "\nList of Researchers: " << endl;
 		for (int i = 0; i < logSizeOfResearchers; i++)
 		{
-			cout << "\t" << i + 1 << " ." <<" employee ID number: "<<
+			cout << "\n\t" << i + 1 << ". " << "Employee ID Number: "<<
 			allResearchers[i]->getEmployeeIDNumber()<< "\n\tName: "<<
 			allResearchers[i]->getName() << endl;
 			allResearchers[i]->showArticles();

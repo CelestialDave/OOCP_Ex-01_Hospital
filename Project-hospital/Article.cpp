@@ -35,8 +35,15 @@ const char* Article::getMagazineName() const
 {
 	return magazineName;
 }
+
+const Date& Article::getPublicationDate() const
+{
+	return *(this->publicationDate);
+}
+
 void Article::showDate() const
 {
 	publicationDate->showDate();
+	//cout << *(this->publicationDate);
 }
 

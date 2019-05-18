@@ -1,6 +1,8 @@
 #ifndef DATE_H
 #define DATE_H
 
+#include <ostream>
+
 class Date
 {
 private:
@@ -19,5 +21,6 @@ public:
 	int getMonth() const;
 	int getDay() const;
 
+	//friend ostream& operator<<(ostream& os, const Date& date);
 };
 #endif

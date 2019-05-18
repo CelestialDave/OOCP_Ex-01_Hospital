@@ -64,19 +64,22 @@ void Researcher:: allocationArticlesArr()
 
 void Researcher::showArticles() const
 {
+	cout << "\tArticles: ";
 	if (logSizeOfArticles)
 	{
+		
 		for (int i = 0; i < logSizeOfArticles; i++)
 		{
-			cout << "Article name: " << articleStock[i]->getName() << endl;
-			cout << "Magazine in which was published: " << articleStock[i]->getMagazineName() << endl;;
-			cout << "Publication date: ";
+			cout << "\n\t\tArticle name: " << articleStock[i]->getName() << endl;
+			cout << "\t\tMagazine in which was published: " << articleStock[i]->getMagazineName() << endl;
+			cout << "\t\tPublication date: ";
+			//cout << "\n\t\tPublication date: " << articleStock[i]->getPublicationDate() << endl;
 			articleStock[i]->showDate();
 			cout << endl;
 		}
 	}
 	else
-		cout << "There is no article for this researcher" << endl;
+		cout << "Not Available" << endl;
 }
 
 bool Researcher::operator>(const Researcher& other) const
