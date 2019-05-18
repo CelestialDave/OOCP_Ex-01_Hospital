@@ -120,8 +120,8 @@ void ResearchInstitute::showDoctorsResearchers() const
 		if (researcherDoctor) 
 		{
 			cout << "\t" <<j<< "."<<" employee ID number: "<<
-			researcherDoctor->getEmployeeIDNumber()<<"\n\t\tName: "<<
-			researcherDoctor->getName() << endl;
+			researcherDoctor->getEmployeeIDNumber()<<"\n\tName: "<<
+			researcherDoctor->getName() << "\n\t";
 			researcherDoctor->showArticles();
 			j++;
 		}
@@ -129,7 +129,7 @@ void ResearchInstitute::showDoctorsResearchers() const
 		{
 			cout << "\t" <<j<< "." << " employee ID number: " <<
 			surgeonResearcher->getEmployeeIDNumber() <<"\n\t\t"<<"Name: "<<
-			surgeonResearcher->getName() << endl;
+			surgeonResearcher->getName() << "\n\t";
 			surgeonResearcher->showArticles();
 			j++;
 		}

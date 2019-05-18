@@ -185,7 +185,6 @@ void Patient:: showVisits()const
 				cout << "\tThe patient is not in fasting" << endl;
 
 		}
-		cout << endl;
 	}
 	cout << endl;
 }
