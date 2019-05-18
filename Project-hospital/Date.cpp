@@ -8,13 +8,6 @@ Date::Date(int inDay, int inMonth, int inYear)
 	year = inYear;
 }
 
-////const void Date::showDate() const
-////{
-////	/*cout << ((day < 10) ? "0" : "") << day << "/" <<
-////		((month < 10) ? "0" : "") << month << "/" << year;*/
-////	cout << *this;
-////}
-
 int Date::getYear() const
 {
 	return year;

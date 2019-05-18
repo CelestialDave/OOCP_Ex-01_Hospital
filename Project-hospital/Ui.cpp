@@ -557,7 +557,7 @@ Results Ui::addNewVisitation()
 		}
 		else
 		{
-			int visitChosen = getInt("Visitation purpose:\n\t1. Checkup.\n\t2. Surgery.\n");
+			int visitChosen = getInt("Purpose of Visitation:\n\t1. Checkup.\n\t2. Surgery.\n");
 
 			bool ok = true;
 			if (visitChosen == SURGERY)

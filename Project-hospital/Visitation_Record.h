@@ -25,9 +25,9 @@ public:
 	virtual ~VisitationRecord();
 
 	const char* getstaffMemInChargeName() const;
-	////void showDate() const;
 	Date getArrivalDate() const;
-	void  printVisitationPurpose() const;
+	const char* getVisitationDescription() const;
+	////void  printVisitationPurpose() const;
 };
 
 #endif

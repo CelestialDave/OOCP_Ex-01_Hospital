@@ -37,12 +37,12 @@ Date VisitationRecord::getArrivalDate() const
 	return arrivalDate;
 }
 
-////void VisitationRecord::showDate() const
-////{
-////	arrivalDate.showDate();
-////}
-
-void VisitationRecord:: printVisitationPurpose() const
+const char* VisitationRecord::getVisitationDescription() const
 {
-	cout << visitationPurpose;
-};
+	return visitationPurpose;
+}
+
+////void VisitationRecord::printVisitationPurpose() const
+////{
+////	cout << visitationPurpose;
+////};

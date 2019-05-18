@@ -169,13 +169,10 @@ void Patient:: showVisits()const
 	for (int i = 0; i < logSizeOfVisits; i++)
 	{ 
 		cout << "\n\t" << i + 1 << ". Arrival Date: " << visits[i]->getArrivalDate() << ": " << endl;
-		/////*cout << "\n\t" << i + 1 << ". ";
-		////visits[i]->showDate();*/
-		//////cout << ": " << endl;
 		cout << "\tMedical staff member in charge: " << visits[i]->getstaffMemInChargeName() << endl;
-		cout << "\tVisitation purpose: ";
-		visits[i]->printVisitationPurpose();
-		cout << endl;
+		cout << "\tVisitation Description: " << visits[i]->getVisitationDescription() << endl;
+		////visits[i]->printVisitationPurpose();
+		////cout << endl;
 		VisitSurgery*temp = dynamic_cast<VisitSurgery*>(visits[i]);
 		if (temp)
 		{

@@ -54,9 +54,4 @@ ostream& operator<<(ostream& os, const Article& article)
 	return os;
 }
 
-////void Article::showDate() const
-////{
-////	//publicationDate->showDate();
-////	cout << *(this->publicationDate);
-////}
 
