@@ -2,6 +2,7 @@
 #define DATE_H
 
 #include <ostream>
+using namespace std;
 
 class Date
 {
@@ -20,7 +21,6 @@ public:
 	int getYear() const;
 	int getMonth() const;
 	int getDay() const;
-
 	friend ostream& operator<<(ostream& os, const Date& date);
 };
 #endif
