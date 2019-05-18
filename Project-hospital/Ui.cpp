@@ -213,7 +213,7 @@ void Ui::compare2Researchers() const
 VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice, Results& res)
 {
 	//char* staffMemIncharge = getString("Medical staff member in charge: ");
-	char* visitPurpose = getString("Visitation purpose: ");
+	char* visitPurpose = getString("Visitation Description: ");
 	//VisitationRecord* visit=new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
 	if (choice == CHECKUP)
 	{
@@ -331,7 +331,7 @@ enum eGender Ui::inputGender()
 {
 	int gen;
 	enum eGender gender;
-	cout << "Patient's gender:  [1. Male\t2. Female]" << endl;
+	cout << "Patient's gender: \n\t1. Male.\n\t2. Female." << endl;
 	cin >> gen;
 	cin.ignore();
 	gender = (eGender)(gen - 1);
@@ -341,7 +341,7 @@ enum eGender Ui::inputGender()
 bool Ui::checkIfItFirstTimeInHospital() const
 {
 	int input;
-	cout << "Is this the Patient's first visit?\n\t1. No.\n\t2. Yes]" << endl;
+	cout << "Is this the Patient's first visit?\n\t1. No.\n\t2. Yes." << endl;
 	cin >> input;
 	cin.ignore();
 	return (input == 2);
@@ -493,6 +493,9 @@ Results Ui::addNewDoctor()
 
 Results Ui::addNewVisitation()
 {
+	
+	if (hospital->getNumOfDepartments() == 0)
+		return NODEPS;
 	Results res = SUCCESS;
 	Department* department = nullptr;
 	char* inID = getString("Patient's ID number: ");
@@ -506,6 +509,7 @@ Results Ui::addNewVisitation()
 		{
 			res = PIDEXIST;
 			delete[] inID;
+			return res;
 		}
 		else {
 			patient = createPatient(inID);
@@ -517,82 +521,85 @@ Results Ui::addNewVisitation()
 		{
 			res = PIDNOTFOUND;
 			delete[] inID;
+			return res;
 		}
 	}
 
-	if (res == SUCCESS)
+	int depNum;
+	cout << "Please choose the Department number from the following list: " << endl;
+	hospital->showDepartments();
+	cin >> depNum;
+	cin.ignore();
+	int depInd = depNum - 1;
+	bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+	if (!exist)
 	{
-		int depNum;
-		cout << "Please choose the Department number from the following list: " << endl;
-		hospital->showDepartments();
-		cin >> depNum;
-		cin.ignore();
-		int depInd = depNum - 1;
-		bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-		if (!exist)
+		res = BADINPUT;
+		delete[] inID;
+		if (!isExists)
+			delete patient;
+		return res;
+	}
+	else
+	{
+		Department* inDep = nullptr;
+		inDep = hospital->getDepartmentByIndex(depInd);
+
+		char* inDate = getString("Patient's arrival date: [DD/MM/YYYY]");
+		Date* arrivalDate = nullptr;
+		bool isValidDateInput = Utils::convertStrDateToDateObj(inDate, &arrivalDate);
+		if (!isValidDateInput)
 		{
-			res = BADINPUT;
+			res = BADFORMAT;
 			delete[] inID;
+			delete[] inDate;
 			if (!isExists)
 				delete patient;
+			return res;
 		}
 		else
 		{
-			Department* inDep = nullptr;
-			inDep = hospital->getDepartmentByIndex(depInd);
+			int visitChosen = getInt("Visitation purpose:\n\t1. Checkup.\n\t2. Surgery.\n");
 
-			char* inDate = getString("Patient's arrival date: [DD/MM/YYYY]");
-			Date* arrivalDate = nullptr;
-			bool isValidDateInput = Utils::convertStrDateToDateObj(inDate, &arrivalDate);
-			if (!isValidDateInput)
+			bool ok = true;
+			if (visitChosen == SURGERY)
 			{
-				res = BADFORMAT;
+				if (hospital->getNumOfSurgeons() == 0)
+					res = NOSURGINDEP;
+				else if (inDep->getNumOfSurgeons() == 0)
+					res = NOSURGINHOS;
+			}
+
+			if (!res == SUCCESS)
+				return res;
+
+			VisitationRecord* newVisit = createVisit(*patient, arrivalDate, visitChosen, res);
+
+			if (res == SUCCESS)
+			{
+				patient->addVisitiaionRecord(newVisit);
+				// Adding Patient to relevant DB if required:
+				if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
+				{
+					inDep->addPatient(*patient);
+					patient->addDepatrtmentToPatient(*inDep);
+				}
+				if (isFirstTime)
+					hospital->addPatient(*patient);
+				cout << "Visitation added successfully." << endl;
+			}
+			else
+			{
+				//res = BADFORMAT;
 				delete[] inID;
 				delete[] inDate;
 				if (!isExists)
 					delete patient;
-			}
-			else
-			{
-				int visitChosen = getInt("Visitation purpose:\n\t1. Checkup.\n\t2. Surgery.\n");
-
-				bool ok = true;
-				if (visitChosen == SURGERY)
-				{
-					if (hospital->getNumOfSurgeons() == 0)
-						res = NOSURGINDEP;
-					else if (inDep->getNumOfSurgeons() == 0)
-						res = NOSURGINHOS;
-				}
-
-				
-				VisitationRecord* newVisit = createVisit(*patient, arrivalDate, visitChosen, res);
-
-				if (res = SUCCESS)
-				{
-					patient->addVisitiaionRecord(newVisit);
-					// Adding Patient to relevant DB if required:
-					if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
-					{
-						inDep->addPatient(*patient);
-						patient->addDepatrtmentToPatient(*inDep);
-					}
-					if (isFirstTime)
-						hospital->addPatient(*patient);
-					cout << "Visitation added successfully." << endl;
-				}
-				else
-				{
-					//res = BADFORMAT;
-					delete[] inID;
-					delete[] inDate;
-					if (!isExists)
-						delete patient;
-				}
+				return res;
 			}
 		}
 	}
-	return res;
+	//return res;
 }
 
 void Ui::addNewResearcher()
@@ -689,13 +696,13 @@ void Ui::warnings(Results result)
 			cout << "Error: A Department by the given name already exist." << endl;
 			break;
 		case NOSTAFF:
-			cout << "There are no Staff Members availavle in Hospital." << endl;
+			cout << "Error: There are no Staff Members availavle in Hospital." << endl;
 			break;
 		case NOSURGINHOS:
-			cout << "There are no Surgeons available in Hospital." << endl;
+			cout << "Error: There are no Surgeons available in Hospital." << endl;
 			break;
 		case NOSURGINDEP:
-			cout << "There are no Surgeons available in the chosen Department." << endl;
+			cout << "Error: There are no Surgeons available in the chosen Department." << endl;
 			break;
 		case EIDEXIST:
 			cout << "Error: An Employee with the given Employee-ID Number already exists." << endl;
@@ -713,7 +720,7 @@ void Ui::warnings(Results result)
 			cout << "Error: Researcher doesn't exist in the Research Institute" << endl;
 			break;
 		case RESINSTEMPTY:
-			cout << "No Researchers available in the Research Institute." << endl;
+			cout << "Error: No Researchers available in the Research Institute." << endl;
 			break;
 		default:
 			break;
