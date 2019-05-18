@@ -242,6 +242,12 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 			if (indexSurgeon != -1)
 			{
 				Surgeon*surgeon = dynamic_cast<Surgeon*>(hospital->getStaffMemberByIndex(indexSurgeon));
+				if (!surgeon)
+				{
+					res = BADINPUT;
+					delete[] visitPurpose;
+					return nullptr;
+				}
 				surgeon->addSurgery();
 				char* staffMemIncharge = strdup(surgeon->getName());
 				VisitationRecord* visit = new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);

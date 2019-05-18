@@ -168,19 +168,21 @@ void Patient:: showVisits()const
 	cout << "Patient's Visitations:" << endl;
 	for (int i = 0; i < logSizeOfVisits; i++)
 	{ 
+		VisitSurgery*temp = dynamic_cast<VisitSurgery*>(visits[i]);
 		cout << "\n\t" << i + 1 << ". Arrival Date: " << visits[i]->getArrivalDate() << ": " << endl;
+		cout << "\tVisitation Purpose: " << ((temp) ? "Surgery." : "Checkup.") << endl;
 		cout << "\tMedical staff member in charge: " << visits[i]->getstaffMemInChargeName() << endl;
 		cout << "\tVisitation Description: " << visits[i]->getVisitationDescription() << endl;
 		////visits[i]->printVisitationPurpose();
 		////cout << endl;
-		VisitSurgery*temp = dynamic_cast<VisitSurgery*>(visits[i]);
+
 		if (temp)
 		{
-			cout << "\tThe surgery room number is: " << temp->getSurgeryRoomNum() << endl;
+			cout << "\tSurgery Room: " << temp->getSurgeryRoomNum() << endl;
 			if (temp->getFasting())
-				cout << "\tThe patient is in fasting" << endl;
+				cout << "\tPatient has been fasting." << endl;
 			else
-				cout << "\tThe patient is not in fasting" << endl;
+				cout << "\tPatient has not been fasting." << endl;
 
 		}
 	}
