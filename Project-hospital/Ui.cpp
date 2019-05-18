@@ -201,7 +201,7 @@ void Ui::compare2Researchers() const
 		Researcher* researcher1 = hospital->getResearcherByIndex(researcher1Ind);
 		Researcher* researcher2 = hospital->getResearcherByIndex(researcher2Ind);
 
-		if (researcher1 > researcher2)
+		if (*researcher1 > *researcher2)
 		{
 			cout << "True: " << researcher1->getName() <<
 				" has more articles than " << researcher2->getName() << endl;
