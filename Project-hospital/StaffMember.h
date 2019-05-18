@@ -2,7 +2,7 @@
 #define __STAFF_MEMBER_H
 
 #include "ConstantsAndGenFuncs.h"
-#include <ostream>
+//#include <ostream>
 
 
 class StaffMember

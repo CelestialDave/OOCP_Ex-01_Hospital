@@ -1,8 +1,8 @@
 #ifndef DATE_H
 #define DATE_H
 
-#include <ostream>
-using namespace std;
+#include "ConstantsAndGenFuncs.h"
+
 
 class Date
 {
