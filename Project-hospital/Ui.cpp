@@ -153,7 +153,7 @@ void Ui::start()
 			char* reply = getString("Would you like to continue? [y/n]");
 			while ((strcmp(reply, "y") != 0) && (strcmp(reply, "n") != 0))
 			{
-				cout << "Error: invalid input. please enter 'y' for \"Yes\", 'n' for \"No\"..." << endl;
+				cout << "\nError: invalid input. please enter 'y' for \"Yes\", 'n' for \"No\"...\n" << endl;
 				reply = getString("Would you like to continue? [y/n]");
 			}
 			if (strcmp(reply, "n") == 0)
@@ -163,6 +163,7 @@ void Ui::start()
 			}
 			else
 			{
+				printSpaceLine();
 				printMainMenu();
 				cin >> choise;
 				cin.ignore();
@@ -726,7 +727,7 @@ void Ui::printMainMenu() const
 	cout << "\t10. Show all Researchers that are Doctors in the Research Institute." << endl;
 	cout << "\t11. Get a Patient information by ID." << endl;
 	cout << "\t12. Compare Researchers (>): \n\t\tShow between 2 chosen researchers if left has \n\t\tgreater number of articles then the one on the right." << endl;
-	cout << "\t13. Exit Program." << endl;
+	cout << "\t13. Exit Program." << "\n\n\n";
 }
 
 

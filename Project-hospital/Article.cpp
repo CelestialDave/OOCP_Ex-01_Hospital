@@ -41,9 +41,22 @@ const Date& Article::getPublicationDate() const
 	return *(this->publicationDate);
 }
 
-void Article::showDate() const
+void Article::print(ostream& os) const
 {
-	publicationDate->showDate();
-	//cout << *(this->publicationDate);
+	os << "Article name: " << this->name << endl
+	<< "\t\tMagazine in which was published: " << this->magazineName
+	<< "\n\t\tPublication date: " << *publicationDate << endl;
 }
+
+ostream& operator<<(ostream& os, const Article& article)
+{
+	article.print(os);
+	return os;
+}
+
+////void Article::showDate() const
+////{
+////	//publicationDate->showDate();
+////	cout << *(this->publicationDate);
+////}
 

@@ -70,12 +70,13 @@ void Researcher::showArticles() const
 		
 		for (int i = 0; i < logSizeOfArticles; i++)
 		{
-			cout << "\n\t\tArticle name: " << articleStock[i]->getName() << endl;
+			cout << "\n\t" << i + 1 << ". " << *(articleStock[i]);
+			/*cout << "\n\t\tArticle name: " << articleStock[i]->getName() << endl;
 			cout << "\t\tMagazine in which was published: " << articleStock[i]->getMagazineName() << endl;
 			cout << "\t\tPublication date: ";
-			//cout << "\n\t\tPublication date: " << articleStock[i]->getPublicationDate() << endl;
-			articleStock[i]->showDate();
-			cout << endl;
+			cout << "\n\t\tPublication date: " << articleStock[i]->getPublicationDate() << endl;*/
+			////articleStock[i]->showDate();
+			////cout << endl;
 		}
 	}
 	else

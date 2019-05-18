@@ -37,10 +37,10 @@ Date VisitationRecord::getArrivalDate() const
 	return arrivalDate;
 }
 
-void VisitationRecord::showDate() const
-{
-	arrivalDate.showDate();
-}
+////void VisitationRecord::showDate() const
+////{
+////	arrivalDate.showDate();
+////}
 
 void VisitationRecord:: printVisitationPurpose() const
 {

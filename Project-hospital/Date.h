@@ -17,7 +17,7 @@ public:
 	Date(int inDay, int inMonth, int inYear);
 	//copy C'tor
 	//Date(const Date &other);     ***
-	const void showDate() const;
+	////const void showDate() const;
 	int getYear() const;
 	int getMonth() const;
 	int getDay() const;

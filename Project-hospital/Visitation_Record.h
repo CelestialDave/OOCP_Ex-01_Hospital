@@ -3,7 +3,7 @@
 
 #include "Date.h"
 #include "ConstantsAndGenFuncs.h"
-//#include "Patient.h"
+
 class Patient;
 
 enum eGender { Male, Female};
@@ -25,7 +25,7 @@ public:
 	virtual ~VisitationRecord();
 
 	const char* getstaffMemInChargeName() const;
-	void showDate() const;
+	////void showDate() const;
 	Date getArrivalDate() const;
 	void  printVisitationPurpose() const;
 };

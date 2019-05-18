@@ -119,7 +119,7 @@ void ResearchInstitute::showDoctorsResearchers() const
 		SurgeonResearcher* surgeonResearcher = dynamic_cast<SurgeonResearcher*>(allResearchers[i]);
 		if (researcherDoctor) 
 		{
-			cout << "\t" <<j<< "."<<" employee ID number: "<<
+			cout << "\t" <<j<< "."<<" Employee ID Number: "<<
 			researcherDoctor->getEmployeeIDNumber()<<"\n\tName: "<<
 			researcherDoctor->getName() << "\n\t";
 			researcherDoctor->showArticles();
@@ -127,7 +127,7 @@ void ResearchInstitute::showDoctorsResearchers() const
 		}
 		else if(surgeonResearcher)
 		{
-			cout << "\t" <<j<< "." << " employee ID number: " <<
+			cout << "\t" <<j<< "." << " Employee ID Number: " <<
 			surgeonResearcher->getEmployeeIDNumber() <<"\n\t\t"<<"Name: "<<
 			surgeonResearcher->getName() << "\n\t";
 			surgeonResearcher->showArticles();

@@ -23,7 +23,9 @@ public:
 	const char* getName() const;
 	const char* getMagazineName() const;
 	const Date& getPublicationDate() const;
-	void showDate() const;
+	////void showDate() const;
+	void print(ostream& os) const;
+	friend ostream& operator<<(ostream& os, const Article& article);
 };
 
 

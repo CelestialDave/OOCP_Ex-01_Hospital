@@ -168,9 +168,10 @@ void Patient:: showVisits()const
 	cout << "Patient's Visitations:" << endl;
 	for (int i = 0; i < logSizeOfVisits; i++)
 	{ 
-		cout << "\n\t" << i + 1 << ". ";
-		visits[i]->showDate();
-		cout << ": " << endl;
+		cout << "\n\t" << i + 1 << ". Arrival Date: " << visits[i]->getArrivalDate() << ": " << endl;
+		/////*cout << "\n\t" << i + 1 << ". ";
+		////visits[i]->showDate();*/
+		//////cout << ": " << endl;
 		cout << "\tMedical staff member in charge: " << visits[i]->getstaffMemInChargeName() << endl;
 		cout << "\tVisitation purpose: ";
 		visits[i]->printVisitationPurpose();
