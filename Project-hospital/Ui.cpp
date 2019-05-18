@@ -212,9 +212,7 @@ void Ui::compare2Researchers() const
 
 VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice, Results& res)
 {
-	//char* staffMemIncharge = getString("Medical staff member in charge: ");
 	char* visitPurpose = getString("Visitation purpose: ");
-	//VisitationRecord* visit=new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
 	if (choice == CHECKUP)
 	{
 		char* staffMemIncharge = getString("Medical staff member in charge: ");
@@ -596,21 +594,10 @@ Results Ui::addNewVisitation()
 
 void Ui::addNewResearcher()
 {
-	//Results res = SUCCESS;
-	//int employeeID = getInt("Researcher's Employee ID Number: [1-9 digits]");
-	//bool existID = hospital->verifyEmployeeIDNumber(employeeID);
-	/*if (existID)
-	{
-		res = EIDEXIST;
-	}*/
-	//else
-	//{
-		char*name = getString("Researcher's name: ");
-		Researcher* researcher = new Researcher(name);
-		hospital->addResearcher(researcher);
-		delete[]name;
-	//}
-	//return res;
+	char*name = getString("Researcher's name: ");
+	Researcher* researcher = new Researcher(name);
+	hospital->addResearcher(researcher);
+	delete[]name;
 }
 
 Results Ui::addArticleToResearcher()
