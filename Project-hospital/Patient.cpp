@@ -173,8 +173,6 @@ void Patient:: showVisits()const
 		cout << "\tVisitation Purpose: " << ((temp) ? "Surgery." : "Checkup.") << endl;
 		cout << "\tMedical staff member in charge: " << visits[i]->getstaffMemInChargeName() << endl;
 		cout << "\tVisitation Description: " << visits[i]->getVisitationDescription() << endl;
-		////visits[i]->printVisitationPurpose();
-		////cout << endl;
 
 		if (temp)
 		{

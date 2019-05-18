@@ -41,8 +41,3 @@ const char* VisitationRecord::getVisitationDescription() const
 {
 	return visitationPurpose;
 }
-
-////void VisitationRecord::printVisitationPurpose() const
-////{
-////	cout << visitationPurpose;
-////};

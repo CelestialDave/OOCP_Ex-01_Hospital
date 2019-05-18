@@ -27,7 +27,6 @@ public:
 	const char* getstaffMemInChargeName() const;
 	Date getArrivalDate() const;
 	const char* getVisitationDescription() const;
-	////void  printVisitationPurpose() const;
 };
 
 #endif
