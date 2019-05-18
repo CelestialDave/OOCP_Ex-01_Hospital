@@ -21,6 +21,6 @@ public:
 	int getMonth() const;
 	int getDay() const;
 
-	//friend ostream& operator<<(ostream& os, const Date& date);
+	friend ostream& operator<<(ostream& os, const Date& date);
 };
 #endif
