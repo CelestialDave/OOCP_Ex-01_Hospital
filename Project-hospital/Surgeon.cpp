@@ -24,9 +24,3 @@ void Surgeon::print(ostream& os) const
 	os << "\tRole: Surgeon." << "\n\tSpecialty: " << this->specialty
 		<< "\n\tNumber of Surgeries Performed: " << this->numSurgeries;
 }
-
-//ostream& operator<<(ostream& os, const Surgeon& surgeon)
-//{
-//	surgeon.print(os);
-//	return os;
-//}

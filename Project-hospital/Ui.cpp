@@ -218,7 +218,7 @@ void Ui::compare2Researchers() const
 
 VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice, Results& res)
 {
-	char* visitPurpose = getString("Visitation purpose: ");
+	char* visitPurpose = getString("Visitation Description: ");
 	if (choice == CHECKUP)
 	{
 		char* staffMemIncharge = getString("Medical staff member in charge: ");
@@ -365,8 +365,8 @@ void Ui::printVisitationPorpuse(Patient* patient) const
 {
 	int numVisits = patient->getSizeVisits();
 	numVisits--;
-	/*The number of visit more than one because we know the patient is exist,
-	we want to get the last visitation to check if it was for Surgery or checkup */
+	/*The number of visit more than one because we know the patient exists,
+	we want to get the last visitation to check if it was for Surgery or Checkup */
 	VisitationRecord* lastVisit = patient->getVisitByIndex(numVisits);
 
 	VisitSurgery* temp = dynamic_cast<VisitSurgery*>(lastVisit);
@@ -587,7 +587,6 @@ Results Ui::addNewVisitation()
 			}
 			else
 			{
-				//res = BADFORMAT;
 				delete[] inID;
 				delete[] inDate;
 				if (!isExists)
@@ -596,15 +595,14 @@ Results Ui::addNewVisitation()
 			}
 		}
 	}
-	//return res;
 }
 
 void Ui::addNewResearcher()
 {
-	char*name = getString("Researcher's name: ");
-	Researcher* researcher = new Researcher(name);
-	hospital->addResearcher(researcher);
-	delete[]name;
+		char*name = getString("Researcher's name: ");
+		Researcher* researcher = new Researcher(name);
+		hospital->addResearcher(researcher);
+		delete[]name;
 }
 
 Results Ui::addArticleToResearcher()
@@ -653,7 +651,6 @@ Results Ui::showPatientsInDepartment()
 		if (ok)
 			hospital->showPatientInSpecificDep(depInd);
 		else
-			// bad input1:
 			res = BADINPUT;
 	}
 	else
@@ -696,9 +693,6 @@ void Ui::warnings(Results result)
 		case PIDEXIST:
 			cout << "Error: A Patient with the given ID number already exists." << endl;
 			break;
-		/*case EIDNOTFOUND:
-			cout << "";
-			break;*/
 		case PIDNOTFOUND:
 			cout << "Error: Patient's ID was not found." << endl;
 			break;

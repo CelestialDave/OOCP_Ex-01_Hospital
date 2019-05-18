@@ -15,7 +15,6 @@ private:
 	int phySizeOfResearchers;
 
 public:
-	//ResearchInstitute() = default;
 	// C'tor:
 	ResearchInstitute();
 	// Copy C'tor:

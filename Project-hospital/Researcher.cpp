@@ -14,8 +14,6 @@ Researcher::Researcher(const Researcher& other) :
 {
 	if (this != &other)
 	{
-		/*delete[]name;
-		this->name = strdup(other.name);*/
 		int i;
 		for (i = 0; i < logSizeOfArticles; i++)
 			delete articleStock[i];
@@ -30,7 +28,6 @@ Researcher::Researcher(const Researcher& other) :
 
 Researcher::~Researcher()
 {
-	//delete[] name;
 	for (int i = 0; i < logSizeOfArticles; i++)
 		delete articleStock[i];
 	delete[] articleStock;
@@ -93,11 +90,6 @@ void Researcher::print(ostream& os) const
 	os << "\tRole: Researcher." << "\n\tResearchers Published: " << this->logSizeOfArticles;
 }
 
-//ostream& operator<<(ostream& os, const Researcher& researcher)
-//{
-//	researcher.print(os);
-//	return os;
-//}
 
 
 
