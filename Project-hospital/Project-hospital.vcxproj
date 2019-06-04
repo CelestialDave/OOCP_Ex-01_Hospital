@@ -110,6 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Array.h" />
     <ClInclude Include="article.h" />
     <ClInclude Include="ConstantsAndGenFuncs.h" />
     <ClInclude Include="Date.h" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Visit_Surgery.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Array.cpp" />
     <ClCompile Include="Article.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Department.cpp" />
