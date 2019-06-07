@@ -2,6 +2,7 @@
 #define DATE_H
 
 #include "ConstantsAndGenFuncs.h"
+#include "hospitalException.h"
 
 
 class Date
@@ -14,7 +15,7 @@ private:
 public:
 	//C'tor
 	Date()=default;
-	Date(int inDay, int inMonth, int inYear);
+	Date(int inDay, int inMonth, int inYear) throw(DateException);
 	//copy C'tor
 	//Date(const Date &other);     ***
 

@@ -2,8 +2,11 @@
 #include "Department.h"
 
 Patient::Patient(const string inName,const string id ,enum eGender inGender, string inDateOBirth)
+throw(NameException)
 {
 	////name = new char[strlen(inName) + 1];
+	if (inName == "")
+		throw NameException();
 	name = inName;
 	//strcpy(name, inName);
 	////ID = new char[strlen(id) + 1];

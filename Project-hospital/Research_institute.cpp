@@ -46,7 +46,7 @@ int ResearchInstitute::binSearchResearcherByID(const string name)
 	{
 		int mid = left + (right - left) / 2;
 
-		int res = strcmp(name, allResearchers[mid]->getName());
+		int res = name.compare( allResearchers[mid]->getName());
 		if (res == 0) // found the index
 			return mid;
 
@@ -65,7 +65,7 @@ int ResearchInstitute::getIndexForResearcherInsertion(const string name)
 {
 	for (int i = 0; i < logSizeOfResearchers; i++)
 	{
-		int res = strcmp(allResearchers[i]->getName(), name);
+		int res = allResearchers[i]->getName().compare(name);
 		if (res == 1)
 			return i;
 	}
@@ -178,7 +178,7 @@ Researcher*  ResearchInstitute::binSearchResearcherByName(Researcher** arr,int s
 	bool &exist)
 {
 	Researcher* midReasercher = arr[size / 2];
-	int res = strcmp(name, midReasercher->getName());
+	int res = name.compare(midReasercher->getName());
 	if (size == 1)
 	{
 		if (res == 0) 

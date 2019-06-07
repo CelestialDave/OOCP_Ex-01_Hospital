@@ -3,6 +3,7 @@
 
 #include "ConstantsAndGenFuncs.h"
 #include "StaffMember.h"
+#include "hospitalException.h"
 
 class Nurse : virtual public StaffMember
 {
@@ -15,7 +16,7 @@ protected:
 
 public:
 	// C'tor:
-	Nurse(const string name, int inYearExp);
+	Nurse(const string name, int inYearExp) throw(NameException);
 	// D'tor:
 	~Nurse();
 	

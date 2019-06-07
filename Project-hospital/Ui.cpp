@@ -335,7 +335,6 @@ string Ui::getString(const string prompt)
 	string str;
 	cin >> str;
 	cin.clear();
-	//cin.getline(temp, MAX_NAME);
  	//string str = new char[strlen(temp) + 1];
 	//strcpy(str, temp);
 	return str;
@@ -515,7 +514,6 @@ Results Ui::addNewVisitation()
 		if (isExists) // 1st time = Shouldn't exist
 		{
 			res = PIDEXIST;
-			delete[] inID;
 			return res;
 		}
 		else {
@@ -527,7 +525,6 @@ Results Ui::addNewVisitation()
 		if (!isExists) // Should exist
 		{
 			res = PIDNOTFOUND;
-			delete[] inID;
 			return res;
 		}
 	}
@@ -542,7 +539,6 @@ Results Ui::addNewVisitation()
 	if (!exist)
 	{
 		res = BADINPUT;
-		delete[] inID;
 		if (!isExists)
 			delete patient;
 		return res;
@@ -558,8 +554,6 @@ Results Ui::addNewVisitation()
 		if (!isValidDateInput)
 		{
 			res = BADFORMAT;
-			delete[] inID;
-			delete[] inDate;
 			if (!isExists)
 				delete patient;
 			return res;
@@ -597,8 +591,6 @@ Results Ui::addNewVisitation()
 			}
 			else
 			{
-				delete[] inID;
-				delete[] inDate;
 				if (!isExists)
 					delete patient;
 				return res;
@@ -612,7 +604,6 @@ void Ui::addNewResearcher()
 		string name = getString("Researcher's name: ");
 		Researcher* researcher = new Researcher(name);
 		hospital->addResearcher(researcher);
-		delete[]name;
 }
 
 Results Ui::addArticleToResearcher()
@@ -635,11 +626,9 @@ Results Ui::addArticleToResearcher()
 			}
 			else
 				res = BADFORMAT;
-			delete[]strDate;
 		}
 		else
 			res = RNONEXIST;
-		delete[]researcherName;
 	}
 	else
 		res = RESINSTEMPTY;

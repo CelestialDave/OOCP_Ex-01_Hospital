@@ -117,6 +117,7 @@
     <ClInclude Include="Department.h" />
     <ClInclude Include="doctor.h" />
     <ClInclude Include="Hospital.h" />
+    <ClInclude Include="hospitalException.h" />
     <ClInclude Include="nurse.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="researcher.h" />
@@ -131,7 +132,6 @@
     <ClInclude Include="Visit_Surgery.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Array.cpp" />
     <ClCompile Include="Article.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Department.cpp" />

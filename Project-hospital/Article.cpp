@@ -1,8 +1,10 @@
 #include "article.h"
 
-Article::Article(const string inName, string inMagazineName, Date& inPublicitaion)
+Article::Article(const string inName, string inMagazineName, Date& inPublicitaion) throw(NameException)
 {
 	////name = new char[strlen(inName) + 1];
+	if (inName == "" || inMagazineName== "")
+		throw NameException();
 	name = inName;
 	////strcpy(name, inName);
 	////magazineName = new char[strlen(inMagazineName) + 1];

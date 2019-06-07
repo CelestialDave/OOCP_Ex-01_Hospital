@@ -1,8 +1,10 @@
 
 #include "Date.h"
 
-Date::Date(int inDay, int inMonth, int inYear)
+Date::Date(int inDay, int inMonth, int inYear) throw(DateException)
 {
+	if (day > MAX_DAY || month > MAX_MONTH || year > MAX_YEAR || year < MIN_YEAR)
+		throw DateException();
 	day = inDay;
 	month = inMonth;
 	year = inYear;

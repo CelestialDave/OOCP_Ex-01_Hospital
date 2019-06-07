@@ -1,9 +1,13 @@
 #include "StaffMember.h"
 
+
 // C'tor:
 StaffMember::StaffMember(const string name) :employeeIDNumber(counterEmployeeID++)
 {
-	this->name = strdup(name);
+	if (name == "")
+		throw NameException();
+
+	this->name = name;
 	//this->employeeIDNumber = employeeIDNumber;
 }
 
@@ -12,8 +16,7 @@ StaffMember::StaffMember(const StaffMember& other)
 {
 	if (this->employeeIDNumber != other.employeeIDNumber)
 	{
-		delete[] name;
-		this->name = strdup(other.name);
+		this->name = other.name;
 		this->employeeIDNumber = employeeIDNumber;
 	}
 }
@@ -21,7 +24,6 @@ StaffMember::StaffMember(const StaffMember& other)
 // D'tor:
 StaffMember::~StaffMember()
 {
-	delete[] name;
 }
 
 const string StaffMember::getName()const

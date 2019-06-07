@@ -2,6 +2,7 @@
 #define __STAFF_MEMBER_H
 
 #include "ConstantsAndGenFuncs.h"
+#include "hospitalException.h"
 //#include <ostream>
 
 
@@ -13,7 +14,7 @@ protected:
 	string name;
 	int employeeIDNumber;
 	// C'tor:
-	StaffMember(const string inName);
+	StaffMember(const string inName) throw(NameException);
 	// Copy C'tor:
 	StaffMember(const StaffMember& other);
 

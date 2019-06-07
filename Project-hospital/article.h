@@ -3,6 +3,7 @@
 
 #include "Date.h"
 #include "ConstantsAndGenFuncs.h"
+#include "hospitalException.h"
 
 
 class Article
@@ -14,7 +15,7 @@ private:
 
 public:
 	// C'tor:
-	Article(const string inName, string inMagazineName, Date&inPublicitaion);
+	Article(const string inName, string inMagazineName, Date&inPublicitaion) throw(NameException);
 	// Copy C'tor
 	Article(const Article& other);
 	// D'tor:

@@ -5,13 +5,13 @@
 #include "Surgeon.h"
 
 // C'tor:
-Department::Department(const string inName)
-	: name(nullptr), staffArr(nullptr), logSizeOfStaff(0), phySizeOfStaff(0),
+Department::Department(const string inName) throw(NameException)
+	: staffArr(nullptr), logSizeOfStaff(0), phySizeOfStaff(0),
 	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0), numOfSurgeons(0)
 {
-	////name = new char [strlen(inName) + 1];
+	if (inName == "")
+		throw NameException();
 	name = inName;
-	////strcpy(name, inName);
 }
 
 // D'tor:
