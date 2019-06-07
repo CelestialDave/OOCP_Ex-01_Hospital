@@ -1,6 +1,7 @@
 #include "Department.h"
 #include "Hospital.h"
 #include "Patient.h"
+#include <string>
 
 class Ui
 {
@@ -13,10 +14,10 @@ public:
 	int inputYearsOfExprience() const;
 	bool checkIfItFirstTimeInHospital() const;
 	enum eGender inputGender();
-	char* getString(const char* prompt);
-	Patient* createPatient(char* id);
+	string getString(const string prompt);
+	Patient* createPatient(string id);
 	Doctor* createDoctor();
-	int getInt(const char* str);
+	int getInt(const string str);
 	Nurse* createNurse();
 	Article* createArticle(Date*date);
 	void printSpaceLine() const;

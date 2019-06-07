@@ -1,15 +1,18 @@
 #include "Patient.h"
 #include "Department.h"
 
-Patient::Patient(const char* inName,const char* id ,enum eGender inGender, char* inDateOBirth)
+Patient::Patient(const string inName,const string id ,enum eGender inGender, string inDateOBirth)
 {
-	name = new char[strlen(inName) + 1];
-	strcpy(name, inName);
-	ID = new char[strlen(id) + 1];
-	strcpy(ID, id);
+	////name = new char[strlen(inName) + 1];
+	name = inName;
+	//strcpy(name, inName);
+	////ID = new char[strlen(id) + 1];
+	ID = id;
+	////strcpy(ID, id);
 	gender = inGender;
-	yearOfBirth = new char[strlen(inDateOBirth) + 1];
-	strcpy(yearOfBirth, inDateOBirth);
+	////yearOfBirth = new char[strlen(inDateOBirth) + 1];
+	yearOfBirth = inDateOBirth;
+	////strcpy(yearOfBirth, inDateOBirth);
 	visits = nullptr;
 	logSizeOfVisits = 0;
 	phySizeOfVisits = 0;
@@ -20,9 +23,9 @@ Patient::Patient(const char* inName,const char* id ,enum eGender inGender, char*
 
 Patient::~Patient()
 {
-	delete[] name;
-	delete[] ID;
-	delete[] yearOfBirth;
+	////delete[] name;
+	////delete[] ID;
+	//delete[] yearOfBirth;
 	for (int i = 0; i < logSizeOfVisits; i++)
 		delete visits[i];
 	delete[] visits;
@@ -143,12 +146,12 @@ void Patient::allocDepartmentsVisitedArr()
 		return;
 }
 
-const char* Patient::getName()const
+const string Patient::getName()const
 {
 	return name;
 }
 
-const char*Patient:: getId()const
+const string Patient:: getId()const
 {
 	return ID;
 }
@@ -159,7 +162,7 @@ void Patient::showGender()const
 	else if(gender==Female)
 		cout << "Female";
 }
-const char* Patient::getYearOfBirth() const
+const string Patient::getYearOfBirth() const
 {
 	return yearOfBirth;
 }

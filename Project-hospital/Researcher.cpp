@@ -1,7 +1,7 @@
 #include "researcher.h"
 
 
-Researcher::Researcher(const char inName[MAX_NAME]) 
+Researcher::Researcher(const string inName) 
 	: StaffMember(inName)
 {
 	articleStock = nullptr;

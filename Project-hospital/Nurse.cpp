@@ -1,6 +1,6 @@
 #include "nurse.h"
 
-Nurse::Nurse(const char* name,int inYearExp)
+Nurse::Nurse(const string name,int inYearExp)
 	: StaffMember(name)
 {
 	yearsOfExperience = inYearExp; 

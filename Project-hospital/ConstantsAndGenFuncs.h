@@ -2,8 +2,8 @@
 
 #ifndef Constants__H
 #define Constants__H
-
-#include <string.h>
+#include <string>
+//#include <string.h>
 #include <iostream>
 using namespace std;
 

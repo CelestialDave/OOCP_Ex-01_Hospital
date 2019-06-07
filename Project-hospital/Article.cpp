@@ -1,37 +1,41 @@
 #include "article.h"
 
-Article::Article(const char* inName, char*inMagazineName, Date& inPublicitaion)
+Article::Article(const string inName, string inMagazineName, Date& inPublicitaion)
 {
-	name = new char[strlen(inName) + 1];
-	strcpy(name, inName);
-	magazineName = new char[strlen(inMagazineName) + 1];
-	strcpy(magazineName, inMagazineName);
+	////name = new char[strlen(inName) + 1];
+	name = inName;
+	////strcpy(name, inName);
+	////magazineName = new char[strlen(inMagazineName) + 1];
+	magazineName = inMagazineName;
+	////strcpy(magazineName, inMagazineName);
 	publicationDate = &inPublicitaion;
 }
 
 
 Article::Article(const Article& other)
 {
-	name = new char[strlen(other.name) + 1];
-	strcpy(name, other.name);
-	magazineName = new char[strlen(other.magazineName) + 1];
-	strcpy(magazineName, other.magazineName);
+	////name = new char[strlen(other.name) + 1];
+	name = other.name;
+	////strcpy(name, other.name);
+	////magazineName = new char[strlen(other.magazineName) + 1];
+	magazineName = other.magazineName;
+	////strcpy(magazineName, other.magazineName);
 	publicationDate = other.publicationDate;
 }
 
 Article::~Article()
 {
-	delete[] name;
-	delete[] magazineName;
+	////delete[] name;
+	////delete[] magazineName;
 	delete publicationDate;
 
 }
 
-const char* Article::getName() const
+const string Article::getName() const
 {
 	return name;
 }
-const char* Article::getMagazineName() const
+const string Article::getMagazineName() const
 {
 	return magazineName;
 }

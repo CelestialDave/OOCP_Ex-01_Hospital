@@ -38,7 +38,7 @@ void ResearchInstitute::addResearcher(Researcher* inResearcher)
 	insertResearcherToArrInIndex(inResearcher, index);
 }
 
-int ResearchInstitute::binSearchResearcherByID(const char*name)
+int ResearchInstitute::binSearchResearcherByID(const string name)
 {
 	int left = 0;
 	int right = logSizeOfResearchers - 1;
@@ -61,7 +61,7 @@ int ResearchInstitute::binSearchResearcherByID(const char*name)
 	return -1;
 }
 
-int ResearchInstitute::getIndexForResearcherInsertion(const char*name)
+int ResearchInstitute::getIndexForResearcherInsertion(const string name)
 {
 	for (int i = 0; i < logSizeOfResearchers; i++)
 	{
@@ -169,12 +169,12 @@ void ResearchInstitute::showResearchersName() const
 		cout << "No Researchers available in Research Institute." << endl;
 }
 
-Researcher* ResearchInstitute::getResearcherByName(const char*name, bool &exist)
+Researcher* ResearchInstitute::getResearcherByName(const string name, bool &exist)
 {
 	return binSearchResearcherByName(allResearchers, logSizeOfResearchers, name, exist);
 }
 
-Researcher*  ResearchInstitute::binSearchResearcherByName(Researcher** arr,int size,const char* name,
+Researcher*  ResearchInstitute::binSearchResearcherByName(Researcher** arr,int size,const string name,
 	bool &exist)
 {
 	Researcher* midReasercher = arr[size / 2];

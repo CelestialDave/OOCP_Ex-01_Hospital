@@ -120,7 +120,7 @@ void Ui::start()
 		}
 		case 11: //search patient by ID number
 		{
-			char*id = getString("Patient's ID number: ");
+			string id = getString("Patient's ID number: ");
 			bool isExists = false;
 			Patient* patient = hospital->getPatientByID(id, &isExists);
 			if (isExists)  //the ID numebr input of patient is exist
@@ -150,18 +150,18 @@ void Ui::start()
 
 		printSpaceLine();
 		if (askToContinue) {
-			char* reply = getString("Would you like to continue? [y/n]");
-			while ((strcmp(reply, "y") != 0) && (strcmp(reply, "n") != 0))
+			string reply = getString("Would you like to continue? [y/n]");
+			while ((reply != "y") && (reply != "n"))
 			{
 				cout << "\nError: invalid input. please enter 'y' for \"Yes\", 'n' for \"No\"...\n" << endl;
 				reply = getString("Would you like to continue? [y/n]");
 			}
-			if (strcmp(reply, "n") == 0)
+			if (reply == "n")
 			{
 				exit = true;
 				printSpaceLine();
 			}
-			else
+			else // (reply == "y")
 			{
 				printSpaceLine();
 				printMainMenu();
@@ -219,14 +219,14 @@ void Ui::compare2Researchers() const
 
 VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice, Results& res)
 {
-	char* visitPurpose = getString("Visitation Description: ");
+	string visitPurpose = getString("Visitation Description: ");
 	if (choice == CHECKUP)
 	{
-		char* staffMemIncharge = getString("Medical staff member in charge: ");
-		VisitationRecord* visit=new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
+		string staffMemIncharge = getString("Medical staff member in charge: ");
+		VisitationRecord* visit = new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
 		res = SUCCESS;
-		delete[]staffMemIncharge;
-		delete[]visitPurpose;
+		//delete[]staffMemIncharge;
+		//delete[]visitPurpose;
 		return visit;
 	}
 	else if (choice == SURGERY)
@@ -245,11 +245,11 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 				if (!surgeon)
 				{
 					res = BADINPUT;
-					delete[] visitPurpose;
+					//delete[] visitPurpose;
 					return nullptr;
 				}
 				surgeon->addSurgery();
-				char* staffMemIncharge = strdup(surgeon->getName());
+				string staffMemIncharge = surgeon->getName();
 				VisitationRecord* visit = new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
 				int surgeryRoomNum = getInt("Surgery Room Number: ");
 				int fasting = getInt("Has the Patient been fasting? \n\t1.Yes\t2. No.\n");
@@ -258,15 +258,15 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 				{
 					bool isFasting = (bool)fasting;
 					VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, isFasting);
-					delete[]staffMemIncharge;
-					delete[]visitPurpose;
+					//delete[]staffMemIncharge;
+					//delete[]visitPurpose;
 					delete visit;
 					return newVisit;
 				}
 			}
 			else
 			{
-				delete[]visitPurpose;
+				//delete[]visitPurpose;
 				res = BADINPUT;
 				return nullptr;
 			}
@@ -274,34 +274,34 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		}
 		else
 		{
-			delete[]visitPurpose;
+			//delete[]visitPurpose;
 			res = NOSURGINDEP;
 			return nullptr;
 		}
 	}
 	else
 	{
-		delete[]visitPurpose;
+		//delete[]visitPurpose;
 		res = BADINPUT;
 		return nullptr;
 	}
 }
 Article* Ui::createArticle(Date* date)
 {
-	char *name = getString("Article's name: ");
-	char *magazineName = getString("The magazine in which article was published:");
+	string name = getString("Article's name: ");
+	string magazineName = getString("The magazine in which article was published:");
 	return new Article(name, magazineName,*date);
 }
 
 Nurse* Ui::createNurse()
 {
-	char*name = getString("Nurse's name: ");
+	string name = getString("Nurse's name: ");
 	int yearsExprience = getInt("Years of Experience: ");
  	return new Nurse(name, yearsExprience);
 }
 
 
-int Ui::getInt(const char* str)
+int Ui::getInt(const string str)
 {
 	int num;
 	cout << str << endl;
@@ -312,29 +312,32 @@ int Ui::getInt(const char* str)
 }
 Doctor* Ui::createDoctor()
 {
-	char* name = getString("Doctor's name: ");
-	char* specialty = getString("Doctor's speciality: ");
+	string name = getString("Doctor's name: ");
+	string specialty = getString("Doctor's speciality: ");
 	return new Doctor(name,specialty);
 }
 	
-Patient* Ui::createPatient(char* id)
+Patient* Ui::createPatient(string id)
 {
-	const char* name = getString("Patient's name: ");
+	const string name = getString("Patient's name: ");
 	eGender gen = inputGender();
-	char* yearOfBirth = getString("Patient's year of birth: ");
+	string yearOfBirth = getString("Patient's year of birth: ");
 	return (new Patient(name, id, gen, yearOfBirth));
 }
 
-char* Ui::getString(const char* prompt)
+string Ui::getString(const string prompt)
 
 {
-	if (strlen(prompt) > 0)
+	if (prompt.size() > 0)
 		cout << prompt << endl;
 	
-	char temp[MAX_NAME];
-	cin.getline(temp, MAX_NAME);
- 	char* str = new char[strlen(temp) + 1];
-	strcpy(str, temp);
+	//char temp[MAX_NAME];
+	string str;
+	cin >> str;
+	cin.clear();
+	//cin.getline(temp, MAX_NAME);
+ 	//string str = new char[strlen(temp) + 1];
+	//strcpy(str, temp);
 	return str;
 }
 
@@ -387,14 +390,14 @@ void Ui::printVisitationPorpuse(Patient* patient) const
 Results Ui::addNewDepartment()
 {
 	Results res = SUCCESS;
-	char* name = getString("Department's name: ");
+	string name = getString("Department's name: ");
 	Department* department = new Department(name);
 	int index = hospital->binSearchDepartmentByName(department->getName());
 	if (index == -1) //if this is new department name
 		hospital->addDepartment(*department); //add to the departments array
 	else
 		res = DEPEXIST;
-	delete[] name;
+	////delete[] name;
 	return res;
 }
 
@@ -502,7 +505,7 @@ Results Ui::addNewVisitation()
 		return NODEPS;
 	Results res = SUCCESS;
 	Department* department = nullptr;
-	char* inID = getString("Patient's ID number: ");
+	string inID = getString("Patient's ID number: ");
 	bool isFirstTime = checkIfItFirstTimeInHospital();
 	bool isExists = false;
 	Patient* patient = hospital->getPatientByID(inID, &isExists);
@@ -549,7 +552,7 @@ Results Ui::addNewVisitation()
 		Department* inDep = nullptr;
 		inDep = hospital->getDepartmentByIndex(depInd);
 
-		char* inDate = getString("Patient's arrival date: [DD/MM/YYYY]");
+		string inDate = getString("Patient's arrival date: [DD/MM/YYYY]");
 		Date* arrivalDate = nullptr;
 		bool isValidDateInput = Utils::convertStrDateToDateObj(inDate, &arrivalDate);
 		if (!isValidDateInput)
@@ -606,7 +609,7 @@ Results Ui::addNewVisitation()
 
 void Ui::addNewResearcher()
 {
-		char*name = getString("Researcher's name: ");
+		string name = getString("Researcher's name: ");
 		Researcher* researcher = new Researcher(name);
 		hospital->addResearcher(researcher);
 		delete[]name;
@@ -617,12 +620,12 @@ Results Ui::addArticleToResearcher()
 	Results res = SUCCESS;
 	if (hospital->getSizeOfResearchers() > 0)
 	{
-		char*researcherName = getString("Which researcher would you like to add an article to?");
+		string researcherName = getString("Which researcher would you like to add an article to?");
 		bool exist = false;
 		Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
 		if (exist) //if the researcher name input is ok
 		{
-			char*strDate = getString("Publication Date: [DD/MM/YYYY]");
+			string strDate = getString("Publication Date: [DD/MM/YYYY]");
 			Date* date = nullptr;
 			bool okDate = Utils::convertStrDateToDateObj(strDate, &date);
 			if (okDate)

@@ -10,7 +10,7 @@
 class Department
 {
 private:
-	char* name;
+	string name;
 	StaffMember** staffArr;
 	int logSizeOfStaff;
 	int phySizeOfStaff;
@@ -23,7 +23,7 @@ private:
 
 public:
 	// C'tor:
-	Department(const char* inName);
+	Department(const string inName);
 	// Copy C'tor:
 	Department(const Department& other) = delete;
 	// D'tor:
@@ -41,7 +41,7 @@ public:
 	void addPatient(Patient& patient);
 
 	// Geters:
-	const char* getName() const; 
+	const string getName() const; 
 	int getNumOfSurgeons() const;
 	
 	// Show Methods:

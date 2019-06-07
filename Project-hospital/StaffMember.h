@@ -9,10 +9,11 @@ class StaffMember
 {
 protected: 
 	static int counterEmployeeID;
-	char* name;
+	//string name;
+	string name;
 	int employeeIDNumber;
 	// C'tor:
-	StaffMember(const char* inName);
+	StaffMember(const string inName);
 	// Copy C'tor:
 	StaffMember(const StaffMember& other);
 
@@ -20,7 +21,7 @@ public:
 	// D'tor:
 	virtual ~StaffMember();
 
-	const char*getName()const;
+	const string getName()const;
 	const int getEmployeeIDNumber()const;
 
 	virtual void print(ostream& os) const =0;

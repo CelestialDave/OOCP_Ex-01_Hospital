@@ -9,10 +9,10 @@ class Department;
 class Patient
 {
 private:
-	char* name;
+	string name;
 	eGender gender;
-	char* ID;
-	char*  yearOfBirth;
+	string ID;
+	string  yearOfBirth;
 	VisitationRecord** visits;
 	int logSizeOfVisits;
 	int phySizeOfVisits;
@@ -23,7 +23,7 @@ private:
 
 public:
 	// C'tor:
-	Patient(const char* inName,const char*id, enum eGender inGender, char* inYearOBirth);
+	Patient(const string inName,const string id, enum eGender inGender, string inYearOBirth);
 	// Copy C'tor:
 	Patient(const Patient& other) = delete;
 	// D'tor:
@@ -38,12 +38,12 @@ public:
 
 	void allocDepartmentsVisitedArr();
 	void addDepatrtmentToPatient(const Department& pDepartment);
-	const char* getName()const;
+	const string getName()const;
 	int getSizeVisits() const;
 	VisitationRecord* getVisitByIndex(int index) const;
-	const char* getId()const;
+	const string getId()const;
 	void showGender() const;
-	const char * getYearOfBirth() const;
+	const string getYearOfBirth() const;
 	void showVisits() const;
 
 

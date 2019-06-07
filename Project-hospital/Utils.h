@@ -3,7 +3,7 @@
 
 class Utils {
 public:
-	static bool convertStrDateToDateObj(char* strDate, Date** resDate);
+	static bool convertStrDateToDateObj(string strDate, Date** resDate);
 	static bool ifIndexInRange(const int&index, const int& logSize);
 };
 

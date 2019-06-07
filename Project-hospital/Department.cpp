@@ -5,18 +5,19 @@
 #include "Surgeon.h"
 
 // C'tor:
-Department::Department(const char* inName)
+Department::Department(const string inName)
 	: name(nullptr), staffArr(nullptr), logSizeOfStaff(0), phySizeOfStaff(0),
 	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0), numOfSurgeons(0)
 {
-	name = new char [strlen(inName) + 1];
-	strcpy(name, inName);
+	////name = new char [strlen(inName) + 1];
+	name = inName;
+	////strcpy(name, inName);
 }
 
 // D'tor:
 Department::~Department()
 {
-	delete[] name;
+	////delete[] name;
 	delete[] staffArr;
 	delete[] patientsArr;
 }
@@ -82,7 +83,7 @@ void Department::allocStaffArr()
 		return;
 }
 
-const char* Department:: getName() const
+const string Department:: getName() const
 {
 	return name;
 }

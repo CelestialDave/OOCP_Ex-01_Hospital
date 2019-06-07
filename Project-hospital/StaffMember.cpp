@@ -1,7 +1,7 @@
 #include "StaffMember.h"
 
 // C'tor:
-StaffMember::StaffMember(const char* name) :employeeIDNumber(counterEmployeeID++)
+StaffMember::StaffMember(const string name) :employeeIDNumber(counterEmployeeID++)
 {
 	this->name = strdup(name);
 	//this->employeeIDNumber = employeeIDNumber;
@@ -24,7 +24,7 @@ StaffMember::~StaffMember()
 	delete[] name;
 }
 
-const char* StaffMember::getName()const
+const string StaffMember::getName()const
 {
 	return this->name;
 }

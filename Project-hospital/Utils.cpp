@@ -2,18 +2,18 @@
 #include "Date.h"
 #include "Utils.h"
 
-bool Utils::convertStrDateToDateObj(char* strDate, Date** resDate)
+bool Utils::convertStrDateToDateObj(string strDate, Date** resDate)
 {
 	int day;
 	int month;
 	int year;
 
-	char* str = strtok(strDate, "/");
-	day = atoi(str);
+	string str = strtok(strDate, "/");
+	day = stoi(str);
 	str = strtok(NULL, "/");
-	month = atoi(str);
+	month = stoi(str);
 	str = strtok(NULL, "/");
-	year = atoi(str);
+	year = stoi(str);
 	str = strtok(NULL, "/");
 	if (str != NULL)
 		return false;

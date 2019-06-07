@@ -52,8 +52,8 @@ public:
 	int getNumOfSurgeons();
 
 	void addDepartment(Department& inDepartment);
-	int binSearchDepartmentByName(const char*name);
-	int getIndexForDepartmentInsertion(const char*name);
+	int binSearchDepartmentByName(const string name);
+	int getIndexForDepartmentInsertion(const string name);
 	void pushDepartmentsFwdFromIndex(int index);
 	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
 
@@ -64,15 +64,15 @@ public:
 	int binSearchStaffMemberByID(int inID);
 
 	void addPatient(Patient& inPatient);
-	Patient* getPatientByID(char* inID, bool* isFound);
-	int binSearchPatientByID(char* inID);
-	int getIndexForPatientInsertion(const char* id);
+	Patient* getPatientByID(string inID, bool* isFound);
+	int binSearchPatientByID(string inID);
+	int getIndexForPatientInsertion(const string id);
 	void insertPatientToArrInIndex(Patient& newPatient, int index);
 	void pushPatientsFwdFromIndex(int index);
 
 	StaffMember* getStaffMemberByIndex(int index) const;
 	Researcher* getResearcherByIndex(int index) const;
-	Researcher* findResearcherAccordingToName(const char*name,bool&exist);
+	Researcher* findResearcherAccordingToName(const string name,bool&exist);
 	void addArticleToResearcher(Article & art, Researcher*researcher);
 	const int getSizeOfResearchers() const;
 
@@ -86,7 +86,7 @@ public:
 	void showDepartments() const;
 
 
-	int findTheIndexOfDepNameInDepArr(char*str) const;
+	int findTheIndexOfDepNameInDepArr(string str) const;
 };
 
 #endif
