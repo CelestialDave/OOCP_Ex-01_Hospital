@@ -30,7 +30,7 @@ public:
 	void addArticeToResearcher(Article& art, Researcher* researcher);
 	const int getSize() const;
 	Researcher* getResearcherByName(const string name,bool&exist);
-	Researcher* binSearchResearcherByName(Researcher** arr, int size, const string name,bool&exist);
+	Researcher* binSearchResearcherByName(Researcher** arr, int size, const string name,bool&exist) throw(ResearcherDoesntExistException);
 	Researcher* getResearcherByIndex(int index) const;
 	void addResearcher(Researcher* inResearcher);
 	int binSearchResearcherByID(const string name);

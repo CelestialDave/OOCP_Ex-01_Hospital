@@ -601,9 +601,17 @@ Results Ui::addNewVisitation()
 
 void Ui::addNewResearcher()
 {
-		string name = getString("Researcher's name: ");
-		Researcher* researcher = new Researcher(name);
-		hospital->addResearcher(researcher);
+		
+		try
+		{
+			string name = getString("Researcher's name: ");
+			Researcher* researcher = new Researcher(name);
+			hospital->addResearcher(researcher);
+		}
+		catch  (NameException& e)
+		{
+			e.show();
+		}
 }
 
 Results Ui::addArticleToResearcher()
@@ -611,30 +619,35 @@ Results Ui::addArticleToResearcher()
 	Results res = SUCCESS;
 	if (hospital->getSizeOfResearchers() > 0)
 	{
-		string researcherName = getString("Which researcher would you like to add an article to?");
-		bool exist = false;
-		Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
-		if (exist) //if the researcher name input is ok
+		try
 		{
-			string strDate = getString("Publication Date: [DD/MM/YYYY]");
-			Date* date = nullptr;
-			bool okDate = Utils::convertStrDateToDateObj(strDate, &date);
-			if (okDate)
+			string researcherName = getString("Which researcher would you like to add an article to?");
+			bool exist = false;
+			Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
+			if (exist) //if the researcher name input is ok
 			{
+				string strDate = getString("Publication Date: [DD/MM/YYYY]");
+				Date* date = nullptr;
+				Utils::convertStrDateToDateObj(strDate, &date);
 				Article * article = createArticle(date);
 				hospital->addArticleToResearcher(*article, researcher);
 			}
-			else
-				res = BADFORMAT;
 		}
-		else
-			res = RNONEXIST;
+		/*catch (DateException& e)
+		{
+			e.show();
+		}*/
+		catch (ResearcherDoesntExistException& e)
+		{
+			e.show();
+		}
+		catch (NameException& e)
+		{
+			e.show();
+		}
+		return res;
 	}
-	else
-		res = RESINSTEMPTY;
-	return res;
 }
-
 Results Ui::showPatientsInDepartment()
 {
 	Results res = SUCCESS;

@@ -10,10 +10,10 @@ public:
 	virtual void show() const = 0;
 };
 
-class NameException
+class NameException :public HospitalException
 {
 public:
-	static void show() 
+	void show() 
 	{
 		cout << "Error: The name should include at least one letter." << endl;
 	}

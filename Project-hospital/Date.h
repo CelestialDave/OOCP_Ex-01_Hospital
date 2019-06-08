@@ -15,7 +15,7 @@ private:
 public:
 	//C'tor
 	Date()=default;
-	Date(int inDay, int inMonth, int inYear) throw(DateException);
+	Date(int inDay, int inMonth, int inYear);
 	//copy C'tor
 	//Date(const Date &other);     ***
 

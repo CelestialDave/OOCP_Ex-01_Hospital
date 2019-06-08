@@ -17,7 +17,7 @@ vector<string> Utils:: split(string s, string delimiter) {
 	return res;
 }
 
-bool Utils::convertStrDateToDateObj(string strDate, Date** resDate)
+bool Utils::convertStrDateToDateObj(string strDate, Date** resDate) 
 {
 	int day;
 	int month;
@@ -28,9 +28,9 @@ bool Utils::convertStrDateToDateObj(string strDate, Date** resDate)
 	day = stoi(str[0]);
 	month = stoi(str[1]);
 	year = stoi(str[2]);
-	if ((day < 0) || (day > MAX_DAY) || (month < 0) || (month > MAX_MONTH) || (year < MIN_YEAR) || (year > MAX_YEAR))
-		return false;
-
+	/*if ((day<=0)||(day > MAX_DAY) || (month <= 0) || (month > MAX_MONTH) || (year < MIN_YEAR) || (year > MAX_YEAR))
+		throw DateException();
+	else*/
 	*resDate = new Date(day, month, year);
 	return true;
 }

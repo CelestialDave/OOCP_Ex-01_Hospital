@@ -2,12 +2,12 @@
 
 
 // C'tor:
-StaffMember::StaffMember(const string name) :employeeIDNumber(counterEmployeeID++)
+StaffMember::StaffMember(const string name) throw(NameException) :employeeIDNumber(counterEmployeeID++)
 {
 	if (name == "")
 		throw NameException();
-
-	this->name = name;
+	else
+		this->name = name;
 	//this->employeeIDNumber = employeeIDNumber;
 }
 
