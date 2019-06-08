@@ -6,7 +6,7 @@
 StaffMember::StaffMember(const string name) throw(HospitalException) :employeeIDNumber(counterEmployeeID++)
 {
 	if (!Utils::isValidString(name))
-		throw NameException();
+		throw StringException();
 	else
 		this->name = name;
 	//this->employeeIDNumber = employeeIDNumber;

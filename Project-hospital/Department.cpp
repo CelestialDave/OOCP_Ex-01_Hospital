@@ -7,12 +7,12 @@
 
 
 // C'tor:
-Department::Department(const string inName) throw(NameException)
+Department::Department(const string inName) throw(StringException)
 	: staffArr(nullptr), logSizeOfStaff(0), phySizeOfStaff(0),
 	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0), numOfSurgeons(0)
 {
 	if (!Utils::isValidString(inName))
-		throw NameException();
+		throw StringException();
 	name = inName;
 }
 

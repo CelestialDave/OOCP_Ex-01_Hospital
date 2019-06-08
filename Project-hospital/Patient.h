@@ -23,7 +23,7 @@ private:
 
 public:
 	// C'tor:
-	Patient(const string inName,const string id, enum eGender inGender, string inYearOBirth) throw(NameException);
+	Patient(const string inName,const string id, enum eGender inGender, string inYearOBirth) throw(StringException);
 	// Copy C'tor:
 	Patient(const Patient& other) = delete;
 	// D'tor:

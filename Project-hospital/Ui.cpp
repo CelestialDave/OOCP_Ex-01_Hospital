@@ -30,7 +30,7 @@ void Ui::start()
 			try {
 				res = addNewDepartment();
 			}
-			catch (NameException& e)
+			catch (StringException& e)
 			{
 				e.show();
 			}
@@ -58,7 +58,7 @@ void Ui::start()
 			try {
 				res = addNewDoctor();
 			}
-			catch (NameException& e)
+			catch (StringException& e)
 			{
 				e.show();
 				res = BADINPUT;
@@ -615,7 +615,7 @@ void Ui::addNewResearcher()
 		Researcher* researcher = new Researcher(name);
 		hospital->addResearcher(researcher);
 	}
-	catch  (NameException& e)
+	catch  (StringException& e)
 	{
 		e.show();
 	}
@@ -648,7 +648,7 @@ Results Ui::addArticleToResearcher()
 		{
 			e.show();
 		}
-		catch (NameException& e)
+		catch (StringException& e)
 		{
 			e.show();
 		}

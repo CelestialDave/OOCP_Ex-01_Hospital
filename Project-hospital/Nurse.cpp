@@ -1,6 +1,6 @@
 #include "nurse.h"
 
-Nurse::Nurse(const string name,int inYearExp) throw(NameException)
+Nurse::Nurse(const string name,int inYearExp) throw(StringException)
 	: StaffMember(name)
 {
 	yearsOfExperience = inYearExp; 

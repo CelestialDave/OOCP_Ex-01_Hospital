@@ -1,10 +1,12 @@
 #include "article.h"
+#include "Utils.h"
+
 
 Article::Article(const string inName, string inMagazineName, Date& inPublicitaion) throw(HospitalException)
 {
 	////name = new char[strlen(inName) + 1];
-	if (inName == "" || inMagazineName== "")
-		throw NameException();
+	if (!Utils::isValidString(inName) || !Utils::isValidString(inMagazineName))
+		throw StringException();
 	name = inName;
 	////strcpy(name, inName);
 	////magazineName = new char[strlen(inMagazineName) + 1];
