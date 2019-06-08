@@ -22,7 +22,7 @@ public:
 	// D'tor:
 	~ResearchInstitute();
 
-	void showDoctorsResearchers() const;
+	void showDoctorsResearchers() const throw(HospitalException);
 	void showResearchers()   const;
 	void showResearchersName() const;
 

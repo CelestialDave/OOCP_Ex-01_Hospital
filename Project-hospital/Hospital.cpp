@@ -264,30 +264,30 @@ void Hospital::showPatientInSpecificDep(const int &index) const
 	allDepartments[index]->showPatients();
 }
 
-Results Hospital::showMedicalStaffMembers() const
+void Hospital::showMedicalStaffMembers() const throw(HospitalException)
 {
-	Results res = SUCCESS;
+	int j = 0;
 	if (logSizeOfStaff)
 	{
 		cout << "Staff Members: " << endl;
 		for (int i = 0; i < logSizeOfStaff; i++)
 		{
-			if(strcmp(typeid(*(staffArr[i])).name() + 6, typeid(Researcher).name() + 6)!=0)
-			//print if staff member is not only Researcher
-				cout << "\n\t" << i + 1 << ". " << *(staffArr[i]) << "\n\n";
+			if (strcmp(typeid(*(staffArr[i])).name() + 6, typeid(Researcher).name() + 6) != 0)
+			{	//print if staff member is not only Researcher
+				cout << "\n\t" << j + 1 << ". " << *(staffArr[i]) << "\n\n";
+				j++;
+			}
 		}
 	}
-	else
-		res = NOSTAFF;
-	return res;
+	if (j == 0)
+		throw StaffException();
 }
 
-Results Hospital::showSurgeons() const
+void Hospital::showSurgeons() const throw(SurgeonException)
 {
-	Results res= SUCCESS;
+	int j = 1;
 	if (numOfSurgeons)
 	{
-		int j = 1;
 		for (int i = 0; i < logSizeOfStaff; i++)
 		{
 			Surgeon*surgeon = dynamic_cast<Surgeon*>(staffArr[i]);
@@ -298,12 +298,10 @@ Results Hospital::showSurgeons() const
 			}
 		}
 	}
-	else
-	{ 
-		res = NOSURGINHOS;
+	if (j == 1)
+	{
+		throw SurgeonException();
 	}
-	
-	return res;
 }
 
 void Hospital::showResearchersName() const
