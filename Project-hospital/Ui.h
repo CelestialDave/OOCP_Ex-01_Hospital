@@ -22,14 +22,14 @@ public:
 	Article* createArticle(Date*date);
 	void printSpaceLine() const;
 	void printVisitationPorpuse(Patient* patient) const;
-	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice, Results& res);
+	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice, Results& res) throw(StringException,FormatException);
 	void compare2Researchers() const;
 
 	// UI Flows:
 	Results addNewDepartment();
 	Results addNewNurse();
 	Results addNewDoctor();
-	Results addNewVisitation();
+	Results addNewVisitation() throw(DepartmentException, PatientException, FormatException, StringException, DateException);
 	void addNewResearcher();
 	Results addArticleToResearcher();
 	Results showPatientsInDepartment();

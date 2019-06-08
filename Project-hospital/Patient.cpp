@@ -5,18 +5,12 @@
 Patient::Patient(const string inName,const string id ,enum eGender inGender, string inDateOBirth)
 throw(HospitalException)
 {
-	////name = new char[strlen(inName) + 1];
-	if (!Utils::isValidString(inName) || )
-		throw NameException();
+	if (!Utils::isValidString(inName) || !Utils::isValidString(id) || !Utils::isValidString(inDateOBirth))
+		throw StringException();
 	name = inName;
-	//strcpy(name, inName);
-	////ID = new char[strlen(id) + 1];
 	ID = id;
-	////strcpy(ID, id);
 	gender = inGender;
-	////yearOfBirth = new char[strlen(inDateOBirth) + 1];
 	yearOfBirth = inDateOBirth;
-	////strcpy(yearOfBirth, inDateOBirth);
 	visits = nullptr;
 	logSizeOfVisits = 0;
 	phySizeOfVisits = 0;

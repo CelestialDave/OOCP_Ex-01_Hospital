@@ -85,12 +85,31 @@ void Ui::start()
 		}
 		case 4:	// Add Visitation
 		{
-			Results res;
+			Results res=SUCCESS;
 			try
 			{
 				res = addNewVisitation();
 			}
-			catch
+			catch (DepartmentException& e)
+			{
+				e.show();
+			}
+			catch (PatientException& e)
+			{
+				e.show();
+			}
+			catch (FormatException& e)
+			{
+				e.show();
+			}
+			catch (StringException& e)
+			{
+				e.show();
+			}
+			catch (DateException& e)
+			{
+				e.show();
+			}
 			if (res != SUCCESS)
 			{
 				warnings(res);
@@ -247,16 +266,16 @@ void Ui::compare2Researchers() const
 		cout << "Error: invalid input" << endl;
 }
 
-VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice, Results& res)
+VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice, Results& res) throw(StringException,FormatException)
 {
 	string visitPurpose = getString("Visitation Description: ");
 	if (choice == CHECKUP)
 	{
 		string staffMemIncharge = getString("Medical staff member in charge: ");
+		if (!Utils::isValidString(staffMemIncharge))
+			throw StringException();
 		VisitationRecord* visit = new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
 		res = SUCCESS;
-		//delete[]staffMemIncharge;
-		//delete[]visitPurpose;
 		return visit;
 	}
 	else if (choice == SURGERY)
@@ -264,55 +283,47 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		cout << "Please provide the Employee-ID number of your surgeon from the following list: "
 		<< endl;
 		hospital->showSurgeons();
-		if (hospital->getNumOfSurgeons() > 0)
+		int employeeIDNum;
+		cin >> employeeIDNum;
+		int  indexSurgeon = hospital->binSearchStaffMemberByID(employeeIDNum);
+		if (indexSurgeon != -1)
 		{
-			int employeeIDNum;
-			cin >> employeeIDNum;
-			int  indexSurgeon = hospital->binSearchStaffMemberByID(employeeIDNum);
-			if (indexSurgeon != -1)
+			Surgeon*surgeon = dynamic_cast<Surgeon*>(hospital->getStaffMemberByIndex(indexSurgeon));
+			/*if (!surgeon)
 			{
-				Surgeon*surgeon = dynamic_cast<Surgeon*>(hospital->getStaffMemberByIndex(indexSurgeon));
-				if (!surgeon)
-				{
-					res = BADINPUT;
-					//delete[] visitPurpose;
-					return nullptr;
-				}
-				surgeon->addSurgery();
-				string staffMemIncharge = surgeon->getName();
-				VisitationRecord* visit = new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
-				int surgeryRoomNum = getInt("Surgery Room Number: ");
-				int fasting = getInt("Has the Patient been fasting? \n\t1.Yes\t2. No.\n");
-
-				if (fasting == 1 || fasting == 0)
-				{
-					bool isFasting = (bool)fasting;
-					VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, isFasting);
-					//delete[]staffMemIncharge;
-					//delete[]visitPurpose;
-					delete visit;
-					return newVisit;
-				}
-			}
-			else
-			{
-				//delete[]visitPurpose;
 				res = BADINPUT;
+				delete[] visitPurpose;
 				return nullptr;
+			}*/
+			surgeon->addSurgery();
+			string staffMemIncharge = surgeon->getName();
+			VisitationRecord* visit = new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
+			int surgeryRoomNum = getInt("Surgery Room Number: ");
+			int fasting = getInt("Has the Patient been fasting? \n\t1.Yes\t2. No.\n");
+
+			if (fasting == 1 || fasting == 0)
+			{
+				bool isFasting = (bool)fasting;
+				VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, isFasting);
+				//delete[]staffMemIncharge;
+				//delete[]visitPurpose;
+				delete visit;
+				return newVisit;
 			}
+		
 
 		}
 		else
 		{
 			//delete[]visitPurpose;
-			res = NOSURGINDEP;
+			throw FormatException();
 			return nullptr;
 		}
 	}
 	else
 	{
 		//delete[]visitPurpose;
-		res = BADINPUT;
+		throw FormatException();
 		return nullptr;
 	}
 }
@@ -540,6 +551,7 @@ Results Ui::addNewDoctor()
 }
 
 Results Ui::addNewVisitation()
+throw(DepartmentException,PatientException,FormatException,StringException,DateException)
 {
 	
 	if (hospital->getNumOfDepartments() == 0)
@@ -575,7 +587,6 @@ Results Ui::addNewVisitation()
 			return res;
 		}
 	}
-
 	int depNum;
 	cout << "Please choose the Department number from the following list: " << endl;
 	hospital->showDepartments();
@@ -585,6 +596,7 @@ Results Ui::addNewVisitation()
 	bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 	if (!exist)
 	{
+		throw FormatException();
 		res = BADINPUT;
 		if (!isExists)
 			delete patient;
@@ -596,9 +608,9 @@ Results Ui::addNewVisitation()
 		inDep = hospital->getDepartmentByIndex(depInd);
 
 		string inDate = getString("Patient's arrival date: [DD/MM/YYYY]");
-		Date* arrivalDate = nullptr;
-		bool isValidDateInput = Utils::convertStrDateToDateObj(inDate, &arrivalDate);
-		if (!isValidDateInput)
+		Date* arrivalDate;
+		arrivalDate->convertStrDateToDateObj(inDate, &arrivalDate);
+		/*if (!isValidDateInput)
 		{
 			res = BADFORMAT;
 			if (!isExists)
@@ -606,42 +618,47 @@ Results Ui::addNewVisitation()
 			return res;
 		}
 		else
+		{*/
+		int visitChosen = getInt("Purpose of Visitation:\n\t1. Checkup.\n\t2. Surgery.\n");
+
+		bool ok = true;
+		if (visitChosen == SURGERY)
 		{
-			int visitChosen = getInt("Purpose of Visitation:\n\t1. Checkup.\n\t2. Surgery.\n");
-
-			bool ok = true;
-			if (visitChosen == SURGERY)
+			if (hospital->getNumOfSurgeons() == 0)
 			{
-				if (hospital->getNumOfSurgeons() == 0)
-					res = NOSURGINHOS;
-				else if (inDep->getNumOfSurgeons() == 0)
-					res = NOSURGINDEP;
+				throw SurgeonException();
+				res = NOSURGINHOS;
 			}
+			else if (inDep->getNumOfSurgeons() == 0)
+			{
+				throw SurgeonException();
+				res = NOSURGINHOS;
+			}
+		}
 
-			if (!res == SUCCESS)
-				return res;
-
+		if (!res == SUCCESS)
+			return res;
+		try
+		{
 			VisitationRecord* newVisit = createVisit(*patient, arrivalDate, visitChosen, res);
-
-			if (res == SUCCESS)
+			patient->addVisitiaionRecord(newVisit);
+			// Adding Patient to relevant DB if required:
+			if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
 			{
-				patient->addVisitiaionRecord(newVisit);
-				// Adding Patient to relevant DB if required:
-				if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
-				{
-					inDep->addPatient(*patient);
-					patient->addDepatrtmentToPatient(*inDep);
-				}
-				if (isFirstTime)
-					hospital->addPatient(*patient);
-				cout << "Visitation added successfully." << endl;
+				inDep->addPatient(*patient);
+				patient->addDepatrtmentToPatient(*inDep);
 			}
-			else
-			{
-				if (!isExists)
-					delete patient;
-				return res;
-			}
+			if (isFirstTime)
+				hospital->addPatient(*patient);
+			cout << "Visitation added successfully." << endl;
+		}
+		catch (StringException& e)
+		{
+			e.show();
+		}
+		catch (FormatException& e)
+		{
+			e.show();
 		}
 	}
 }
@@ -660,7 +677,7 @@ void Ui::addNewResearcher()
 	}
 }
 
-Results Ui::addArticleToResearcher()
+Results Ui::addArticleToResearcher() throw(ResearcherException)
 {
 	Results res = SUCCESS;
 	if (hospital->getSizeOfResearchers() > 0)
@@ -691,6 +708,11 @@ Results Ui::addArticleToResearcher()
 		{
 			e.show();
 		}
+	}
+	else
+	{
+		throw ResearcherException();
+	}
 		return res;
 	}
 }
