@@ -27,7 +27,13 @@ void Ui::start()
 		case 1:  //add a department to the hospital
 		{
 			Results res;
-			res = addNewDepartment();
+			try {
+				res = addNewDepartment();
+			}
+			catch (NameException& e)
+			{
+				e.show();
+			}
 			if (res != SUCCESS)
 			{
 				warnings(res);
@@ -335,17 +341,10 @@ Patient* Ui::createPatient(string id)
 string Ui::getString(const string prompt)
 
 {
-	if (prompt.size() > 0)
-		cout << prompt << endl;
-	
-	//char temp[MAX_NAME];
+	cout << prompt << endl;
 	string str;
-	////cin >> str;
-	////cin.clear();
 	getline(cin, str);
 	
-	////string str = new char[strlen(temp) + 1];
-	////strcpy(str, temp);
 	return str;
 }
 
