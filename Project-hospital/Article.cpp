@@ -1,6 +1,6 @@
 #include "article.h"
 
-Article::Article(const string inName, string inMagazineName, Date& inPublicitaion) throw(NameException)
+Article::Article(const string inName, string inMagazineName, Date& inPublicitaion) throw(HospitalException)
 {
 	////name = new char[strlen(inName) + 1];
 	if (inName == "" || inMagazineName== "")

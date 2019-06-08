@@ -601,17 +601,16 @@ Results Ui::addNewVisitation()
 
 void Ui::addNewResearcher()
 {
-		
-		try
-		{
-			string name = getString("Researcher's name: ");
-			Researcher* researcher = new Researcher(name);
-			hospital->addResearcher(researcher);
-		}
-		catch  (NameException& e)
-		{
-			e.show();
-		}
+	try
+	{
+		string name = getString("Researcher's name: ");
+		Researcher* researcher = new Researcher(name);
+		hospital->addResearcher(researcher);
+	}
+	catch  (NameException& e)
+	{
+		e.show();
+	}
 }
 
 Results Ui::addArticleToResearcher()

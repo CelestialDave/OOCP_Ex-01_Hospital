@@ -23,7 +23,7 @@ private:
 
 public:
 	// C'tor:
-	Department(const string inName) throw(NameException);
+	Department(const string inName) throw(HospitalException);
 	// Copy C'tor:
 	Department(const Department& other) = delete;
 	// D'tor:
