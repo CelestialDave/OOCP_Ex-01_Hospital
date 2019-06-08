@@ -18,6 +18,7 @@ public:
 	//C'tor
 	Date()=default;
 	Date(int inDay, int inMonth, int inYear) throw(HospitalException);
+	Date(string strDate) throw(FormatException);
 	//copy C'tor
 	//Date(const Date &other);     ***
 
@@ -25,8 +26,8 @@ public:
 	int getMonth() const;
 	int getDay() const;
 	friend ostream& operator<<(ostream& os, const Date& date);
-	vector<string> split(string s, string delimiter);
-	bool convertStrDateToDateObj(string strDate, Date** resDate) throw(FormatException);
+	//vector<string> split(string s, string delimiter);
+	//bool convertStrDateToDateObj(string strDate, Date** resDate) throw(FormatException);
 
 
 };
