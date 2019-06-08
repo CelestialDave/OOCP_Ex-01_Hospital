@@ -262,24 +262,6 @@ void Ui::start()
 		printSpaceLine();
 		if (askToContinue) {
 			exit = toContinuePrompt();
-			////string reply = getString("Would you like to continue? [y/n]");
-			////while ((reply != "y") && (reply != "n"))
-			////{
-			////	cout << "\nError: invalid input. please enter 'y' for \"Yes\", 'n' for \"No\"...\n" << endl;
-			////	reply = getString("Would you like to continue? [y/n]");
-			////}
-			////if (reply == "n")
-			////{
-			////	exit = true;
-			////	printSpaceLine();
-			////}
-			////else // (reply == "y")
-			////{
-			////	printSpaceLine();
-			////	printMainMenu();
-			////	cin >> choise;
-			////	cin.ignore();
-			////}
 		}
 		
 		if (!exit)
@@ -845,7 +827,7 @@ void Ui::printMainMenu() const
 	cout << "\t9. Show all Researchers in the Research Institute." << endl;
 	cout << "\t10. Show all Researchers that are Doctors in the Research Institute." << endl;
 	cout << "\t11. Get a Patient information by ID." << endl;
-	cout << "\t12. Compare Researchers (>): \n\t\tShow between 2 chosen researchers if left has \n\t\tgreater number of articles then the one on the right." << endl;
+	cout << "\t12. Compare Researchers (>): \n\t\tShow between 2 chosen researchers if left has \n\t\tgreater number of articles than the one on the right." << endl;
 	cout << "\t13. Exit Program." << "\n\n\n";
 }
 
