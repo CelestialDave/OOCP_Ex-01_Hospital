@@ -19,7 +19,7 @@ public:
 	}
 };
 
-class DepartmentException : public HospitalException
+class DepartmentsEmptyException : public HospitalException
 {
 public:
 	virtual void show() const
@@ -55,7 +55,7 @@ public:
 	}
 };
 
-class ResearcherException : public StaffException
+class ResearchersEmptyException : public StaffException
 {
 public:
 	virtual void show() const

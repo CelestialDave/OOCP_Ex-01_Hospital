@@ -28,11 +28,11 @@ public:
 	// UI Flows:
 	Results addNewDepartment();
 	void addNewNurse() throw(HospitalException);
-	Results addNewDoctor();
+	void  addNewDoctor() throw (HospitalException);
 	void addNewVisitation() throw (HospitalException); //throw(DepartmentException, PatientException, FormatException, StringException,SurgeonException, DateException);
 	void addNewResearcher();
 	void addArticleToResearcher() throw(HospitalException);
-	Results showPatientsInDepartment();
+	void showPatientsInDepartment()throw(HospitalException);
 
 	// UI Warnings:
 	void warnings(Results result);

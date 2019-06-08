@@ -52,7 +52,7 @@ public:
 	int getNumOfSurgeons();
 
 	void addDepartment(Department& inDepartment);
-	int binSearchDepartmentByName(const string name);
+	int binSearchDepartmentByName(const string name) throw(StringException);
 	int getIndexForDepartmentInsertion(const string name);
 	void pushDepartmentsFwdFromIndex(int index);
 	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
