@@ -7,7 +7,7 @@ using namespace std;
 class HospitalException
 {
 public:
-	virtual void show() const = 0;
+	virtual void show() const {}
 };
 
 class NameException :public HospitalException

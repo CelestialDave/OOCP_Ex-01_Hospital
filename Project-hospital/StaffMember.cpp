@@ -1,10 +1,11 @@
 #include "StaffMember.h"
+#include "Utils.h"
 
 
 // C'tor:
 StaffMember::StaffMember(const string name) throw(NameException) :employeeIDNumber(counterEmployeeID++)
 {
-	if (name == "")
+	if (!Utils::isValidString(name))
 		throw NameException();
 	else
 		this->name = name;

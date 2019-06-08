@@ -42,3 +42,8 @@ bool Utils:: ifIndexInRange(const int&index, const int& logSize)
 	else
 		return false;
 }
+
+bool Utils::isValidString(string input)
+{
+	return ((input.length() > 0) && (input != " "));
+}

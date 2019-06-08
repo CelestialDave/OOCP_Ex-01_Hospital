@@ -49,7 +49,14 @@ void Ui::start()
 		case 3: //add doctor to the hospital
 		{
 			Results res;
-			res = addNewDoctor();
+			try {
+				res = addNewDoctor();
+			}
+			catch (NameException& e)
+			{
+				e.show();
+				res = BADINPUT;
+			}
 			if (res != SUCCESS)
 			{
 				warnings(res);
@@ -333,10 +340,12 @@ string Ui::getString(const string prompt)
 	
 	//char temp[MAX_NAME];
 	string str;
-	cin >> str;
-	cin.clear();
- 	//string str = new char[strlen(temp) + 1];
-	//strcpy(str, temp);
+	////cin >> str;
+	////cin.clear();
+	getline(cin, str);
+	
+	////string str = new char[strlen(temp) + 1];
+	////strcpy(str, temp);
 	return str;
 }
 
