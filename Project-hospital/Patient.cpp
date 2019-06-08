@@ -1,11 +1,12 @@
 #include "Patient.h"
 #include "Department.h"
+#include "Utils.h"
 
 Patient::Patient(const string inName,const string id ,enum eGender inGender, string inDateOBirth)
 throw(HospitalException)
 {
 	////name = new char[strlen(inName) + 1];
-	if (inName == "")
+	if (!Utils::isValidString(inName) || )
 		throw NameException();
 	name = inName;
 	//strcpy(name, inName);

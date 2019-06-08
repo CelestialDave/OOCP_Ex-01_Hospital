@@ -32,3 +32,37 @@ ostream& operator<<(ostream& os, const Date& date)
 		((date.month < 10) ? "0" : "") << date.month << "/" << date.year;
 	return os;
 }
+
+bool Date::convertStrDateToDateObj(string strDate, Date** resDate)
+{
+	int day;
+	int month;
+	int year;
+	vector<string> str = split(strDate, "/ .");
+	if (str.size() == 3)
+	{
+		day = stoi(str[0]);
+		month = stoi(str[1]);
+		year = stoi(str[2]);
+		*resDate = new Date(day, month, year);
+	}
+	else
+		throw FormatException();
+
+	return true;
+}
+
+vector<string> Date::split(string s, string delimiter) {
+	size_t pos_start = 0, pos_end, delim_len = delimiter.length();
+	string token;
+	vector<string> res;
+
+	while ((pos_end = s.find(delimiter, pos_start)) != string::npos) {
+		token = s.substr(pos_start, pos_end - pos_start);
+		pos_start = pos_end + delim_len;
+		res.push_back(token);
+	}
+
+	res.push_back(s.substr(pos_start));
+	return res;
+}
