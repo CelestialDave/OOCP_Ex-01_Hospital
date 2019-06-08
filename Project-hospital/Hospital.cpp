@@ -161,8 +161,10 @@ void Hospital::addDepartment(Department& inDepartment)
 	insertDepartmentToArrInIndex(inDepartment, index);
 }
 
-int Hospital::binSearchDepartmentByName(const string name)
+int Hospital::binSearchDepartmentByName(const string name) throw(StringException)
 {
+	if (!Utils::isValidString(name))
+		throw StringException();
 	int left = 0;
 	int right = logSizeOfDepartments - 1;
 	while (left <= right)

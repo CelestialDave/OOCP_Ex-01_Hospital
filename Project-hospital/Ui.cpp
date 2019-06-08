@@ -28,15 +28,16 @@ void Ui::start()
 		{
 			Results res;
 			try {
-				res = addNewDepartment();
+				addNewDepartment();
 			}
 			catch (StringException& e)
 			{
 				e.show();
+				askToContinue = true;
 			}
-			if (res != SUCCESS)
+			catch (DepartmentExistException& e)
 			{
-				warnings(res);
+				e.show();
 				askToContinue = true;
 			}
 			break;
@@ -69,16 +70,21 @@ void Ui::start()
 		{
 			Results res;
 			try {
-				res = addNewDoctor();
+				addNewDoctor();
 			}
 			catch (StringException& e)
 			{
 				e.show();
-				res = BADINPUT;
+				askToContinue = true;
 			}
-			if (res != SUCCESS)
+			catch (DepartmentsEmptyException& e)
 			{
-				warnings(res);
+				e.show();
+				askToContinue = true;
+			}
+			catch (FormatException& e)
+			{
+				e.show();
 				askToContinue = true;
 			}
 			break;
@@ -90,7 +96,7 @@ void Ui::start()
 			{
 				res = addNewVisitation();
 			}
-			catch (DepartmentException& e)
+			catch (DepartmentsEmptyException& e)
 			{
 				e.show();
 			}
@@ -120,7 +126,13 @@ void Ui::start()
 		}
 		case 5: //add researcher to the researcher insistute
 		{
-			addNewResearcher();
+			try {
+				addNewResearcher();
+			}
+			catch (StringException& e)
+			{
+				e.show();
+			}
 			break;
 		}
 		case 6:   //add article to specific researcher
@@ -137,11 +149,17 @@ void Ui::start()
 		}
 		case 7: //show patients in specific department
 		{
-			Results res;
-			res = showPatientsInDepartment();
-			if (res != SUCCESS)
+			try {
+				showPatientsInDepartment();
+			}
+			catch (StringException& e)
 			{
-				warnings(res);
+				e.show();
+				askToContinue = true;
+			}
+			catch (DepartmentsEmptyException& e)
+			{
+				e.show();
 				askToContinue = true;
 			}
 			break;
@@ -437,18 +455,19 @@ void Ui::printVisitationPorpuse(Patient* patient) const
 }
 
 
-Results Ui::addNewDepartment()
+void Ui::addNewDepartment() throw(DepartmentExistException)
 {
-	Results res = SUCCESS;
 	string name = getString("Department's name: ");
-	Department* department = new Department(name);
-	int index = hospital->binSearchDepartmentByName(department->getName());
+	int index = hospital->binSearchDepartmentByName(name);
 	if (index == -1) //if this is new department name
+	{
+		Department* department = new Department(name);
 		hospital->addDepartment(*department); //add to the departments array
+	}
 	else
-		res = DEPEXIST;
-	////delete[] name;
-	return res;
+	{
+		throw DepartmentExistException();
+	}
 }
 
 Results Ui::addNewNurse() 
@@ -456,7 +475,7 @@ Results Ui::addNewNurse()
 	Results res = SUCCESS;
 	if (hospital->isDepartmentsEmpty())
 	{
-		throw DepartmentException();
+		throw DepartmentsEmptyException();
 		res = NODEPS;
 	}
 	else {
@@ -482,18 +501,18 @@ Results Ui::addNewNurse()
 	return res;
 }
 
-Results Ui::addNewDoctor()
+
+void Ui::addNewDoctor() throw(HospitalException)
 {
-	Results res = SUCCESS;
 	if (hospital->isDepartmentsEmpty())
 	{
-		res = NODEPS;
+		throw DepartmentsEmptyException();
 	}
 	else {
 		int docType = getInt("Please choose whether the Doctor is also:\n\t1.Researcher.\n\t2.Surgeon.\n\t3.Surgeon - Researcher.\n\t4.None.\n");
 		if ((docType < 1) || (docType > 4))
 		{
-			res = BADINPUT;
+			throw FormatException();
 		}
 		else
 		{
@@ -503,62 +522,57 @@ Results Ui::addNewDoctor()
 			cin >> depNum;
 			cin.ignore();
 			int depInd = depNum - 1;
-			bool existDep = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-			if (!existDep)
+			if (!Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments()))
+				throw FormatException();
+
+			Doctor* doctor = createDoctor();
+			if (docType == 4)
 			{
-				res = BADINPUT;
+				hospital->addStaffMember(doctor);
+				hospital->addStaffMemberToDepartment(doctor, depInd);
 			}
-			else {
-				Doctor* doctor = createDoctor();
-				if (docType == 4)
-				{
-					hospital->addStaffMember(doctor);
-					hospital->addStaffMemberToDepartment(doctor, depInd);
-				}
-				else if ((docType == 2) || (docType == 3))
-				{
-					int numSurgeries = getInt("Please provide number of Surgeries perfromed: ");
-					Surgeon* surgeon = new Surgeon(*doctor, numSurgeries);
-					if (docType == 3)
-					{
-						Researcher* researcher = new Researcher(doctor->getName());
-						SurgeonResearcher* surgeonResearcher = new SurgeonResearcher(*surgeon, *researcher);
-						hospital->addStaffMember(surgeonResearcher);
-						hospital->addStaffMemberToDepartment(surgeonResearcher, depInd);
-						hospital->addResearcher(surgeonResearcher);
-						delete doctor;
-						delete surgeon;
-						delete researcher;
-					}
-					else // (docType == 2)
-					{
-						hospital->addStaffMember(surgeon);
-						hospital->addStaffMemberToDepartment(surgeon, depInd);
-						delete doctor;
-					}
-				}
-				else // (docType == 1) -> ResearcherDoctor
+			else if ((docType == 2) || (docType == 3))
+			{
+				int numSurgeries = getInt("Please provide number of Surgeries perfromed: ");
+				Surgeon* surgeon = new Surgeon(*doctor, numSurgeries);
+				if (docType == 3)
 				{
 					Researcher* researcher = new Researcher(doctor->getName());
-					ResearcherDoctor* researcherDoctor = new ResearcherDoctor(*researcher, *doctor);
-					hospital->addStaffMember(researcherDoctor);
-					hospital->addStaffMemberToDepartment(researcherDoctor, depInd);
-					hospital->addResearcher(researcherDoctor);
+					SurgeonResearcher* surgeonResearcher = new SurgeonResearcher(*surgeon, *researcher);
+					hospital->addStaffMember(surgeonResearcher);
+					hospital->addStaffMemberToDepartment(surgeonResearcher, depInd);
+					hospital->addResearcher(surgeonResearcher);
+					delete doctor;
+					delete surgeon;
+					delete researcher;
+				}
+				else // (docType == 2)
+				{
+					hospital->addStaffMember(surgeon);
+					hospital->addStaffMemberToDepartment(surgeon, depInd);
 					delete doctor;
 				}
 			}
+			else // (docType == 1) -> ResearcherDoctor
+			{
+				Researcher* researcher = new Researcher(doctor->getName());
+				ResearcherDoctor* researcherDoctor = new ResearcherDoctor(*researcher, *doctor);
+				hospital->addStaffMember(researcherDoctor);
+				hospital->addStaffMemberToDepartment(researcherDoctor, depInd);
+				hospital->addResearcher(researcherDoctor);
+				delete doctor;
+			}
 		}
 	}
-	return res;
 }
 
 Results Ui::addNewVisitation()
-throw(DepartmentException,PatientException,FormatException,StringException,DateException)
+throw(DepartmentsEmptyException,PatientException,FormatException,StringException,DateException)
 {
 	
 	if (hospital->getNumOfDepartments() == 0)
 	{
-		throw DepartmentException();
+		throw DepartmentsEmptyException();
 		return NODEPS;
 	}
 	Results res = SUCCESS;
@@ -660,19 +674,12 @@ throw(DepartmentException,PatientException,FormatException,StringException,DateE
 
 void Ui::addNewResearcher()
 {
-	try
-	{
-		string name = getString("Researcher's name: ");
-		Researcher* researcher = new Researcher(name);
-		hospital->addResearcher(researcher);
-	}
-	catch  (StringException& e)
-	{
-		e.show();
-	}
+	string name = getString("Researcher's name: ");
+	Researcher* researcher = new Researcher(name);
+	hospital->addResearcher(researcher);
 }
 
-Results Ui::addArticleToResearcher() throw(ResearcherException)
+Results Ui::addArticleToResearcher() throw(ResearchersEmptyException)
 {
 	Results res = SUCCESS;
 	if (hospital->getSizeOfResearchers() > 0)
@@ -709,32 +716,34 @@ Results Ui::addArticleToResearcher() throw(ResearcherException)
 	}
 	else
 	{
-		throw ResearcherException();
+		throw ResearchersEmptyException();
 	}
 		return res;
 	
 }
 
-Results Ui::showPatientsInDepartment()
+void Ui::showPatientsInDepartment() throw(HospitalException)
 {
-	Results res = SUCCESS;
-	if (hospital->getNumOfDepartments() > 0)
-	{
-		cout << "Please choose the Department number from the following list: " << endl;
-		hospital->showDepartments();
-		int depNum;
-		cin >> depNum;
-		cin.ignore();
-		int depInd = depNum - 1;
-		bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-		if (ok)
-			hospital->showPatientInSpecificDep(depInd);
-		else
-			res = BADINPUT;
-	}
-	else
-		res = NODEPS;
-	return res;
+	if (hospital->isDepartmentsEmpty())
+		throw DepartmentsEmptyException();
+
+	cout << "Please choose the Department number from the following list: " << endl;
+	hospital->showDepartments();
+	int depNum;
+	cin >> depNum;
+	cin.ignore();
+	int depInd = depNum - 1;
+
+	////bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
+	////if (ok)
+	////	hospital->showPatientInSpecificDep(depInd);
+	////else
+	////	res = BADINPUT;
+
+	if (!Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments()))
+		throw StringException();
+
+	hospital->showPatientInSpecificDep(depInd);
 }
 
 void Ui::warnings(Results result)

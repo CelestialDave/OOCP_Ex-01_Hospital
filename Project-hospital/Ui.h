@@ -26,13 +26,13 @@ public:
 	void compare2Researchers() const;
 
 	// UI Flows:
-	Results addNewDepartment();
+	void addNewDepartment() throw(DepartmentExistException);
 	Results addNewNurse();
-	Results addNewDoctor();
-	Results addNewVisitation() throw(DepartmentException, PatientException, FormatException, StringException, DateException);
+	void addNewDoctor() throw(HospitalException);
+	Results addNewVisitation() throw(DepartmentsEmptyException, PatientException, FormatException, StringException, DateException);
 	void addNewResearcher();
-	Results addArticleToResearcher() throw(ResearcherException);
-	Results showPatientsInDepartment();
+	Results addArticleToResearcher() throw(ResearchersEmptyException);
+	void showPatientsInDepartment() throw(HospitalException);
 
 	// UI Warnings:
 	void warnings(Results result);
