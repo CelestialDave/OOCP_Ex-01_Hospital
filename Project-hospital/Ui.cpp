@@ -44,7 +44,20 @@ void Ui::start()
 		case 2:   //add a nurse
 		{
 			Results res;
-			res = addNewNurse();
+			try
+			{
+				res = addNewNurse();
+			}
+			catch (FormatException& e)
+			{
+				e.show();
+				res = BADFORMAT;
+			}
+			catch (StringException& e)
+			{
+				e.show();
+				res = BADINPUT;
+			}
 			if (res != SUCCESS)
 			{
 				warnings(res);
@@ -73,7 +86,11 @@ void Ui::start()
 		case 4:	// Add Visitation
 		{
 			Results res;
-			res = addNewVisitation();
+			try
+			{
+				res = addNewVisitation();
+			}
+			catch
 			if (res != SUCCESS)
 			{
 				warnings(res);
@@ -330,12 +347,23 @@ Doctor* Ui::createDoctor()
 	return new Doctor(name,specialty);
 }
 	
-Patient* Ui::createPatient(string id)
+Patient* Ui::createPatient(string id) throw(StringException)
 {
 	const string name = getString("Patient's name: ");
-	eGender gen = inputGender();
+	if (!Utils::isValidString(name))
+		throw StringException();
 	string yearOfBirth = getString("Patient's year of birth: ");
+	if(!Utils::isValidString(yearOfBirth))
+		throw StringException();
+	try
+	{
+	eGender gen = inputGender();
 	return (new Patient(name, id, gen, yearOfBirth));
+	}
+	catch (FormatException& e)
+	{
+		e.show();
+	}
 }
 
 string Ui::getString(const string prompt)
@@ -348,12 +376,14 @@ string Ui::getString(const string prompt)
 	return str;
 }
 
-enum eGender Ui::inputGender()
+enum eGender Ui::inputGender() throw (FormatException)
 {
 	int gen;
 	enum eGender gender;
 	cout << "Patient's gender: \n\t1. Male.\n\t2. Female." << endl;
 	cin >> gen;
+	if (gen != 1 && gen != 2)
+		throw FormatException();
 	cin.ignore();
 	gender = (eGender)(gen - 1);
 	return gender;
@@ -408,11 +438,12 @@ Results Ui::addNewDepartment()
 	return res;
 }
 
-Results Ui::addNewNurse()
+Results Ui::addNewNurse() 
 {
 	Results res = SUCCESS;
 	if (hospital->isDepartmentsEmpty())
 	{
+		throw DepartmentException();
 		res = NODEPS;
 	}
 	else {
@@ -430,7 +461,10 @@ Results Ui::addNewNurse()
 			hospital->addStaffMemberToDepartment(nurse, depInd);
 		}
 		else
+		{
+			throw FormatException();
 			res = BADINPUT;
+		}
 	}
 	return res;
 }
@@ -509,10 +543,15 @@ Results Ui::addNewVisitation()
 {
 	
 	if (hospital->getNumOfDepartments() == 0)
+	{
+		throw DepartmentException();
 		return NODEPS;
+	}
 	Results res = SUCCESS;
 	Department* department = nullptr;
 	string inID = getString("Patient's ID number: ");
+	if (!Utils::isValidString(inID))
+		throw StringException();
 	bool isFirstTime = checkIfItFirstTimeInHospital();
 	bool isExists = false;
 	Patient* patient = hospital->getPatientByID(inID, &isExists);
@@ -532,7 +571,7 @@ Results Ui::addNewVisitation()
 	{
 		if (!isExists) // Should exist
 		{
-			res = PIDNOTFOUND;
+			throw PatientException();
 			return res;
 		}
 	}

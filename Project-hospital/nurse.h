@@ -16,7 +16,7 @@ protected:
 
 public:
 	// C'tor:
-	Nurse(const string name, int inYearExp) throw(StringException);
+	Nurse(const string name, int inYearExp);
 	// D'tor:
 	~Nurse();
 	

@@ -6,8 +6,8 @@ Patient::Patient(const string inName,const string id ,enum eGender inGender, str
 throw(HospitalException)
 {
 	////name = new char[strlen(inName) + 1];
-	if (!Utils::isValidString(inName))
-		throw StringException();
+	if (!Utils::isValidString(inName) || )
+		throw NameException();
 	name = inName;
 	//strcpy(name, inName);
 	////ID = new char[strlen(id) + 1];

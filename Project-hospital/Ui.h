@@ -13,7 +13,7 @@ public:
 	void printMainMenu() const;
 	int inputYearsOfExprience() const;
 	bool checkIfItFirstTimeInHospital() const;
-	enum eGender inputGender();
+	enum eGender inputGender()throw(FormatException);
 	string getString(const string prompt);
 	Patient* createPatient(string id);
 	Doctor* createDoctor();
