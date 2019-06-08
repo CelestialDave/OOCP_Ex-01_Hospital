@@ -327,9 +327,11 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		return nullptr;
 	}
 }
-Article* Ui::createArticle(Date* date)
+Article* Ui::createArticle(Date* date) throw(StringException)
 {
 	string name = getString("Article's name: ");
+	if (!Utils::isValidString(name))
+		throw StringException();
 	string magazineName = getString("The magazine in which article was published:");
 	return new Article(name, magazineName,*date);
 }
@@ -575,8 +577,16 @@ throw(DepartmentException,PatientException,FormatException,StringException,DateE
 			res = PIDEXIST;
 			return res;
 		}
-		else {
-			patient = createPatient(inID);
+		else
+		{
+			try
+			{
+				patient = createPatient(inID);
+			}
+			catch (StringException & e)
+			{
+				e.show();
+			}
 		}
 	}
 	else //it is not the first visit
@@ -596,11 +606,9 @@ throw(DepartmentException,PatientException,FormatException,StringException,DateE
 	bool exist = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
 	if (!exist)
 	{
+		delete patient;
 		throw FormatException();
 		res = BADINPUT;
-		if (!isExists)
-			delete patient;
-		return res;
 	}
 	else
 	{
@@ -608,17 +616,7 @@ throw(DepartmentException,PatientException,FormatException,StringException,DateE
 		inDep = hospital->getDepartmentByIndex(depInd);
 
 		string inDate = getString("Patient's arrival date: [DD/MM/YYYY]");
-		Date* arrivalDate;
-		arrivalDate->convertStrDateToDateObj(inDate, &arrivalDate);
-		/*if (!isValidDateInput)
-		{
-			res = BADFORMAT;
-			if (!isExists)
-				delete patient;
-			return res;
-		}
-		else
-		{*/
+		Date* arrivalDate=new Date(inDate);
 		int visitChosen = getInt("Purpose of Visitation:\n\t1. Checkup.\n\t2. Surgery.\n");
 
 		bool ok = true;
@@ -635,9 +633,6 @@ throw(DepartmentException,PatientException,FormatException,StringException,DateE
 				res = NOSURGINHOS;
 			}
 		}
-
-		if (!res == SUCCESS)
-			return res;
 		try
 		{
 			VisitationRecord* newVisit = createVisit(*patient, arrivalDate, visitChosen, res);
@@ -690,21 +685,24 @@ Results Ui::addArticleToResearcher() throw(ResearcherException)
 			if (exist) //if the researcher name input is ok
 			{
 				string strDate = getString("Publication Date: [DD/MM/YYYY]");
-				Date* date = nullptr;
-				Utils::convertStrDateToDateObj(strDate, &date);
+				Date* date = new Date(strDate);
 				Article * article = createArticle(date);
 				hospital->addArticleToResearcher(*article, researcher);
 			}
 		}
-		/*catch (DateException& e)
+		catch (DateException& e)
 		{
 			e.show();
-		}*/
+		}
 		catch (ResearcherDoesntExistException& e)
 		{
 			e.show();
 		}
 		catch (StringException& e)
+		{
+			e.show();
+		}
+		catch (FormatException & e)
 		{
 			e.show();
 		}
@@ -714,8 +712,9 @@ Results Ui::addArticleToResearcher() throw(ResearcherException)
 		throw ResearcherException();
 	}
 		return res;
-	}
+	
 }
+
 Results Ui::showPatientsInDepartment()
 {
 	Results res = SUCCESS;

@@ -19,7 +19,7 @@ public:
 	Doctor* createDoctor();
 	int getInt(const string str);
 	Nurse* createNurse();
-	Article* createArticle(Date*date);
+	Article* createArticle(Date*date) throw(StringException);
 	void printSpaceLine() const;
 	void printVisitationPorpuse(Patient* patient) const;
 	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice, Results& res) throw(StringException,FormatException);
@@ -31,7 +31,7 @@ public:
 	Results addNewDoctor();
 	Results addNewVisitation() throw(DepartmentException, PatientException, FormatException, StringException, DateException);
 	void addNewResearcher();
-	Results addArticleToResearcher();
+	Results addArticleToResearcher() throw(ResearcherException);
 	Results showPatientsInDepartment();
 
 	// UI Warnings:
