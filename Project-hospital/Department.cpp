@@ -3,13 +3,15 @@
 #include "ConstantsAndGenFuncs.h"
 #include "Patient.h"
 #include "Surgeon.h"
+#include "Utils.h"
+
 
 // C'tor:
 Department::Department(const string inName) throw(NameException)
 	: staffArr(nullptr), logSizeOfStaff(0), phySizeOfStaff(0),
 	patientsArr(nullptr), logSizeOfPatients(0), phySizeOfPatients(0), numOfSurgeons(0)
 {
-	if (inName == "")
+	if (!Utils::isValidString(inName))
 		throw NameException();
 	name = inName;
 }
