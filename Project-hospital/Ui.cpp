@@ -685,7 +685,7 @@ void Ui::addArticleToResearcher() throw(HospitalException)
 	}
 	else
 	{
-		throw ResearcherEmptyException();
+		throw ResearchersEmptyException();
 	}	
 }
 
