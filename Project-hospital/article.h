@@ -15,7 +15,7 @@ private:
 
 public:
 	// C'tor:
-	Article(const string inName, string inMagazineName, Date&inPublicitaion) throw(NameException);
+	Article(const string inName, string inMagazineName, Date&inPublicitaion) throw(HospitalException);
 	// Copy C'tor
 	Article(const Article& other);
 	// D'tor:

@@ -3,7 +3,7 @@
 
 
 // C'tor:
-StaffMember::StaffMember(const string name) throw(NameException) :employeeIDNumber(counterEmployeeID++)
+StaffMember::StaffMember(const string name) throw(HospitalException) :employeeIDNumber(counterEmployeeID++)
 {
 	if (!Utils::isValidString(name))
 		throw NameException();

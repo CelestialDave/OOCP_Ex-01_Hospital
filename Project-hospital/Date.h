@@ -15,7 +15,7 @@ private:
 public:
 	//C'tor
 	Date()=default;
-	Date(int inDay, int inMonth, int inYear);
+	Date(int inDay, int inMonth, int inYear) throw(HospitalException);
 	//copy C'tor
 	//Date(const Date &other);     ***
 

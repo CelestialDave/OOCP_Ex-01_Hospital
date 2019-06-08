@@ -14,7 +14,7 @@ protected:
 	string name;
 	int employeeIDNumber;
 	// C'tor:
-	StaffMember(const string inName) throw(NameException);
+	StaffMember(const string inName) throw(HospitalException);
 	// Copy C'tor:
 	StaffMember(const StaffMember& other);
 

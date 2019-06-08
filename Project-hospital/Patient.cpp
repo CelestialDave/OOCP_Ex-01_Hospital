@@ -2,7 +2,7 @@
 #include "Department.h"
 
 Patient::Patient(const string inName,const string id ,enum eGender inGender, string inDateOBirth)
-throw(NameException)
+throw(HospitalException)
 {
 	////name = new char[strlen(inName) + 1];
 	if (inName == "")

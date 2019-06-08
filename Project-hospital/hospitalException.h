@@ -10,12 +10,12 @@ public:
 	virtual void show() const {}
 };
 
-class NameException :public HospitalException
+class StringException : public HospitalException
 {
 public:
-	void show() 
+	 void show() 
 	{
-		cout << "Error: The name should include at least one letter." << endl;
+		cout << "Error: The input string should include at least one letter." << endl;
 	}
 };
 
