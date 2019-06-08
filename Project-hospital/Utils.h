@@ -7,6 +7,7 @@ public:
 	static vector<string> split(string s, string delimiter);
 	static bool convertStrDateToDateObj(string strDate, Date** resDate);
 	static bool ifIndexInRange(const int&index, const int& logSize);
+	static bool isValidString(string input);
 };
 
 #endif // !__UTILS_H
