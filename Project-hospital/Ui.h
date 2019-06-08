@@ -29,9 +29,9 @@ public:
 	void addNewDepartment() throw(HospitalException);
 	void addNewNurse() throw(HospitalException);
 	void  addNewDoctor() throw (HospitalException);
-	void addNewVisitation() throw (HospitalException); //throw(DepartmentException, PatientException, FormatException, StringException,SurgeonException, DateException);
+	void addNewVisitation() throw (HospitalException); //throw(DepartmentsEmptyException, PatientException, FormatException, StringException,SurgeonException, DateException);
 	void addNewResearcher();
-	Results addArticleToResearcher() throw(ResearchersEmptyException);
+	void addArticleToResearcher() throw(ResearchersEmptyException);
 	void showPatientsInDepartment() throw(HospitalException);
 	void searchPatientByID() throw(PatientNotFoundException);
 	bool toContinuePrompt();

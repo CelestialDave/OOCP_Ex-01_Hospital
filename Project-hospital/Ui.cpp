@@ -58,7 +58,7 @@ void Ui::start()
 				e.show();
 				askToContinue = true;
 			}
-			catch (DepartmentException& e)
+			catch (DepartmentsEmptyException& e)
 			{
 				e.show();	
 				askToContinue = true;
@@ -144,7 +144,7 @@ void Ui::start()
 			{
 				addArticleToResearcher();
 			}
-			catch (ResearcherException& e)
+			catch (ResearchersEmptyException& e)
 			{
 				e.show();
 				askToContinue = true;
@@ -514,7 +514,7 @@ void Ui::addNewNurse() throw(HospitalException)
 {
 	if (hospital->isDepartmentsEmpty())
 	{
-		throw DepartmentException();
+		throw DepartmentsEmptyException();
 	}
 	else {
 		int depNum;
@@ -606,7 +606,7 @@ void Ui::addNewVisitation() throw(HospitalException)
 {
 	if (hospital->getNumOfDepartments() == 0)
 	{
-		throw DepartmentException();
+		throw DepartmentsEmptyException();
 	}
 	Department* department = nullptr;
 	string inID = getString("Patient's ID number: ");
@@ -703,7 +703,7 @@ void Ui::addArticleToResearcher() throw(HospitalException)
 	}
 	else
 	{
-		throw ResearcherEmptyException();
+		throw ResearchersEmptyException();
 	}	
 }
 
