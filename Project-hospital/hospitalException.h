@@ -84,7 +84,7 @@ public:
 	}
 };
 
-class PatientException : public HospitalException
+class PatientNotFoundException : public HospitalException
 {
 public:
 	virtual void show() const

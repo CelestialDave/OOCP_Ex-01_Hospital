@@ -29,11 +29,12 @@ public:
 	void addNewDepartment() throw(DepartmentExistException);
 	Results addNewNurse();
 	void addNewDoctor() throw(HospitalException);
-	Results addNewVisitation() throw(DepartmentsEmptyException, PatientException, FormatException, StringException, DateException);
+	Results addNewVisitation() throw(DepartmentsEmptyException, PatientNotFoundException, FormatException, StringException, DateException);
 	void addNewResearcher();
 	Results addArticleToResearcher() throw(ResearchersEmptyException);
 	void showPatientsInDepartment() throw(HospitalException);
-
+	void searchPatientByID() throw(PatientNotFoundException);
+	bool toContinuePrompt();
 	// UI Warnings:
 	void warnings(Results result);
 };
