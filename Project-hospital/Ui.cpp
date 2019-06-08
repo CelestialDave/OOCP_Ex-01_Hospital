@@ -26,7 +26,6 @@ void Ui::start()
 		{
 		case 1:  //add a department to the hospital
 		{
-			Results res;
 			try {
 				addNewDepartment();
 			}
