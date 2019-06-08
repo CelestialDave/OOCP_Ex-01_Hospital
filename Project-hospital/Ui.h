@@ -22,18 +22,19 @@ public:
 	Article* createArticle(Date*date) throw(HospitalException);
 	void printSpaceLine() const;
 	void printVisitationPorpuse(Patient* patient) const;
-	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice) throw(StringException,FormatException,SurgeonException);
+	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice) throw(HospitalException);
 	void compare2Researchers() const throw(HospitalException);
 
 	// UI Flows:
-	Results addNewDepartment();
+	void addNewDepartment() throw(HospitalException);
 	void addNewNurse() throw(HospitalException);
 	void  addNewDoctor() throw (HospitalException);
 	void addNewVisitation() throw (HospitalException); //throw(DepartmentException, PatientException, FormatException, StringException,SurgeonException, DateException);
 	void addNewResearcher();
-	void addArticleToResearcher() throw(HospitalException);
-	void showPatientsInDepartment()throw(HospitalException);
-
+	Results addArticleToResearcher() throw(ResearchersEmptyException);
+	void showPatientsInDepartment() throw(HospitalException);
+	void searchPatientByID() throw(PatientNotFoundException);
+	bool toContinuePrompt();
 	// UI Warnings:
 	void warnings(Results result);
 };

@@ -99,7 +99,7 @@ void Ui::start()
 				e.show();
 				askToContinue = true;
 			}
-			catch (PatientException& e)
+			catch (PatientNotFoundException& e)
 			{
 				e.show();
 				askToContinue = true;
@@ -221,17 +221,14 @@ void Ui::start()
 		}
 		case 11: //search patient by ID number
 		{
-			string id = getString("Patient's ID number: ");
-			bool isExists = false;
-			Patient* patient = hospital->getPatientByID(id, &isExists);
-			if (isExists)  //the ID numebr input of patient is exist
-			{
-				cout << "Patient's name: " << patient->getName() << endl;
-				printVisitationPorpuse(patient);
-				//patient->showDepatmentsVisited();
+			try {
+				searchPatientByID();
 			}
-			else
-				cout << "Error: Patient's ID was not found." << endl;
+			catch (PatientNotFoundException& e)
+			{
+				e.show();
+				askToContinue = true;
+			}
 			break;
 		}
 		case 12:// Which researcher has more articles
@@ -264,26 +261,28 @@ void Ui::start()
 
 		printSpaceLine();
 		if (askToContinue) {
-			string reply = getString("Would you like to continue? [y/n]");
-			while ((reply != "y") && (reply != "n"))
-			{
-				cout << "\nError: invalid input. please enter 'y' for \"Yes\", 'n' for \"No\"...\n" << endl;
-				reply = getString("Would you like to continue? [y/n]");
-			}
-			if (reply == "n")
-			{
-				exit = true;
-				printSpaceLine();
-			}
-			else // (reply == "y")
-			{
-				printSpaceLine();
-				printMainMenu();
-				cin >> choise;
-				cin.ignore();
-			}
+			exit = toContinuePrompt();
+			////string reply = getString("Would you like to continue? [y/n]");
+			////while ((reply != "y") && (reply != "n"))
+			////{
+			////	cout << "\nError: invalid input. please enter 'y' for \"Yes\", 'n' for \"No\"...\n" << endl;
+			////	reply = getString("Would you like to continue? [y/n]");
+			////}
+			////if (reply == "n")
+			////{
+			////	exit = true;
+			////	printSpaceLine();
+			////}
+			////else // (reply == "y")
+			////{
+			////	printSpaceLine();
+			////	printMainMenu();
+			////	cin >> choise;
+			////	cin.ignore();
+			////}
 		}
-		else if (!exit)
+		
+		if (!exit)
 		{
 			printSpaceLine();
 			printMainMenu();
@@ -333,7 +332,7 @@ void Ui::compare2Researchers() const throw(HospitalException)
 		throw FormatException();
 }
 
-VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice) throw(StringException,FormatException,SurgeonException)
+VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice) throw(HospitalException)
 {
 	string visitPurpose = getString("Visitation Description: ");
 	if (!Utils::isValidString(visitPurpose))
@@ -349,7 +348,7 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 	else // (choice == SURGERY)
 	{
 		cout << "Please provide the Employee-ID number of your surgeon from the following list: "
-		<< endl;
+			<< endl;
 		hospital->showSurgeons();
 		int employeeIDNum;
 		cin >> employeeIDNum;
@@ -378,7 +377,7 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 				delete visit;
 				return newVisit;
 			}
-		
+
 
 		}
 		else
@@ -395,7 +394,7 @@ Article* Ui::createArticle(Date* date) throw(HospitalException)
 	if (!Utils::isValidString(name))
 		throw StringException();
 	string magazineName = getString("The magazine in which article was published:");
-	return new Article(name, magazineName,*date);
+	return new Article(name, magazineName, *date);
 }
 
 Nurse* Ui::createNurse() throw(HospitalException)
@@ -404,7 +403,7 @@ Nurse* Ui::createNurse() throw(HospitalException)
 	if (!Utils::isValidString(name))
 		throw StringException();
 	int yearsExprience = getInt("Years of Experience: ");
- 	return new Nurse(name, yearsExprience);
+	return new Nurse(name, yearsExprience);
 }
 
 
@@ -421,16 +420,16 @@ Doctor* Ui::createDoctor()
 {
 	string name = getString("Doctor's name: ");
 	string specialty = getString("Doctor's speciality: ");
-	return new Doctor(name,specialty);
+	return new Doctor(name, specialty);
 }
-	
+
 Patient* Ui::createPatient(string id) throw(StringException)
 {
 	const string name = getString("Patient's name: ");
 	if (!Utils::isValidString(name))
 		throw StringException();
 	string yearOfBirth = getString("Patient's year of birth: ");
-	if(!Utils::isValidString(yearOfBirth))
+	if (!Utils::isValidString(yearOfBirth))
 		throw StringException();
 	eGender gen = inputGender();
 	return (new Patient(name, id, gen, yearOfBirth));
@@ -442,7 +441,7 @@ string Ui::getString(const string prompt)
 	cout << prompt << endl;
 	string str;
 	getline(cin, str);
-	
+
 	return str;
 }
 
@@ -625,7 +624,7 @@ void Ui::addNewVisitation() throw(HospitalException)
 	{
 		if (!isExists) // Should exist
 		{
-			throw PatientException();
+			throw PatientNotFoundException();
 		}
 	}
 	int depNum;
@@ -730,6 +729,53 @@ void Ui::showPatientsInDepartment() throw(HospitalException)
 		throw StringException();
 
 	hospital->showPatientInSpecificDep(depInd);
+}
+
+void Ui::searchPatientByID() throw(PatientNotFoundException)
+{
+	string id = getString("Patient's ID number: ");
+	bool isExists = false;
+	Patient* patient = hospital->getPatientByID(id, &isExists);
+	if (isExists)  //the ID numebr input of patient is exist
+	{
+		cout << "Patient's name: " << patient->getName() << endl;
+		printVisitationPorpuse(patient);
+		////patient->showDepatmentsVisited();
+	}
+	else
+		throw PatientNotFoundException();
+	////cout << "Error: Patient's ID was not found." << endl;
+}
+
+bool Ui::toContinuePrompt()
+{
+	int counter = 0;
+	bool toExit = false;
+	string reply = getString("Would you like to continue? [y/n]");
+	while ((reply != "y") && (reply != "n"))
+	{
+		if (counter++ < 4)
+		{
+			cout << "\nError: invalid input. please enter 'y' for \"Yes\", 'n' for \"No\"...\n" << endl;
+			reply = getString("Would you like to continue? [y/n]");
+		}
+		else
+			reply = "n";
+	}
+	if (reply == "n")
+	{
+		toExit = true;
+		printSpaceLine();
+	}
+	else // (reply == "y")
+	{
+		toExit = false;
+		printSpaceLine();
+		/*printMainMenu();
+		cin >> choise;
+		cin.ignore();*/
+	}
+	return toExit;
 }
 
 void Ui::warnings(Results result)
