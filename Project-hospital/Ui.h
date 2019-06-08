@@ -12,26 +12,26 @@ public:
 	void start();
 	void printMainMenu() const;
 	int inputYearsOfExprience() const;
-	bool checkIfItFirstTimeInHospital() const;
-	enum eGender inputGender()throw(FormatException);
+	bool checkIfItFirstTimeInHospital() const throw(HospitalException);
+	enum eGender inputGender()throw(HospitalException);
 	string getString(const string prompt);
 	Patient* createPatient(string id);
 	Doctor* createDoctor();
 	int getInt(const string str);
-	Nurse* createNurse();
-	Article* createArticle(Date*date) throw(StringException);
+	Nurse* createNurse() throw(HospitalException);
+	Article* createArticle(Date*date) throw(HospitalException);
 	void printSpaceLine() const;
 	void printVisitationPorpuse(Patient* patient) const;
-	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice, Results& res) throw(StringException,FormatException);
-	void compare2Researchers() const;
+	VisitationRecord* createVisit(Patient & patient, Date* arrivalDate,int choice) throw(StringException,FormatException,SurgeonException);
+	void compare2Researchers() const throw(HospitalException);
 
 	// UI Flows:
 	Results addNewDepartment();
-	Results addNewNurse();
+	void addNewNurse() throw(HospitalException);
 	Results addNewDoctor();
-	Results addNewVisitation() throw(DepartmentException, PatientException, FormatException, StringException, DateException);
+	void addNewVisitation() throw (HospitalException); //throw(DepartmentException, PatientException, FormatException, StringException,SurgeonException, DateException);
 	void addNewResearcher();
-	Results addArticleToResearcher() throw(ResearcherException);
+	void addArticleToResearcher() throw(HospitalException);
 	Results showPatientsInDepartment();
 
 	// UI Warnings:

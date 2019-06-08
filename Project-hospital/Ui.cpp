@@ -43,24 +43,23 @@ void Ui::start()
 		}
 		case 2:   //add a nurse
 		{
-			Results res;
 			try
 			{
-				res = addNewNurse();
+				addNewNurse();
 			}
 			catch (FormatException& e)
 			{
 				e.show();
-				res = BADFORMAT;
+				askToContinue = true;
 			}
 			catch (StringException& e)
 			{
 				e.show();
-				res = BADINPUT;
+				askToContinue = true;
 			}
-			if (res != SUCCESS)
+			catch (DepartmentException& e)
 			{
-				warnings(res);
+				e.show();	
 				askToContinue = true;
 			}
 			break;
@@ -85,34 +84,38 @@ void Ui::start()
 		}
 		case 4:	// Add Visitation
 		{
-			Results res=SUCCESS;
 			try
 			{
-				res = addNewVisitation();
+				addNewVisitation();
 			}
 			catch (DepartmentException& e)
 			{
 				e.show();
+				askToContinue = true;
 			}
 			catch (PatientException& e)
 			{
 				e.show();
+				askToContinue = true;
 			}
 			catch (FormatException& e)
 			{
 				e.show();
+				askToContinue = true;
 			}
 			catch (StringException& e)
 			{
 				e.show();
+				askToContinue = true;
 			}
 			catch (DateException& e)
 			{
 				e.show();
+				askToContinue = true;
 			}
-			if (res != SUCCESS)
+			catch (SurgeonException& e)
 			{
-				warnings(res);
+				e.show();
 				askToContinue = true;
 			}
 			break;
@@ -125,14 +128,35 @@ void Ui::start()
 		}
 		case 6:   //add article to specific researcher
 		{
-			Results res;
-			res = addArticleToResearcher();
-			if (res != SUCCESS)
+			try
 			{
-				warnings(res);
+				addArticleToResearcher();
+			}
+			catch (ResearcherException& e)
+			{
+				e.show();
 				askToContinue = true;
 			}
-			//printSpaceLine();
+			catch (DateException& e)
+			{
+				e.show();
+				askToContinue = true;
+			}
+			catch (ResearcherDoesntExistException& e)
+			{
+				e.show();
+				askToContinue = true;
+			}
+			catch (StringException& e)
+			{
+				e.show();	
+				askToContinue = true;
+			}
+			catch (FormatException & e)
+			{
+				e.show();
+				askToContinue = true;
+			}
 			break;
 		}
 		case 7: //show patients in specific department
@@ -148,11 +172,13 @@ void Ui::start()
 		}
 		case 8: //show medical staff members
 		{
-			Results res = SUCCESS;
-			res=hospital->showMedicalStaffMembers(); 
-			if (res != SUCCESS)
+			try
 			{
-				warnings(res);
+				hospital->showMedicalStaffMembers();
+			}
+			catch (StaffException& e)
+			{
+				e.show();
 				askToContinue = true;
 			}
 			break;
@@ -164,7 +190,15 @@ void Ui::start()
 		}
 		case 10: // Show all Researchers that are Doctors in the Research Institute
 		{
-			hospital->showDoctorResearchers();
+			try
+			{
+				hospital->showDoctorResearchers();
+			}
+			catch (ResearcherDoctorException& e)
+			{
+				e.show();
+				askToContinue = true;
+			}
 			break;
 		}
 		case 11: //search patient by ID number
@@ -184,7 +218,20 @@ void Ui::start()
 		}
 		case 12:// Which researcher has more articles
 		{
-			compare2Researchers();
+			try
+			{
+				compare2Researchers();
+			}
+			catch (FormatException& e)
+			{
+				e.show();
+				askToContinue = true;
+			}
+			catch (NotEnoughResearcherException& e)
+			{
+				e.show();
+				askToContinue = true;
+			}
 			break;
 		}
 		case 13:
@@ -236,8 +283,10 @@ void Ui::printSpaceLine() const
 }
 
 
-void Ui::compare2Researchers() const
+void Ui::compare2Researchers() const throw(HospitalException)
 {
+	if (hospital->getSizeOfResearchers() < 2)
+		throw NotEnoughResearcherException();
 	cout << "Choose 2 Researchers for article number comparison from the list below: " << endl;
 	hospital->showResearchersName();
 	int researcher1Ind, researcher2Ind;
@@ -263,22 +312,23 @@ void Ui::compare2Researchers() const
 		}
 	}
 	else
-		cout << "Error: invalid input" << endl;
+		throw FormatException();
 }
 
-VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice, Results& res) throw(StringException,FormatException)
+VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice) throw(StringException,FormatException,SurgeonException)
 {
 	string visitPurpose = getString("Visitation Description: ");
+	if (!Utils::isValidString(visitPurpose))
+		throw StringException();
 	if (choice == CHECKUP)
 	{
 		string staffMemIncharge = getString("Medical staff member in charge: ");
 		if (!Utils::isValidString(staffMemIncharge))
 			throw StringException();
 		VisitationRecord* visit = new VisitationRecord(patient, staffMemIncharge, *arrivalDate, visitPurpose);
-		res = SUCCESS;
 		return visit;
 	}
-	else if (choice == SURGERY)
+	else // (choice == SURGERY)
 	{
 		cout << "Please provide the Employee-ID number of your surgeon from the following list: "
 		<< endl;
@@ -320,14 +370,8 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 			return nullptr;
 		}
 	}
-	else
-	{
-		//delete[]visitPurpose;
-		throw FormatException();
-		return nullptr;
-	}
 }
-Article* Ui::createArticle(Date* date) throw(StringException)
+Article* Ui::createArticle(Date* date) throw(HospitalException)
 {
 	string name = getString("Article's name: ");
 	if (!Utils::isValidString(name))
@@ -336,9 +380,11 @@ Article* Ui::createArticle(Date* date) throw(StringException)
 	return new Article(name, magazineName,*date);
 }
 
-Nurse* Ui::createNurse()
+Nurse* Ui::createNurse() throw(HospitalException)
 {
 	string name = getString("Nurse's name: ");
+	if (!Utils::isValidString(name))
+		throw StringException();
 	int yearsExprience = getInt("Years of Experience: ");
  	return new Nurse(name, yearsExprience);
 }
@@ -368,15 +414,8 @@ Patient* Ui::createPatient(string id) throw(StringException)
 	string yearOfBirth = getString("Patient's year of birth: ");
 	if(!Utils::isValidString(yearOfBirth))
 		throw StringException();
-	try
-	{
 	eGender gen = inputGender();
 	return (new Patient(name, id, gen, yearOfBirth));
-	}
-	catch (FormatException& e)
-	{
-		e.show();
-	}
 }
 
 string Ui::getString(const string prompt)
@@ -389,25 +428,27 @@ string Ui::getString(const string prompt)
 	return str;
 }
 
-enum eGender Ui::inputGender() throw (FormatException)
+enum eGender Ui::inputGender() throw (HospitalException)
 {
 	int gen;
 	enum eGender gender;
 	cout << "Patient's gender: \n\t1. Male.\n\t2. Female." << endl;
 	cin >> gen;
+	cin.ignore();
 	if (gen != 1 && gen != 2)
 		throw FormatException();
-	cin.ignore();
 	gender = (eGender)(gen - 1);
 	return gender;
 }
 
-bool Ui::checkIfItFirstTimeInHospital() const
+bool Ui::checkIfItFirstTimeInHospital() const throw(HospitalException)
 {
 	int input;
 	cout << "Is this the Patient's first visit?\n\t1. No.\n\t2. Yes." << endl;
 	cin >> input;
 	cin.ignore();
+	if (input != 1 && input != 2)
+		throw FormatException();
 	return (input == 2);
 }
 
@@ -451,13 +492,11 @@ Results Ui::addNewDepartment()
 	return res;
 }
 
-Results Ui::addNewNurse() 
+void Ui::addNewNurse() throw(HospitalException)
 {
-	Results res = SUCCESS;
 	if (hospital->isDepartmentsEmpty())
 	{
 		throw DepartmentException();
-		res = NODEPS;
 	}
 	else {
 		int depNum;
@@ -476,10 +515,8 @@ Results Ui::addNewNurse()
 		else
 		{
 			throw FormatException();
-			res = BADINPUT;
 		}
 	}
-	return res;
 }
 
 Results Ui::addNewDoctor()
@@ -552,16 +589,12 @@ Results Ui::addNewDoctor()
 	return res;
 }
 
-Results Ui::addNewVisitation()
-throw(DepartmentException,PatientException,FormatException,StringException,DateException)
+void Ui::addNewVisitation() throw(HospitalException)
 {
-	
 	if (hospital->getNumOfDepartments() == 0)
 	{
 		throw DepartmentException();
-		return NODEPS;
 	}
-	Results res = SUCCESS;
 	Department* department = nullptr;
 	string inID = getString("Patient's ID number: ");
 	if (!Utils::isValidString(inID))
@@ -572,29 +605,13 @@ throw(DepartmentException,PatientException,FormatException,StringException,DateE
 
 	if (isFirstTime) //this is the first visit in the hospital
 	{
-		if (isExists) // 1st time = Shouldn't exist
-		{
-			res = PIDEXIST;
-			return res;
-		}
-		else
-		{
-			try
-			{
-				patient = createPatient(inID);
-			}
-			catch (StringException & e)
-			{
-				e.show();
-			}
-		}
+		patient = createPatient(inID);
 	}
 	else //it is not the first visit
 	{
 		if (!isExists) // Should exist
 		{
 			throw PatientException();
-			return res;
 		}
 	}
 	int depNum;
@@ -608,7 +625,6 @@ throw(DepartmentException,PatientException,FormatException,StringException,DateE
 	{
 		delete patient;
 		throw FormatException();
-		res = BADINPUT;
 	}
 	else
 	{
@@ -616,46 +632,38 @@ throw(DepartmentException,PatientException,FormatException,StringException,DateE
 		inDep = hospital->getDepartmentByIndex(depInd);
 
 		string inDate = getString("Patient's arrival date: [DD/MM/YYYY]");
-		Date* arrivalDate=new Date(inDate);
+		Date* arrivalDate = new Date(inDate);
 		int visitChosen = getInt("Purpose of Visitation:\n\t1. Checkup.\n\t2. Surgery.\n");
 
 		bool ok = true;
+		if (visitChosen != 1 && visitChosen != 2)
+			throw FormatException();
 		if (visitChosen == SURGERY)
 		{
 			if (hospital->getNumOfSurgeons() == 0)
 			{
 				throw SurgeonException();
-				res = NOSURGINHOS;
 			}
 			else if (inDep->getNumOfSurgeons() == 0)
 			{
 				throw SurgeonException();
-				res = NOSURGINHOS;
 			}
 		}
-		try
+		VisitationRecord* newVisit = createVisit(*patient, arrivalDate, visitChosen);
+		patient->addVisitiaionRecord(newVisit);
+		// Adding Patient to relevant DB if required:
+		if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
 		{
-			VisitationRecord* newVisit = createVisit(*patient, arrivalDate, visitChosen, res);
-			patient->addVisitiaionRecord(newVisit);
-			// Adding Patient to relevant DB if required:
-			if (!patient->hasVisitedDepartment(*inDep)) // Patient hasn't visited in this department
-			{
-				inDep->addPatient(*patient);
-				patient->addDepatrtmentToPatient(*inDep);
-			}
-			if (isFirstTime)
-				hospital->addPatient(*patient);
-			cout << "Visitation added successfully." << endl;
+			inDep->addPatient(*patient);
+			patient->addDepatrtmentToPatient(*inDep);
 		}
-		catch (StringException& e)
-		{
-			e.show();
-		}
-		catch (FormatException& e)
-		{
-			e.show();
-		}
+		if (isFirstTime)
+			hospital->addPatient(*patient);
+		cout << "Visitation added successfully." << endl;
 	}
+	
+
+	
 }
 
 void Ui::addNewResearcher()
@@ -672,47 +680,25 @@ void Ui::addNewResearcher()
 	}
 }
 
-Results Ui::addArticleToResearcher() throw(ResearcherException)
+void Ui::addArticleToResearcher() throw(HospitalException)
 {
-	Results res = SUCCESS;
 	if (hospital->getSizeOfResearchers() > 0)
 	{
-		try
+		string researcherName = getString("Which researcher would you like to add an article to?");
+		bool exist = false;
+		Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
+		if (exist) //if the researcher name input is ok
 		{
-			string researcherName = getString("Which researcher would you like to add an article to?");
-			bool exist = false;
-			Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
-			if (exist) //if the researcher name input is ok
-			{
-				string strDate = getString("Publication Date: [DD/MM/YYYY]");
-				Date* date = new Date(strDate);
-				Article * article = createArticle(date);
-				hospital->addArticleToResearcher(*article, researcher);
-			}
-		}
-		catch (DateException& e)
-		{
-			e.show();
-		}
-		catch (ResearcherDoesntExistException& e)
-		{
-			e.show();
-		}
-		catch (StringException& e)
-		{
-			e.show();
-		}
-		catch (FormatException & e)
-		{
-			e.show();
+			string strDate = getString("Publication Date: [DD/MM/YYYY]");
+			Date* date = new Date(strDate);
+			Article * article = createArticle(date);
+			hospital->addArticleToResearcher(*article, researcher);
 		}
 	}
 	else
 	{
 		throw ResearcherException();
-	}
-		return res;
-	
+	}	
 }
 
 Results Ui::showPatientsInDepartment()

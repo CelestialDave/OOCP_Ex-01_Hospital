@@ -112,6 +112,24 @@ public:
 	}
 };
 
+class ResearcherDoctorException : public HospitalException
+{
+public:
+	virtual void show() const
+	{
+		cout << "Error: No Researchers that also Doctor available in the Research Institute." << endl;
+	}
+};
+
+class NotEnoughResearcherException : public HospitalException
+{
+public:
+	virtual void show() const
+	{
+		cout << "Error: There are less than 2 researchers in the Research Institute." << endl;
+	}
+};
+
 
 
 

@@ -78,10 +78,10 @@ public:
 
 
 	void showPatientInSpecificDep(const int & index) const;
-	Results showMedicalStaffMembers() const;
+	void showMedicalStaffMembers() const throw(HospitalException);
 	void showResearchers() const;
 	void showResearchersName() const;
-	Results showSurgeons() const;
+	void showSurgeons() const throw (SurgeonException);
 	void showDoctorResearchers() const;
 	void showDepartments() const;
 

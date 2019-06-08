@@ -4,7 +4,7 @@
 
 Date::Date(int inDay, int inMonth, int inYear) throw(DateException)
 {
-	if (day > MAX_DAY || month > MAX_MONTH || year > MAX_YEAR || year < MIN_YEAR)
+	if (inDay > MAX_DAY || inDay<=0 || inMonth<=0 || inMonth > MAX_MONTH || inYear > MAX_YEAR || inYear < MIN_YEAR)
 		throw DateException();
 	else
 	{
@@ -16,12 +16,13 @@ Date::Date(int inDay, int inMonth, int inYear) throw(DateException)
 
 Date::Date(string strDate) throw(FormatException)
 {
-	vector<string> temp = Utils::split(strDate, "/ .");
+	vector<string> temp = Utils::split(strDate, "/");
 	if (temp.size() == 3)
 	{
-		this->day = stoi(temp[0]);
-		this->month = stoi(temp[1]);
-		this->year = stoi(temp[2]);
+		int day = stoi(temp[0]);
+		int month = stoi(temp[1]);
+		int year = stoi(temp[2]);
+		new Date(day, month, year);
 	}
 	else
 		throw FormatException();

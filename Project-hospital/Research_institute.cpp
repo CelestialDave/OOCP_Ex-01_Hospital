@@ -110,9 +110,9 @@ void ResearchInstitute::allocationResearchersArr()
 		return;
 }
 
-void ResearchInstitute::showDoctorsResearchers() const
+void ResearchInstitute::showDoctorsResearchers() const throw (HospitalException)
 {
-	int j=1;
+	int j=0;
 	for (int i = 0; i < logSizeOfResearchers; i++)
 	{
 		ResearcherDoctor* researcherDoctor = dynamic_cast<ResearcherDoctor*>(allResearchers[i]);
@@ -133,7 +133,9 @@ void ResearchInstitute::showDoctorsResearchers() const
 			surgeonResearcher->showArticles();
 			j++;
 		}
-	}
+	} 
+	if (j == 0)
+		throw ResearcherDoctorException();
 	cout << endl;
 }
 
@@ -156,6 +158,7 @@ void ResearchInstitute::showResearchers()  const
 
 void ResearchInstitute::showResearchersName() const
 {
+
 	if (logSizeOfResearchers)
 	{
 		cout << "\nThe researchers: " << endl;
