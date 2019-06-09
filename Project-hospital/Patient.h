@@ -2,19 +2,17 @@
 #define PATIENT_H
 #include "Visitation_Record.h"
 #include "Visit_Surgery.h"
-//#include "Date.h"
 #include "ConstantsAndGenFuncs.h"
-//#include "Department.h"
 
 class Department;
 
 class Patient
 {
 private:
-	char* name;
+	string name;
 	eGender gender;
-	char* ID;
-	char*  yearOfBirth;
+	string ID;
+	string  yearOfBirth;
 	VisitationRecord** visits;
 	int logSizeOfVisits;
 	int phySizeOfVisits;
@@ -25,14 +23,13 @@ private:
 
 public:
 	// C'tor:
-	Patient(const char* inName,const char*id, enum eGender inGender, char* inYearOBirth);
+	Patient(const string inName,const string id, enum eGender inGender, string inYearOBirth) throw(StringException);
 	// Copy C'tor:
 	Patient(const Patient& other) = delete;
 	// D'tor:
 	~Patient();
 
 	// Methods:
-	//void addVistation(VisitationRecord& newVisit);
 	void addVisitiaionRecord(VisitationRecord* inVisitiaionRecord);
 	int getIndexForVisitiationInsertion(Date & date); //the index to insert Visitiation record
 	void insertVisitToArrInIndex(VisitationRecord* visitationRecord, int index);
@@ -41,14 +38,13 @@ public:
 
 	void allocDepartmentsVisitedArr();
 	void addDepatrtmentToPatient(const Department& pDepartment);
-	const char* getName()const;
+	const string getName()const;
 	int getSizeVisits() const;
 	VisitationRecord* getVisitByIndex(int index) const;
-	const char* getId()const;
+	const string getId()const;
 	void showGender() const;
-	const char * getYearOfBirth() const;
+	const string getYearOfBirth() const;
 	void showVisits() const;
-	//void showDepatmentsVisited() const;
 
 
 	bool hasVisitedDepartment(Department& pDepartment) const;

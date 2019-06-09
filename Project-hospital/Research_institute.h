@@ -15,7 +15,6 @@ private:
 	int phySizeOfResearchers;
 
 public:
-	//ResearchInstitute() = default;
 	// C'tor:
 	ResearchInstitute();
 	// Copy C'tor:
@@ -23,19 +22,19 @@ public:
 	// D'tor:
 	~ResearchInstitute();
 
-	void showDoctorsResearchers() const;
+	void showDoctorsResearchers() const throw(HospitalException);
 	void showResearchers()   const;
 	void showResearchersName() const;
 
 
 	void addArticeToResearcher(Article& art, Researcher* researcher);
 	const int getSize() const;
-	Researcher* getResearcherByName(const char*name,bool&exist);
-	Researcher* binSearchResearcherByName(Researcher** arr, int size, const char* name,bool&exist);
+	Researcher* getResearcherByName(const string name,bool&exist);
+	Researcher* binSearchResearcherByName(Researcher** arr, int size, const string name,bool&exist) throw(ResearcherDoesntExistException);
 	Researcher* getResearcherByIndex(int index) const;
 	void addResearcher(Researcher* inResearcher);
-	int binSearchResearcherByID(const char*name);
-	int getIndexForResearcherInsertion(const char*name);
+	int binSearchResearcherByID(const string name);
+	int getIndexForResearcherInsertion(const string name);
 	void pushResearchersFwdFromIndex(int index);
 	void insertResearcherToArrInIndex(Researcher* newResearcher, int index);
 	void allocationResearchersArr();

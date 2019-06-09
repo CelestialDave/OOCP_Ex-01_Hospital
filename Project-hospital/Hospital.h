@@ -1,5 +1,7 @@
 #ifndef HOSPITAL_H
 #define HOSPITAL_H
+
+#include <typeinfo.h>
 #include "Department.h"
 #include "Patient.h"
 #include "Research_institute.h"
@@ -15,6 +17,7 @@ private:
 	StaffMember** staffArr;
 	int logSizeOfStaff;
 	int phySizeOfStaff;
+	int numOfSurgeons;
 	
 	Patient** allPatients;
 	int logSizeOfPatients;
@@ -46,10 +49,11 @@ public:
 	bool isDepartmentsEmpty() const;
 
 	int getNumOfDepartments();
+	int getNumOfSurgeons();
 
 	void addDepartment(Department& inDepartment);
-	int binSearchDepartmentByName(const char*name);
-	int getIndexForDepartmentInsertion(const char*name);
+	int binSearchDepartmentByName(const string name) throw(StringException);
+	int getIndexForDepartmentInsertion(const string name);
 	void pushDepartmentsFwdFromIndex(int index);
 	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
 
@@ -60,25 +64,29 @@ public:
 	int binSearchStaffMemberByID(int inID);
 
 	void addPatient(Patient& inPatient);
-	Patient* getPatientByID(char* inID, bool* isFound);
-	int binSearchPatientByID(char* inID);
-	int getIndexForPatientInsertion(const char* id);
+	Patient* getPatientByID(string inID, bool* isFound);
+	int binSearchPatientByID(string inID);
+	int getIndexForPatientInsertion(const string id);
 	void insertPatientToArrInIndex(Patient& newPatient, int index);
 	void pushPatientsFwdFromIndex(int index);
 
+	StaffMember* getStaffMemberByIndex(int index) const;
 	Researcher* getResearcherByIndex(int index) const;
-	Researcher* findResearcherAccordingToName(const char*name,bool&exist);
+	Researcher* findResearcherAccordingToName(const string name,bool&exist);
 	void addArticleToResearcher(Article & art, Researcher*researcher);
 	const int getSizeOfResearchers() const;
 
+
 	void showPatientInSpecificDep(const int & index) const;
-	Results showMedicalStaffMembers() const;
+	void showMedicalStaffMembers() const throw(HospitalException);
 	void showResearchers() const;
 	void showResearchersName() const;
+	void showSurgeons() const throw (SurgeonException);
 	void showDoctorResearchers() const;
 	void showDepartments() const;
 
-	int findTheIndexOfDepNameInDepArr(char*str) const;
+
+	int findTheIndexOfDepNameInDepArr(string str) const;
 };
 
 #endif

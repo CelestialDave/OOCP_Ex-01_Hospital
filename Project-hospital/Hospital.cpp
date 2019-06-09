@@ -9,7 +9,7 @@ Hospital::Hospital()
 	: allDepartments(nullptr), staffArr(nullptr), allPatients(nullptr)
 {
 	logSizeOfDepartments = phySizeOfDepartments = logSizeOfStaff = 
-		phySizeOfStaff = logSizeOfPatients = phySizeOfPatients = 0;
+		phySizeOfStaff = logSizeOfPatients = phySizeOfPatients = numOfSurgeons = 0;
 }
 
 
@@ -86,10 +86,12 @@ void Hospital::addStaffMember(StaffMember* inStaffMember)
 	if (logSizeOfStaff == 0)
 		index = 0;
 	else
-		//find the index to push the staff member
+		// Find the index to push the staff member, maintainning asortment by EID
 		index = getIndexForStaffMemberInsertion(inStaffMember->getEmployeeIDNumber());
 
 	inserStaffMemberToArrInIndex(inStaffMember, index);
+	Surgeon* tempSurgeon = dynamic_cast<Surgeon*>(inStaffMember);
+	if (tempSurgeon) numOfSurgeons++;
 }
 
 void Hospital::inserStaffMemberToArrInIndex(StaffMember* newStaffMember, int index)
@@ -159,36 +161,45 @@ void Hospital::addDepartment(Department& inDepartment)
 	insertDepartmentToArrInIndex(inDepartment, index);
 }
 
-int Hospital::binSearchDepartmentByName(const char*name)
+int Hospital::binSearchDepartmentByName(const string name) throw(StringException)
 {
+	if (!Utils::isValidString(name))
+		throw StringException();
 	int left = 0;
 	int right = logSizeOfDepartments - 1;
 	while (left <= right)
 	{
 		int mid = left + (right - left) / 2;
 
-		int res = strcmp(name, allDepartments[mid]->getName());
-		if (res == 0) // found the index
+		////int res = strcmp(name, allDepartments[mid]->getName());
+		////if (res == 0) // found the index
+		if (name == allDepartments[mid]->getName()) // found the index
 			return mid;
 
-		if (res > 0) // go right
+		////if (res > 0) // go right
+		if (name > allDepartments[mid]->getName()) // go right
 			left = mid + 1;
 
-		else // (res < 0) => go left
+		else // (name < allDepartments[mid]->getName()) => go left
 			right = mid - 1;
 	}
 
 	// Not found:
 	return -1;
 }
+StaffMember* Hospital::getStaffMemberByIndex(int index) const
+{
+	return staffArr[index];
+}
 
-int Hospital::getIndexForDepartmentInsertion(const char*name)
+int Hospital::getIndexForDepartmentInsertion(const string name)
 //find the index to insert the department to the right place according to alphabet
 {
 	for (int i = 0; i < logSizeOfDepartments; i++)
 	{
-		int res = strcmp(allDepartments[i]->getName(),name);
-		if(res==1)
+		////int res = strcmp(allDepartments[i]->getName(),name);
+		bool res = (allDepartments[i]->getName() > name);
+		if(res)
 			return i;
 	}
 	return logSizeOfDepartments; // to be inserted last
@@ -253,28 +264,44 @@ void Hospital::showPatientInSpecificDep(const int &index) const
 	allDepartments[index]->showPatients();
 }
 
-Results Hospital::showMedicalStaffMembers() const
+void Hospital::showMedicalStaffMembers() const throw(HospitalException)
 {
-	Results res = SUCCESS;
+	int j = 0;
 	if (logSizeOfStaff)
 	{
 		cout << "Staff Members: " << endl;
 		for (int i = 0; i < logSizeOfStaff; i++)
 		{
-			/* cout << "\t" << i + 1 << ". Employee ID Number: " << allDoctors[i]->getEmployeeIDNumber()<< endl;
-			cout << "\t\t" << "Name:" << allDoctors[i]->getName() << endl;
-			cout << "Employee ID number is: " << allDoctors[i]->getEmployeeIDNumber() << endl;
-			cout<< "The specialty's doctor is: " << allDoctors[i]->getSpciality() << endl;
-			*/
-
-			cout << "\n\t" << i + 1 << ". " << *(staffArr[i]) << "\n\n";
-			//printStaffMember(*(staffArr[i]));
-			//cout << endl;
+			if (strcmp(typeid(*(staffArr[i])).name() + 6, typeid(Researcher).name() + 6) != 0)
+			{	//print if staff member is not only Researcher
+				cout << "\n\t" << j + 1 << ". " << *(staffArr[i]) << "\n\n";
+				j++;
+			}
 		}
 	}
-	else
-		res = NOSTAFF;
-	return res;
+	if (j == 0)
+		throw StaffException();
+}
+
+void Hospital::showSurgeons() const throw(SurgeonException)
+{
+	int j = 1;
+	if (numOfSurgeons)
+	{
+		for (int i = 0; i < logSizeOfStaff; i++)
+		{
+			Surgeon*surgeon = dynamic_cast<Surgeon*>(staffArr[i]);
+			if (surgeon)
+			{
+				cout << "\t" << j << ". " << *(staffArr[i]) << endl;
+				j++;
+			}
+		}
+	}
+	if (j == 1)
+	{
+		throw SurgeonException();
+	}
 }
 
 void Hospital::showResearchersName() const
@@ -299,50 +326,6 @@ void Hospital::showDepartments() const
 	}
 }
 
-
-//bool Hospital::getDepartmentByName(char* depName, Department* resDepartment)
-////find if the department is exist and return by pointer the address
-//{
-//	return binDepartmentByName(allDepartments, logSizeOfDepartments, depName, resDepartment);
-//}
-
-//bool Hospital::binDepartmentByName(Department** arr, int size, char* depName, Department* resDep)
-////find if department exist and return by pointer the adress
-//{
-//	Department* midDep = arr[size / 2];
-//	int res = strcmp(depName, midDep->getName());
-//	if (size == 1)
-//	{
-//		if (res == 0) {
-//			resDep = midDep;
-//			return true;
-//		}
-//		else {
-//			return false;
-//		}
-//	}
-//	else 
-//	{
-//		int leftSize = size / 2;
-//		int rightSize = size - leftSize - 1;
-//		if (res == 0)
-//		{
-//			resDep = midDep;
-//			return true;
-//		}
-//		else if (res < 0)
-//			return binDepartmentByName(arr, leftSize, depName, resDep);
-//		else if (res > 0)
-//			return binDepartmentByName(arr+ leftSize+1,rightSize, depName, resDep);
-//	}
-//}
-
-
-//const char * Hospital::getDepartmentNameByIndex(int ind)
-//{
-//	return allDepartments[ind]->getName();
-//}
-
 Department* Hospital::getDepartmentByIndex(int ind)
 {
 		return allDepartments[ind];
@@ -353,7 +336,12 @@ int Hospital::getNumOfDepartments()
 	return logSizeOfDepartments;
 }
 
-Patient* Hospital::getPatientByID(char* inID, bool* isFound)
+int Hospital::getNumOfSurgeons()
+{
+	return this->numOfSurgeons;
+}
+
+Patient* Hospital::getPatientByID(string inID, bool* isFound)
 //if patient exist return his address
 {
 	int index;
@@ -379,7 +367,7 @@ Patient* Hospital::getPatientByID(char* inID, bool* isFound)
 }
 
 
-int Hospital::binSearchPatientByID(char* inID)
+int Hospital::binSearchPatientByID(string inID)
 //find the index of patient according to his ID,else not found return -1
 {
 	int left = 0;
@@ -388,7 +376,7 @@ int Hospital::binSearchPatientByID(char* inID)
 	{
 		int mid = left + (right - left) / 2;
 
-		int res = (atoi(inID) - atoi(allPatients[mid]->getId()));
+		int res = (stoi(inID) - stoi(allPatients[mid]->getId()));
 		if (res == 0) // found the index
 			return mid;
 
@@ -404,13 +392,13 @@ int Hospital::binSearchPatientByID(char* inID)
 }
 
 
-int Hospital::getIndexForPatientInsertion(const char* id) 
+int Hospital::getIndexForPatientInsertion(const string id) 
 //find the right index to insert patient according to the ID number
 {
 	bool isGreater = false;
 	for (int i = 0; i < logSizeOfPatients; i++)
 	{
-		isGreater = (atoi(allPatients[i]->getId()) > atoi(id));
+		isGreater = (stoi(allPatients[i]->getId()) > stoi(id));
 		if (isGreater) // Found the member to be on the right
 		{
 			return i;
@@ -478,11 +466,12 @@ bool Hospital::isDepartmentsEmpty() const
 	return (logSizeOfDepartments == 0);
 }
 
-int Hospital::findTheIndexOfDepNameInDepArr(char*str) const
+int Hospital::findTheIndexOfDepNameInDepArr(string str) const
 {
 	for (int i = 0; i < logSizeOfDepartments; i++)
 	{
-		if(strcmp(allDepartments[i]->getName(),str)==0)
+		////if(strcmp(allDepartments[i]->getName(),str)==0)
+		if (allDepartments[i]->getName() == str)
 			return i;
 	}
 	return -1;
@@ -498,7 +487,7 @@ Researcher* Hospital::getResearcherByIndex(int index) const
 	return researchInst.getResearcherByIndex(index);
 }
 
-Researcher* Hospital::findResearcherAccordingToName(const char*name, bool&exist)
+Researcher* Hospital::findResearcherAccordingToName(const string name, bool&exist)
 {
 	return researchInst.getResearcherByName(name,exist);
 }

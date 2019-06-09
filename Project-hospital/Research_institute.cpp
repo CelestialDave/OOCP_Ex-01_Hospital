@@ -12,7 +12,12 @@ ResearchInstitute::ResearchInstitute()
 ResearchInstitute::~ResearchInstitute()
 {
 	for (int i = 0; i < logSizeOfResearchers; i++)
-		delete allResearchers[i];
+	{
+		// Vaidate current Researcher obj is purely a researcher;
+		//	i.e. The rest will be released from Hospital::StaffMember*[] by ~Hospital()
+		if ((typeid(allResearchers[i]).name() + 6, "Researcher") == 0)
+			delete allResearchers[i];
+	}
 	delete[] allResearchers;
 }
 
@@ -33,7 +38,7 @@ void ResearchInstitute::addResearcher(Researcher* inResearcher)
 	insertResearcherToArrInIndex(inResearcher, index);
 }
 
-int ResearchInstitute::binSearchResearcherByID(const char*name)
+int ResearchInstitute::binSearchResearcherByID(const string name)
 {
 	int left = 0;
 	int right = logSizeOfResearchers - 1;
@@ -41,7 +46,7 @@ int ResearchInstitute::binSearchResearcherByID(const char*name)
 	{
 		int mid = left + (right - left) / 2;
 
-		int res = strcmp(name, allResearchers[mid]->getName());
+		int res = name.compare( allResearchers[mid]->getName());
 		if (res == 0) // found the index
 			return mid;
 
@@ -56,11 +61,11 @@ int ResearchInstitute::binSearchResearcherByID(const char*name)
 	return -1;
 }
 
-int ResearchInstitute::getIndexForResearcherInsertion(const char*name)
+int ResearchInstitute::getIndexForResearcherInsertion(const string name)
 {
 	for (int i = 0; i < logSizeOfResearchers; i++)
 	{
-		int res = strcmp(allResearchers[i]->getName(), name);
+		int res = allResearchers[i]->getName().compare(name);
 		if (res == 1)
 			return i;
 	}
@@ -105,28 +110,32 @@ void ResearchInstitute::allocationResearchersArr()
 		return;
 }
 
-void ResearchInstitute::showDoctorsResearchers() const
+void ResearchInstitute::showDoctorsResearchers() const throw (HospitalException)
 {
-	int j=1;
+	int j=0;
 	for (int i = 0; i < logSizeOfResearchers; i++)
 	{
 		ResearcherDoctor* researcherDoctor = dynamic_cast<ResearcherDoctor*>(allResearchers[i]);
 		SurgeonResearcher* surgeonResearcher = dynamic_cast<SurgeonResearcher*>(allResearchers[i]);
 		if (researcherDoctor) 
 		{
-			cout << "\t" <<j<< " ,";
-			cout<< researcherDoctor->getName() << endl;
+			cout << "\t" <<j<< "."<<" Employee ID Number: "<<
+			researcherDoctor->getEmployeeIDNumber()<<"\n\tName: "<<
+			researcherDoctor->getName() << "\n\t";
 			researcherDoctor->showArticles();
 			j++;
 		}
 		else if(surgeonResearcher)
 		{
-			cout << "\t" <<j<< " ,";
-			cout << surgeonResearcher->getName() << endl;
+			cout << "\t" <<j<< "." << " Employee ID Number: " <<
+			surgeonResearcher->getEmployeeIDNumber() <<"\n\t\t"<<"Name: "<<
+			surgeonResearcher->getName() << "\n\t";
 			surgeonResearcher->showArticles();
 			j++;
 		}
-	}
+	} 
+	if (j == 0)
+		throw ResearcherDoctorException();
 	cout << endl;
 }
 
@@ -134,11 +143,12 @@ void ResearchInstitute::showResearchers()  const
 {
 	if (logSizeOfResearchers)
 	{
-		cout << "\nThe researchers: " << endl;
+		cout << "\nList of Researchers: " << endl;
 		for (int i = 0; i < logSizeOfResearchers; i++)
 		{
-			cout << "\t" << i + 1 << " ,";
-			cout << allResearchers[i]->getName() << endl;
+			cout << "\n\t" << i + 1 << ". " << "Employee ID Number: "<<
+			allResearchers[i]->getEmployeeIDNumber()<< "\n\tName: "<<
+			allResearchers[i]->getName() << endl;
 			allResearchers[i]->showArticles();
 		}
 	}
@@ -148,12 +158,13 @@ void ResearchInstitute::showResearchers()  const
 
 void ResearchInstitute::showResearchersName() const
 {
+
 	if (logSizeOfResearchers)
 	{
 		cout << "\nThe researchers: " << endl;
 		for (int i = 0; i < logSizeOfResearchers; i++)
 		{
-			cout << "\t" << i + 1 << " ,";
+			cout << "\t" << i + 1 << " .";
 			cout << allResearchers[i]->getName() << endl;
 		}
 	}
@@ -161,16 +172,16 @@ void ResearchInstitute::showResearchersName() const
 		cout << "No Researchers available in Research Institute." << endl;
 }
 
-Researcher* ResearchInstitute::getResearcherByName(const char*name, bool &exist)
+Researcher* ResearchInstitute::getResearcherByName(const string name, bool &exist)
 {
 	return binSearchResearcherByName(allResearchers, logSizeOfResearchers, name, exist);
 }
 
-Researcher*  ResearchInstitute::binSearchResearcherByName(Researcher** arr,int size,const char* name,
-	bool &exist)
+Researcher*  ResearchInstitute::binSearchResearcherByName(Researcher** arr,int size,const string name,
+	bool &exist) throw(ResearcherDoesntExistException)
 {
 	Researcher* midReasercher = arr[size / 2];
-	int res = strcmp(name, midReasercher->getName());
+	int res = name.compare(midReasercher->getName());
 	if (size == 1)
 	{
 		if (res == 0) 
@@ -180,6 +191,7 @@ Researcher*  ResearchInstitute::binSearchResearcherByName(Researcher** arr,int s
 		}
 		else
 		{
+			throw ResearcherDoesntExistException();
 			return nullptr;
 		}
 	}

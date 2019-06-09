@@ -1,6 +1,12 @@
 #ifndef DATE_H
 #define DATE_H
 
+#include "ConstantsAndGenFuncs.h"
+#include "hospitalException.h"
+#include <vector>
+
+
+
 class Date
 {
 private:
@@ -11,13 +17,18 @@ private:
 public:
 	//C'tor
 	Date()=default;
-	Date(int inDay, int inMonth, int inYear);
+	Date(int inDay, int inMonth, int inYear) throw(HospitalException);
+	Date(string strDate) throw(FormatException);
 	//copy C'tor
 	//Date(const Date &other);     ***
-	const void showDate() const;
+
 	int getYear() const;
 	int getMonth() const;
 	int getDay() const;
+	friend ostream& operator<<(ostream& os, const Date& date);
+	//vector<string> split(string s, string delimiter);
+	//bool convertStrDateToDateObj(string strDate, Date** resDate) throw(FormatException);
+
 
 };
 #endif

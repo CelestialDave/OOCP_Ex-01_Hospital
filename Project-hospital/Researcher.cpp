@@ -1,8 +1,8 @@
 #include "researcher.h"
 
 
-Researcher::Researcher(const char inName[MAX_NAME],int employeeIDNumber) 
-	: StaffMember(inName, employeeIDNumber)
+Researcher::Researcher(const string inName) 
+	: StaffMember(inName)
 {
 	articleStock = nullptr;
 	logSizeOfArticles = 0;
@@ -14,8 +14,6 @@ Researcher::Researcher(const Researcher& other) :
 {
 	if (this != &other)
 	{
-		/*delete[]name;
-		this->name = strdup(other.name);*/
 		int i;
 		for (i = 0; i < logSizeOfArticles; i++)
 			delete articleStock[i];
@@ -30,7 +28,6 @@ Researcher::Researcher(const Researcher& other) :
 
 Researcher::~Researcher()
 {
-	//delete[] name;
 	for (int i = 0; i < logSizeOfArticles; i++)
 		delete articleStock[i];
 	delete[] articleStock;
@@ -65,26 +62,18 @@ void Researcher:: allocationArticlesArr()
 		return;
 }
 
-//const char* Researcher::getName() const
-//{
-//	return name;
-//}
-
 void Researcher::showArticles() const
 {
+	cout << "\tArticles: ";
 	if (logSizeOfArticles)
 	{
 		for (int i = 0; i < logSizeOfArticles; i++)
 		{
-			cout << "Article name: " << articleStock[i]->getName() << endl;
-			cout << "Magazine in which was published: " << articleStock[i]->getMagazineName() << endl;;
-			cout << "Publication date: ";
-			articleStock[i]->showDate();
-			cout << endl;
+			cout << "\n\t" << i + 1 << ". " << *(articleStock[i]);
 		}
 	}
 	else
-		cout << "There is no article for this researcher" << endl;
+		cout << "Not Available" << endl;
 }
 
 bool Researcher::operator>(const Researcher& other) const
@@ -98,11 +87,6 @@ void Researcher::print(ostream& os) const
 	os << "\tRole: Researcher." << "\n\tResearchers Published: " << this->logSizeOfArticles;
 }
 
-ostream& operator<<(ostream& os, const Researcher& researcher)
-{
-	researcher.print(os);
-	return os;
-}
 
 
 

@@ -3,7 +3,7 @@
 
 #include "Date.h"
 #include "ConstantsAndGenFuncs.h"
-//#include "Patient.h"
+
 class Patient;
 
 enum eGender { Male, Female};
@@ -12,22 +12,21 @@ class VisitationRecord
 {
 protected:
 	Patient* patient;
-	char* staffMemInChargeName;
+	string staffMemInChargeName;
 	Date arrivalDate;
-	char* visitationPurpose;
+	string visitationPurpose;
 
 public:
 	// C'tor:
-	VisitationRecord(Patient& inPatient,char* inStaffMemInChargeName, Date& inArrivalDate, char* inVisitPurpose);
+	VisitationRecord(Patient& inPatient,string inStaffMemInChargeName, Date& inArrivalDate, string inVisitPurpose);
 	// Copy C'tor:
 	VisitationRecord(const VisitationRecord& other);
 	// D'tor:
 	virtual ~VisitationRecord();
 
-	const char* getstaffMemInChargeName() const;
-	void showDate() const;
+	const string getstaffMemInChargeName() const;
 	Date getArrivalDate() const;
-	void  printVisitationPurpose() const;
+	const string getVisitationDescription() const;
 };
 
 #endif

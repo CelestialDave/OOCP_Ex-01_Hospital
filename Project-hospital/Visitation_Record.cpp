@@ -1,33 +1,33 @@
 #include "Visitation_Record.h"
 
-VisitationRecord::VisitationRecord(Patient& inPatient, char* inStaffMemInChargeName,
-	Date& inArrivalDate, char* inVisitPurpose)
+VisitationRecord::VisitationRecord(Patient& inPatient, string inStaffMemInChargeName,
+	Date& inArrivalDate, string inVisitPurpose)
 {
 	patient = &inPatient;
-	staffMemInChargeName = new char[strlen(inStaffMemInChargeName) + 1];
-	strcpy(staffMemInChargeName, inStaffMemInChargeName);
+	staffMemInChargeName = inStaffMemInChargeName;
+	////strcpy(staffMemInChargeName, inStaffMemInChargeName);
 	arrivalDate = inArrivalDate;
-	visitationPurpose = new char[strlen(inVisitPurpose) + 1];
-	strcpy(visitationPurpose, inVisitPurpose);
+	visitationPurpose = inVisitPurpose;
+	////strcpy(visitationPurpose, inVisitPurpose);
 }
 
 VisitationRecord::VisitationRecord(const VisitationRecord& other)
 {
 	patient = other.patient;
-	staffMemInChargeName = new char[strlen(other.staffMemInChargeName) + 1];
-	strcpy(staffMemInChargeName, other.staffMemInChargeName);	
+	staffMemInChargeName = other.staffMemInChargeName;
+	////strcpy(staffMemInChargeName, other.staffMemInChargeName);	
 	arrivalDate = other.arrivalDate;
-	visitationPurpose = new char[strlen(other.visitationPurpose) + 1];
-	strcpy(visitationPurpose, other.visitationPurpose);
+	visitationPurpose = other.visitationPurpose;
+	////strcpy(visitationPurpose, other.visitationPurpose);
 }
 
 VisitationRecord::~VisitationRecord()
 {
-	delete[] staffMemInChargeName;
-	delete[] visitationPurpose;
+	////delete[] staffMemInChargeName;
+	////delete[] visitationPurpose;
 }
 
-const char* VisitationRecord::getstaffMemInChargeName() const
+const string VisitationRecord::getstaffMemInChargeName() const
 {
 	return staffMemInChargeName;
 }
@@ -37,12 +37,7 @@ Date VisitationRecord::getArrivalDate() const
 	return arrivalDate;
 }
 
-void VisitationRecord::showDate() const
+const string VisitationRecord::getVisitationDescription() const
 {
-	arrivalDate.showDate();
+	return visitationPurpose;
 }
-
-void VisitationRecord:: printVisitationPurpose() const
-{
-	cout << visitationPurpose;
-};

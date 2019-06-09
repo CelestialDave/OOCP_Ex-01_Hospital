@@ -1,15 +1,16 @@
 #include "Patient.h"
 #include "Department.h"
+#include "Utils.h"
 
-Patient::Patient(const char* inName,const char* id ,enum eGender inGender, char* inDateOBirth)
+Patient::Patient(const string inName,const string id ,enum eGender inGender, string inDateOBirth)
+throw(HospitalException)
 {
-	name = new char[strlen(inName) + 1];
-	strcpy(name, inName);
-	ID = new char[strlen(id) + 1];
-	strcpy(ID, id);
+	if (!Utils::isValidString(inName) || !Utils::isValidString(id) || !Utils::isValidString(inDateOBirth))
+		throw StringException();
+	name = inName;
+	ID = id;
 	gender = inGender;
-	yearOfBirth = new char[strlen(inDateOBirth) + 1];
-	strcpy(yearOfBirth, inDateOBirth);
+	yearOfBirth = inDateOBirth;
 	visits = nullptr;
 	logSizeOfVisits = 0;
 	phySizeOfVisits = 0;
@@ -20,9 +21,9 @@ Patient::Patient(const char* inName,const char* id ,enum eGender inGender, char*
 
 Patient::~Patient()
 {
-	delete[] name;
-	delete[] ID;
-	delete[] yearOfBirth;
+	////delete[] name;
+	////delete[] ID;
+	//delete[] yearOfBirth;
 	for (int i = 0; i < logSizeOfVisits; i++)
 		delete visits[i];
 	delete[] visits;
@@ -143,12 +144,12 @@ void Patient::allocDepartmentsVisitedArr()
 		return;
 }
 
-const char* Patient::getName()const
+const string Patient::getName()const
 {
 	return name;
 }
 
-const char*Patient:: getId()const
+const string Patient:: getId()const
 {
 	return ID;
 }
@@ -159,7 +160,7 @@ void Patient::showGender()const
 	else if(gender==Female)
 		cout << "Female";
 }
-const char* Patient::getYearOfBirth() const
+const string Patient::getYearOfBirth() const
 {
 	return yearOfBirth;
 }
@@ -168,34 +169,24 @@ void Patient:: showVisits()const
 	cout << "Patient's Visitations:" << endl;
 	for (int i = 0; i < logSizeOfVisits; i++)
 	{ 
-		cout << "\n\t" << i + 1 << ". ";
-		visits[i]->showDate();
-		cout << ": " << endl;
-		cout << "\tMedical staff member in charge: " << visits[i]->getstaffMemInChargeName() << endl;
-		cout << "\tVisitation purpose: ";
-		visits[i]->printVisitationPurpose();
-		cout << endl;
 		VisitSurgery*temp = dynamic_cast<VisitSurgery*>(visits[i]);
+		cout << "\n\t" << i + 1 << ". Arrival Date: " << visits[i]->getArrivalDate() << ": " << endl;
+		cout << "\tVisitation Purpose: " << ((temp) ? "Surgery." : "Checkup.") << endl;
+		cout << "\tMedical staff member in charge: " << visits[i]->getstaffMemInChargeName() << endl;
+		cout << "\tVisitation Description: " << visits[i]->getVisitationDescription() << endl;
+
 		if (temp)
 		{
-			cout << "\tThe surgery room number is: " << temp->getSurgeryRoomNum() << endl;
+			cout << "\tSurgery Room: " << temp->getSurgeryRoomNum() << endl;
 			if (temp->getFasting())
-				cout << "\tThe patient is in fasting" << endl;
+				cout << "\tPatient has been fasting." << endl;
 			else
-				cout << "\tThe patient is not in fasting" << endl;
+				cout << "\tPatient has not been fasting." << endl;
 
 		}
-		cout << endl;
 	}
 	cout << endl;
 }
-//
-//void Patient::showDepatmentsVisited() const
-//{
-//	cout << "\nDepartments in which patient has visited in the past: " << endl;
-//		for (int i = 0; i < logsizeOfDepartments; i++)
-//			cout << "\t" << departmentsVisited[i]->getName() << endl;
-//}
 
 
 bool Patient::hasVisitedDepartment(Department& pDepartment) const

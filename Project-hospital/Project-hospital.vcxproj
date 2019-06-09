@@ -110,12 +110,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Array.h" />
     <ClInclude Include="article.h" />
     <ClInclude Include="ConstantsAndGenFuncs.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Department.h" />
     <ClInclude Include="doctor.h" />
     <ClInclude Include="Hospital.h" />
+    <ClInclude Include="hospitalException.h" />
     <ClInclude Include="nurse.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="researcher.h" />

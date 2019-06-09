@@ -1,10 +1,15 @@
 #include "StaffMember.h"
+#include "Utils.h"
+
 
 // C'tor:
-StaffMember::StaffMember(const char* name, int employeeIDNumber)
+StaffMember::StaffMember(const string name) throw(StringException) :employeeIDNumber(counterEmployeeID++)
 {
-	this->name = strdup(name);
-	this->employeeIDNumber = employeeIDNumber;
+	if (!Utils::isValidString(name))
+		throw StringException();
+	else
+		this->name = name;
+	//this->employeeIDNumber = employeeIDNumber;
 }
 
 // Copy C'tor:
@@ -12,8 +17,7 @@ StaffMember::StaffMember(const StaffMember& other)
 {
 	if (this->employeeIDNumber != other.employeeIDNumber)
 	{
-		delete[] name;
-		this->name = strdup(other.name);
+		this->name = other.name;
 		this->employeeIDNumber = employeeIDNumber;
 	}
 }
@@ -21,10 +25,9 @@ StaffMember::StaffMember(const StaffMember& other)
 // D'tor:
 StaffMember::~StaffMember()
 {
-	delete[] name;
 }
 
-const char* StaffMember::getName()const
+const string StaffMember::getName()const
 {
 	return this->name;
 }
@@ -44,3 +47,5 @@ ostream& operator<<(ostream& os, const StaffMember& staffmember)
 	staffmember.print(os);
 	return os;
 }
+
+int StaffMember::counterEmployeeID = 1;
