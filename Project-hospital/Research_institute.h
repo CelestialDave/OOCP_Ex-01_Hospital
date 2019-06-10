@@ -6,7 +6,6 @@
 #include "SurgeonResearher.h"
 #include "ResearcherDoctor.h"
 #include "ConstantsAndGenFuncs.h"
-
 class ResearchInstitute
 {
 private:

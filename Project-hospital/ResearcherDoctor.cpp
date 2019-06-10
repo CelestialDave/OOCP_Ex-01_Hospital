@@ -11,5 +11,5 @@ void ResearcherDoctor::print(ostream& os) const
 {
 	StaffMember::print(os);
 	os << "\tRole: Doctor-Researcher." << "\n\tSpecialty: " << this->specialty
-		<< "\n\tNumber of Articles published: " << this->logSizeOfArticles;
+		<< "\n\tNumber of Articles published: " << this->articleStock.getlogicSize();
 }

@@ -2,6 +2,7 @@
 #define __ARRAY_H
 #include <iostream>
 using namespace std;
+#include <string>
 
 
 template <class T>
@@ -9,43 +10,60 @@ class Array
 {
 private:
 	int physicSize, logicSize;
-	char delimeter;
+	string delimeter;
 	T** arr;
 public:
 
-Array(char delimiter);
-void alloc();
-void addToArray(T& toAdd);
-~Array();
 
-};
+Array operator=(const Array& other)
+{
+	int i;
+	for (i = 0; i<this->logicSize; i++)
+		delete arr[i];
+	delete[]arr;
+	this->logicSize = other.logicSize;
+	this->physicSize = other.physicSize;
 
-template<class T>
-Array::~Array()
+	for (i = 0; i < logicSize; i++)
+	{
+		this->arr[i] = other.arr[i];
+	}
+	delete[]other.arr;
+	return *this;
+}
+
+T* operator[](int index) const
+{
+	return arr[index];
+}
+
+int getlogicSize() const
+{
+	return logicSize;
+}
+
+~Array()
 {
 	for (int i = 0; i < logicSize; i++)
 		delete arr[i];
 	delete[]arr;
 }
 
-template<class T>
-void Array::addToArray(T& toAdd)
+void addToArray(T& toAdd)
 {
 	alloc();//to reallocte the array to the new size
-	arr[logicSize] = toAdd;
+	arr[logicSize] = &toAdd;
 	logicSize++;
 }
 
-template<class T>
-Array::Array(char delimiter) :arr(nullptr)
+Array(string delimiter=" ") :arr(nullptr)
 {
 	physicSize = 0;
 	logicSize = 0;
 	this->delimeter = delimiter;
 }
 
-template<class T>
-void Array::alloc()
+void alloc()
 {
 	if (physicSize == 0) // If this is the 1st Department
 	{
@@ -69,5 +87,7 @@ void Array::alloc()
 		return;
 }
 
+
+};
 
 #endif // !__ARRAY_H

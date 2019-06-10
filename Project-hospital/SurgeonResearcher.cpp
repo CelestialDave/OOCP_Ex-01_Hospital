@@ -9,6 +9,6 @@ void SurgeonResearcher::print(ostream& os) const
 {
 	StaffMember::print(os);
 	os << "\tRole: Surgeon-Researcher" << "\n\tSpecialty: " << this->specialty
-		<< "\n\tNumber of Surgeries Performed: " << this->numSurgeries << "\tArticles Published: " << this->logSizeOfArticles;
+		<< "\n\tNumber of Surgeries Performed: " << this->numSurgeries << "\tArticles Published: " << this->articleStock.getlogicSize();
 }
 

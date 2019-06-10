@@ -180,6 +180,11 @@ Researcher* ResearchInstitute::getResearcherByName(const string name, bool &exis
 Researcher*  ResearchInstitute::binSearchResearcherByName(Researcher** arr,int size,const string name,
 	bool &exist) throw(ResearcherDoesntExistException)
 {
+	if (size == 0)
+	{
+		throw ResearcherDoesntExistException();
+		return nullptr;
+	}
 	Researcher* midReasercher = arr[size / 2];
 	int res = name.compare(midReasercher->getName());
 	if (size == 1)
