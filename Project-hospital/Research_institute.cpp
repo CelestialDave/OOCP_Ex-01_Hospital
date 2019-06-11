@@ -229,8 +229,9 @@ void ResearchInstitute::showResearchersName() const
 		int i = 0;
 		for (auto researcher : allResearchers)
 		{
-			cout << "\t" << ++i << " .";
-			cout << researcher->getName() << endl;
+			////cout << "\t" << ++i << " .";
+			////cout << researcher->getName() << endl;
+			cout << "\t" << ++i << " ." << *(researcher) << endl;
 		}
 	}
 	else

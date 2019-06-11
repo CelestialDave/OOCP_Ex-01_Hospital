@@ -289,6 +289,8 @@ void Ui::compare2Researchers() const throw(HospitalException)
 	hospital->showResearchersName();
 	int researcher1Ind, researcher2Ind;
 	cin >> researcher1Ind >> researcher2Ind;
+	/////
+	cin.ignore();
 	researcher1Ind--;
 	researcher2Ind--;
 	bool ok1 = Utils::ifIndexInRange(researcher1Ind, hospital->getSizeOfResearchers());
@@ -333,6 +335,8 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		hospital->showSurgeons();
 		int employeeIDNum;
 		cin >> employeeIDNum;
+		/////
+		cin.ignore();
 		int  indexSurgeon = hospital->binSearchStaffMemberByID(employeeIDNum);
 		if (indexSurgeon != -1)
 		{
@@ -671,9 +675,19 @@ void Ui::addArticleToResearcher() throw(HospitalException)
 {
 	if (hospital->getSizeOfResearchers() > 0)
 	{
-		string researcherName = getString("Which researcher would you like to add an article to?");
+		//cout << "Choose 2 Researchers for article number comparison from the list below: " << endl;
+		cout << "Please choose a researcher from the following list:" << endl;
+		hospital->showResearchersName();
+		int researcherInd;
+		cin >> researcherInd;
+		cin.ignore();
+		researcherInd--;
+		if (!(Utils::ifIndexInRange(researcherInd, hospital->getSizeOfResearchers())))
+			throw FormatException();
+		//string researcherName = getString("Which researcher would you like to add an article to?");
 		try {
-			Researcher*researcher = hospital->findResearcherAccordingToName(researcherName);
+			//Researcher*researcher = hospital->findResearcherAccordingToName(researcherName);
+			Researcher*researcher = hospital->getResearcherByIndex(researcherInd);
 			string strDate = getString("Publication Date: [DD/MM/YYYY]");
 			Date* date = new Date(strDate);
 			Article * article = createArticle(date);
