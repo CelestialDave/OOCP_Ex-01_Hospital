@@ -14,18 +14,22 @@ Date::Date(int inDay, int inMonth, int inYear) throw(DateException)
 	}
 }
 
-Date::Date(string strDate) throw(FormatException)
+Date::Date(string strDate) throw(HospitalException)
 {
 	vector<string> temp = Utils::split(strDate, "/");
-	if (temp.size() == 3)
+	if (temp.size() != 3)
+		throw FormatException();
+	else 
 	{
 		int day = stoi(temp[0]);
 		int month = stoi(temp[1]);
 		int year = stoi(temp[2]);
-		new Date(day, month, year);
-	}
-	else
-		throw FormatException();
+		if (day > MAX_DAY || day <= 0 || month <= 0 || month > MAX_MONTH || year > MAX_YEAR || year < MIN_YEAR)
+			throw DateException();
+		this->day = day;
+		this->month = month;
+		this->year = year;
+	}		
 }
 
 int Date::getYear() const
