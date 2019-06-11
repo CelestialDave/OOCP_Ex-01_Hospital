@@ -10,6 +10,15 @@ public:
 	virtual void show() const {}
 };
 
+class NotFoundException : public HospitalException
+{
+public:
+	void show()
+	{
+		cout << "Error: Not Found." << endl;
+	}
+};
+
 class StringException : public HospitalException
 {
 public:

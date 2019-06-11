@@ -487,9 +487,9 @@ Researcher* Hospital::getResearcherByIndex(int index) const
 	return researchInst.getResearcherByIndex(index);
 }
 
-Researcher* Hospital::findResearcherAccordingToName(const string name, bool&exist)
+Researcher* Hospital::findResearcherAccordingToName(const string name)
 {
-	return researchInst.getResearcherByName(name,exist);
+	return researchInst.getResearcherByName(name);
 }
 
 void Hospital::addArticleToResearcher(Article & art, Researcher*researcher)

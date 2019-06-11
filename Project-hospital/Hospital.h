@@ -72,7 +72,7 @@ public:
 
 	StaffMember* getStaffMemberByIndex(int index) const;
 	Researcher* getResearcherByIndex(int index) const;
-	Researcher* findResearcherAccordingToName(const string name,bool&exist);
+	Researcher* findResearcherAccordingToName(const string name);
 	void addArticleToResearcher(Article & art, Researcher*researcher);
 	const int getSizeOfResearchers() const;
 

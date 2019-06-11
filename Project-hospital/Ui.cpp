@@ -672,15 +672,24 @@ void Ui::addArticleToResearcher() throw(HospitalException)
 	if (hospital->getSizeOfResearchers() > 0)
 	{
 		string researcherName = getString("Which researcher would you like to add an article to?");
-		bool exist = false;
-		Researcher*researcher = hospital->findResearcherAccordingToName(researcherName, exist);
-		if (exist) //if the researcher name input is ok
-		{
+		try {
+			Researcher*researcher = hospital->findResearcherAccordingToName(researcherName);
 			string strDate = getString("Publication Date: [DD/MM/YYYY]");
 			Date* date = new Date(strDate);
 			Article * article = createArticle(date);
 			hospital->addArticleToResearcher(*article, researcher);
 		}
+		catch (ResearcherDoesntExistException& e)
+		{
+			e.show();
+		}
+		////if (exist) //if the researcher name input is ok
+		////{
+		////	string strDate = getString("Publication Date: [DD/MM/YYYY]");
+		////	Date* date = new Date(strDate);
+		////	Article * article = createArticle(date);
+		////	hospital->addArticleToResearcher(*article, researcher);
+		////}
 	}
 	else
 	{

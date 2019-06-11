@@ -5,6 +5,8 @@
 #include <string>
 //#include <string.h>
 #include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 enum Results {SUCCESS, NOTFOUND, BADINPUT, BADFORMAT, NODEPS, DEPEXIST, NOSTAFF, NOSURGINHOS, 
