@@ -253,7 +253,12 @@ void Ui::start()
 			}
 			break;
 		}
-		case 13:
+		case 13: // Clear Hospital Data
+		{
+			hospital->freeHospitalData();
+			break;
+		}
+		case 14: // Exit program
 			exit = true;
 			break;
 		default:
@@ -882,7 +887,8 @@ void Ui::printMainMenu() const
 	cout << "\t10. Show all Researchers that are Doctors in the Research Institute." << endl;
 	cout << "\t11. Get a Patient information by ID." << endl;
 	cout << "\t12. Compare Researchers (>): \n\t\tShow between 2 chosen researchers if left has \n\t\tgreater number of articles than the one on the right." << endl;
-	cout << "\t13. Exit Program." << "\n\n\n";
+	cout << "\t13. Clear all Hospital Data." << endl;
+	cout << "\t14. Exit Program." << "\n\n\n";
 }
 
 
