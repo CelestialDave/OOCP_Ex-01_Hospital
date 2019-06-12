@@ -32,9 +32,6 @@ public:
 	Department(const Department& other) = delete;
 	// D'tor:
 	~Department(); 
-
-	//Set
-	void setlogSizeOfStaff(int size);
 	
 
 	// Allocation of memory to Array:
@@ -44,6 +41,8 @@ public:
 	// Add staff member to list of Staff Members:
 	void addStaffMember(StaffMember* staffMember);
 	vector<StaffMember*> operator+=(StaffMember* staffMember);
+
+
 
 	// Add patient to the department list of patients:
 	void addPatient(Patient& patient);

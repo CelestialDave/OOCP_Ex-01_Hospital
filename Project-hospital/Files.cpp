@@ -11,12 +11,13 @@ void Files::readFile()
 	ifstream inFile("hospital.txt", ios::in);
 	if (inFile.is_open())
 	{
-		int sizeOfDep,i;
+		int sizeOfDep,i,j;
 		inFile >> sizeOfDep;
 		for (i = 0; i < sizeOfDep; i++)
 		{
 			Department*dep = new Department(inFile);
 			hospital->addDepartment(*dep);
+			for(j=0;j<hospital->)
 		}
 	}
 }

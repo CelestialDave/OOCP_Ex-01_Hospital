@@ -19,33 +19,24 @@ Department::Department(const string inName) throw(StringException)
 	name = inName;
 }
 
-Department::Department(ifstream& in) :patientsArr(nullptr), staffArr(nullptr)
+Department::Department(ifstream& in)
 {
-	logSizeOfPatients = 0;
-	phySizeOfPatients = 0;
 	in >> *this;
 }
 // D'tor:
 Department::~Department()
 {
-	////delete[] name;
-	////delete[] staffArr;
-	////delete[] patientsArr;
+
 }
 
-
-void Department::setlogSizeOfStaff(int size)
-{
-	this->logSizeOfStaff = size;
-}
 
 ostream& operator<<(ostream& os,Department& dep)
 {
 	os << dep.getName() << " " << endl;
-	os << dep.logSizeOfStaff << endl;
-	for (int i = 0; i < dep.logSizeOfStaff; i++)
+	os << dep.staffArr.size() << endl;
+	for (int i = 0; i < dep.staffArr.size(); i++)
 	{
-		os << *(dep.staffArr[i]) << endl;
+		os << *(dep.staffArr[i]);
 	}
 	return os;
 }
@@ -53,12 +44,10 @@ ostream& operator<<(ostream& os,Department& dep)
 ifstream& operator >> (ifstream& inFile, Department& dep)
 {
 	getline(inFile,dep.name);
-	string numStaff;
-	getline(inFile, numStaff);
-	dep.setlogSizeOfStaff(stoi(numStaff));
-	dep.phySizeOfStaff = dep.logSizeOfStaff;
-	dep.staffArr = new StaffMember*[dep.logSizeOfStaff];
-	for (int i = 0; i < dep.logSizeOfStaff; i++)
+	string tempNumStaff;
+	getline(inFile, tempNumStaff);
+	int numStaff = stoi(tempNumStaff);
+	for (int i = 0; i <numStaff; i++)
 	{
 		string type;
 		getline(inFile, type);
