@@ -13,12 +13,15 @@ private:
 	eGender gender;
 	string ID;
 	string  yearOfBirth;
-	VisitationRecord** visits;
-	int logSizeOfVisits;
-	int phySizeOfVisits;
-	const Department** departmentsVisited;
-	int logsizeOfDepartments;
-	int phySizeOfDepartments;
+	
+	vector<VisitationRecord*> visits;
+	vector<Department*> departmentsVisited;
+	/////*VisitationRecord** visits;
+	////int logSizeOfVisits;
+	////int phySizeOfVisits;
+	////const Department** departmentsVisited;
+	////int logsizeOfDepartments;
+	////int phySizeOfDepartments;*/
 
 
 public:
@@ -33,11 +36,11 @@ public:
 	void addVisitiaionRecord(VisitationRecord* inVisitiaionRecord);
 	int getIndexForVisitiationInsertion(Date & date); //the index to insert Visitiation record
 	void insertVisitToArrInIndex(VisitationRecord* visitationRecord, int index);
-	void pushVisitsFwdFromIndex(int index);
+	////void pushVisitsFwdFromIndex(int index);
 	void allocVisitsArr();
 
 	void allocDepartmentsVisitedArr();
-	void addDepatrtmentToPatient(const Department& pDepartment);
+	void addDepatrtmentToPatient(Department& department);
 	const string getName()const;
 	int getSizeVisits() const;
 	VisitationRecord* getVisitByIndex(int index) const;
@@ -47,7 +50,7 @@ public:
 	void showVisits() const;
 
 
-	bool hasVisitedDepartment(Department& pDepartment) const;
+	bool hasVisitedDepartment(Department& department) const;
 };
 
 #endif

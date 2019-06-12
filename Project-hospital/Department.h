@@ -11,14 +11,16 @@ class Department
 {
 private:
 	string name;
-	StaffMember** staffArr;
-	int logSizeOfStaff;
-	int phySizeOfStaff;
+	vector<StaffMember*> staffArr;
+	//StaffMember** staffArr;
+	////int logSizeOfStaff;
+	////int phySizeOfStaff;
 	int numOfSurgeons;
 
-	Patient** patientsArr;
-	int logSizeOfPatients;
-	int phySizeOfPatients;
+	vector<Patient*> patientsArr;
+	////Patient** patientsArr;
+	////int logSizeOfPatients;
+	////int phySizeOfPatients;
 
 
 public:
@@ -35,7 +37,7 @@ public:
 
 	// Add staff member to list of Staff Members:
 	void addStaffMember(StaffMember* staffMember);
-	StaffMember** operator+=(StaffMember* staffMember);
+	vector<StaffMember*> operator+=(StaffMember* staffMember);
 
 	// Add patient to the department list of patients:
 	void addPatient(Patient& patient);
