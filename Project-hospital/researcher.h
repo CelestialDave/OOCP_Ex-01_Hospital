@@ -13,7 +13,8 @@ protected:
 	Array<Article> articleStock;
 public:
 	// C'tor:
-	Researcher(const string inName): StaffMember(inName) {}
+	Researcher(const string inName);
+	Researcher(ifstream& inFile);
 	// Copy C'tor:
 	Researcher(const Researcher& other);
 
@@ -27,8 +28,9 @@ public:
 	void allocationArticlesArr();
 
 	virtual void print(ostream& os) const;
-
+	//virtual void toOs(ostream& os) const;
 	bool operator>(const Researcher & other) const;
+	friend ifstream& operator >> (ifstream& inFile, Researcher& researcher);
 
 };
 #endif 

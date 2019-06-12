@@ -7,6 +7,20 @@ ResearcherDoctor::ResearcherDoctor(const Researcher & researcher, const Doctor& 
 
 }
 
+ResearcherDoctor::ResearcherDoctor(ifstream& inFile) : StaffMember(inFile),
+Doctor(inFile),Researcher(inFile)
+{
+
+}
+
+void ResearcherDoctor::toOs(ostream& os) const
+{
+	os << specialty << endl;
+	os << articleStock.getlogicSize() << endl;
+	for (int i = 0; i < articleStock.getlogicSize(); i++)
+		os << *(articleStock[i]);
+}
+
 void ResearcherDoctor::print(ostream& os) const
 {
 	StaffMember::print(os);

@@ -17,11 +17,13 @@ protected:
 public:
 	// C'tor:
 	Nurse(const string name, int inYearExp);
+	Nurse(ifstream& inFile);
 	// D'tor:
 	~Nurse();
 	
 	int getYearsOfExp()const;
-
+	virtual void toOs(ostream& os) const;
 	virtual void print(ostream& os) const;
+	friend ifstream& operator >> (ifstream& inFile, Nurse& nurse);
 };
 #endif 

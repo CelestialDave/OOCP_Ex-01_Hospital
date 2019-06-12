@@ -1,5 +1,15 @@
 #include "researcher.h"
 
+Researcher::Researcher(const string inName) :StaffMember(inName)
+{
+
+}
+
+Researcher::Researcher(ifstream& inFile) :StaffMember(inFile)
+{
+	inFile >> *this;
+}
+
 Researcher::Researcher(const Researcher& other) : StaffMember(other)
 {
 	if (this != &other)
@@ -33,9 +43,9 @@ void Researcher::allocationArticlesArr()
 	articleStock.alloc();
 }
 
+
 void Researcher::print(ostream& os) const
 {
-
 	StaffMember::print(os);
 	os << "\tRole: Researcher." << "\n\tArticles Published: " << articleStock.getlogicSize() << endl;
 }
@@ -43,4 +53,17 @@ void Researcher::print(ostream& os) const
 bool Researcher::operator>(const Researcher & other) const
 {
 	return (this->articleStock.getlogicSize() > other.articleStock.getlogicSize());
+}
+
+ifstream& operator >> (ifstream& inFile, Researcher& researcher)
+{
+	string tempNumArticles;
+	getline(inFile, tempNumArticles);
+	int numArticles = stoi(tempNumArticles);
+	for (int i = 0; i < numArticles; i++)
+	{
+		Article* artice=new Article(inFile);
+		researcher.addArticle(*artice);
+	}
+	return inFile;
 }

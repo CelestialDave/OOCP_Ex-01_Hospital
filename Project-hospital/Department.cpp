@@ -1,8 +1,10 @@
 
-#include "Department.h"
 #include "ConstantsAndGenFuncs.h"
+#include "Department.h"
 #include "Patient.h"
 #include "Surgeon.h"
+#include "ResearcherDoctor.h"
+#include "SurgeonResearher.h"
 #include "Utils.h"
 
 
@@ -16,12 +18,76 @@ Department::Department(const string inName) throw(StringException)
 	name = inName;
 }
 
+Department::Department(ifstream& in) :patientsArr(nullptr), staffArr(nullptr)
+{
+	logSizeOfPatients = 0;
+	phySizeOfPatients = 0;
+	in >> *this;
+}
 // D'tor:
 Department::~Department()
 {
 	////delete[] name;
 	delete[] staffArr;
 	delete[] patientsArr;
+}
+
+
+void Department::setlogSizeOfStaff(int size)
+{
+	this->logSizeOfStaff = size;
+}
+
+ostream& operator<<(ostream& os,Department& dep)
+{
+	os << dep.getName() << " " << endl;
+	os << dep.logSizeOfStaff << endl;
+	for (int i = 0; i < dep.logSizeOfStaff; i++)
+	{
+		os << *(dep.staffArr[i]) << endl;
+	}
+	return os;
+}
+
+ifstream& operator >> (ifstream& inFile, Department& dep)
+{
+	getline(inFile,dep.name);
+	string numStaff;
+	getline(inFile, numStaff);
+	dep.setlogSizeOfStaff(stoi(numStaff));
+	dep.phySizeOfStaff = dep.logSizeOfStaff;
+	dep.staffArr = new StaffMember*[dep.logSizeOfStaff];
+	for (int i = 0; i < dep.logSizeOfStaff; i++)
+	{
+		string type;
+		getline(inFile, type);
+		if (type.compare(typeid(SurgeonResearcher).name()+6)==0)
+		{
+			SurgeonResearcher* surgeonResearcher = new SurgeonResearcher(inFile);
+			dep.addStaffMember(surgeonResearcher);
+		}
+		else if (type.compare(typeid(Surgeon).name() + 6) == 0)
+		{
+			Surgeon* surgeon = new Surgeon(inFile);
+			dep.addStaffMember(surgeon);
+		}
+		else if (type.compare(typeid(ResearcherDoctor).name() + 6) == 0)
+		{
+			ResearcherDoctor* researcherDoctor = new ResearcherDoctor(inFile);
+			dep.addStaffMember(researcherDoctor);
+		}
+		else if (type.compare(typeid(Doctor).name() + 6) == 0)
+		{
+			Doctor* doctor = new Doctor(inFile);
+			dep.addStaffMember(doctor);
+		}
+		else if (type.compare(typeid(Nurse).name() + 6) == 0)
+		{
+			Nurse* nurse = new Nurse(inFile);
+			dep.addStaffMember(nurse);
+		}
+	}
+	return inFile;
 }
 
 

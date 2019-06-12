@@ -116,6 +116,7 @@
     <ClInclude Include="Date.h" />
     <ClInclude Include="Department.h" />
     <ClInclude Include="doctor.h" />
+    <ClInclude Include="File.h" />
     <ClInclude Include="Hospital.h" />
     <ClInclude Include="hospitalException.h" />
     <ClInclude Include="nurse.h" />
@@ -136,6 +137,7 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Department.cpp" />
     <ClCompile Include="Doctor.cpp" />
+    <ClCompile Include="Files.cpp" />
     <ClCompile Include="Hospital.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Nurse.cpp" />

@@ -2,10 +2,10 @@
 #define DEPARTMENT_H
 
 #include "ConstantsAndGenFuncs.h"
+#include "StaffMember.h"
 #include "doctor.h"
 #include "nurse.h"
 #include "Patient.h"
-#include "StaffMember.h"
 
 class Department
 {
@@ -24,10 +24,16 @@ private:
 public:
 	// C'tor:
 	Department(const string inName) throw(HospitalException);
+	Department(ifstream& in);
+
 	// Copy C'tor:
 	Department(const Department& other) = delete;
 	// D'tor:
-	~Department();
+	~Department(); 
+
+	//Set
+	void setlogSizeOfStaff(int size);
+	
 
 	// Allocation of memory to Array:
 	void allocPatientsArr();
@@ -46,6 +52,9 @@ public:
 	
 	// Show Methods:
 	void showPatients() const;
+	friend ostream& operator<<(ostream& os,Department& dep);
+	friend ifstream& operator >> (ifstream& in, Department& dep);
+
 };
 
 #endif

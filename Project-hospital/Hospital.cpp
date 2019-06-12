@@ -13,6 +13,8 @@ Hospital::Hospital()
 }
 
 
+
+
 Hospital::~Hospital()
 {
 	for (int i = 0; i < logSizeOfStaff; i++)

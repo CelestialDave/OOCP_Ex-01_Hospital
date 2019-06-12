@@ -9,7 +9,10 @@ class SurgeonResearcher : public Surgeon, public Researcher
 
 public:
 	SurgeonResearcher(const Surgeon& surgeon, const Researcher& researcher);
-	~SurgeonResearcher() {}
+	SurgeonResearcher(ifstream& inFile);
+	~SurgeonResearcher() {};
+
+	virtual void toOs(ostream&os) const;
 
 	virtual void print(ostream& os) const;
 };

@@ -1,7 +1,6 @@
 #include "Department.h"
 #include "Hospital.h"
 #include "Patient.h"
-#include <string>
 
 class Ui
 {

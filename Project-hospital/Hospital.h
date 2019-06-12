@@ -1,11 +1,10 @@
 #ifndef HOSPITAL_H
 #define HOSPITAL_H
 
-#include <typeinfo.h>
+#include "ConstantsAndGenFuncs.h"
 #include "Department.h"
 #include "Patient.h"
 #include "Research_institute.h"
-#include "ConstantsAndGenFuncs.h"
 
 class Hospital
 {

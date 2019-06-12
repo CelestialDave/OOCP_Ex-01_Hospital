@@ -24,7 +24,8 @@ ResearchInstitute::~ResearchInstitute()
 
 	for (auto t : allResearchers)
 	{
-		delete t;
+		if ((typeid(t).name() + 6, "Researcher") == 0)
+			delete t;
 	}
 }
 

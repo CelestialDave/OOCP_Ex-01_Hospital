@@ -11,6 +11,21 @@ Article::Article(const string inName, string inMagazineName, Date& inPublicitaio
 	publicationDate = &inPublicitaion;
 }
 
+Article::Article(ifstream& inFile)
+{
+	inFile >> *this;
+}
+
+ifstream& operator >> (ifstream& inFile, Article& article)
+{
+	getline(inFile,article.name);
+	getline(inFile, article.magazineName);
+	string tempDate;
+	getline(inFile, tempDate);
+	Date* date = new Date(tempDate);
+	article.publicationDate = date;
+	return inFile;
+}
 
 Article::Article(const Article& other)
 {
@@ -47,7 +62,15 @@ void Article::print(ostream& os) const
 
 ostream& operator<<(ostream& os, const Article& article)
 {
-	article.print(os);
+	if (typeid(os) == typeid(ofstream))
+	{
+		os << article.name << endl;
+		os << article.magazineName << endl;
+		os << article.publicationDate->getDay() <<
+		" " << article.publicationDate->getMonth()<< " " << article.publicationDate->getYear() << endl;
+	}
+	else
+		article.print(os);
 	return os;
 }
 
