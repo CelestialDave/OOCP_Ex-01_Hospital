@@ -1,29 +1,19 @@
 #ifndef HOSPITAL_H
 #define HOSPITAL_H
 
-#include <typeinfo.h>
+#include "ConstantsAndGenFuncs.h"
 #include "Department.h"
 #include "Patient.h"
 #include "Research_institute.h"
-#include "ConstantsAndGenFuncs.h"
 
 class Hospital
 {
 private:
-	Department** allDepartments;
-	int logSizeOfDepartments;
-	int phySizeOfDepartments;
-	
-	StaffMember** staffArr;
-	int logSizeOfStaff;
-	int phySizeOfStaff;
-	int numOfSurgeons;
-	
-	Patient** allPatients;
-	int logSizeOfPatients;
-	int phySizeOfPatients;
+	vector<Department*> allDepartments;
+	vector<StaffMember*> staffArr;
+	vector<Patient*> allPatients;
 	ResearchInstitute researchInst;
-
+	int numOfSurgeons;
 
 public:
 	// C'tor:
@@ -33,6 +23,8 @@ public:
 	~Hospital();
 
 	// Methods:
+	// Release all Hospital Data from Memory:
+	void freeHospitalData();
 	// Allocation of memory to Array:
 	void allocDepartmentsArr();
 	void allocPatientsArr();
@@ -43,36 +35,33 @@ public:
 	void addStaffMemberToDepartment(StaffMember* staffMember, int indexToIn);
 
 	Department* getDepartmentByIndex(int ind);
-	bool verifyEmployeeIDNumber(const int& employeeID);
-	bool verifyStaffMemberEmployeeIDBinSearch(StaffMember** arr, int size, const int& employeeID);
 
 	bool isDepartmentsEmpty() const;
-
+	
 	int getNumOfDepartments();
+	int getSizeOfStaffArr() const;
 	int getNumOfSurgeons();
+	int getSizeOfStaffArrInSpecificIndex(int index);
+	StaffMember* getStaffmemberInSpecificIndexes(int indexDep, int indexStaffMember)const;
 
 	void addDepartment(Department& inDepartment);
-	int binSearchDepartmentByName(const string name) throw(StringException);
+	bool binSearchDepartmentByName(const string name) throw(StringException);
 	int getIndexForDepartmentInsertion(const string name);
-	void pushDepartmentsFwdFromIndex(int index);
 	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
 
 	void addStaffMember(StaffMember* inStaffMember);
 	void inserStaffMemberToArrInIndex(StaffMember* newStaffMember, int index);
-	void pushStaffMembersFwdFromIndex(int index);
 	int getIndexForStaffMemberInsertion(int id);
-	int binSearchStaffMemberByID(int inID);
+	StaffMember* binSearchStaffMemberByID(int inID) throw (StaffMemberNotFoundException);
 
 	void addPatient(Patient& inPatient);
-	Patient* getPatientByID(string inID, bool* isFound);
-	int binSearchPatientByID(string inID);
+	Patient* getPatientByID(string inID, bool* isFound) throw(HospitalException);
 	int getIndexForPatientInsertion(const string id);
 	void insertPatientToArrInIndex(Patient& newPatient, int index);
-	void pushPatientsFwdFromIndex(int index);
 
 	StaffMember* getStaffMemberByIndex(int index) const;
 	Researcher* getResearcherByIndex(int index) const;
-	Researcher* findResearcherAccordingToName(const string name,bool&exist);
+	Researcher* findResearcherAccordingToName(const string name);
 	void addArticleToResearcher(Article & art, Researcher*researcher);
 	const int getSizeOfResearchers() const;
 
@@ -84,7 +73,6 @@ public:
 	void showSurgeons() const throw (SurgeonException);
 	void showDoctorResearchers() const;
 	void showDepartments() const;
-
 
 	int findTheIndexOfDepNameInDepArr(string str) const;
 };

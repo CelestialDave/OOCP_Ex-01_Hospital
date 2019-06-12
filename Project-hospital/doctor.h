@@ -15,11 +15,17 @@ protected:
 public:
 	// C'tor:
 	Doctor(const string name,const string inSpecialty);
+	Doctor(ifstream& inFile);
 	// D'tor:
 	virtual ~Doctor();
 
 	const string getSpciality()const;
 	virtual void print(ostream& os) const;
+	virtual void toOs(ostream& os) const;
+
+	friend ifstream& operator >> (ifstream& inFile, Doctor& doctor);
+	
+
 };
 
 #endif // !Doctor__H

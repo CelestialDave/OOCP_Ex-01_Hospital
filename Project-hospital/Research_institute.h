@@ -6,13 +6,10 @@
 #include "SurgeonResearher.h"
 #include "ResearcherDoctor.h"
 #include "ConstantsAndGenFuncs.h"
-
 class ResearchInstitute
 {
 private:
-	Researcher** allResearchers;
-	int logSizeOfResearchers;
-	int phySizeOfResearchers;
+	vector<Researcher*> allResearchers;
 
 public:
 	// C'tor:
@@ -22,6 +19,8 @@ public:
 	// D'tor:
 	~ResearchInstitute();
 
+	void freeResearchInstituteData();
+
 	void showDoctorsResearchers() const throw(HospitalException);
 	void showResearchers()   const;
 	void showResearchersName() const;
@@ -29,14 +28,10 @@ public:
 
 	void addArticeToResearcher(Article& art, Researcher* researcher);
 	const int getSize() const;
-	Researcher* getResearcherByName(const string name,bool&exist);
-	Researcher* binSearchResearcherByName(Researcher** arr, int size, const string name,bool&exist) throw(ResearcherDoesntExistException);
+
+	Researcher* getResearcherByName(const string name) throw (ResearcherDoesntExistException);
 	Researcher* getResearcherByIndex(int index) const;
 	void addResearcher(Researcher* inResearcher);
-	int binSearchResearcherByID(const string name);
-	int getIndexForResearcherInsertion(const string name);
-	void pushResearchersFwdFromIndex(int index);
-	void insertResearcherToArrInIndex(Researcher* newResearcher, int index);
 	void allocationResearchersArr();
 
 };

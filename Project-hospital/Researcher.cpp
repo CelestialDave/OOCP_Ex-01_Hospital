@@ -1,93 +1,69 @@
 #include "researcher.h"
 
-
-Researcher::Researcher(const string inName) 
-	: StaffMember(inName)
+Researcher::Researcher(const string inName) :StaffMember(inName)
 {
-	articleStock = nullptr;
-	logSizeOfArticles = 0;
-	phySizeOfArticles = 0;
+
 }
 
-Researcher::Researcher(const Researcher& other) :
-	StaffMember(other)
+Researcher::Researcher(ifstream& inFile) :StaffMember(inFile)
+{
+	inFile >> *this;
+}
+
+Researcher::Researcher(const Researcher& other) : StaffMember(other)
 {
 	if (this != &other)
 	{
-		int i;
-		for (i = 0; i < logSizeOfArticles; i++)
-			delete articleStock[i];
-		delete []articleStock;
-		this->logSizeOfArticles = other.logSizeOfArticles;
-		this->phySizeOfArticles = other.phySizeOfArticles;
-		for (i = 0; i < logSizeOfArticles; i++)
-			articleStock[i]=new Article(*(other.articleStock[i]));
+		this->articleStock = other.articleStock;
 	}
-}
-
-
-Researcher::~Researcher()
-{
-	for (int i = 0; i < logSizeOfArticles; i++)
-		delete articleStock[i];
-	delete[] articleStock;
 }
 
 void Researcher::addArticle(Article& art)
 {
-	allocationArticlesArr();
-	articleStock[logSizeOfArticles] = &art;
-	logSizeOfArticles++;
-}
-
-void Researcher:: allocationArticlesArr()
-{
-	if (phySizeOfArticles == 0) // If this is the 1st Department
-	{
-		articleStock = new Article*;
-		phySizeOfArticles++;
-	}
-	else if (logSizeOfArticles == phySizeOfArticles) //if there is no place in the array
-	{
-		phySizeOfArticles *= 2;
-		Article** newArr = new Article*[phySizeOfArticles];
-		for (int i = 0; i < logSizeOfArticles; i++)
-		{
-			newArr[i] = articleStock[i];
-		}
-		delete[] articleStock;
-		articleStock = newArr;
-	}
-	else
-		return;
+	articleStock.addToArray(art);
 }
 
 void Researcher::showArticles() const
 {
-	cout << "\tArticles: ";
-	if (logSizeOfArticles)
+	int size = articleStock.getlogicSize();
+	if (size)
 	{
-		for (int i = 0; i < logSizeOfArticles; i++)
+		cout << "\tArticles: ";
+		for (int i = 0; i < size; i++)
 		{
-			cout << "\n\t" << i + 1 << ". " << *(articleStock[i]);
+			cout << "\n\t\t" << i + 1 << ". " << *(articleStock[i]);
 		}
 	}
 	else
-		cout << "Not Available" << endl;
+		cout << "\tArticles: No Articles Available." << endl;
 }
 
-bool Researcher::operator>(const Researcher& other) const
+void Researcher::allocationArticlesArr()
 {
-	return (this->logSizeOfArticles > other.logSizeOfArticles);
+	articleStock.alloc();
 }
+
 
 void Researcher::print(ostream& os) const
 {
 	StaffMember::print(os);
-	os << "\tRole: Researcher." << "\n\tResearchers Published: " << this->logSizeOfArticles;
+	os << "\tRole: Researcher." << "\n\tArticles Published: " << articleStock.getlogicSize() << endl;
 }
 
+bool Researcher::operator>(const Researcher & other) const
+{
+	return (this->articleStock.getlogicSize() > other.articleStock.getlogicSize());
+}
 
-
-
-
+ifstream& operator >> (ifstream& inFile, Researcher& researcher)
+{
+	string tempNumArticles;
+	getline(inFile, tempNumArticles);
+	int numArticles = atoi(tempNumArticles.c_str());
+	for (int i = 0; i < numArticles; i++)
+	{
+		Article* artice=new Article(inFile);
+		researcher.addArticle(*artice);
+	}
+	return inFile;
+}

@@ -16,6 +16,7 @@ private:
 public:
 	// C'tor:
 	Article(const string inName, string inMagazineName, Date&inPublicitaion) throw(HospitalException);
+	Article(ifstream& inFile);
 	// Copy C'tor
 	Article(const Article& other);
 	// D'tor:
@@ -26,6 +27,8 @@ public:
 	const Date& getPublicationDate() const;
 	void print(ostream& os) const;
 	friend ostream& operator<<(ostream& os, const Article& article);
+	friend ifstream& operator >>(ifstream& inFile, Article& article);
+
 };
 
 

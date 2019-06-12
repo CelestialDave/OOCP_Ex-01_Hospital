@@ -1,7 +1,6 @@
 #include "Department.h"
 #include "Hospital.h"
 #include "Patient.h"
-#include <string>
 
 class Ui
 {
@@ -35,6 +34,7 @@ public:
 	void showPatientsInDepartment() throw(HospitalException);
 	void searchPatientByID() throw(PatientNotFoundException);
 	bool toContinuePrompt();
-	// UI Warnings:
-	void warnings(Results result);
+	
+	//// UI Warnings:
+	////void warnings(Results result);
 };

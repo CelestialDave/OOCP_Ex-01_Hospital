@@ -10,6 +10,15 @@ public:
 	virtual void show() const {}
 };
 
+class NotFoundException : public HospitalException
+{
+public:
+	void show()
+	{
+		cout << "Error: Not Found." << endl;
+	}
+};
+
 class StringException : public HospitalException
 {
 public:
@@ -37,12 +46,30 @@ public:
 	}
 };
 
+////class DepartmentNotFoundException : public HospitalException
+////{
+////public:
+////	virtual void show() const
+////	{
+////		cout << "Error: A Department by the given name was not found." << endl;
+////	}
+////};
+
 class StaffException : public HospitalException
 {
 public:
 	virtual void show() const
 	{
 		cout << "Error: There are no Staff Members availavle in Hospital." << endl;
+	}
+};
+
+class StaffMemberNotFoundException : public HospitalException
+{
+public:
+	virtual void show() const
+	{
+		cout << "Error: The Staff Member was not found." << endl;
 	}
 };
 
@@ -90,6 +117,15 @@ public:
 	virtual void show() const
 	{
 		cout << "Error: Patient's ID was not found." << endl;
+	}
+};
+
+class PatientsEmptyException : public HospitalException
+{
+public:
+	virtual void show() const
+	{
+		cout << "Error: No Patients available." << endl;
 	}
 };
 

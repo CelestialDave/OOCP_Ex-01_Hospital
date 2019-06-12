@@ -3,8 +3,12 @@
 Doctor::Doctor(const string name, const string inSpecialty)
 	: StaffMember(name)
 {
-	////specialty = strdup(inSpecialty);
 	specialty = inSpecialty;
+}
+
+Doctor::Doctor(ifstream& inFile) : StaffMember(inFile)
+{
+	inFile >> *this;
 }
 
 Doctor::Doctor(const Doctor& other)
@@ -13,8 +17,6 @@ Doctor::Doctor(const Doctor& other)
 
 	if (this!=&other)
 	{
-		////delete[] specialty;
-		////this->specialty = strdup(other.specialty);
 		this->specialty = other.specialty;
 	}
 }
@@ -30,8 +32,19 @@ const string Doctor::getSpciality()const
 	return specialty;
 }	
 
+void Doctor::toOs(ostream& os) const
+{
+	os << specialty << endl;
+}
+
 void Doctor::print(ostream& os) const
 {
 	StaffMember::print(os);
 	os << "\tRole: Doctor." << "\n\tSpecialty: " << this->specialty;
+}
+
+ifstream& operator >> (ifstream& inFile, Doctor& doctor)
+{
+	getline(inFile, doctor.specialty);
+	return inFile;
 }
