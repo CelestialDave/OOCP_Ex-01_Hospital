@@ -9,18 +9,21 @@
 class Hospital
 {
 private:
-	Department** allDepartments;
-	int logSizeOfDepartments;
-	int phySizeOfDepartments;
+	vector<Department*> allDepartments;
+	/////*Department** allDepartments;
+	////int logSizeOfDepartments;
+	////int phySizeOfDepartments;*/
 	
-	StaffMember** staffArr;
-	int logSizeOfStaff;
-	int phySizeOfStaff;
+	vector<StaffMember*> staffArr;
+	/////*StaffMember** staffArr;
+	////int logSizeOfStaff;
+	////int phySizeOfStaff;*/
 	int numOfSurgeons;
 	
-	Patient** allPatients;
-	int logSizeOfPatients;
-	int phySizeOfPatients;
+	vector<Patient*> allPatients;
+	/////*Patient** allPatients;
+	////int logSizeOfPatients;
+	////int phySizeOfPatients;*/
 	ResearchInstitute researchInst;
 
 
@@ -42,8 +45,8 @@ public:
 	void addStaffMemberToDepartment(StaffMember* staffMember, int indexToIn);
 
 	Department* getDepartmentByIndex(int ind);
-	bool verifyEmployeeIDNumber(const int& employeeID);
-	bool verifyStaffMemberEmployeeIDBinSearch(StaffMember** arr, int size, const int& employeeID);
+	////bool verifyEmployeeIDNumber(const int& employeeID);
+	////bool verifyStaffMemberEmployeeIDBinSearch(StaffMember** arr, int size, const int& employeeID);
 
 	bool isDepartmentsEmpty() const;
 
@@ -51,23 +54,23 @@ public:
 	int getNumOfSurgeons();
 
 	void addDepartment(Department& inDepartment);
-	int binSearchDepartmentByName(const string name) throw(StringException);
+	bool binSearchDepartmentByName(const string name) throw(StringException);
 	int getIndexForDepartmentInsertion(const string name);
-	void pushDepartmentsFwdFromIndex(int index);
+	////void pushDepartmentsFwdFromIndex(int index);
 	void insertDepartmentToArrInIndex(Department& newDepartment, int index);
 
 	void addStaffMember(StaffMember* inStaffMember);
 	void inserStaffMemberToArrInIndex(StaffMember* newStaffMember, int index);
-	void pushStaffMembersFwdFromIndex(int index);
+	////void pushStaffMembersFwdFromIndex(int index);
 	int getIndexForStaffMemberInsertion(int id);
-	int binSearchStaffMemberByID(int inID);
+	StaffMember* binSearchStaffMemberByID(int inID) throw (StaffMemberNotFoundException);
 
 	void addPatient(Patient& inPatient);
-	Patient* getPatientByID(string inID, bool* isFound);
-	int binSearchPatientByID(string inID);
+	Patient* getPatientByID(string inID, bool* isFound) throw(HospitalException);
+	////int binSearchPatientByID(string inID);
 	int getIndexForPatientInsertion(const string id);
 	void insertPatientToArrInIndex(Patient& newPatient, int index);
-	void pushPatientsFwdFromIndex(int index);
+	////void pushPatientsFwdFromIndex(int index);
 
 	StaffMember* getStaffMemberByIndex(int index) const;
 	Researcher* getResearcherByIndex(int index) const;

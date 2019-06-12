@@ -43,16 +43,16 @@ public:
 	//int compareResearcerNames(const Researcher* researcher, const string name) const;
 	void allocationResearchersArr();
 
-	template <class STRING>
-	class compareResearcerNames
-	{
-	public:
-		//compareResearcerNames() {};
-		int operator()(const Researcher* researcher, const STRING name) const
-		{
-			return researcher->getName().compare(name);
-		}
-	};
+	////template <class STRING>
+	////class compareResearcerNames
+	////{
+	////public:
+	////	//compareResearcerNames() {};
+	////	int operator()(const Researcher* researcher, const STRING name) const
+	////	{
+	////		return researcher->getName().compare(name);
+	////	}
+	////};
 
 
 };
