@@ -59,7 +59,7 @@ ifstream& operator >> (ifstream& inFile, Researcher& researcher)
 {
 	string tempNumArticles;
 	getline(inFile, tempNumArticles);
-	int numArticles = stoi(tempNumArticles);
+	int numArticles = atoi(tempNumArticles.c_str());
 	for (int i = 0; i < numArticles; i++)
 	{
 		Article* artice=new Article(inFile);

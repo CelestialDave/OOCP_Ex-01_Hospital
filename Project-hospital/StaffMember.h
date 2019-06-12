@@ -26,6 +26,8 @@ protected:
 public:
 	// D'tor:
 	virtual ~StaffMember();
+
+	static void setCounter(int num);
 	
 	const string getName()const;
 	const int getEmployeeIDNumber()const;

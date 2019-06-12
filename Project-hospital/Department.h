@@ -42,8 +42,9 @@ public:
 	void addStaffMember(StaffMember* staffMember);
 	vector<StaffMember*> operator+=(StaffMember* staffMember);
 
+	int getSizeOfStaffArr() const;
 
-
+	StaffMember* getStaffMemberByIndex(int index)const ;
 	// Add patient to the department list of patients:
 	void addPatient(Patient& patient);
 

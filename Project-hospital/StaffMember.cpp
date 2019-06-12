@@ -45,6 +45,12 @@ void StaffMember::print(ostream& os) const
 	os << "Employee-ID Number: " << this->employeeIDNumber << "\n\tName: " << this->name;
 }
 
+
+ void StaffMember::setCounter(int num)
+ {
+	 counterEmployeeID = num;
+ }
+
 ostream& operator<<(ostream& os, const StaffMember& staffmember)
 {
 	if (typeid(os) == typeid(ofstream))

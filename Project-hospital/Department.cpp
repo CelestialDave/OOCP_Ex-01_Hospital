@@ -46,7 +46,7 @@ ifstream& operator >> (ifstream& inFile, Department& dep)
 	getline(inFile,dep.name);
 	string tempNumStaff;
 	getline(inFile, tempNumStaff);
-	int numStaff = stoi(tempNumStaff);
+	int numStaff = atoi(tempNumStaff.c_str());
 	for (int i = 0; i <numStaff; i++)
 	{
 		string type;
@@ -78,6 +78,16 @@ ifstream& operator >> (ifstream& inFile, Department& dep)
 		}
 	}
 	return inFile;
+}
+
+int Department::getSizeOfStaffArr() const
+{
+	return staffArr.size();
+}
+
+StaffMember* Department::getStaffMemberByIndex(int index)const
+{
+	return staffArr[index];
 }
 
 

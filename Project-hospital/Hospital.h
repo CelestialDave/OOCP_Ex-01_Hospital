@@ -50,8 +50,15 @@ public:
 
 	bool isDepartmentsEmpty() const;
 
+	////void SetEmployeeIDCounter(int num);
+	
 	int getNumOfDepartments();
+	int getSizeOfStaffArr() const;
 	int getNumOfSurgeons();
+	int getSizeOfStaffArrInSpecificIndex(int index);
+	StaffMember* getStaffmemberInSpecificIndexes(int indexDep, int indexStaffMember)const;
+
+
 
 	void addDepartment(Department& inDepartment);
 	bool binSearchDepartmentByName(const string name) throw(StringException);

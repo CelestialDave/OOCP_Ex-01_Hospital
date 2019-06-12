@@ -145,6 +145,21 @@ int Hospital::getIndexForStaffMemberInsertion(int id) //the index to insert staf
 
 }
 
+int Hospital::getSizeOfStaffArr() const
+{
+	return staffArr.size();
+}
+
+int Hospital::getSizeOfStaffArrInSpecificIndex(int index)
+{
+	return allDepartments[index]->getSizeOfStaffArr();
+}
+
+StaffMember* Hospital::getStaffmemberInSpecificIndexes(int indexDep, int indexStaffMember) const
+{
+	return allDepartments[indexDep]->getStaffMemberByIndex(indexStaffMember);
+}
+
 StaffMember* Hospital::binSearchStaffMemberByID(int inID) throw (StaffMemberNotFoundException)
 {
 	////int left = 0;
