@@ -15,7 +15,6 @@ public:
 
 	int getNumSurgeries() const;
 	virtual void print(ostream& os) const;
-	//friend ostream& operator<<(ostream& os,Surgeon& surgeon) const;
 	virtual void toOs(ostream& os) const;
 	void addSurgery();
 	friend ifstream& operator >> (ifstream& inFile, Surgeon& surgeon);

@@ -1,9 +1,10 @@
 #pragma warning(disable: 4996)
+#pragma warning(disable : 4290)
+#pragma warning(disable : 4267)
 
 #ifndef Constants__H
 #define Constants__H
 #include <string>
-//#include <string.h>
 #include <iostream>
 #include <vector>
 #include <algorithm>

@@ -12,9 +12,7 @@ Nurse::Nurse(ifstream& inFile) : StaffMember(inFile)
 	inFile >> *this;
 }
 
-Nurse::~Nurse()
-{
-}
+Nurse::~Nurse() {}
 
 
 ifstream& operator >> (ifstream& inFile, Nurse& nurse) 
@@ -23,7 +21,6 @@ ifstream& operator >> (ifstream& inFile, Nurse& nurse)
 	getline(inFile, tempYearsOfExperience);
 	nurse.yearsOfExperience=(stoi(tempYearsOfExperience));
 	return inFile;
-
 }
 
 int Nurse::getYearsOfExp()const

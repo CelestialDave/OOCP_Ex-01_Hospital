@@ -344,7 +344,6 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		int employeeIDNum;
 		cin >> employeeIDNum;
 		cin.ignore();
-		////int  indexSurgeon = hospital->binSearchStaffMemberByID(employeeIDNum);
 		StaffMember* staffmember = nullptr;
 		try {
 			staffmember = hospital->binSearchStaffMemberByID(employeeIDNum);
@@ -353,13 +352,6 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		
 		if (staffmember)
 		{
-			////Surgeon*surgeon = dynamic_cast<Surgeon*>(hospital->getStaffMemberByIndex(indexSurgeon));
-			/////*if (!surgeon)
-			////{
-			////	res = BADINPUT;
-			////	delete[] visitPurpose;
-			////	return nullptr;
-			////}*/
 			Surgeon*surgeon = dynamic_cast<Surgeon*>(staffmember);
 			surgeon->addSurgery();
 			string staffMemIncharge = surgeon->getName();
@@ -371,8 +363,6 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 			{
 				bool isFasting = (bool)fasting;
 				VisitSurgery* newVisit = new VisitSurgery(*visit, surgeryRoomNum, isFasting);
-				////delete[]staffMemIncharge;
-				////delete[]visitPurpose;
 				delete visit;
 				return newVisit;
 			}
@@ -381,7 +371,6 @@ VisitationRecord* Ui::createVisit(Patient & patient,Date* arrivalDate,int choice
 		}
 		else
 		{
-			////delete[]visitPurpose;
 			throw FormatException();
 			return nullptr;
 		}
@@ -496,18 +485,6 @@ void Ui::printVisitationPorpuse(Patient* patient) const
 
 void Ui::addNewDepartment() throw(DepartmentExistException)
 {
-	////string name = getString("Department's name: ");
-	////int index = hospital->binSearchDepartmentByName(name);
-	////if (index == -1) //if this is new department name
-	////{
-	////	Department* department = new Department(name);
-	////	hospital->addDepartment(*department); //add to the departments array
-	////}
-	////else
-	////{
-	////	throw DepartmentExistException();
-	////}
-
 	string name = getString("Department's name: ");
 	bool isExists = hospital->binSearchDepartmentByName(name);
 	if (!isExists) //if this is new department name
@@ -626,7 +603,6 @@ void Ui::addNewVisitation() throw(HospitalException)
 	bool isFirstTime = checkIfItFirstTimeInHospital();
 	bool isExists = false;
 
-	////Patient* patient = nullptr;
 	Patient* patient = nullptr;
 	try {
 		patient = hospital->getPatientByID(inID, &isExists);
@@ -711,7 +687,6 @@ void Ui::addArticleToResearcher() throw(HospitalException)
 {
 	if (hospital->getSizeOfResearchers() > 0)
 	{
-		//cout << "Choose 2 Researchers for article number comparison from the list below: " << endl;
 		cout << "Please choose a researcher from the following list:" << endl;
 		hospital->showResearchersName();
 		int researcherInd;
@@ -720,26 +695,11 @@ void Ui::addArticleToResearcher() throw(HospitalException)
 		researcherInd--;
 		if (!(Utils::ifIndexInRange(researcherInd, hospital->getSizeOfResearchers())))
 			throw FormatException();
-		//string researcherName = getString("Which researcher would you like to add an article to?");
-		//try {
-			//Researcher*researcher = hospital->findResearcherAccordingToName(researcherName);
 			Researcher*researcher = hospital->getResearcherByIndex(researcherInd);
 			string strDate = getString("Publication Date: [DD/MM/YYYY]");
 			Date* date = new Date(strDate);
 			Article * article = createArticle(date);
 			hospital->addArticleToResearcher(*article, researcher);
-		///*}
-		//catch (ResearcherDoesntExistException& e)
-		//{
-		//	e.show();
-		//}*/
-		////if (exist) //if the researcher name input is ok
-		////{
-		////	string strDate = getString("Publication Date: [DD/MM/YYYY]");
-		////	Date* date = new Date(strDate);
-		////	Article * article = createArticle(date);
-		////	hospital->addArticleToResearcher(*article, researcher);
-		////}
 	}
 	else
 	{
@@ -759,12 +719,6 @@ void Ui::showPatientsInDepartment() throw(HospitalException)
 	cin.ignore();
 	int depInd = depNum - 1;
 
-	////bool ok = Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments());
-	////if (ok)
-	////	hospital->showPatientInSpecificDep(depInd);
-	////else
-	////	res = BADINPUT;
-
 	if (!Utils::ifIndexInRange(depInd, hospital->getNumOfDepartments()))
 		throw StringException();
 
@@ -780,11 +734,9 @@ void Ui::searchPatientByID() throw(PatientNotFoundException)
 	{
 		cout << "Patient's name: " << patient->getName() << endl;
 		printVisitationPorpuse(patient);
-		////patient->showDepatmentsVisited();
 	}
 	else
 		throw PatientNotFoundException();
-	////cout << "Error: Patient's ID was not found." << endl;
 }
 
 bool Ui::toContinuePrompt()
@@ -811,63 +763,9 @@ bool Ui::toContinuePrompt()
 	{
 		toExit = false;
 		printSpaceLine();
-		/////*printMainMenu();
-		////cin >> choise;
-		////cin.ignore();*/
 	}
 	return toExit;
 }
-
-////void Ui::warnings(Results result)
-////{
-////	if (result != SUCCESS)
-////	{
-////		switch (result) {
-////		case NOTFOUND:
-////			cout << "";
-////			break;
-////		case BADINPUT:
-////			cout << "Error: Invalid input." << endl;
-////			break;
-////		case BADFORMAT:
-////			cout << "Error: Invalid input or not according to format." << endl;
-////			break;
-////		case NODEPS:
-////			cout << "Error: No Departments availble in Hospital." << endl;
-////			break;
-////		case DEPEXIST:
-////			cout << "Error: A Department by the given name already exist." << endl;
-////			break;
-////		case NOSTAFF:
-////			cout << "Error: There are no Staff Members availavle in Hospital." << endl;
-////			break;
-////		case NOSURGINHOS:
-////			cout << "Error: There are no Surgeons available in Hospital." << endl;
-////			break;
-////		case NOSURGINDEP:
-////			cout << "Error: There are no Surgeons available in the chosen Department." << endl;
-////			break;
-////		case EIDEXIST:
-////			cout << "Error: An Employee with the given Employee-ID Number already exists." << endl;
-////			break;
-////		case PIDEXIST:
-////			cout << "Error: A Patient with the given ID number already exists." << endl;
-////			break;
-////		case PIDNOTFOUND:
-////			cout << "Error: Patient's ID was not found." << endl;
-////			break;
-////		case RNONEXIST:
-////			cout << "Error: Researcher doesn't exist in the Research Institute" << endl;
-////			break;
-////		case RESINSTEMPTY:
-////			cout << "Error: No Researchers available in the Research Institute." << endl;
-////			break;
-////		default:
-////			break;
-////		}
-////	}
-////
-////}
 
 
 void Ui::printMainMenu() const

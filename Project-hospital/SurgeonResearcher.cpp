@@ -2,15 +2,11 @@
 
 SurgeonResearcher::SurgeonResearcher(const Surgeon& surgeon, const Researcher& researcher)
 	: StaffMember(surgeon.getName()), Doctor(surgeon), Surgeon(surgeon), Researcher(researcher)
-{
-}
+{}
 
 SurgeonResearcher::SurgeonResearcher(ifstream& inFile) : StaffMember(inFile),
 Doctor(inFile), Surgeon(inFile), Researcher(inFile)
-{
-
-}
-
+{}
 
 void SurgeonResearcher::toOs(ostream&os) const
 {

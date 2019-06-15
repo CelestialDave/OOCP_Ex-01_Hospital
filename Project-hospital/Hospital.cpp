@@ -7,11 +7,7 @@
 // C'tor:
 Hospital::Hospital()
 	: numOfSurgeons(0)
-{
-	////numOfSurgeons = 0;
-}
-
-
+{}
 
 
 Hospital::~Hospital()

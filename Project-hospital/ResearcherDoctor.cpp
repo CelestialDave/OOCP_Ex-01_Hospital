@@ -3,15 +3,11 @@
 ResearcherDoctor::ResearcherDoctor(const Researcher & researcher, const Doctor& doctor)
 	:StaffMember(researcher.getName())
 	,Researcher(researcher), Doctor(doctor)
-{
-
-}
+{}
 
 ResearcherDoctor::ResearcherDoctor(ifstream& inFile) : StaffMember(inFile),
 Doctor(inFile),Researcher(inFile)
-{
-
-}
+{}
 
 void ResearcherDoctor::toOs(ostream& os) const
 {
