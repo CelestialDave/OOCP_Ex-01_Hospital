@@ -26,6 +26,7 @@ void Hospital::freeHospitalData()
 	for (auto t : staffArr)
 		delete t;
 	staffArr.clear();
+	numOfSurgeons = 0;
 
 	for (auto t : allDepartments)
 		delete t;

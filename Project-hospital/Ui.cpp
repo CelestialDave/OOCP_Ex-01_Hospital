@@ -66,7 +66,6 @@ void Ui::start()
 		}
 		case 3: //add doctor to the hospital
 		{
-			Results res;
 			try {
 				addNewDoctor();
 			}

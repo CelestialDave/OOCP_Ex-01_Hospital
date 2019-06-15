@@ -10,15 +10,11 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <typeinfo.h>
+//#include <typeinfo.h>
 
 
 using namespace std;
 
-enum Results {SUCCESS, NOTFOUND, BADINPUT, BADFORMAT, NODEPS, DEPEXIST, NOSTAFF, NOSURGINHOS, 
-	NOSURGINDEP, EIDEXIST, PIDEXIST, EIDNOTFOUND, PIDNOTFOUND, RNONEXIST, RESINSTEMPTY};
-
-//#define MAX_MENU_OPTIONS 11
 #define MAX_NAME 100
 // Date MAX values:
 #define MAX_DAY 31
