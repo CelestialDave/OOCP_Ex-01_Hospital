@@ -12,16 +12,8 @@ class Department
 private:
 	string name;
 	vector<StaffMember*> staffArr;
-	//StaffMember** staffArr;
-	////int logSizeOfStaff;
-	////int phySizeOfStaff;
-	int numOfSurgeons;
-
 	vector<Patient*> patientsArr;
-	////Patient** patientsArr;
-	////int logSizeOfPatients;
-	////int phySizeOfPatients;
-
+	int numOfSurgeons;
 
 public:
 	// C'tor:

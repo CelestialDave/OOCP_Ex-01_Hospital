@@ -28,13 +28,10 @@ public:
 	void addNewDepartment() throw(HospitalException);
 	void addNewNurse() throw(HospitalException);
 	void  addNewDoctor() throw (HospitalException);
-	void addNewVisitation() throw (HospitalException); //throw(DepartmentsEmptyException, PatientException, FormatException, StringException,SurgeonException, DateException);
+	void addNewVisitation() throw (HospitalException);
 	void addNewResearcher();
 	void addArticleToResearcher() throw(ResearchersEmptyException);
 	void showPatientsInDepartment() throw(HospitalException);
 	void searchPatientByID() throw(PatientNotFoundException);
 	bool toContinuePrompt();
-	
-	//// UI Warnings:
-	////void warnings(Results result);
 };

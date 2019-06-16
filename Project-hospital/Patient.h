@@ -16,12 +16,6 @@ private:
 	
 	vector<VisitationRecord*> visits;
 	vector<Department*> departmentsVisited;
-	/////*VisitationRecord** visits;
-	////int logSizeOfVisits;
-	////int phySizeOfVisits;
-	////const Department** departmentsVisited;
-	////int logsizeOfDepartments;
-	////int phySizeOfDepartments;*/
 
 
 public:
@@ -36,7 +30,6 @@ public:
 	void addVisitiaionRecord(VisitationRecord* inVisitiaionRecord);
 	int getIndexForVisitiationInsertion(Date & date); //the index to insert Visitiation record
 	void insertVisitToArrInIndex(VisitationRecord* visitationRecord, int index);
-	////void pushVisitsFwdFromIndex(int index);
 	void allocVisitsArr();
 
 	void allocDepartmentsVisitedArr();

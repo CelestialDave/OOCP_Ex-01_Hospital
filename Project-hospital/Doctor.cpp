@@ -21,10 +21,7 @@ Doctor::Doctor(const Doctor& other)
 	}
 }
 
-Doctor::~Doctor()
-{
-	////delete[] specialty;
-}
+Doctor::~Doctor() {}
 
 
 const string Doctor::getSpciality()const

@@ -7,11 +7,17 @@ ResearchInstitute::ResearchInstitute() {}
 
 ResearchInstitute::~ResearchInstitute()
 {
+	freeResearchInstituteData();
+}
+
+void ResearchInstitute::freeResearchInstituteData()
+{
 	for (auto t : allResearchers)
 	{
 		if ((typeid(t).name() + 6, "Researcher") == 0)
 			delete t;
 	}
+	allResearchers.clear();
 }
 
 const int ResearchInstitute:: getSize() const
@@ -90,8 +96,6 @@ void ResearchInstitute::showResearchersName() const
 		int i = 0;
 		for (auto researcher : allResearchers)
 		{
-			////cout << "\t" << ++i << " .";
-			////cout << researcher->getName() << endl;
 			cout << "\t" << ++i << " ." << *(researcher) << endl;
 		}
 	}
@@ -102,7 +106,6 @@ void ResearchInstitute::showResearchersName() const
 Researcher* ResearchInstitute::getResearcherByName(const string name) throw (ResearcherDoesntExistException)
 {
 	try {
-		////return Utils::binSearch<Researcher*>(allResearchers, name, compareResearcerNames<string>());
 		return Utils::binSearch<Researcher*>(allResearchers, name, compareByName<Researcher>());
 	}
 	catch (NotFoundException& e)
@@ -121,9 +124,3 @@ Researcher* ResearchInstitute::getResearcherByIndex(int index) const
 {
 	return allResearchers[index];
 }
-
-
-
-
-
-

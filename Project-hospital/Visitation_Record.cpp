@@ -5,27 +5,19 @@ VisitationRecord::VisitationRecord(Patient& inPatient, string inStaffMemInCharge
 {
 	patient = &inPatient;
 	staffMemInChargeName = inStaffMemInChargeName;
-	////strcpy(staffMemInChargeName, inStaffMemInChargeName);
 	arrivalDate = inArrivalDate;
 	visitationPurpose = inVisitPurpose;
-	////strcpy(visitationPurpose, inVisitPurpose);
 }
 
 VisitationRecord::VisitationRecord(const VisitationRecord& other)
 {
 	patient = other.patient;
 	staffMemInChargeName = other.staffMemInChargeName;
-	////strcpy(staffMemInChargeName, other.staffMemInChargeName);	
 	arrivalDate = other.arrivalDate;
 	visitationPurpose = other.visitationPurpose;
-	////strcpy(visitationPurpose, other.visitationPurpose);
 }
 
-VisitationRecord::~VisitationRecord()
-{
-	////delete[] staffMemInChargeName;
-	////delete[] visitationPurpose;
-}
+VisitationRecord::~VisitationRecord() {}
 
 const string VisitationRecord::getstaffMemInChargeName() const
 {

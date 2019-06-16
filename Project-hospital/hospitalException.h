@@ -46,15 +46,6 @@ public:
 	}
 };
 
-////class DepartmentNotFoundException : public HospitalException
-////{
-////public:
-////	virtual void show() const
-////	{
-////		cout << "Error: A Department by the given name was not found." << endl;
-////	}
-////};
-
 class StaffException : public HospitalException
 {
 public:
@@ -99,8 +90,6 @@ public:
 		cout << "Error: Researcher doesn't exist in the Research Institute" << endl;
 	}
 };
-
-
 
 class PatientExistException : public HospitalException
 {
