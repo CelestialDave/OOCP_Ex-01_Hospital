@@ -35,8 +35,11 @@ void Files::readFile()
 		}
 		inFile.close();
 		int num = hospital->getSizeOfStaffArr();
-		int counterVal = (hospital->getStaffMemberByIndex(num - 1))->getEmployeeIDNumber();
-		StaffMember::setCounter(++counterVal);
+		if (num)
+		{
+			int counterVal = (hospital->getStaffMemberByIndex(num - 1))->getEmployeeIDNumber();
+			StaffMember::setCounter(++counterVal);
+		}
 	}
 }
 

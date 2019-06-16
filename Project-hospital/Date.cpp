@@ -17,18 +17,36 @@ Date::Date(int inDay, int inMonth, int inYear) throw(DateException)
 Date::Date(string strDate) throw(HospitalException)
 {
 	vector<string> temp = Utils::split(strDate, "/");
-	if (temp.size() != 3)
+	vector<string> temp2 = Utils::split(strDate, " ");
+
+	if (temp.size() != 3 && temp2.size() != 3)
+	{
 		throw FormatException();
+	}
 	else 
 	{
-		int day = stoi(temp[0]);
-		int month = stoi(temp[1]);
-		int year = stoi(temp[2]);
-		if (day > MAX_DAY || day <= 0 || month <= 0 || month > MAX_MONTH || year > MAX_YEAR || year < MIN_YEAR)
-			throw DateException();
-		this->day = day;
-		this->month = month;
-		this->year = year;
+		if (temp2.size() == 3)
+		{
+			int day = stoi(temp2[0]);
+			int month = stoi(temp2[1]);
+			int year = stoi(temp2[2]);
+			if (day > MAX_DAY || day <= 0 || month <= 0 || month > MAX_MONTH || year > MAX_YEAR || year < MIN_YEAR)
+				throw DateException();
+			this->day = day;
+			this->month = month;
+			this->year = year;
+		}
+		else if (temp.size() == 3)
+		{
+			int day = stoi(temp[0]);
+			int month = stoi(temp[1]);
+			int year = stoi(temp[2]);
+			if (day > MAX_DAY || day <= 0 || month <= 0 || month > MAX_MONTH || year > MAX_YEAR || year < MIN_YEAR)
+				throw DateException();
+			this->day = day;
+			this->month = month;
+			this->year = year;
+		}
 	}		
 }
 
