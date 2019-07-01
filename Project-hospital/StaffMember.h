@@ -4,7 +4,6 @@
 
 #include "ConstantsAndGenFuncs.h"
 #include "hospitalException.h"
-//#include "SurgeonResearher.h"
 #include "Utils.h"
 
 

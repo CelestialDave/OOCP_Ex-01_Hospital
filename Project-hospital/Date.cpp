@@ -17,18 +17,36 @@ Date::Date(int inDay, int inMonth, int inYear) throw(DateException)
 Date::Date(string strDate) throw(HospitalException)
 {
 	vector<string> temp = Utils::split(strDate, "/");
-	if (temp.size() != 3)
+	vector<string> temp2 = Utils::split(strDate, " ");
+
+	if (temp.size() != 3 && temp2.size() != 3)
+	{
 		throw FormatException();
+	}
 	else 
 	{
-		int day = stoi(temp[0]);
-		int month = stoi(temp[1]);
-		int year = stoi(temp[2]);
-		if (day > MAX_DAY || day <= 0 || month <= 0 || month > MAX_MONTH || year > MAX_YEAR || year < MIN_YEAR)
-			throw DateException();
-		this->day = day;
-		this->month = month;
-		this->year = year;
+		if (temp2.size() == 3)
+		{
+			int day = stoi(temp2[0]);
+			int month = stoi(temp2[1]);
+			int year = stoi(temp2[2]);
+			if (day > MAX_DAY || day <= 0 || month <= 0 || month > MAX_MONTH || year > MAX_YEAR || year < MIN_YEAR)
+				throw DateException();
+			this->day = day;
+			this->month = month;
+			this->year = year;
+		}
+		else if (temp.size() == 3)
+		{
+			int day = stoi(temp[0]);
+			int month = stoi(temp[1]);
+			int year = stoi(temp[2]);
+			if (day > MAX_DAY || day <= 0 || month <= 0 || month > MAX_MONTH || year > MAX_YEAR || year < MIN_YEAR)
+				throw DateException();
+			this->day = day;
+			this->month = month;
+			this->year = year;
+		}
 	}		
 }
 
@@ -51,37 +69,3 @@ ostream& operator<<(ostream& os, const Date& date)
 		((date.month < 10) ? "0" : "") << date.month << "/" << date.year;
 	return os;
 }
-
-////bool Date::convertStrDateToDateObj(string strDate, Date** resDate) throw(FormatException)
-////{
-////	int day;
-////	int month;
-////	int year;
-////	vector<string> str = split(strDate, "/ .");
-////	if (str.size() == 3)
-////	{
-////		day = stoi(str[0]);
-////		month = stoi(str[1]);
-////		year = stoi(str[2]);
-////		*resDate = new Date(day, month, year);
-////	}
-////	else
-////		throw FormatException();
-////
-////	return true;
-////}
-
-////vector<string> Date::split(string s, string delimiter) {
-////	size_t pos_start = 0, pos_end, delim_len = delimiter.length();
-////	string token;
-////	vector<string> res;
-////
-////	while ((pos_end = s.find(delimiter, pos_start)) != string::npos) {
-////		token = s.substr(pos_start, pos_end - pos_start);
-////		pos_start = pos_end + delim_len;
-////		res.push_back(token);
-////	}
-////
-////	res.push_back(s.substr(pos_start));
-////	return res;
-////}

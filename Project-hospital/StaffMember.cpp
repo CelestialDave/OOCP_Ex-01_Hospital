@@ -8,7 +8,6 @@ StaffMember::StaffMember(const string name) throw(StringException) :employeeIDNu
 		throw StringException();
 	else
 		this->name = name;
-	//this->employeeIDNumber = employeeIDNumber;
 }
 
 StaffMember::StaffMember(ifstream& inFile)

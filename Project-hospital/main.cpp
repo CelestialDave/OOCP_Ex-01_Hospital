@@ -3,7 +3,6 @@
 #include "Ui.h"
 #include "File.h"
 
-
 void main()
 {
 	Hospital hospital;

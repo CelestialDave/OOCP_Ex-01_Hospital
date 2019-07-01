@@ -7,11 +7,7 @@
 // C'tor:
 Hospital::Hospital()
 	: numOfSurgeons(0)
-{
-	////numOfSurgeons = 0;
-}
-
-
+{}
 
 
 Hospital::~Hospital()
@@ -26,6 +22,7 @@ void Hospital::freeHospitalData()
 	for (auto t : staffArr)
 		delete t;
 	staffArr.clear();
+	numOfSurgeons = 0;
 
 	for (auto t : allDepartments)
 		delete t;

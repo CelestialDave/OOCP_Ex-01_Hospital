@@ -1,9 +1,7 @@
 #include "researcher.h"
 
 Researcher::Researcher(const string inName) :StaffMember(inName)
-{
-
-}
+{}
 
 Researcher::Researcher(ifstream& inFile) :StaffMember(inFile)
 {

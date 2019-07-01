@@ -124,9 +124,3 @@ Researcher* ResearchInstitute::getResearcherByIndex(int index) const
 {
 	return allResearchers[index];
 }
-
-
-
-
-
-

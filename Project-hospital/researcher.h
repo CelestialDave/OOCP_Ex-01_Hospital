@@ -2,7 +2,6 @@
 #define Researcher__H
 
 #include "article.h"
-//#include "ConstantsAndGenFuncs.h"
 #include "StaffMember.h"
 #include "Array.h"
 
@@ -28,7 +27,6 @@ public:
 	void allocationArticlesArr();
 
 	virtual void print(ostream& os) const;
-	//virtual void toOs(ostream& os) const;
 	bool operator>(const Researcher & other) const;
 	friend ifstream& operator >> (ifstream& inFile, Researcher& researcher);
 

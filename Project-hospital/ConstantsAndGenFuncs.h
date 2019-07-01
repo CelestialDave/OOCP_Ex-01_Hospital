@@ -1,24 +1,21 @@
 #pragma warning(disable: 4996)
+#pragma warning(disable : 4290)
+#pragma warning(disable : 4267)
 
 #ifndef Constants__H
 #define Constants__H
 #include <string>
-//#include <string.h>
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <typeinfo.h>
+//#include <typeinfo.h>
 
 
 using namespace std;
 
-enum Results {SUCCESS, NOTFOUND, BADINPUT, BADFORMAT, NODEPS, DEPEXIST, NOSTAFF, NOSURGINHOS, 
-	NOSURGINDEP, EIDEXIST, PIDEXIST, EIDNOTFOUND, PIDNOTFOUND, RNONEXIST, RESINSTEMPTY};
-
-//#define MAX_MENU_OPTIONS 11
 #define MAX_NAME 100
 // Date MAX values:
 #define MAX_DAY 31
